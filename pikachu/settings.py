@@ -106,9 +106,18 @@ WSGI_APPLICATION = 'pikachu.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'app_pikachu',
+        'USER':'01zm2lxz4k',
+        'PASSWORD':'k1mxkm35yj3ilw2hz4lxik2hklhwmx35zymh24hj',
+        'HOST':'w.rdc.sae.sina.com.cn',
+        'PORT':'3306',
     }
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+
 }
 
 
