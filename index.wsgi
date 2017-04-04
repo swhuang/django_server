@@ -1,4 +1,4 @@
 import sae
-from pikachu import wsgi
+from pikachutest import wsgi
 
 application = sae.create_wsgi_app(wsgi.application)
