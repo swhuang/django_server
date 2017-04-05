@@ -24,9 +24,9 @@ def test(request):
         tmp_list.sort()
         tmp_str = "%s%s%s" % tuple(tmp_list)
         tmp_str = hashlib.sha1(tmp_str).hexdigest()
-        print tmp_str
-        print "**************"
-        print signature
+        print "local sign is:" + tmp_str
+        #print "**************"
+        print "sign is :"+signature
         if tmp_str == signature:
             return HttpResponse(echostr)
         else:
