@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
  
 def index(request):
-    return HttpResponse(u"I am pikachu!")
+    pagehtml = u"<h>Go2parking</h><p>luludasabi</p>"
+    return HttpResponse(pagehtml)
 def test(request):
     return HttpResponse(u"gogogo")
