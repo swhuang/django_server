@@ -24,10 +24,13 @@ def test(request):
         tmp_list.sort()
         tmp_str = "%s%s%s" % tuple(tmp_list)
         tmp_str = hashlib.sha1(tmp_str).hexdigest()
+        print tmp_str
+        print "**************"
+        print signature
         if tmp_str == signature:
             return HttpResponse(echostr)
         else:
-            return HttpResponse("weixin  index")
+            return HttpResponse(echostr)
     else:
         xml_str = smart_str(request.body)
         request_xml = etree.fromstring(xml_str)
