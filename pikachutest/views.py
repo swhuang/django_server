@@ -15,7 +15,8 @@ def index(request):
 def test(request):
     pagehtml = str(request.GET)+"get!"
     if request.method == "GET":
-        signature = request.GET.get("signature", None)
+        #signature = request.GET.get("signature", None)
+        signature = request.REQUEST.get("signature", None)
         print "first sig"
         print signature
         timestamp = request.GET.get("timestamp", None)
