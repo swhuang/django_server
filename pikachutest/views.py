@@ -8,4 +8,5 @@ def index(request):
     pagehtml = u"<h>Go2parking</h><p>luludasabi</p>"
     return HttpResponse(pagehtml)
 def test(request):
-    return HttpResponse(u"gogogo")
+    pagehtml = request
+    return HttpResponse(pagehtml)
