@@ -35,7 +35,7 @@ def test(request):
         if tmp_str == signature:
             return HttpResponse(echostr)
         else:
-            return HttpResponse(echostr)
+            return HttpResponse("weixin index")
     else:
         xml_str = smart_str(request.body)
         request_xml = etree.fromstring(xml_str)
