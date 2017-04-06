@@ -31,7 +31,7 @@ def test(request):
         tmp_str = hashlib.sha1(tmp_str).hexdigest()
         print "local sign is:" + tmp_str
         #print "**************"
-        print "sign is :"+signature
+        #print "sign is :"+signature
         if tmp_str == signature:
             return HttpResponse(echostr)
         else:
