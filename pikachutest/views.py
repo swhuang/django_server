@@ -17,11 +17,7 @@ def test(request):
     if request.method == "GET":
         signature = request.GET.get("signature", None)
         #signature = request.REQUEST.get("signature", None)
-        print "first sig"
-        print signature
         timestamp = request.GET.get("timestamp", None)
-        print "first timestamp"
-        print timestamp
         nonce = request.GET.get("nonce", None)
         echostr = request.GET.get("echostr", None)
         token = WEIXIN_TOKEN
