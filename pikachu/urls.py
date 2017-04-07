@@ -21,5 +21,6 @@ from pikachutest import views as app_view
 urlpatterns = [
     url(r'^$', app_view.index),
     url(r'^test', app_view.test),
+    url(r'^getmodel', app_view.getmodel),
     url(r'^admin/', admin.site.urls),
 ]

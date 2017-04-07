@@ -38,4 +38,8 @@ def test(request):
         #response_xml = auto_reply_main(request_xml)
         return HttpResponse(request_xml)
 
-    return HttpResponse(pagehtml)
+    #return HttpResponse(pagehtml)
+
+def getmodel(request):
+
+    return HttpResponse("work")
