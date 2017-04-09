@@ -23,4 +23,5 @@ urlpatterns = [
     url(r'^test', app_view.test),
     url(r'^getmodel', app_view.getmodel),
     url(r'^admin/', admin.site.urls),
+    url(r'^initatable', app_view.initatable),
 ]

@@ -42,4 +42,19 @@ def test(request):
 
 def getmodel(request):
 
+
     return HttpResponse("work")
+
+def initatable(request):
+    from pikachutest.models import ParkingInfo
+    tstInfo = {}
+    tstInfo["pid"]=0;
+    tstInfo["name"]="test";
+    tstInfo["longitude"]="100.000";
+    tstInfo["latitude"]="99.999";
+    tstInfo["max_parkingCapacity"]=100;
+    getrt = ParkingInfo.objects.create(**tstInfo);
+    print getrt
+    result = str(getrt);
+    ParkingInfo.objects.filter(pid=0).delete();
+    return HttpResponse("Init OK"+result);
