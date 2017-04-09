@@ -54,7 +54,7 @@ def initatable(request):
     tstInfo["latitude"]="99.999";
     tstInfo["max_parkingCapacity"]=100;
     getrt = ParkingInfo.objects.create(**tstInfo);
-    print getrt
-    result = str(getrt);
-    ParkingInfo.objects.filter(pid=0).delete();
-    return HttpResponse("Init OK"+result);
+    #print getrt
+    #result = str(getrt);
+    #ParkingInfo.objects.filter(pid=0).delete();
+    return HttpResponse("Init OK");
