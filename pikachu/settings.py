@@ -28,16 +28,54 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 from os import environ
-debug = not environ.get("APP_NAME", "")
-if debug:
-    #LOCAL
-    db_name = "test"
-    name = "test"
-    pwd = "test"
-    host = "127.0.0.1"
-    port = "3306"
+import sae.const
+if 'SERVER_SOFTWARE' in environ:
+    DOMAIN='http://pikachu.sinaapp.com'
+
+    db_name = sae.const.MYSQL_DB
+    name = sae.const.MYSQL_USER
+    pwd = sae.const.MYSQL_PASS
+    host = sae.const.MYSQL_HOST
+    port = sae.const.MYSQL_PORT
+    host_s = sae.const.MYSQL_HOST_S
+    #CACHES_BACKEND=
+    UEDITOR_UPLOAD={
+        'BACKEND':'DjangoUeditor.saebackend',
+        'DOMAIN':'pikachu',
+        }
 else:
+    DOMAIN = 'http://localhost:3306'
+    CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
+    if False:
+        host='localhost'
+        port='3306'
+        name='root'
+        pwd='vq8612VQE'
+        db_name='mysql'
+    else:
+        from sae._restful_mysql import monkey
+        monkey.patch()
+        host=sae.const.MYSQL_HOST
+        port=sae.const.MYSQL_PORT
+        name='01zm2lxz4k'
+        pwd='k1mxkm35yj3ilw2hz4lxik2hklhwmx35zymh24hj'
+        db_name='app_pikachu'
+#slot 0000000
+
+# debug = not environ.get("pikachu", "")
+# if debug:
+#     print "changed to local base!"
+#     LOCAL
+    # db_name = "mysql"
+    # name = "root"
+    # pwd = "vq8612VQE"
+    # host = "127.0.0.1"
+    # port = "3306"
+# else:
+#     pass
     #SAE
+    '''
+    print "changed to remote base"
     import sae.const
     db_name = sae.const.MYSQL_DB
     name = sae.const.MYSQL_USER
@@ -45,6 +83,7 @@ else:
     host = sae.const.MYSQL_HOST
     port = sae.const.MYSQL_PORT
     host_s = sae.const.MYSQL_HOST_S
+    '''
 
 DATABASES = {
     'default': {
@@ -103,7 +142,7 @@ WSGI_APPLICATION = 'pikachu.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
+''''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -119,7 +158,7 @@ DATABASES = {
 #    }
 
 }
-
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
