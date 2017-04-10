@@ -58,6 +58,7 @@ def initatable(request):
         tstInfo["longitude"] = request.GET.get("longitude",None)
         tstInfo["latitude"] = request.GET.get("latitude",None)
         tstInfo["name"] = request.GET.get("name",None)
+        tstInfo["max_parkingCapacity"] = request.GET.get("MaxCount",0)
         ParkingInfo.objects.create(**tstInfo)
         return HttpResponse("Init is OK");
     else:
