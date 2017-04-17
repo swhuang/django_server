@@ -6,6 +6,7 @@ import hashlib
 from lxml import etree
 from django.utils.encoding import smart_str
 from django.http import HttpResponse
+import json
 import sys
 
 WEIXIN_TOKEN="123456"
@@ -83,8 +84,9 @@ def UpdateParkingData(request):
             ele['max_parkingCapacity'] = key.max_parkingCapacity
             ele['parkingCount'] = key.parkingCount
             ret.append(ele)
-        print  ret
-        return HttpResponse(ret)
+
+        vjs = json.dumps(ret).decode("unicode-escape")
+        return HttpResponse(vjs)
     else:
         pass
     return
