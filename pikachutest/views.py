@@ -75,16 +75,16 @@ def UpdateParkingData(request):
     ret = []
     if request.method == "GET":
         ParkingList = ParkingInfo.objects.all()
-
+        ParkingList = ParkingInfo.objects.filter(longitude__)
         for key in ParkingList:
             ele = {}
-            ele['name'] = key.name
+            #ele['name'] = key.name
             ele['longitude'] = key.longitude
             ele['latitude'] = key.latitude
-            ele['max_parkingCapacity'] = key.max_parkingCapacity
-            ele['parkingCount'] = key.parkingCount
+            ele['id'] = key.id
+            #ele['max_parkingCapacity'] = key.max_parkingCapacity
+            #ele['parkingCount'] = key.parkingCount
             ret.append(ele)
-
         vjs = json.dumps(ret).decode("unicode-escape")
         return HttpResponse(vjs)
     else:
