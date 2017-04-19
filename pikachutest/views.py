@@ -7,9 +7,15 @@ from lxml import etree
 from django.utils.encoding import smart_str
 from django.http import HttpResponse
 import json
+
 import sys
 
 WEIXIN_TOKEN="123456"
+
+UNCOUNTABLE = 0
+TIGHTEN = 5
+BUSY = 15
+#VACANT =
 
 def index(request):
     pagehtml = u"<h>Go2parking</h><p>luludasabi</p>"
@@ -74,8 +80,13 @@ def UpdateParkingData(request):
     from pikachutest.models import ParkingInfo
     ret = []
     if request.method == "GET":
+        Posx_l=request.GET.get("longitude_l", None)
+        Posy_l=request.GET.get("latitude_l", None)
+        Posx_r=request.GET.get("longitude_r", None)
+        Posy_r=request.GET.get("latitude_r", None)
+
         ParkingList = ParkingInfo.objects.all()
-        ParkingList = ParkingInfo.objects.filter(longitude__)
+        #ParkingList = ParkingInfo.objects.filter(longitude__in=[Posx_l, Posx_r]).filter(latitude__in=[Posy_l,Posy_r])
         for key in ParkingList:
             ele = {}
             #ele['name'] = key.name
@@ -84,7 +95,16 @@ def UpdateParkingData(request):
             ele['id'] = key.id
             #ele['max_parkingCapacity'] = key.max_parkingCapacity
             #ele['parkingCount'] = key.parkingCount
+            if key.parkingCount == UNCOUNTABLE:
+                ele['status'] = 0 #Grey:Cannot be counted
+            elif key.parkingCount <= TIGHTEN:
+                ele['status'] = 1 #Red: Insufficent Parking
+            elif key.parkingCount <= BUSY:
+                ele['status'] = 2 #Yellow: Busy Parking
+            else:
+                ele['status'] = 3 #Green: Empty
             ret.append(ele)
+        print ret
         vjs = json.dumps(ret).decode("unicode-escape")
         return HttpResponse(vjs)
     else:
