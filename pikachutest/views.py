@@ -85,8 +85,8 @@ def UpdateParkingData(request):
         Posx_r=request.GET.get("longitude_r", None)
         Posy_r=request.GET.get("latitude_r", None)
 
-        ParkingList = ParkingInfo.objects.all()
-        #ParkingList = ParkingInfo.objects.filter(longitude__in=[Posx_l, Posx_r]).filter(latitude__in=[Posy_l,Posy_r])
+        #ParkingList = ParkingInfo.objects.all()
+        ParkingList = ParkingInfo.objects.filter(longitude__in=[Posx_l, Posx_r]).filter(latitude__in=[Posy_l,Posy_r])
         for key in ParkingList:
             ele = {}
             #ele['name'] = key.name
