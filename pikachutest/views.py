@@ -87,7 +87,7 @@ def UpdateParkingData(request):
         ParkingList = []
         try:
         #ParkingList = ParkingInfo.objects.all()
-            ParkingList = ParkingInfo.objects.filter(longitude__in=[Posx_l, Posx_r]).filter(latitude__in=[Posy_l,Posy_r])
+            ParkingList = ParkingInfo.objects.filter(longitude__range=[Posx_l, Posx_r]).filter(latitude__range=[Posy_r,Posy_l])
         except:
             return HttpResponse("sql error")
         for key in ParkingList:
