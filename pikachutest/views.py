@@ -113,3 +113,20 @@ def UpdateParkingData(request):
     else:
         pass
     return
+
+def GetParkingInfo(request):
+    from pikachutest.models import ParkingInfo
+    if request.method == 'GET':
+        mID = request.GET.get("id",None)
+        try:
+            mParkInfo = ParkingInfo.objects.get(id=mID)
+            #rtinfo = {}
+            vjs = json.dumps(mParkInfo).decode("unicode-escape")
+            return HttpResponse(vjs)
+        except:
+            raise Exception
+            return HttpResponse("sql error")
+        pass
+    else:
+        pass
+    return
