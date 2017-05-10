@@ -124,9 +124,8 @@ def GetParkingInfo(request):
             vjs = json.dumps(mParkInfo).decode("unicode-escape")
             return HttpResponse(vjs)
         except:
-            raise Exception
-            return HttpResponse("sql error")
+            return HttpResponse("sql error:"+ str(mID))
         pass
     else:
-        pass
+        return HttpResponse("cannot be accessed")
     return
