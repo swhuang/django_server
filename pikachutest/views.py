@@ -120,12 +120,16 @@ def GetParkingInfo(request):
         mID = request.GET.get("id",None)
         try:
             mParkInfo = ParkingInfo.objects.get(id=mID)
-            #rtinfo = {}
-            vjs = json.dumps(mParkInfo).decode("unicode-escape")
+
+            rtinfo = {}
+            for k in mParkInfo._meta.get_fields():
+                rtinfo[k.name] = getattr(mParkInfo, k.name)
+            vjs = json.dumps(rtinfo).decode("unicode-escape")
             return HttpResponse(vjs)
         except:
             return HttpResponse("sql error:"+ str(mID))
         pass
+
     else:
         return HttpResponse("cannot be accessed")
     return
