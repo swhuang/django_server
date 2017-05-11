@@ -125,6 +125,9 @@ def GetParkingInfo(request):
             for k in mParkInfo._meta.get_fields():
                 rtinfo[k.name] = getattr(mParkInfo, k.name)
             vjs = json.dumps(rtinfo).decode("unicode-escape")
+            vjs.replace('\r\n',' ')
+            vjs.replace('\r',' ')
+            vjs.replace('\n', ' ')
             return HttpResponse(vjs)
         except:
             return HttpResponse("sql error:"+ str(mID))
