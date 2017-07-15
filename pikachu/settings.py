@@ -46,7 +46,7 @@ if 'SERVER_SOFTWARE' in environ:
 else:
     DOMAIN = 'http://localhost:3306'
     CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
-    if False:
+    if True:
         host='localhost'
         port='3306'
         name='root'
@@ -197,3 +197,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)

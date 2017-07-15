@@ -19,11 +19,13 @@ from pikachutest import views as app_view
 
 
 urlpatterns = [
-    url(r'^$', app_view.index),
+    url(r'^$', app_view.index,name="home"),
     url(r'^test', app_view.test),
     url(r'^getmodel', app_view.getmodel),
     url(r'^GetParkingInfo',app_view.GetParkingInfo),
     url(r'^admin/', admin.site.urls),
     url(r'^initatable', app_view.initatable),
     url(r'^UpdateParkingData', app_view.UpdateParkingData),
+    url(r'^TimeTable', app_view.TimeTable),
+    url(r'^SorkTable',app_view.SortTable)
 ]

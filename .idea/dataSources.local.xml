@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="MySQL - mysql@127.0.01" uuid="eefb2315-81ff-4857-9e4d-69fb71733e21">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <introspection-scope>mysql:</introspection-scope>
+      <resolve-scope>mysql:</resolve-scope>
+    </data-source>
+    <data-source name="MySQL - @localhost" uuid="9ae7f512-65f0-48b9-843c-01deeb00b65e">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <introspection-scope>:</introspection-scope>
+      <resolve-scope>:</resolve-scope>
+    </data-source>
+  </component>
+</project>
