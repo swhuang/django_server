@@ -1,4 +1,3 @@
-#coding:utf-8
 
 import MySQLdb
 import csv
@@ -27,7 +26,7 @@ class classunit:
     def teacherid(self):
         return self.teacherid
 
-def getResourcedata(conn,target_count,grade = 2):
+def getResourcedata(conn, target_count, MACROTAG='TEST1', grade = 2):
     grade_ = grade
     resourcedata = {}
     cur = conn.cursor()
@@ -66,7 +65,7 @@ def getResourcedata(conn,target_count,grade = 2):
     conn.commit()
     return resourcedata,teacherdict
 
-def getTeacherInfo(conn):
+def getTeacherInfo(conn,MACROTAG='TEST1'):
     teacherinf = {}
     cur = conn.cursor()
     n = cur.execute("select * from pikachutest_teacher"+MACROTAG)
@@ -77,7 +76,7 @@ def getTeacherInfo(conn):
     conn.commit()
     return teacherinf
 
-def getStudentInfo(conn):
+def getStudentInfo(conn,MACROTAG='TEST1'):
     studentinf = {}
     cur = conn.cursor()
     n = cur.execute("select * from pikachutest_student"+MACROTAG)
@@ -121,7 +120,6 @@ def checktable(tablename,conn,cur):
 
 def process_std(name_tag, _file,conn):
     cur = conn.cursor()
-
     checktable("pikachutest_student"+name_tag,conn,cur)
     sqli = "create table pikachutest_student" + name_tag + "(id int not null primary key auto_increment,studentid int,wuli int,huaxue int,shengwu int,zhengzhi int,lishi int,dili int)CHARACTER SET utf8 COLLATE utf8_general_ci;"
     try:
@@ -181,7 +179,7 @@ def process_timetable(name_tag,_file,conn):
     cur.close()
     conn.commit()
 
-def process_teacher(name_tag,_file,conn):
+def process_teacher(name_tag,_file,conn,tst=''):
     cur = conn.cursor()
     checktable("pikachutest_teacher" + name_tag, conn, cur)
     with open(_file, 'rb') as f2:
@@ -196,8 +194,8 @@ def process_teacher(name_tag,_file,conn):
         sqli = "insert into pikachutest_teacher"+name_tag+" (tname,tid) values(\'%s\',%s)"
 
         for row in reader:
-            print sqli % (row[0].encode('utf-8'), row[1])
-            cur.execute(sqli%(row[0].encode('utf-8'),row[1]))
+            print sqli % (row[0].encode('gbk'), row[1])
+            cur.execute(sqli%(row[0].encode('gbk'),row[1]))
     cur.close()
     conn.commit()
 

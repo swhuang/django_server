@@ -9,7 +9,9 @@ import sys
 import MySQLdb
 import time
 import Util
+import os
 from collections import defaultdict
+import GA_encoding.GA_ENCODE as GA_encode
 
 conn = MySQLdb.connect(host='localhost',
         port=3306,
@@ -54,8 +56,11 @@ coursedict[14] = u"艺术"
 coursedict[15] = u"班"
 coursedict[16] = u"社"
 coursedict[17] = u"加"
+coursedict[18] = u"心理"
 
 teacherdict = DataInit.getTeacherInfo(conn)
+
+MACROTAG = ""
 
 MAXROOM = 40
 '''
@@ -94,6 +99,11 @@ id -> classunit
 def getClassUnit(id):
 
     return resourcedata[id]
+
+def moduleInit(macrotag):
+    resourcedata, teacherclsdict = DataInit.getResourcedata(conn, WEEKDAY * LESSON * CLASSN, macrotag)
+    teacherdict = DataInit.getTeacherInfo(conn, macrotag)
+    MACROTAG = macrotag
 #
 #chromosome int array
 #chromosome -> tablematrix
@@ -203,13 +213,39 @@ class KTN():
 ####################
 def ContinousClass(tablematrix,ii=WEEKDAY,jj=LESSON,kk=CLASSN):
     marks = 0
+    jl = 0
+    #纵向遍历
     for i in xrange(ii):
         for k in xrange(kk):
             cls_dict = {}
             for j in xrange(jj):
-                if j > 1:
+                if j > 0:
+                    #同一天相同科目尽量连排
                     if getClassUnit(tablematrix[i][j][k]).courseid == getClassUnit(tablematrix[i][j-1][k]).courseid:
-                        marks += 1
+                        if j != 4:
+                            marks += 1
+
+    #横向遍历
+    for i in range(ii):
+        for j in range(jj):
+            for k in range(kk):
+                # 电脑教室只有两个 只能安排两个电脑老师同一时间一起上课 电脑课程id 11
+                ctech = 0
+                if getClassUnit(tablematrix[i][j][k]).courseid == 11:
+                    ctech += 1
+                if ctech > 2:
+                    marks -= 100
+                #语文阅览室只能同时容纳两个班级上课 规则同上
+
+                #名师周三下午不排课
+                if j > 4 and getClassUnit(tablematrix[i][j][k]).teacherid in [1,2,3,4]:#teacher list
+                    marks -= 100
+
+                #心理老师每周一不排课
+                if i == 0 and getClassUnit(tablematrix[0][j][k]).teacherid == 18:
+                    marks -= 100
+
+
     return marks
 
 def majorCourse(tablematrix,ii=WEEKDAY,jj=LESSON,kk=CLASSN):
@@ -236,6 +272,8 @@ class staticcoursedic(object):
         return self.dict
         
 #####################
+#获取课程基础算法
+@Util.calctime
 def gen_coursematrix(TclsList):
     keylist = copy.deepcopy(TclsList)
     choromosome = []
@@ -291,96 +329,10 @@ def gen_coursematrix(TclsList):
             weekday.append(theline)
         random.shuffle(weekday)
         choromosome.append(weekday)
-    random.shuffle(choromosome)
+    #random.shuffle(choromosome)
 
     return choromosome
 
-def generate_coursematrix(TclsList):
-    #mlist = 排序好的【课程个数，老师id,课程列表】
-    keylist = copy.deepcopy(TclsList)
-    choromosome = []
-    #mlist = Util.sort_by_value(keylist)
-    for ii in xrange(WEEKDAY):
-        weekday = []
-        for jj in xrange(LESSON):
-            mlist = Util.sort_by_value(keylist)
-            if len(mlist) < CLASSN:
-                print "actually error"
-                for i in xrange(CLASSN-len(mlist)):
-                    mlist.append([0,0,[]])
-
-            pcurrent = mlist[CLASSN-1][0]
-            n1 = 1#最后一位老师种类的个数
-            n2 = 0
-            while mlist[CLASSN-n1-1][0] == pcurrent:
-                n1 += 1
-                if n1 == CLASSN:
-                    break
-
-            try:
-                while mlist[CLASSN + n2][0] == pcurrent:
-                    n2 += 1
-                    if CLASSN + n2 == len(mlist):
-                        break
-            except IndexError,e:
-                print e.message
-                pass
-
-            theline = []
-
-            if mlist[0][0] == 2:
-                pass
-
-            if n2 == 0:
-                for i in xrange(CLASSN):
-                    tindex = random.randrange(0, len(mlist[i][2]))
-                    theline.append(mlist[i][2][tindex])
-                    del mlist[i][2][tindex]
-                    if len(mlist[i][2]) == 0:
-                        del keylist[mlist[i][1]]
-                        del mlist[i]
-            else:
-                try:
-                    mindex = random.sample(range(CLASSN-n1,CLASSN+n2),n1)
-                except ValueError,e:
-                    print e.message
-                    exit()
-
-                if n1 != CLASSN:
-                    for i in xrange(CLASSN - n1):
-                        tindex = random.randrange(0, len(mlist[i][2]))
-                        theline.append(mlist[i][2][tindex])
-                        del mlist[i][2][tindex]
-                        if len(mlist[i][2]) == 0:
-                            del keylist[mlist[i][1]]
-                            del mlist[i]
-
-                for k in mindex:
-                    try:
-                        tindex = random.randrange(0,len(mlist[k][2]))
-                    except ValueError,e:
-                        tindex = 0
-                    except IndexError,e:
-                        pass
-                    try:
-                        theline.append(mlist[k][2][tindex])
-                    except IndexError,e:
-                        pass
-                    try:
-                        del mlist[k][2][tindex]
-                    except IndexError,e:
-                        pass
-                    if len(mlist[k][2]) == 0:
-                        del keylist[mlist[k][1]]
-                        del mlist[k]
-            random.shuffle(theline)
-            weekday.append(theline)
-            #keylist = mlist
-        random.shuffle(weekday)
-        choromosome.append(weekday)
-    random.shuffle[choromosome]
-
-    return choromosome
 
 class Ctablematrix:
     def __init__(self,mtb):
@@ -498,8 +450,6 @@ class GA():
         # 康托展开
         # 将课程全排列映射成数字作为染色体
         self.kt_chromosome = KTN(WEEKDAY*LESSON*CLASSN)
-        # 染色体长度
-        self.length = 0#len(bin(math.factorial(WEEKDAY*LESSON*CLASSN)))-2#length
         # 种群中的染色体数量
         self.count = count
 
@@ -524,13 +474,17 @@ class GA():
         self.studentdict = DataInit.getStudentInfo(conn)
 
         mteacherdict = copy.deepcopy(teacherclsdict)
+
+        self.GAcd = GA_encode.HSW_code(mteacherdict, WEEKDAY, LESSON, CLASSN)
+        # 染色体长度
+        self.length = self.GAcd.code_length2()#hsw_debug
         self.teacherkeylist = {}
         for k in mteacherdict:
             self.teacherkeylist[k] = len(mteacherdict[k])
-
-        self.init_basepopulation(MAXCOUNT)
         # 随机生成初始种群
-        #self.population = self.gen_population(self.length, count)
+        self.init_basepopulation(MAXCOUNT)
+
+
 
 
 
@@ -553,13 +507,17 @@ class GA():
         mteacherdict = copy.deepcopy(teacherclsdict)
         keylist = mteacherdict.keys()
 
-        rt = gen_coursematrix(teacherclsdict)
+        code = self.GAcd.generatecode2() #hsw_debug
 
+        '''
+        rt = self.GAcd.decode(code)
         chrom = rt
         marks = self.fitness(chrom,self.softorderlist)
 
         #ret = self.kt_chromosome.X(processdata(chrom))
         return (chrom,marks)
+        '''
+        return code
 
     def furtherprocess(self,tb_matrix):
         studentdict = copy.deepcopy(self.studentdict)#DataInit.getStudentInfo(conn)
@@ -650,7 +608,9 @@ class GA():
     def exportstudent(self,studentdict):
         import csv
         import codecs
-        with open('std' + str(time.strftime('%Y-%m-%d', time.localtime(time.time()))) + '.csv', 'wb') as csvfile:
+        if not os.path.isdir("data/"+MACROTAG+"/result/student"):
+            os.makedirs("data/"+MACROTAG+"/result/student")
+        with open("data/"+MACROTAG+"/result/student/"+'std' + str(time.strftime('%Y-%m-%d', time.localtime(time.time()))) + '.csv', 'wb') as csvfile:
             csvfile.write(codecs.BOM_UTF8)
             spamwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             for k in studentdict:
@@ -676,7 +636,7 @@ class GA():
         cnt = 0
         tmpstudent = object
         store = object
-        #self.furtherprocess2()
+        '''
         for i in xrange(count):
             kk += 1
             cnt+=1
@@ -702,16 +662,11 @@ class GA():
         self.exportresult(self.basepopulation)
         self.exportstudent(store)
         print "get higher:"+ str(k)
-        """
+        '''
+
         for i in xrange(count):
             self.basepopulation.append(self.init_chromosome(teacherclsdict))
-            k += 1
-            if k == 1000:
-                k = 0
-                print i
-        self.length = len(bin(count)) - 2  # length
-        self.allkindcnt = count
-        """
+
 
 
     def gen_chromosome(self, length):
@@ -737,20 +692,6 @@ class GA():
             #tmpk = self.kt_chromosome.X(chromosome_)
             #print "getcurrent chromosome: " + str(elem)
             return index
-    @Util.calctime
-    def gen_population(self, length, count):
-        """
-        获取初始种群（一个含有count个长度为length的染色体的列表）
-        对初始种群进行筛选以免过早陷入局部最优解
-        """
-
-        population = []
-
-        for i in xrange(count):
-            population.append(self.gen_chromosome(length))
-
-        return population
-        return self.basepopulation
 
     def chromosome2data(self,chromosome):
 
@@ -762,32 +703,24 @@ class GA():
         因为是求最大值，所以数值越大，适应度越高
         """
         if chromosome in self.badlist:
-        #    print "get duplicated number"
-        #    print chromosome
             return -100
-        """
-        if chromosome > self.allkindcnt:
-            print "error chromosome:"+str(chromosome)
-            exit()
+
         x = self.decode(chromosome)
-        """
-        x = chromosome
         remarks = 0
         """
         硬约束评分规则
         """
         if self.strongjudge(x) == False:
-            remarks -= 100
+            return -100
         """
         软约束评分规
         """
         for func in rule:
             remarks += func(x)
-        #print "getpoints: "+ str(remarks)
+
         if remarks < 0:
             self.badlist.append(chromosome)
         return remarks
-        #return x + 10*math.sin(5*x) + 7*math.cos(4*x)
 
     @Util.calctime
     def selection(self, retain_rate, random_select_rate):
@@ -797,7 +730,7 @@ class GA():
         再进行随机选择，选出适应度虽然小，但是幸存下来的个体
         """
         # 对适应度从大到小进行排序
-        graded = [(self.fitness(chromosome,self.softorderlist), chromosome) for chromosome in self.population]
+        graded = [(self.fitness(chromosome,self.softorderlist), chromosome) for chromosome in self.basepopulation]
         graded = [x[1] for x in sorted(graded, reverse=True)]
         # 选出适应性强的染色体
         retain_length = int(len(graded) * retain_rate)
@@ -815,7 +748,7 @@ class GA():
         # 新出生的孩子，最终会被加入存活下来的父母之中，形成新一代的种群。
         children = []
         # 需要繁殖的孩子的量
-        target_count = len(self.population) - len(parents)
+        target_count = len(self.basepopulation) - len(parents)
         # 开始根据需要的量进行繁殖
         while len(children) < target_count:
             male = random.randint(0, len(parents)-1)
@@ -831,32 +764,30 @@ class GA():
                 female = parents[female]
                 # 孩子将获得父亲在交叉点前的基因和母亲在交叉点后（包括交叉点）的基因
                 child = ((male & mask) | (female & ~mask)) & ((1 << self.length) - 1)
-                if child > self.allkindcnt:
-                    child = child >> 1
-                    print "HIT!"
                 children.append(child)
         # 经过繁殖后，孩子和父母的数量与原始种群数量相等，在这里可以更新种群。
-        self.population = parents + children
+        self.basepopulation = parents + children
 
     def mutation(self, rate):
         """
         变异
         对种群中的所有个体，随机改变某个个体中的某个基因
         """
-        for i in xrange(len(self.population)):
+        for i in xrange(len(self.basepopulation)):
             if random.random() < rate:
-                j = random.randint(0, self.length-1)
-                self.population[i] ^= 1 << j
-                if self.population[i] > self.allkindcnt:
-                    self.population[i] = self.population[i] >> 1
-                    print "Hit mutation"
+                if i == 0:
+                    pass
+                else:
+                    j = random.randint(0, self.length-1)
+                    self.basepopulation[i] ^= 1 << j
 
 
     def decode(self, chromosome):
         """
         解码染色体，将二进制转化为三维数组
         """
-        return generatedata(self.kt_chromosome.An(self.basepopulation[chromosome]))
+        #return generatedata(self.kt_chromosome.An(self.basepopulation[chromosome]))
+        return self.GAcd.decode2(chromosome) #hsw_debug
         #return chromosome * 9.0 / (2**self.length-1)
 
     def run(self):
@@ -873,10 +804,11 @@ class GA():
         """
         获得当前代的最优值，这里取的是函数取最大值时x的值。
         """
-        graded = [(self.fitness(chromosome, self.softorderlist), chromosome) for chromosome in self.population]
+        graded = [(self.fitness(chromosome, self.softorderlist), chromosome) for chromosome in self.basepopulation]
         graded2 = [x[1] for x in sorted(graded, reverse=True)]
         marks = [x[0] for x in sorted(graded, reverse=True)]
         print "highest: " + str(marks[0])
+        print "chormsome: "+ str(graded2[0])
         rest = self.decode(graded2[0])
         self.exportresult(rest)
 
@@ -884,40 +816,23 @@ class GA():
         for k in self.population:
             print bin(k)
 
+    #如果存在特别强的约束则将规则写在此函数中
     def strongjudge(self,tablematrix):
-        j_dict = {}
-        for i in range(WEEKDAY):
-            for j in range(LESSON):
-                j_dict.clear()
-                for k in range(CLASSN):
-                    km = getClassUnit(tablematrix[i][j][k])
-                    # same teacher same time different classrroom
-                    if j_dict.has_key(km.teacherid):
-                        #print "sametime error"
-                        #return False
-                        return False
-                    else:
-                        j_dict[km.teacherid] = 0
-                    '''
-                    # major subject course teacher teaches the fixed class
-                    if km.courseid == 1 or km.courseid == 2 or km.courseid == 3:
-                        if km.classid != k:
-                            print "major subject error"
-                            return False
 
-                    # class 3,4 xuanxiuke
+        std = self.furtherprocess(tablematrix)
+        if std == -1:
+            return False
+        else:
+            pass#应该存储学生数据
 
-                    if j != 3 and j != 4:
-                        if km.courseid not in [1,2,3]:
-                            print "xuanke error"
-                            return False
-                            '''
         return True
 
     def exportresult(self, tablematrix):
         import csv
         import codecs
-        with open('egg2'+str(time.strftime('%Y-%m-%d',time.localtime(time.time())))+'.csv', 'wb') as csvfile:
+        if not os.path.isdir("data/"+MACROTAG+"/result/timetable"):
+            os.makedirs("data/"+MACROTAG+"/result/timetable")
+        with open("data/"+MACROTAG+"/result/timetable/"+'timetable'+str(time.strftime('%Y-%m-%d',time.localtime(time.time())))+'.csv', 'wb') as csvfile:
             csvfile.write(codecs.BOM_UTF8)
             spamwriter = csv.writer(csvfile, delimiter=' ', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             colname = []
@@ -1002,13 +917,12 @@ if __name__ == '__main__':
 
 
 '''
+    ga = GA(300,[ContinousClass],20)
 
-    ga = GA(300,[ContinousClass],20000)
-    '''
     for x in xrange(20):
         ga.evolve()
     ga.result()
-    '''
+
     conn.close()
 '''
     ga = GA(17, 300)

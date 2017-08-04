@@ -1,6 +1,7 @@
 import time
 import math
 import copy
+
 def calctime(fn):
     def wrapper(*args, **kwargs):
         start = time.time()
@@ -11,7 +12,7 @@ def calctime(fn):
     return wrapper
 
 def sort_by_value(d):
-    m = copy.deepcopy(d)
+    #m = copy.deepcopy(d)
 
     items=d.items()
 
@@ -34,6 +35,8 @@ def tt(n):
         n += 1
         k = math.factorial(abs(560-n))
         #print "hhh"+str(n)
+
+
 
 
 if __name__ == '__main__':
