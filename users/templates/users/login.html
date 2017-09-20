@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="form-wrapper template-page-wrapper">
+        <form class="form-horizontal templatemo-signin-form" role="form" method="post" action=".">
+            {% if form.errors %}
+                {% include "users/partials/errors.html" %}
+            {% endif %}
+            {% csrf_token %}
+            {% for field in form %}
+                {% include "users/partials/field.html" %}
+            {% endfor %}
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="col-sm-offset-2 col-sm-10 submit">
+                        <input type="submit" value="{% trans '登入' %}" class="btn btn-default">
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" name="next" value="{{ next }}"/>
+            <div class="form-group">
+                <div class="col-md-12">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <p><a href="{% url 'users_password_reset' %}">{% trans "忘记密码" %}</a></p>
+                        <p><a href="{% url 'users_register' %}">{% trans "注册" %}</a></p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

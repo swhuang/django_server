@@ -1,0 +1,54 @@
+{% load i18n staticfiles %}<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}{{ title|default:'项目管理' }}{% endblock %}</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/templatemo_main.css' %}">
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/templatemo_script.js' %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+</head>
+<body>
+
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="navbar-header">
+        <div class="logo"><h1>想尤 - 内容管理</h1></div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+</div>
+
+<div id="main-wrappers"><!-- container -->
+<div class="template-page-wrapper">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}
+        <p>Use this template get you up and running with django-users2.</p>
+    {% endblock content %}
+</div>
+</div>
+
+{% if request.path == 'accounts/logout' or request.path == 'accounts/login'%}
+<footer class="templatemo-footer">
+    <div class="templatemo-copyright">
+        <p>Copyright &copy; 想优信息科技有限公司 <a href="http://www.baidu.com/" title="想尤"
+                                                                   target="_blank">管理系统</a> - 更多信息 <a
+                href="http://pikachu.com/" target="_blank" title="想优信息科技有限公司">想优信息科技有限公司</a></p>
+    </div>
+</footer>
+{% endif %}
+</body>
+</html>

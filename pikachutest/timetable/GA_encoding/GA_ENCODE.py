@@ -306,6 +306,91 @@ class HSW_code(object):
         #print "多余的长度: " + str(sicencelen) + "总长度: " + str(self.phaselen * self.count)
         return theWeekline
 
+
+    def setdecode3(self,kdict,classflg):
+        self.keydict = kdict
+        self.classflg = classflg
+#分班走班排法
+    def decode_3(self,_n):
+        totallen = self.wholelen
+        entry_n = _n
+        #_mut_keylist = copy.deepcopy(self.mut_keylist)  # 每次解码都复制一份keylist
+        _mut_keylist = copy.deepcopy(self.keydict)
+        randomslot = copy.copy(_mut_keylist.keys())
+        theline = []
+        theWeekline = []
+        sicencelen = 0  #
+        for i in xrange(self.count):
+            if len(randomslot) != 0 and len(randomslot) < self.classn:
+                # print "error"
+                nnn = 0
+                for ll in randomslot:
+                    for value in _mut_keylist[ll]:
+                        nnn += 1
+                print nnn
+                return None
+            m = []
+            m3 = []  # 排序好的老师选取列表
+            v = Util.sort_by_value(_mut_keylist) #长度，老师，值列表
+            judge = self.count - i  # (WEEKDAY - ii) * LESSON - jj
+            m_i = 0
+            randomslot = []
+            for a in v:
+                randomslot.append(a[1])
+                if a[0] == judge:
+                    m.append(m_i)
+                m_i += 1
+
+            if self.classn >= len(m):
+                _comb = hsw_comb(self.classn - len(m), range(len(m), len(randomslot)))
+                tmp_cmb = hsw_comb.combine(len(randomslot) - len(m), self.classn - len(m))
+                sicencelen += self._headlen - len(bin(tmp_cmb).replace('0b', ''))
+                '''
+                new way here
+                '''
+                _headpick = entry_n >> (totallen - len(bin(tmp_cmb).replace('0b', '')))
+                entry_n = entry_n &((1<<(totallen - len(bin(tmp_cmb).replace('0b', '')))) - 1)
+                totallen -= len(bin(tmp_cmb).replace('0b', ''))
+                combnumber = _headpick % tmp_cmb
+
+                _tailpick = entry_n >> (totallen - self._taillen)
+                entry_n = entry_n & ((1<<(totallen - self._taillen)) - 1)
+                totallen -= self._taillen
+                permnumber = _tailpick % self.mfclassn
+
+                m += _comb.An(combnumber)
+                m2 = self.ktn.An(permnumber + 1)
+
+                for _i in m2:
+                    m3.append(m[_i])
+            else:
+                print "This is error!"
+                exit()
+
+            onelinecourse = []
+            for k in m3:
+                try:
+                    tindex = 0
+                except IndexError, e:
+                    print e.message
+                except ValueError, e:
+                    tindex = 0
+                except KeyError, e:
+                    print e.message
+                try:
+                    onelinecourse.append(_mut_keylist[randomslot[k]][tindex])
+                except IndexError, e:
+                    pass
+                del _mut_keylist[randomslot[k]][tindex]
+                if len(_mut_keylist[randomslot[k]]) == 0:
+                    del _mut_keylist[randomslot[k]]
+            theline.append(onelinecourse)
+            if i % self.nlesson == (self.nlesson - 1):
+                theWeekline.append(copy.copy(theline))
+                theline = []
+        #print "多余的长度: " + str(sicencelen) + "总长度: " + str(self.phaselen * self.count)
+        return theWeekline
+
     def decode(self,_n):
         #totallen = len(bin(self.alrange ** self.count).replace('0b',''))
         phaselen = self.phaselen

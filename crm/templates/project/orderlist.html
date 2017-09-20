@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class = "row">
+			<div class="col-xs-6 col-md-offset-3"
+			style="box-shadow:
+			inset 1px -1px 1px #444, inset -1px 1px 1px #444;padding-top: 12px;width: 550px">
+			<div class="panel panel-primary">
+				<div class="panel-heading">
+					<h3 class="panel-title">Time Table</h3>
+				</div>
+				<div class="panel-body">
+					<form id="main" enctype="multipart/form-data" role="form" action="" method="post">
+						{% csrf_token %}
+						<div class="form-group">
+							<label for="name">名称</label>
+							<input name="input_name" type="text" class="form-control" id="name" placeholder="请输入名称">
+						</div>
+						<div class="form-group">
+							<label for="inputfile">文件输入</label>
+							<input type="file" id="inputfile" onchange="fileSelected();">
+							<p class="help-block">上传你的学生选课文件。excel格式为佳</p>
+                            <input type="file" id="inputfile2" onchange="fileSelected();">
+							<p class="help-block">上传你的老师信息文件。excel格式为佳</p>
+                            <input type="file" id="inputfile3" onchange="fileSelected();">
+							<p class="help-block">上传你的课程信息文件。excel格式为佳</p>
+						</div>
+						<!-- <div id="fileName"></div>
+						<div id="fileSize"></div>
+						<div id="fileType"></div> -->
+
+						<div class="checkbox">
+							<!-- <label>
+								<input type="checkbox">请打勾
+							</label> -->
+						</div>
+						<button type="button" class="btn btn-default btn-sm" onclick="uploadFile()">提交</button>
+						<p></p>
+
+					<div class="progress progress-striped active" id="progressdiv" style="display:none">
+						<div id = "progressbar" class="progress-bar progress-bar-success" role="progressbar"
+						aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
+						style="width: 0%;"></div>
+						<span class="sr-only">0% 完成</span>
+					</div>
+
+					</form>
+					<div class="operate">
+					    <div class="alert alert-success" style="display:none">
+						    <a href="#" class="close" data-dismiss="alert">
+							&times;
+						    </a>
+						    完成上传！
+                        </div>
+					    <div class="alert alert-info" style="display:none">正在上传中。。。</div>
+					    <div class="alert alert-warning" style="display:none">警告！请不要提交。</div>
+					    <div class="alert alert-danger" style="display:none">错误！请进行一些更改。</div>
+				    </div>
+				</div>
+			</div>
+		</div>
+{% endblock %}

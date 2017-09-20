@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+    <div class="navbar-collapse collapse templatemo-sidebar">
+        <ul class="templatemo-sidebar-menu">
+            <li>
+                <form class="navbar-form">
+                    <input type="text" class="form-control" id="templatemo_search_box" placeholder="Search...">
+                    <span class="btn btn-default">Go</span>
+                </form>
+            </li>
+            <li><a href="index.html"><i class="fa fa-home"></i>Dashboard</a></li>
+            <li class="sub">
+                <a href="javascript:;">
+                    <i class="fa fa-database"></i> 列表1
+                    <div class="pull-right"><span class="caret"></span></div>
+                </a>
+                <ul class="templatemo-submenu">
+                    <li><a href="#">a</a></li>
+                    <li><a href="#">b</a></li>
+                    <li><a href="#">c</a></li>
+                    <li><a href="#">d</a></li>
+                    <li><a href="#">e</a></li>
+                </ul>
+            </li>
+            <li><a href="data-visualization.html"><i class="fa fa-cubes"></i><span class="badge pull-right">9</span>列表2</a>
+            </li>
+            <li><a href="maps.html"><i class="fa fa-map-marker"></i><span class="badge pull-right">42</span>列表3</a></li>
+            <li class="active"><a href="#"><i class="fa fa-users"></i><span class="badge pull-right">NEW</span>列表4</a>
+            </li>
+            <li><a href="preferences.html"><i class="fa fa-cog"></i>设置</a></li>
+            <li><a href="accounts/logout" data-toggle="modal" data-target="#confirmModal"><i class="fa fa-sign-out"></i>退出登陆</a>
+            </li>
+        </ul>
+    </div>
+    {% block sidebarcontent %}
+    {% endblock sidebarcontent %}
+{% endblock %}
+

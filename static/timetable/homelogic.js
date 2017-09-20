@@ -4,7 +4,8 @@
 
 function fileSelected() {
   var file = document.getElementById('inputfile').files[0];
-  if (file) {
+  if (file)
+  {
     var fileSize = 0;
     if (file.size > 1024 * 1024)
       fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
@@ -19,9 +20,11 @@ function fileSelected() {
 }
 
 function uploadFile() {
+    var a = "" || null || 3 || 4;//3
+    alert(a)
     if($("#name").val() == "")
     {
-        alert("请输入文件名");
+        alert("请输入学校名字和排课代码");
         $("#name").focus();
         return 0;
     }
@@ -34,7 +37,11 @@ function uploadFile() {
     //var fd = new FormData(document.getElementById('main'));//var fd = new FormData($("#inputfile"));
     var form_data = new FormData()
     var file_info = $("#inputfile")[0].files[0];
+    var teacher_file = $("#inputfile2")[0].files[0];
+    var timetable_file = $("#inputfile3")[0].files[0];
     form_data.append('file',file_info);
+    form_data.append('file2',teacher_file);
+    form_data.append('file3',timetable_file);
     form_data.append('name',$("#name").val());
   /* event listners */
   xhr.upload.addEventListener("progress", uploadProgress, false);
@@ -42,7 +49,7 @@ function uploadFile() {
   xhr.addEventListener("error", uploadFailed, false);
   xhr.addEventListener("abort", uploadCanceled, false);
   /* Be sure to change the url below to the url of your upload server side script */
-  console.log($("#progressdiv").text())
+  console.log($("#progressdiv").text());
   $("#progressdiv").toggle();
   //$(".progress .progress-striped .active").toggle();alert("nono");
   xhr.open("POST", "TimeTable");
@@ -82,11 +89,33 @@ function FinishedUpload() {
     $('.close').alert('close');
     $(".operate").empty();
     var html = "<div class='row'><div class='col-md-2'>";
-    var mstr = "<button type='button' class='btn btn-default'>开始排课</button>";
+    var mstr = "<button type='button' class='btn btn-default' onclick='tableSortrequest();'>开始排课</button>";
     html += mstr;
     html += "</div><div class='col-md-10'>";
-    html += "<div class='alert alert-info' id='ProcessInfo' ></div>";
+    html += "<div class='alert alert-info' id='ProcessInfo' style='padding: 5px;height: 35px'></div>";
     html += "</div></div>";
 
     $(".operate").append(html);
+}
+
+function tableSortrequest() {
+    if($("#name").val() == "")
+    {
+        alert("请输入学校名字和排课代码");
+        $("#name").focus();
+        return 0;
+    }
+    $.ajax({
+        url:"SortTable?name="+$("#name").val(),
+        type:"GET",
+        success:function (result) {
+            //alert('finished');
+            $("#ProcessInfo").text("排课完成！");
+        },
+        beforeSend:function (xhr) {
+            //alert("pending request")
+            $("#ProcessInfo").text("正在排课。。。")
+        }
+    })
+    //$.get("SortTable?name="+$("#name").val());
 }

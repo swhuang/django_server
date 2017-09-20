@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
 from django.shortcuts import render
 
 # Create your views here.
-# coding:utf-8
+#encoding=utf-8
 import hashlib
 from lxml import etree
 from django.utils.encoding import smart_str
@@ -15,6 +16,8 @@ import json
 import sys
 import os
 import timetable.DataInit as datainit
+import timetable.Util as Util
+
 
 WEIXIN_TOKEN = "123456"
 
@@ -31,6 +34,10 @@ conn = MySQLdb.connect(host='localhost',
                            charset="utf8")
 cur = conn.cursor()
 # VACANT =
+if sys.getdefaultencoding() != 'gbk':
+    reload(sys)
+    sys.setdefaultencoding('gbk')
+default_encoding = sys.getdefaultencoding()
 
 class UploadFileForm(forms.Form):
     #title = forms.CharField(max_length=100)
@@ -161,6 +168,36 @@ def GetParkingInfo(request):
         return HttpResponse("cannot be accessed")
     return
 
+
+def process_teacher(name_tag,_file,conn,qt=''):
+    a = '\xd0\xdc\xb0\xae\xb6\xf0'
+    print a.encode('utf-8')
+    cur = conn.cursor()
+    datainit.checktable("pikachutest_teacher" + name_tag, conn, cur)
+    import csv
+    with open(_file, 'rb') as f2:
+        reader = csv.reader(f2)
+        sqli = "create table pikachutest_teacher" + name_tag + "(id int not null primary key auto_increment,tname varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci,tid int)CHARACTER SET utf8 COLLATE utf8_general_ci;"
+        try:
+            cur.execute(sqli)
+        except Exception, e:
+            print "create table fail"
+            print e.message
+            # exit()
+        sqli = "insert into pikachutest_teacher" + name_tag + " (tname,tid) values(\'%s\',%s)"
+
+        for row in reader:
+            print "==================.....==================="
+            print row[0].encode('gbk')
+            cur.execute(sqli % (row[0].encode('gbk'), row[1]))
+    cur.close()
+    conn.commit()
+
+def process_timetable(name_tag, _file, conn):
+    a = '\xd0\xdc\xb0\xae\xb6\xf0'
+    print a.encode('utf-8')
+
+
 @csrf_exempt
 def TimeTable(request):
     result_list = ""
@@ -179,10 +216,43 @@ def TimeTable(request):
             FA = 'data/'+result_list[0]+"/std_"+result_list[0]+".csv"
             #path = default_storage.save('data/'+result_list[0]+"/std_"+result_list[0]+".csv", ContentFile(mfile.read()))
 
-        datainit.process_std(result_list[0],FA,conn)
-    return HttpResponse(result_list)
+            mfile_te = request.FILES.get('file2')
+            dest = open('data/'+result_list[0]+"/teacher_"+result_list[0]+".csv",'wb+')
+            dest.write(mfile_te.read())
+            dest.close()
+            FB = 'data/'+result_list[0]+"/teacher_"+result_list[0]+".csv"
+
+            mfile_te = request.FILES.get('file3')
+            dest = open('data/' + result_list[0] + "/timetable_" + result_list[0] + ".csv", 'wb+')
+            dest.write(mfile_te.read())
+            dest.close()
+            FC = 'data/' + result_list[0] + "/timetable_" + result_list[0] + ".csv"
+
+            aaa = "黄圣伟"
+            ss = '\xd0\xdc\xb0\xae\xb6\xf0'
+            print ss.encode('utf-8')
+            datainit.process_timetable(result_list[0], FC, conn)
+            datainit.process_teacher(result_list[0],FB,conn)
+            #return HttpResponse("黄圣伟".encode('utf-8'))
+            datainit.process_std(result_list[0],FA,conn)
+            #datainit.process_teacher(result_list[0],FB,conn,ss)
+
+
+    return HttpResponse(u"黄圣伟")
 
 @csrf_exempt
 def SortTable(request):
-
-    return HttpResponse("sadas")
+    if request.method == 'GET':
+        #return HttpResponse(request.GET.get("name", None))
+        import timetable.tablesort as tbsort
+        #tbsort.moduleInit(request.GET.get("name", None))
+        macrotag = request.GET.get("name", None)
+        #init
+        tbsort.WEEKDAY = 1
+        tbsort.LESSON = 3
+        tbsort.CLASSN = 5
+        tbsort.resourcedata, tbsort.teacherclsdict = datainit.getResourcedata(conn, tbsort.WEEKDAY * tbsort.LESSON * tbsort.CLASSN, macrotag)
+        tbsort.teacherdict = datainit.getTeacherInfo(conn, macrotag)
+        tbsort.MACROTAG=request.GET.get("name", None)
+        ga = tbsort.GA(300,[tbsort.ContinousClass],2000)
+        return HttpResponse("sadas")

@@ -484,10 +484,6 @@ class GA():
         # 随机生成初始种群
         self.init_basepopulation(MAXCOUNT)
 
-
-
-
-
     @Util.calctime
     def evolve(self, retain_rate=0.2, random_select_rate=0.5, mutation_rate=0.01):
         """
