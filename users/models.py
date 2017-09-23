@@ -8,6 +8,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from .conf import settings
 from .managers import UserInheritanceManager, UserManager
+from django.contrib.auth.backends import ModelBackend
+from django.contrib.auth.tokens import default_token_generator
 
 
 class AbstractUser(AbstractBaseUser, PermissionsMixin):
@@ -41,12 +43,12 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
         abstract = True
 
     def get_full_name(self):
-        """ Return the email."""
-        return self.email
+        """ Return the userid."""
+        return self.userid #email
 
     def get_short_name(self):
-        """ Return the email."""
-        return self.email
+        """ Return the userid."""
+        return self.userid #email
 
     def email_user(self, subject, message, from_email=None):
         """ Send an email to this User."""
@@ -73,3 +75,13 @@ class User(AbstractUser):
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+'''
+class Permission(models.Model):
+
+    name = models.CharField(u'权限名称', max_length=64)
+    url = models.CharField(u'URL名称', max_length=255)
+    choices = ((1, 'GET'), (2, 'POST'))
+'''
+
+class SessionToken(models.Model):
+    pass

@@ -53,7 +53,7 @@ def auto_create_superuser(sender, **kwargs):
         #print('Creating superuser ({0}:{1})'.format(email, password))
         print('Creating superuser ({0}:{1})'.format(userid, password))
         #User.objects.create_superuser(email, password)
-        User.objects.create_superuser(userid,email, password)
+        User.objects.create_superuser(userid, email, password)
 
 post_migrate.connect(auto_create_superuser, sender=None)
 

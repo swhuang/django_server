@@ -6,6 +6,13 @@
         <form class="form-horizontal templatemo-signin-form" role="form" method="post" action=".">
             {% if form.errors %}
                 {% include "users/partials/errors.html" %}
+            {% elif user.is_authenticated %}
+                <p class="errornote">
+
+                        You are authenticated as {{ user.userid }}, but are not authorized to
+                        access this page. Would you like to login to a different account?
+
+                </p>
             {% endif %}
             {% csrf_token %}
             {% for field in form %}

@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .conf import settings
 from .fields import HoneyPotField, PasswordField, UsersEmailField, UsercharField
+from django.contrib.auth.models import Group
 
 
 class UserCreationForm(forms.ModelForm):
@@ -58,6 +59,7 @@ class UserCreationForm(forms.ModelForm):
         user.is_active = not settings.USERS_VERIFY_EMAIL
         if commit:
             user.save()
+        print(user.groups.add(Group.objects.get(name='OrderUser')))
         return user
 
 

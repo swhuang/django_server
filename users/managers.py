@@ -20,7 +20,7 @@ class UserManager(BaseUserManager):
 
     get_query_set = get_queryset
 
-    def _create_user(self, userid,email, password,
+    def _create_user(self, userid, email, password,
                      is_staff, is_superuser, **extra_fields):
 
         users_auto_activate = not settings.USERS_VERIFY_EMAIL

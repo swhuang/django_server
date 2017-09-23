@@ -40,8 +40,10 @@
     {% endblock content %}
 </div>
 </div>
+{% url 'users_logout' as userlogout %}
+{% url 'users_login' as userlogin %}
 
-{% if request.path == 'accounts/logout' or request.path == 'accounts/login'%}
+{% if request.path != userlogout and request.path != userlogin %}
 <footer class="templatemo-footer">
     <div class="templatemo-copyright">
         <p>Copyright &copy; 想优信息科技有限公司 <a href="http://www.baidu.com/" title="想尤"
