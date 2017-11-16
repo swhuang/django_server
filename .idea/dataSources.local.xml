@@ -13,5 +13,11 @@
       <introspection-scope>:</introspection-scope>
       <resolve-scope>:</resolve-scope>
     </data-source>
+    <data-source name="MySQL - cms@localhost" uuid="a068e049-e2fc-4058-8487-3fdf86ab124b">
+      <secret-storage>master_key</secret-storage>
+      <user-name>root</user-name>
+      <introspection-scope>cms:</introspection-scope>
+      <resolve-scope>cms:</resolve-scope>
+    </data-source>
   </component>
 </project>

@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model, login, logout
 from django.core.urlresolvers import reverse
 from django.shortcuts import redirect, resolve_url
 from django.template.response import TemplateResponse
@@ -43,7 +43,8 @@ def register(request,
         registered_user_redirect_to = getattr(settings, 'LOGIN_REDIRECT_URL')
 
     if request.user.is_authenticated():
-            return redirect(registered_user_redirect_to)
+        logout(request)
+            #return redirect(registered_user_redirect_to)
 
     if not settings.USERS_REGISTRATION_OPEN:
         return redirect(reverse('users_registration_closed'))

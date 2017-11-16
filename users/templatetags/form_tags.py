@@ -21,3 +21,18 @@ def input_class(field):
 @register.filter
 def is_honeypot(field):
     return isinstance(field.field, HoneyPotField)
+
+
+@register.filter
+def is_single1(count):
+    if (count % 3) == 1:
+        return True
+    else:
+        return False
+
+@register.filter
+def is_single2(count):
+    if (count % 3) == 0:
+        return True
+    else:
+        return False

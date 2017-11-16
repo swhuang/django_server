@@ -5,8 +5,9 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.utils.translation import ugettext_lazy as _
 
 from .conf import settings
-from .fields import HoneyPotField, PasswordField, UsersEmailField, UsercharField
+from .fields import HoneyPotField, PasswordField, UsersEmailField, UsercharField, MerchantField, PhoneField
 from django.contrib.auth.models import Group
+from users.models import Member
 
 
 class UserCreationForm(forms.ModelForm):
@@ -22,6 +23,8 @@ class UserCreationForm(forms.ModelForm):
     password2 = PasswordField(
         label=_(u'确认密码'),
         help_text=_('Enter the same password as above, for verification.'))
+
+    mid = MerchantField(label=_(u'商户号'))
 
     class Meta:
         model = get_user_model()
@@ -57,10 +60,57 @@ class UserCreationForm(forms.ModelForm):
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password1'])
         user.is_active = not settings.USERS_VERIFY_EMAIL
+        _merchant = None
+        try:
+            from crm.models import Merchant
+            _merchant = Merchant.objects.get(merchantid=self.cleaned_data['mid'])
+        except:
+            print "error!!!!"
+        user.mid = _merchant
         if commit:
             user.save()
         print(user.groups.add(Group.objects.get(name='OrderUser')))
         return user
+
+
+class MemberCreationForm(forms.ModelForm):
+
+    """docstring for MemberCreationForm"""
+    error_messages = {
+        'duplicate_email': _('A user with that email already exists.'),
+        'password_mismatch': _('The two password fields didn\'t match.'),
+    }
+
+    phone = PhoneField(label=_(u'手机号'), max_length=11, min_length=11)
+    password1 = PasswordField(label=_(u'密码'))
+    '''
+    password2 = PasswordField(
+        label=_(u'确认密码'),
+        help_text=_('Enter the same password as above, for verification.'))
+    '''
+    mid = MerchantField(label=_(u'商户号'))
+
+    class Meta:
+
+        model = Member
+        #fields = ('email',)
+        fields = ('phone',)
+
+    def save(self, commit=True):
+        member = super(MemberCreationForm, self).save(commit=False)
+        member.set_password(self.cleaned_data['password1'])
+        member.phone = self.cleaned_data['phone']
+        member.default_init()
+        _merchant = None
+        try:
+            from crm.models import Merchant
+            _merchant = Merchant.objects.get(merchantid=self.cleaned_data['mid'])
+        except:
+            print "error!!!!"
+        member.mid = _merchant
+        if commit:
+            member.save()
+        return member
 
 
 class UserChangeForm(forms.ModelForm):

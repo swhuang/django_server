@@ -1,0 +1,39 @@
+{% load form_tags %}
+
+{% if field.is_hidden %}
+    {{ field }}
+{% elif field|is_honeypot %}
+    {% include "users/partials/honeypot.html" %}
+{% else %}
+    <!--<div class="form-group">-->
+
+            {% if field.errors %}
+                <ul class="errorlist">
+                    {{ field.errors|unordered_list }}
+                </ul>
+            {% endif %}
+            {% if field|is_checkbox %}
+                {{ field }}
+            {% endif %}
+
+                <label for="{{ field.id_for_label }}"{% if field.field.required %} class="required col-sm-2 control-label"{% endif %}
+                style="width:100px">
+                    {% if field.id_for_label == 'id_password' %}
+                        密码
+                    {% else %}
+                        {{ field.label }}
+                    {% endif %}
+
+                </label>
+                <div class="col-sm-2 form-input">
+                    {% if not field|is_checkbox %}
+                        {{ field }}
+                    {% endif %}
+                    {% if field.help_text %}
+                        <div class="help_text">{{ field.help_text|safe }}</div>
+                    {% endif %}
+                </div>
+
+
+    <!--</div>-->
+{% endif %}

@@ -8,6 +8,11 @@ from django.utils.translation import ugettext_lazy as _
 
 from .conf import settings
 from .managers import UserInheritanceManager, UserManager
+from crm.models import Merchant
+from utils import gettimestamp
+import datetime
+from decimal import Decimal
+import json
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth.tokens import default_token_generator
 
@@ -16,7 +21,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     USERS_AUTO_ACTIVATE = not settings.USERS_VERIFY_EMAIL
 
     email = models.EmailField(
-        _('email address'), max_length=255)#, db_index=True)
+        _('email address'), max_length=255)  # , db_index=True)
     is_staff = models.BooleanField(
         _('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin site.'))
@@ -31,8 +36,8 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     objects = UserInheritanceManager()
     base_objects = UserManager()
 
-    #userid = models.TextField(_(u'用户名'),default='',unique=True, db_index=True,max_length=50)
-    userid = models.CharField(_(u'用户名'),default='',unique=True, db_index=True,max_length=50)
+    # userid = models.TextField(_(u'用户名'),default='',unique=True, db_index=True,max_length=50)
+    userid = models.CharField(_(u'用户名'), default='', unique=True, db_index=True, max_length=50)
 
     USERNAME_FIELD = 'userid'
     REQUIRED_FIELDS = []
@@ -44,11 +49,11 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
     def get_full_name(self):
         """ Return the userid."""
-        return self.userid #email
+        return self.userid  # email
 
     def get_short_name(self):
         """ Return the userid."""
-        return self.userid #email
+        return self.userid  # email
 
     def email_user(self, subject, message, from_email=None):
         """ Send an email to this User."""
@@ -73,8 +78,187 @@ class User(AbstractUser):
 
     identifcation = models.IntegerField(default=0)
 
+    usertoken = models.CharField(max_length=100, default='')
+
+    mid = models.ForeignKey(Merchant, null=True)
+
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
+
+
+class Member(AbstractBaseUser):
+    username = models.TextField(max_length=100, default=u'hsw')
+    memberid = models.CharField(max_length=15, default='')
+    id_name = models.CharField(max_length=15, null=True)
+    id_no = models.CharField(max_length=15, null=True)
+    id_type = models.IntegerField(default=0)
+    gender = models.BooleanField(default=True)
+    phone = models.CharField(_(u'用户名'), default='', unique=True, db_index=True, max_length=50)
+    mid = models.ForeignKey(Merchant, null=True, db_index=True)
+    email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
+    '''
+    class Meta:
+        abstract = True
+    '''
+    USERNAME_FIELD = 'phone'
+
+    def save(self, *args, **kwargs):
+        super(Member, self).save(*args, **kwargs)
+        self.memberid = "%010d" % self.id
+        super(Member, self).save(force_update=True, update_fields=['memberid'])
+
+    def default_init(self):
+        self.username = 'hsw'
+
+    def toJSON(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            if isinstance(getattr(self, attr), Merchant):
+                dic = json.loads(getattr(self, attr).toJSON())
+                d.update(dic)
+            elif isinstance(getattr(self, attr), Decimal):
+                d[attr] = str(getattr(self, attr))
+            elif attr == 'id_type':
+                if getattr(self, attr) == 0:
+                    d[attr] = u'身份证'
+                else:
+                    d[attr] = u'其他'
+            else:
+                d[attr] = getattr(self, attr)
+        return json.dumps(d)
+
+    def getDict(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            if isinstance(getattr(self, attr), Merchant):
+                d.update(getattr(self, attr).getDict())
+            elif isinstance(getattr(self, attr), Decimal):
+                d[attr] = str(getattr(self, attr))
+            elif attr == 'id_type':
+                if getattr(self, attr) == 0:
+                    d[attr] = u'身份证'
+                else:
+                    d[attr] = u'其他'
+            else:
+                d[attr] = getattr(self, attr)
+        return d
+
+
+class Project(models.Model):
+    r"""
+
+    """
+    proj_id = models.CharField(max_length=10, default='', db_index=True)
+    proj_name = models.CharField(max_length=128, default='')
+    mid = models.ForeignKey(Merchant, null=True)
+
+    def save(self, *args, **kwargs):
+        super(Project, self).save(*args, **kwargs)
+        self.proj_id = "%010d" % self.id
+        super(Project, self).save(force_update=True, update_fields=['proj_id'])
+
+    def toJSON(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            if isinstance(getattr(self, attr), Merchant):
+                dic = json.loads(getattr(self, attr).toJSON())
+                d.update(dic)
+            elif isinstance(getattr(self, attr), Decimal):
+                d[attr] = str(getattr(self, attr))
+            else:
+                d[attr] = getattr(self, attr)
+        return json.dumps(d)
+
+    def getDict(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            if isinstance(getattr(self, attr), Merchant):
+                d.update(getattr(self, attr).getDict())
+            elif isinstance(getattr(self, attr), Decimal):
+                d[attr] = str(getattr(self, attr))
+            else:
+                d[attr] = getattr(self, attr)
+        return d
+
+
+class Order(models.Model):
+    r"""
+
+    """
+    userinfo = models.ForeignKey(Member, null=True)
+    proj = models.ForeignKey(Project, null=True)
+    paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
+    orderamount = models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
+    payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
+    payment_status = models.SmallIntegerField(_(u'支付状态'))
+    mid = models.ForeignKey(Merchant, db_index=True, null=True)
+    orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
+
+    def toJSON(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            if isinstance(getattr(self, attr), datetime.datetime):
+                d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
+            elif isinstance(getattr(self, attr), datetime.date):
+                d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
+            elif isinstance(getattr(self, attr), Merchant):
+                dic = json.loads(getattr(self, attr).toJSON())
+                d.update(dic)
+            elif isinstance(getattr(self, attr), Project):
+                dic = json.loads(getattr(self, attr).toJSON())
+                d.update(dic)
+            elif isinstance(getattr(self, attr), Member):
+                dic = json.loads(getattr(self, attr).toJSON())
+                d.update(dic)
+            elif isinstance(getattr(self, attr), Decimal):
+                d[attr] = str(getattr(self, attr))
+            else:
+                d[attr] = getattr(self, attr)
+        return json.dumps(d)
+
+    def getDict(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            if isinstance(getattr(self, attr), datetime.datetime):
+                d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
+            elif isinstance(getattr(self, attr), datetime.date):
+                d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
+            elif isinstance(getattr(self, attr), Merchant):
+                d.update(getattr(self, attr).getDict())
+            elif isinstance(getattr(self, attr), Project):
+                d.update(getattr(self, attr).getDict())
+            elif isinstance(getattr(self, attr), Member):
+                d.update(getattr(self, attr).getDict())
+            elif isinstance(getattr(self, attr), Decimal):
+                d[attr] = str(getattr(self, attr))
+            else:
+                d[attr] = getattr(self, attr)
+        return d
+
 '''
 class Permission(models.Model):
 
@@ -82,6 +266,7 @@ class Permission(models.Model):
     url = models.CharField(u'URL名称', max_length=255)
     choices = ((1, 'GET'), (2, 'POST'))
 '''
+
 
 class SessionToken(models.Model):
     pass

@@ -21,6 +21,8 @@ try:
 except ImportError:  # pragma: no cover
     from django.db.models.signals import post_syncdb as post_migrate
 
+import datetime
+
 
 if settings.USERS_CREATE_SUPERUSER:
     try:
@@ -140,3 +142,7 @@ def send_activation_email(
             email_message.attach_alternative(html_email, 'text/html')
 
         email_message.send()
+
+
+def gettimestamp():
+    return datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')

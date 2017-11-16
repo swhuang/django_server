@@ -25,7 +25,7 @@ SECRET_KEY = 'tiz+&t3)%9-!s*ia&0l!9q=cb2k4o8vbjphglrffnk@a)=wjxe'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*',]
 
 from os import environ
 import sae.const
@@ -109,6 +109,7 @@ INSTALLED_APPS = [
     'pikachutest',
     'crm',
     'users',
+    'easy_pjax',
     #'gunicorn',
 ]
 
@@ -132,6 +133,9 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
+            'builtins': [
+                'easy_pjax.templatetags.pjax_tags'
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',

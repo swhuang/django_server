@@ -32,4 +32,6 @@ urlpatterns = [
     url(r'^SortTable', app_view.SortTable),
     url(r'^accounts/', include('users.urls')),
     url(r'^userform/', include('crm.urls')),
+    url(r'^local/', include('crm.local_Interface.urls')),
+    url(r'^mobile/', include('crm.mobile.urls'))
 ]

@@ -26,6 +26,7 @@ class LengthValidator(object):
                 _('Password too long (must be %s characters or less)') % self.max_length,
                 code=self.code)
 
+
 length_validator = LengthValidator()
 
 
@@ -83,10 +84,20 @@ class PasswordField(forms.CharField):
     widget = forms.PasswordInput()
     default_validators = [length_validator, complexity_validator, ]
 
+
 class UsercharField(forms.CharField):
     default_validators = [
-        
     ]
+
+
+class PhoneField(forms.CharField):
+    widget = forms.NumberInput()
+    default_validators = [length_validator, ]
+
+
+class MerchantField(forms.CharField):
+    widget = forms.NumberInput()
+    default_validators = []
 
 
 class HoneyPotField(forms.BooleanField):

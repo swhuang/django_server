@@ -1,0 +1,15 @@
+{% extends "mobile/mbase.html" %}
+{% load i18n staticfiles %}
+{% block content %}
+    <!--<ul class="list-group">-->
+
+    <div class="list-group">
+        {% for prj in projects %}
+            <a href="{% url 'MobileOrderInfo'%}" class="list-group-item">
+                <h4 class="list-group-item-heading">{{ prj.proj_name }}</h4>
+                <p class="list-group-item-text">描述测试</p>
+            </a>
+        {% endfor %}
+    </div>
+
+{% endblock %}
