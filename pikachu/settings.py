@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import djcelery
+import siteuser
+
+djcelery.setup_loader()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
@@ -25,12 +28,13 @@ SECRET_KEY = 'tiz+&t3)%9-!s*ia&0l!9q=cb2k4o8vbjphglrffnk@a)=wjxe'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = ['*', ]
 
 from os import environ
 import sae.const
+
 if 'SERVER_SOFTWARE' in environ:
-    DOMAIN='http://pikachu.sinaapp.com'
+    DOMAIN = 'http://pikachu.sinaapp.com'
 
     db_name = sae.const.MYSQL_DB
     name = sae.const.MYSQL_USER
@@ -38,61 +42,38 @@ if 'SERVER_SOFTWARE' in environ:
     host = sae.const.MYSQL_HOST
     port = sae.const.MYSQL_PORT
     host_s = sae.const.MYSQL_HOST_S
-    #CACHES_BACKEND=
-    UEDITOR_UPLOAD={
-        'BACKEND':'DjangoUeditor.saebackend',
-        'DOMAIN':'pikachu',
-        }
+    # CACHES_BACKEND=
+    UEDITOR_UPLOAD = {
+        'BACKEND': 'DjangoUeditor.saebackend',
+        'DOMAIN': 'pikachu',
+    }
 else:
     DOMAIN = 'http://localhost:3306'
     CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
     if True:
-        host='localhost'
-        port='3306'
-        name='root'
-        pwd='vq8612VQE'
-        db_name='cms'
+        host = 'localhost'
+        port = '3306'
+        name = 'root'
+        pwd = 'vq8612VQE'
+        db_name = 'cms'
     else:
         from sae._restful_mysql import monkey
-        monkey.patch()
-        host=sae.const.MYSQL_HOST
-        port=sae.const.MYSQL_PORT
-        name='01zm2lxz4k'
-        pwd='k1mxkm35yj3ilw2hz4lxik2hklhwmx35zymh24hj'
-        db_name='app_pikachu'
-#slot 0000000
 
-# debug = not environ.get("pikachu", "")
-# if debug:
-#     print "changed to local base!"
-#     LOCAL
-    # db_name = "mysql"
-    # name = "root"
-    # pwd = "vq8612VQE"
-    # host = "127.0.0.1"
-    # port = "3306"
-# else:
-#     pass
-    #SAE
-    '''
-    print "changed to remote base"
-    import sae.const
-    db_name = sae.const.MYSQL_DB
-    name = sae.const.MYSQL_USER
-    pwd = sae.const.MYSQL_PASS
-    host = sae.const.MYSQL_HOST
-    port = sae.const.MYSQL_PORT
-    host_s = sae.const.MYSQL_HOST_S
-    '''
+        monkey.patch()
+        host = sae.const.MYSQL_HOST
+        port = sae.const.MYSQL_PORT
+        name = '01zm2lxz4k'
+        pwd = 'k1mxkm35yj3ilw2hz4lxik2hklhwmx35zymh24hj'
+        db_name = 'app_pikachu'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': db_name,                      # Or path to database file if using sqlite3.
-        'USER': name,                      # Not used with sqlite3.
-        'PASSWORD': pwd,                  # Not used with sqlite3.
-        'HOST': host,                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': port,                      # Set to empty string for default. Not used with sqlite3.
+        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': db_name,  # Or path to database file if using sqlite3.
+        'USER': name,  # Not used with sqlite3.
+        'PASSWORD': pwd,  # Not used with sqlite3.
+        'HOST': host,  # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': port,  # Set to empty string for default. Not used with sqlite3.
     }
 }
 
@@ -101,7 +82,7 @@ DATABASES = {
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-    #'django.contrib.sites',
+    # 'django.contrib.sites',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -110,10 +91,30 @@ INSTALLED_APPS = [
     'crm',
     'users',
     'easy_pjax',
-    #'gunicorn',
+    'djcelery',
+    'siteuser.member'
+    # 'gunicorn',
 ]
 
 AUTH_USER_MODEL = 'users.User'
+SITEUSER_EXTEND_MODEL = 'users.models.Member'
+SITEUSER_ACCOUNT_MIXIN = 'crm.crmmember.mem_custom.AccountMxin'
+SITEUSER_EMAIL = {
+    'smtp_host': 'smtp.163.com',
+    'smtp_port': 25,
+    'username': 'superhsw',
+    'password': '5961815949',
+    'from': 'superhsw@gmail.com',
+    'display_from': '',
+}
+AVATAR_DIR = 'crm/data'
+
+USERS_PASSWORD_POLICY = {
+        'UPPER': 0,       # Uppercase 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+        'LOWER': 0,       # Lowercase 'abcdefghijklmnopqrstuvwxyz'
+        'DIGITS': 0,      # Digits '0123456789'
+        'PUNCTUATION': 0  # Punctuation """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"""
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -123,6 +124,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'siteuser.middleware.User',
 ]
 
 ROOT_URLCONF = 'pikachu.urls'
@@ -130,7 +132,7 @@ ROOT_URLCONF = 'pikachu.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [siteuser.SITEUSER_TEMPLATE],
         'APP_DIRS': True,
         'OPTIONS': {
             'builtins': [
@@ -141,6 +143,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'siteuser.context_processors.social_sites'
             ],
         },
     },
@@ -149,25 +152,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pikachu.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-''''
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'app_pikachu',
-        'USER':'01zm2lxz4k',
-        'PASSWORD':'k1mxkm35yj3ilw2hz4lxik2hklhwmx35zymh24hj',
-        'HOST':'w.rdc.sae.sina.com.cn',
-        'PORT':'3306',
-    }
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-
-}
-'''
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -187,7 +171,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -200,7 +183,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
