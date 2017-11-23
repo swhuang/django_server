@@ -92,12 +92,13 @@ INSTALLED_APPS = [
     'users',
     'easy_pjax',
     'djcelery',
-    'siteuser.member'
+    'siteuser.member',
+    'siteuser.notify',
     # 'gunicorn',
 ]
 
 AUTH_USER_MODEL = 'users.User'
-SITEUSER_EXTEND_MODEL = 'users.models.Member'
+SITEUSER_EXTEND_MODEL = 'users.models.ExtendMember'
 SITEUSER_ACCOUNT_MIXIN = 'crm.crmmember.mem_custom.AccountMxin'
 SITEUSER_EMAIL = {
     'smtp_host': 'smtp.163.com',
@@ -196,6 +197,10 @@ STATICFILES_DIRS = (
 )
 
 DEFAULT_CHARSET = 'GBK'
+
+USERS_EMAIL_DOMAINS_BLACKLIST = []
+
+USERS_EMAIL_DOMAINS_WHITELIST = []
 
 USERS_REGISTRATION_OPEN = True
 

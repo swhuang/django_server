@@ -42,7 +42,16 @@ class SiteUserManager(models.Manager):
             }
             if 'avatar_url' in kwargs:
                 siteuser_kwargs['avatar_url'] = kwargs.pop('avatar_url')
+            if 'mid' in kwargs:
+                siteuser_kwargs['mid'] = kwargs.pop('mid')
+            if 'phone' in kwargs:
+                siteuser_kwargs['phone'] = kwargs.pop('phone')
+            #siteuser_kwargs.update(kwargs)
             user = SiteUser.objects.create(**siteuser_kwargs)
+            #user = SiteUser(**siteuser_kwargs)
+            #user = SiteUser(is_social=is_social, date_joined=timezone.now())
+            print  user.username
+            user.save()
             kwargs['user_id'] = user.id
 
         return super(SiteUserManager, self).create(**kwargs)
@@ -75,6 +84,7 @@ class InnerUser(models.Model):
     user = models.OneToOneField('SiteUser', related_name='inner_user')
     email = models.CharField(max_length=MAX_EMAIL_LENGTH, unique=True)
     passwd = models.CharField(max_length=40)
+    description = models.CharField(max_length=255, null=True)
 
     objects = InnerUserManager()
 
@@ -96,6 +106,7 @@ def _siteuser_extend():
         m = __import__(_module, fromlist=['.'])
         _model = getattr(m, _model)
     except:
+        print "@@@@:"+_module
         m = __import__(_module + '.models', fromlist=['.'])
         _model = getattr(m, _model)
     

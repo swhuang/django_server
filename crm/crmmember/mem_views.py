@@ -9,7 +9,7 @@ import hashlib
 import crm.util as mUtil
 from django.views.decorators.csrf import csrf_exempt
 import json
-# import users.models.User as Usermodel
+# import member.models.User as Usermodel
 from users.models import User as Usermodel
 from django.template.response import TemplateResponse
 from users.forms import MemberCreationForm

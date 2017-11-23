@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required, permission_required
 import csv
 from crm.models import *
@@ -13,11 +13,16 @@ from crm.forms import QueryForm, OrderPaymentForm, OrderGenForm
 from users.models import User as Usermodel
 from django.template.response import TemplateResponse
 from users.models import Member, Merchant, Project
+from django.core.urlresolvers import reverse
+from crm.mobile.settings import ErrorInfo
+from crm.util import mlogin_required
 import copy
 
 
 def index(request):
-    print "got in index"
+    #print "got in index"
+    if not request.siteuser:
+        return HttpResponseRedirect(reverse('siteuser_login'))
     context = {}
     context['projects'] = []
     try:
@@ -28,7 +33,18 @@ def index(request):
         pass
     return TemplateResponse(request, "mobile/mindex.html", context)
 
+def error_info(request, *args, **kwargs):
+    print args[0]
+    error_msg = ''
+    context = {}
+    if ErrorInfo.errors.has_key(args[0]):
+        error_msg = ErrorInfo.errors[args[0]]
+        context['error_msg'] = error_msg
+        return TemplateResponse(request, "mobile/merror.html", context)
+    else:
+        return TemplateResponse(request, "mobile/merror.html", {'error_msg': u'未知错误'})
 
+@mlogin_required
 def orderinfo(request):
     print "got here"
     context = {}
@@ -57,6 +73,7 @@ def ordersubmit(request):
         pass
 
     return HttpResponse('ok')
+
 
 def doPayment(request):
     r'''

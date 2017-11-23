@@ -152,6 +152,72 @@ class Member(AbstractBaseUser):
         return d
 
 
+class ExtendMember(AbstractBaseUser):
+    #username = models.TextField(max_length=100, default=u'hsw')
+    memberid = models.CharField(max_length=15, default='')
+    id_name = models.CharField(max_length=15, null=True)
+    id_no = models.CharField(max_length=15, null=True)
+    id_type = models.IntegerField(default=0)
+    gender = models.BooleanField(default=True)
+    phone = models.CharField(_(u'用户名'), default='', unique=True, db_index=True, max_length=50)
+    mid = models.ForeignKey(Merchant, null=True, db_index=True)
+    email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
+
+    class Meta:
+        abstract = True
+
+    USERNAME_FIELD = 'phone'
+
+    def save(self, *args, **kwargs):
+        super(ExtendMember, self).save(*args, **kwargs)
+        self.memberid = "%010d" % self.id
+        super(ExtendMember, self).save(force_update=True, update_fields=['memberid'])
+
+    def default_init(self):
+        self.username = 'hsw'
+
+    def toJSON(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            if isinstance(getattr(self, attr), Merchant):
+                dic = json.loads(getattr(self, attr).toJSON())
+                d.update(dic)
+            elif isinstance(getattr(self, attr), Decimal):
+                d[attr] = str(getattr(self, attr))
+            elif attr == 'id_type':
+                if getattr(self, attr) == 0:
+                    d[attr] = u'身份证'
+                else:
+                    d[attr] = u'其他'
+            else:
+                d[attr] = getattr(self, attr)
+        return json.dumps(d)
+
+    def getDict(self):
+        fields = []
+        for field in self._meta.fields:
+            fields.append(field.name)
+
+        d = {}
+        for attr in fields:
+            if isinstance(getattr(self, attr), Merchant):
+                d.update(getattr(self, attr).getDict())
+            elif isinstance(getattr(self, attr), Decimal):
+                d[attr] = str(getattr(self, attr))
+            elif attr == 'id_type':
+                if getattr(self, attr) == 0:
+                    d[attr] = u'身份证'
+                else:
+                    d[attr] = u'其他'
+            else:
+                d[attr] = getattr(self, attr)
+        return d
+
+
 class Project(models.Model):
     r"""
 
@@ -258,6 +324,7 @@ class Order(models.Model):
             else:
                 d[attr] = getattr(self, attr)
         return d
+
 
 '''
 class Permission(models.Model):

@@ -1,11 +1,11 @@
 from django.conf import settings
 
-from siteuser.users.urls import urlpatterns
-from siteuser.upload_avatar.urls import urlpatterns as upurls
+from siteuser.member.urls import urlpatterns
+#from siteuser.upload_avatar.urls import urlpatterns as upurls
 from siteuser.notify.urls import urlpatterns as nourls
 
 siteuser_url_table = {
-    'siteuser.upload_avatar': upurls,
+    #'siteuser.upload_avatar': upurls,
     'siteuser.notify': nourls,
 }
 

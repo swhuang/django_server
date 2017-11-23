@@ -12,7 +12,12 @@
 			{% include "users/partials/field.html" %}
 		{% endfor %}
 		<div class="button-wrapper submit">
-			<input type="submit" value="{% trans '注册' %}" />
+            <div class="row">
+                <div class="col-sm-10"></div>
+                <div class="col-sm-2">
+			<input type="submit" class="form-control col-sm-2" value="{% trans '注册' %}" />
+            </div>
+                </div>
 		</div>
 	</form>
 </div>

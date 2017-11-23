@@ -1,3 +1,7 @@
+{% extends "mobile/mbase.html" %}
+{% load i18n staticfiles %}
+{% block content %}
+<script src="{% static 'js/siteuser/siteuser.js' %}" charset="utf-8"></script>
 <div class="siteuser">
     <div {% if social_sites %}class="row-fluid"{% endif %}>
         <div {% if social_sites %}class="span6"{% endif %}>
@@ -16,3 +20,4 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}

@@ -30,7 +30,8 @@ urlpatterns = [
     url(r'^UpdateParkingData', app_view.UpdateParkingData),
     url(r'^TimeTable', app_view.TimeTable),
     url(r'^SortTable', app_view.SortTable),
-    url(r'^accounts/', include('users.urls')),
+    url(r'', include('siteuser.urls')),
+    url(r'^boardaccounts/', include('users.urls')),
     url(r'^userform/', include('crm.urls')),
     url(r'^local/', include('crm.local_Interface.urls')),
     url(r'^mobile/', include('crm.mobile.urls'))

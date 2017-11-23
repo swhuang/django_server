@@ -14,7 +14,7 @@ import datetime
 # @python_2_unicode_compatible
 class OrderInfo(models.Model):
     orderid = models.CharField(_(u'订单信息'), max_length=30)
-
+    description = models.CharField(_(u'描述信息'), max_length=500, null=True)
     class Meta:
         permissions = (
             ("view", "can view the available order"),

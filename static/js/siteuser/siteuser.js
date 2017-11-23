@@ -52,6 +52,7 @@
             username = $('#siteuserRegUsername').val();
             passwd = $('#siteuserRegPassword').val();
             passwd2 = $('#siteuserRegPassword2').val();
+            phone_ = $('#siteuserRegPhone').val();
             email = strip(email);
             username = strip(username);
             passwd = strip(passwd);
@@ -81,6 +82,7 @@
                         email: email,
                         username: username,
                         passwd: passwd,
+                        phone: phone_,
                         csrfmiddlewaretoken: get_csrf()
                     },
                     dateType: 'json',
@@ -122,8 +124,16 @@
                 }
             );
         });
+        //注册
+        $('#siteuserReg').click(function (e) {
+            e.preventDefault();
+            console.log($(this).attr('referer'))
+            window.location.href = $(this).attr('referer');
+            }
+
+        )
         
-        get_notifies();
+        //get_notifies();
 
     });
 

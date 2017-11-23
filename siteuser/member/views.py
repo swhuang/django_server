@@ -11,9 +11,8 @@ from django.shortcuts import render_to_response
 from django.template import loader, RequestContext
 from django.views.generic import View
 
-
-from siteuser.users.models import InnerUser, SiteUser, SocialUser
-from siteuser.users.tasks import send_mail
+from siteuser.member.models import InnerUser, SiteUser, SocialUser
+from siteuser.member.tasks import send_mail
 from siteuser.settings import (
     USING_SOCIAL_LOGIN,
     MAX_EMAIL_LENGTH,
@@ -27,19 +26,25 @@ from siteuser.utils.load_user_define import user_defined_mixin
 if USING_SOCIAL_LOGIN:
     from socialoauth import SocialSites, SocialAPIError, SocialSitesConfigError
 
+from django.template.context_processors import csrf
+from users.models import Merchant
+from crm.mobile.settings import ErrorInfo
 # 注册，登录，退出等都通过 ajax 的方式进行
 
 EMAIL_PATTERN = re.compile('^.+@.+\..+$')
 
+
 class InnerAccoutError(Exception):
     pass
 
+
 make_password = lambda passwd: hashlib.sha1(passwd).hexdigest()
+
 
 def inner_account_ajax_guard(func):
     @wraps(func)
     def deco(self, request, *args, **kwargs):
-        dump = lambda d: HttpResponse(json.dumps(d), mimetype='application/json')
+        dump = lambda d: HttpResponse(json.dumps(d), content_type='application/json')
         if request.siteuser:
             return dump({'ok': False, 'msg': '你已登录'})
 
@@ -49,7 +54,9 @@ def inner_account_ajax_guard(func):
             return dump({'ok': False, 'msg': str(e)})
 
         return dump({'ok': True})
+
     return deco
+
 
 def inner_account_http_guard(func):
     @wraps(func)
@@ -67,6 +74,7 @@ def inner_account_http_guard(func):
                 ctx,
                 context_instance=RequestContext(request)
             )
+
     return deco
 
 
@@ -103,16 +111,32 @@ class SiteUserMixIn(object):
     def get(self, request, *args, **kwargs):
         """使用此get方法的Class，必须制定这两个属性：
         self.tpl - 此view要渲染的模板名
-        self.ctx_getter - 渲染模板是获取额外context的方法名
+        self.ctx_getter - 渲染模板时获取额外context的方法名
         """
+        try:
+            _merchantid = args[0]
+        except IndexError:
+            return HttpResponseRedirect('/mobile/error/' + 'error02')
+
+        if not request.merchant:
+            try:
+                pm = Merchant.objects.get(merchantid=_merchantid)
+            except Merchant.DoesNotExist:
+                return HttpResponseRedirect('/mobile/error/'+ 'error01')
+
+            request.session['mid'] = pm.id
+            request.merchant = pm
+
         if request.siteuser:
-            return HttpResponseRedirect('/')
-        ctx = self.ctx_getter(request)
+            return HttpResponseRedirect('/mobile')
+        ctx = csrf(request)
+        ctx.update({'merchant': request.merchant.name})
+        ctx.update(self.ctx_getter(request))
         ctx.update(getattr(self, 'ctx', {}))
         return render_to_response(
             self.tpl,
-            ctx,
-            context_instance=RequestContext(request)
+            ctx  # ,
+            # context_instance=RequestContext(request)
         )
 
     def _reset_passwd_default_ctx(self):
@@ -128,12 +152,13 @@ class SiteUserMixIn(object):
         referer = request.META.get('HTTP_REFERER', '/')
         if referer.endswith('done/'):
             referer = '/'
+        print "redirect url: "+referer
         return referer
-
 
 
 class SiteUserLoginView(user_defined_mixin(), SiteUserMixIn, View):
     """登录"""
+
     def __init__(self, **kwargs):
         self.tpl = self.login_template
         self.ctx_getter = self.get_login_context
@@ -146,6 +171,7 @@ class SiteUserLoginView(user_defined_mixin(), SiteUserMixIn, View):
         """
         ctx = super(SiteUserLoginView, self).get_login_context(request)
         ctx['referer'] = self._normalize_referer(request)
+        ctx['reg_ref'] = reverse('siteuser_register')
         return ctx
 
     @inner_account_ajax_guard
@@ -169,6 +195,7 @@ class SiteUserLoginView(user_defined_mixin(), SiteUserMixIn, View):
 
 class SiteUserRegisterView(user_defined_mixin(), SiteUserMixIn, View):
     """注册"""
+
     def __init__(self, **kwargs):
         self.tpl = self.register_template
         self.ctx_getter = self.get_register_context
@@ -181,9 +208,12 @@ class SiteUserRegisterView(user_defined_mixin(), SiteUserMixIn, View):
 
     @inner_account_ajax_guard
     def post(self, request, *args, **kwargs):
+        if not request.merchant:
+            return HttpResponseRedirect('/mobile/error/' + 'error01')
         email = request.POST.get('email', None)
         username = request.POST.get('username', None)
         passwd = request.POST.get('passwd', None)
+        phone = request.POST.get('phone', None)
 
         if not email or not username or not passwd:
             raise InnerAccoutError('请完整填写注册信息')
@@ -204,12 +234,15 @@ class SiteUserRegisterView(user_defined_mixin(), SiteUserMixIn, View):
             raise InnerAccoutError('用户名已存在')
 
         passwd = make_password(passwd)
-        user = InnerUser.objects.create(email=email, passwd=passwd, username=username)
+        user = InnerUser.objects.create(email=email, passwd=passwd, username=username, mid=request.merchant,
+                                        phone=phone)
         request.session['uid'] = user.user.id
+
 
 
 class SiteUserResetPwStepOneView(user_defined_mixin(), SiteUserMixIn, View):
     """丢失密码重置第一步，填写注册时的电子邮件"""
+
     def __init__(self, **kwargs):
         self.tpl = self.reset_passwd_template
         self.ctx_getter = self.get_reset_passwd_context
@@ -245,6 +278,7 @@ class SiteUserResetPwStepOneView(user_defined_mixin(), SiteUserMixIn, View):
 
 class SiteUserResetPwStepOneDoneView(user_defined_mixin(), SiteUserMixIn, View):
     """发送重置邮件完成"""
+
     def __init__(self, **kwargs):
         self.tpl = self.reset_passwd_template
         self.ctx_getter = self.get_reset_passwd_context
@@ -255,6 +289,7 @@ class SiteUserResetPwStepOneDoneView(user_defined_mixin(), SiteUserMixIn, View):
 
 class SiteUserResetPwStepTwoView(user_defined_mixin(), SiteUserMixIn, View):
     """丢失密码重置第二步，填写新密码"""
+
     def __init__(self, **kwargs):
         self.tpl = self.reset_passwd_template
         self.ctx_getter = self.get_reset_passwd_context
@@ -265,14 +300,13 @@ class SiteUserResetPwStepTwoView(user_defined_mixin(), SiteUserMixIn, View):
     def get(self, request, *args, **kwargs):
         token = kwargs['token']
         try:
-            self.uid = signing.loads(token, key=self.sign_key, max_age=self.reset_passwd_link_expired_in*3600)
+            self.uid = signing.loads(token, key=self.sign_key, max_age=self.reset_passwd_link_expired_in * 3600)
         except signing.SignatureExpired:
             # 通过context来控制到底显示表单还是过期信息
             self.ctx['expired'] = True
         except signing.BadSignature:
             raise Http404
         return super(SiteUserResetPwStepTwoView, self).get(request, *args, **kwargs)
-
 
     @inner_account_http_guard
     def post(self, request, *args, **kwargs):
@@ -290,6 +324,7 @@ class SiteUserResetPwStepTwoView(user_defined_mixin(), SiteUserMixIn, View):
 
 class SiteUserResetPwStepTwoDoneView(user_defined_mixin(), SiteUserMixIn, View):
     """重置完成"""
+
     def __init__(self, **kwargs):
         self.tpl = self.reset_passwd_template
         self.ctx_getter = self.get_reset_passwd_context
@@ -300,6 +335,7 @@ class SiteUserResetPwStepTwoDoneView(user_defined_mixin(), SiteUserMixIn, View):
 
 class SiteUserChangePwView(user_defined_mixin(), SiteUserMixIn, View):
     """已登录用户修改密码"""
+
     def render_to_response(self, request, **kwargs):
         ctx = self.get_change_passwd_context(request)
         ctx['done'] = False
@@ -344,6 +380,7 @@ class SiteUserChangePwView(user_defined_mixin(), SiteUserMixIn, View):
 
 class SiteUserChangePwDoneView(user_defined_mixin(), SiteUserMixIn, View):
     """已登录用户修改密码成功"""
+
     def get(self, request, *args, **kwargs):
         if request.siteuser:
             return HttpResponseRedirect('/')
@@ -362,9 +399,13 @@ def logout(request):
         del request.session['uid']
     except:
         pass
+    try:
+        del request.session['mid']
+        request.merchant = None
+    except:
+        pass
 
-    return HttpResponse('', mimetype='application/json')
-
+    return HttpResponse('', content_type='application/json')
 
 
 def social_login_callback(request, sitename):

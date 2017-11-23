@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends "mobile/mbase.html" %}
+{% load i18n staticfiles %}
+{% block content %}
+    <div class="panel panel-danger">
+        <!-- Default panel contents -->
+        <div class="panel-heading">错误！</div>
+        <div class="panel-body">
+            <p>{{ error_msg }}</p>
+        </div>
+    </div>
+{% endblock %}

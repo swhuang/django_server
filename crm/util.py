@@ -6,6 +6,10 @@ import hashlib
 import string
 from random import *
 from crm.models import TokenManager
+from functools import wraps
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+
 from abc import ABCMeta, abstractmethod
 
 
@@ -32,7 +36,7 @@ def certify_token(key, token):
     :return:
     boolean
     '''
-    print "This token is :"+token
+    print "This token is :" + token
     token_str = base64.urlsafe_b64decode(str(token)).decode('utf-8')
     token_list = token_str.split(':')
     if len(token_list) != 2:
@@ -111,11 +115,13 @@ class SessionTokenRsp(Rspinfo):
     def dict(self):
         return self.retmsg
 
+
 class UserDataRsp(Rspinfo):
     r'''
 
     '''
-    def __init__(self, status = 0, errorcode='00', reason='', merchantid='', datainfo={}):
+
+    def __init__(self, status=0, errorcode='00', reason='', merchantid='', datainfo={}):
         self.status = status
         self.reason = reason
         self.errorcode = errorcode
@@ -134,6 +140,15 @@ class UserDataRsp(Rspinfo):
         return self.retmsg
 
 
+def mlogin_required(func):
+    @wraps(func)
+    def deco(request, *args, **kwargs):
+        if not request.siteuser:
+            print reverse('siteuser_login')
+            return HttpResponseRedirect(reverse('siteuser_login'))
+        return func(request, *args, **kwargs)
+
+    return deco
 
 
 if __name__ == '__main__':
@@ -143,6 +158,7 @@ if __name__ == '__main__':
     print certify_token(key, token)
     generate_key()
     import os
+
     r'''
     for i in xrange(10000000):
         file_obj = open('merchant_data', 'a')

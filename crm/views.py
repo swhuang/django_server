@@ -19,7 +19,6 @@ from djpjax import pjax
 
 @pjax("project/tables-pjax.html")
 def pjaxtest(request):
-    print "sadas"
     return TemplateResponse(request, "project/tables.html")
 
 
@@ -40,6 +39,8 @@ def crmtest(request, template_name="project/tables.html"):
         _merchant = 'None'
         if request.user.mid:
             _merchant = request.user.mid
+        else:
+            return HttpResponse('ok')
             # _merchant = request.user.mid.merchantid
         keylst = [u'用户名', u'学生id', u'身份证姓名', u'身份证号', u'性别', u'电话']
         membs = list(

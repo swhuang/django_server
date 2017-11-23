@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 
-from siteuser.users import views
+from siteuser.member import views
 from siteuser.settings import USING_SOCIAL_LOGIN
 
-urlpatterns = patterns('',
+urlpatterns = [
+    url(r'^account/login/(\d+)/$', views.SiteUserLoginView.as_view(), name='siteuser_login'),
     url(r'^account/login/$', views.SiteUserLoginView.as_view(), name='siteuser_login'),
     url(r'^account/register/$', views.SiteUserRegisterView.as_view(), name='siteuser_register'),
 
@@ -25,11 +26,11 @@ urlpatterns = patterns('',
 
 
     url(r'^account/logout/$', views.logout, name='siteuser_logout'),
-)
+]
 
 
 # 只有设置 USING_SOCIAL_LOGIN = True 的情况下，才会开启第三方登录功能
 if USING_SOCIAL_LOGIN:
-    urlpatterns += patterns('',
+    urlpatterns += [
         url(r'^account/oauth/(?P<sitename>\w+)/?$', views.social_login_callback),
-    )
+    ]
