@@ -9,10 +9,10 @@ import hashlib
 import crm.util as mUtil
 from django.views.decorators.csrf import csrf_exempt
 import json
-from crm.forms import QueryForm, OrderQueryForm
+from crm.forms import QueryForm, OrderQueryForm, ProjQueryForm, ProjNewFrom, OrderGenForm
 from users.models import User as Usermodel
 from django.template.response import TemplateResponse
-from users.models import Member, Merchant, Project
+from users.models import Member, Merchant, Project, ExtendMember
 import copy
 from djpjax import pjax
 
@@ -80,7 +80,15 @@ def crmtest(request, template_name="project/tables.html"):
 @permission_required('crm.view')
 @login_required(login_url="/accounts/login/")
 def panel_projectform(request):
-    return render(request, "project/ProjManager.html")
+    form = ProjQueryForm()
+    form_new = ProjNewFrom()
+    context = {
+        'tablename': u'项目管理',
+        'merchant': request.user.mid.merchantid,
+        'form': form,
+        'form_new': form_new
+    }
+    return render(request, "project/ProjManager.html", context)
 
 
 @permission_required('crm.view')
@@ -93,10 +101,12 @@ def panel_preferences(request):
 @login_required(login_url="/accounts/login/")
 def panel_ordermanager(request):
     form = OrderQueryForm(request.user.mid)
+    form_new = OrderGenForm(request.user.mid)
     context = {
         'tablename': u'订单管理',
         'merchant': request.user.mid.merchantid,
-        'form': form
+        'form': form,
+        'form_new': form_new
     }
     return render(request, "project/OrderManager.html", context)
 

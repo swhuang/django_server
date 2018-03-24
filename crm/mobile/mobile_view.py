@@ -47,9 +47,12 @@ def error_info(request, *args, **kwargs):
 @mlogin_required
 def orderinfo(request):
     print "got here"
+    _merchant = None
+    if request.merchant:
+        _merchant = request.merchant
     context = {}
     context['project'] = {}
-    context['form'] = OrderGenForm()
+    context['form'] = OrderGenForm(_merchant)
     return TemplateResponse(request, "mobile/mproductinfo.html", context)
 
 

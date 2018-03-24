@@ -115,9 +115,17 @@ class SiteUserMixIn(object):
         """
         try:
             _merchantid = args[0]
+            pm = Merchant.objects.get(merchantid=_merchantid)
+            if not request.merchant:
+                request.session['mid'] = pm.id
+                request.merchant = pm
         except IndexError:
-            return HttpResponseRedirect('/mobile/error/' + 'error02')
+            if not request.merchant:
+                return HttpResponseRedirect('/mobile/error/' + 'error02')
+        except Merchant.DoesNotExist:
+            return HttpResponseRedirect('/mobile/error/' + 'error01')
 
+        '''
         if not request.merchant:
             try:
                 pm = Merchant.objects.get(merchantid=_merchantid)
@@ -126,6 +134,7 @@ class SiteUserMixIn(object):
 
             request.session['mid'] = pm.id
             request.merchant = pm
+        '''
 
         if request.siteuser:
             return HttpResponseRedirect('/mobile')
@@ -149,7 +158,7 @@ class SiteUserMixIn(object):
         }
 
     def _normalize_referer(self, request):
-        referer = request.META.get('HTTP_REFERER', '/')
+        referer = request.META.get('HTTP_REFERER', '/mobile')
         if referer.endswith('done/'):
             referer = '/'
         print "redirect url: "+referer
@@ -172,6 +181,7 @@ class SiteUserLoginView(user_defined_mixin(), SiteUserMixIn, View):
         ctx = super(SiteUserLoginView, self).get_login_context(request)
         ctx['referer'] = self._normalize_referer(request)
         ctx['reg_ref'] = reverse('siteuser_register')
+        print "reg_ref:"+ctx['reg_ref']
         return ctx
 
     @inner_account_ajax_guard

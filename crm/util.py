@@ -150,6 +150,29 @@ def mlogin_required(func):
 
     return deco
 
+def crmlogin_check(func):
+    @wraps(func)
+    def deco(request, *args, **kwargs):
+        if not request.user.mid:
+            print reverse('MobileErrorInfo')
+            return HttpResponseRedirect(reverse('MobileErrorInfo')+'/error02')
+        return func(request, *args, **kwargs)
+    return deco
+
+class Structure(object):
+    _fields = []
+    def __init__(self, *args, **kwargs):
+        if len(args) > len(self._fields):
+            raise TypeError('Expected {} arguments'.format(len(self._fields)))
+
+        for name,value in zip(self._fields, args):
+            setattr(self, name, value)
+
+        for name in self._fields[len(args):]:
+            setattr(self, name, kwargs.pop(name))
+
+        if kwargs:
+            raise TypeError('Invaild argument(s):{}'.format(','.join(kwargs)))
 
 if __name__ == '__main__':
     key = '123456789'

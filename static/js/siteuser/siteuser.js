@@ -9,7 +9,7 @@
             passwd = strip(passwd);
 
             if(email.length===0 || passwd.length===0) {
-                make_warning('#siteuserLoginWarning', '请填写电子邮件和密码');
+                make_warning('#siteuserLoginWarning', '用户名不能为空');
                 return;
             }
 
@@ -22,7 +22,7 @@
                         passwd: passwd,
                         csrfmiddlewaretoken: get_csrf()
                     },
-                    dateType: 'json',
+                    dataType: 'json',
                     async: false,
                     success: function(data){
                         if(data.ok) {

@@ -1,4 +1,10 @@
 /**
+ * Created by shengweihuang on 2017/11/24.
+ */
+/**
+ * Created by shengweihuang on 2017/11/8.
+ */
+/**
  * Created by shengweihuang on 2017/11/6.啊实打实
  */
 
@@ -8,10 +14,13 @@ $(function () {
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
 
+
 });
 
 //var taskService = abp.services.app.task;
 var _table = $('#tb-tasks');
+
+//bootstrap-table工具栏按钮事件初始化
 
 
 //bootstrap-table工具栏按钮事件初始化
@@ -20,10 +29,12 @@ var ButtonInit = function () {
     var postdata = {};
 
     oInit.Init = function () {
+        console.log("button init!")
         //初始化页面上面的按钮事件
         $("#btn-add")
             .click(function () {
-                $("#add").modal("show");
+                console.log('add-btn clicked')
+                $("#exampleModal").modal("show");
             });
 
         $("#btn-edit")
@@ -48,8 +59,51 @@ var ButtonInit = function () {
 
         $("#btn-query")
             .click(function () {
-                _table.bootstrapTable('refresh');
+                /*_table.bootstrapTable('refresh');*/
+                $('#tb-tasks').bootstrapTable('refresh');
+                console.log("clicked!");
             });
+
+        $("#btn_new").click(function() {
+            $.ajax(
+                {
+                    type: 'POST',
+                    url: '/local/CreateProject/',
+                    data: {
+                        'projname': $("#id_projname").val()
+                    },
+                    dataType: 'json',
+                    async:false,
+                    success: function (data) {
+                        if(data.ok) {
+                            make_warning("#newPrjWarning", "添加成功");
+                            /*$("#exampleModal").modal("hide");*/
+                            $('#tb-tasks').bootstrapTable('refresh');
+                        }
+                        else
+                        {
+                            make_warning("#newPrjWarning", data.msg);
+                        }
+                    },
+                    error: function (XmlHttprequest, textStatus, errorThrown) {
+                        make_warning('#newPrjWarning', '发生错误，请稍后再试');
+                    }
+                }
+            )
+        });
+        
+        $("#order_new").click(function (e) {
+
+            $(this).parent().parent().append("<div class='form-group' id='new1'></div>");
+            $('#new1').load('/local/CreateOrder')
+        })
+
+        $("#exampleModal").on('hidden.bs.modal', function(e){
+            $('#newPrjWarning').text('');
+            $('#id_projname').val('');
+            $('#new1').remove();
+        })
+
     };
     return oInit;
 };
@@ -78,16 +132,15 @@ queryParams = function (params) {
         //排序字段
         sortway: params.order,
         //升序降序
-        search: JSON.stringify({
-            'name': $("#id_username").val(),
-            'phone': $("#id_phone").val(),
-            'id': $("#id_id_no").val(),
-            'email': $("#id_email").val()
-        }),//$("#txt-filter").val(),
+        search: {
+            'proj_name': $("#id_projname").val(),
+            'proj_id': $("#id_projid").val()
+        },
         //自定义传参-任务名称
         status: $("#txt-search-status").val(),
         //自定义传参-任务状态
-        table_name: 'member'
+        table_name: 'project'
+
     };
     return temp;
 };
@@ -120,8 +173,8 @@ var TableInit = function () {
         showRefresh: true, //是否显示刷新按钮
         minimumCountColumns: 2, //最少允许的列数
         clickToSelect: true, //是否启用点击选中行
-        contentType: "application/x-www-form-urlencoded",
         //height: 500, //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        contentType: "application/x-www-form-urlencoded",
         uniqueId: "Id", //每一行的唯一标识，一般为主键列
         showToggle: true, //是否显示详细视图和列表视图的切换按钮
         cardView: false, //是否显示详细视图
@@ -130,8 +183,11 @@ var TableInit = function () {
             {
                 radio: true
             }, {
-                field: 'username',
-                title: '用户名',
+                field: 'proj_id',
+                title: '项目编号'
+            },{
+                field: 'name',
+                title: '商户名称',
                 sortable: true
             }, {
                 field: 'memberid',
@@ -139,20 +195,38 @@ var TableInit = function () {
             }, {
                 field: 'id_name',
                 title: '身份证姓名'
+            },{
+                field: 'id_type',
+                title: '证件类型'
             },
             {
                 field: 'id_no',
                 title: '证件号'
             },
             {
-                field: 'gender',
-                title: '性别',
-                formatter: showState
-            }, {
                 field: 'phone',
                 title: '电话',
                 formatter: showDate
-            }, {
+            },{
+                field: 'proj_name',
+                title: '项目名称'
+            },{
+                field: 'proj_id',
+                title: '项目编号'
+            },{
+                field: 'payment_status',
+                title: '订单状态'
+            },{
+                field: 'paytime',
+                title: '支付时间'
+            },{
+                field: 'orderamount',
+                title: '订单金额'
+            },{
+                field: 'payedamount',
+                title: '已支付金额'
+            },
+            {
                 field: 'operate',
                 title: '操作',
                 align: 'center',
@@ -162,16 +236,6 @@ var TableInit = function () {
                 events: operateEvents
             }
         ]
-        /*,
-        data: [{
-            username: "test",
-            memberid: "miaoshu",
-            id_name: "asd",
-            id_no: '123123123',
-            gender: "True",
-            phone: "asdasd",
-            operate: "asdasd"
-        }]*/
     });
 };
 

@@ -35,9 +35,10 @@ class OrderQueryForm(forms.Form):
                                  widget=forms.TextInput(attrs={'class': 'form-control input-sm'}))
     memberid = forms.CharField(label=_(u'用户id'), max_length=15,
                                widget=forms.NumberInput(attrs={'class': 'form-control input-sm'}))
-    id_type = forms.TypedChoiceField(label=_(u'证件类型'), choices=([('1', '身份证'), ('2', '学生证')]), initial='1',
+    id_type = forms.TypedChoiceField(label=_(u'证件类型'), choices=([('0', '身份证'), ('1', '学生证')]), initial='0',
                                      widget=forms.Select(attrs={'class': 'form-control input-sm'}))
     id_num = forms.CharField(label=_(u'证件号'), widget=forms.NumberInput(attrs={'class': 'form-control input-sm'}))
+    orderid = forms.CharField(label=_(u'订单号'), widget=forms.NumberInput(attrs={'class': 'form-control input-sm'}))
 
     def __init__(self, _merchant):
         super(OrderQueryForm, self).__init__()
@@ -46,11 +47,42 @@ class OrderQueryForm(forms.Form):
                                                         empty_label=_(u"请选择缴费项目"), to_field_name="proj_id",
                                                         widget=forms.Select(attrs={'class': 'form-control input-sm'}))
 
+class ProjQueryForm(forms.Form):
+    r'''
+    项目管理搜索表单
+    '''
+    error_messages = {}
+    projname = forms.CharField(label=_(u'项目名称'), max_length=100,
+                               widget=forms.TextInput(attrs={'class': 'form-control input-sm'}))
+    projid = forms.CharField(label=_(u'项目编号'), max_length=15,
+                            widget=forms.NumberInput(attrs={'class': 'form-control input-sm'}))
+
+class ProjNewFrom(forms.Form):
+    r'''
+    新增项目表单
+    '''
+    error_messages = {}
+    projname = forms.CharField(label=_(u'项目名称'), max_length=100,
+                               widget=forms.TextInput(attrs={'class': 'form-control input-sm'}))
+
+
 class OrderGenForm(forms.Form):
     r'''
     订单生成表单
     '''
-    orderamount = forms.CharField(label=_(u'订单金额'), widget=forms.NumberInput(attrs={'class': 'form-control input-sm'}))
+    _attrs = {'class': 'form-control input-sm'}
+
+    def __init__(self, _merchant):
+        super(OrderGenForm, self).__init__()
+        self.fields['project'] = ProjChoiceField(label=_(u'项目'),
+                                                 queryset=Project.objects.filter(mid=_merchant),
+                                                 empty_label=_(u"请选择项目"), to_field_name="proj_id",
+                                                 widget=forms.Select(attrs=self._attrs))
+        self.fields['user_id'] = forms.CharField(label=_(u'用户编号'), widget=forms.NumberInput(attrs=self._attrs))
+
+    orderamount = forms.CharField(label=_(u'订单金额'), widget=forms.NumberInput(attrs=_attrs), help_text=_(u'精确到小数点后两位'))
+    proj_id = forms.CharField(label=_(u'项目编号'), widget=forms.NumberInput(attrs=_attrs))
+
 
 
 class OrderPaymentForm(forms.Form):

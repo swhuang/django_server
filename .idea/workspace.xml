@@ -2,233 +2,51 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6f10766-122f-4f3c-913d-16864b137eb1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crm/mobile/models.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crm/mobile/settings.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crm/templates/mobile/merror.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/siteuser/siteuser.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/admin.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/apps.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/base/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/base/utils.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/migrations/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/models.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/riskmodule/__init__.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/riskmodule/black_number.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/tests.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/views.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/FP_risk/worker.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crm/templates/partials/Proj_new.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crm/templates/partials/order_new.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pikachutest/scanner.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/requirements2.txt" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/css/crm/mobile_base.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/static/js/crm/views/Projmanager.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/data/tttbbb/std_tttbbb.csv" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/crmmember/mem_custom.py" afterPath="$PROJECT_DIR$/crm/crmmember/mem_custom.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/crmmember/mem_views.py" afterPath="$PROJECT_DIR$/crm/crmmember/mem_views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/forms.py" afterPath="$PROJECT_DIR$/crm/forms.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/local_Interface/urls.py" afterPath="$PROJECT_DIR$/crm/local_Interface/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/local_Interface/view.py" afterPath="$PROJECT_DIR$/crm/local_Interface/view.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/mobile/mobile_view.py" afterPath="$PROJECT_DIR$/crm/mobile/mobile_view.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/mobile/urls.py" afterPath="$PROJECT_DIR$/crm/mobile/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/models.py" afterPath="$PROJECT_DIR$/crm/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/templates/base.html" afterPath="$PROJECT_DIR$/crm/templates/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/templates/mobile/mbase.html" afterPath="$PROJECT_DIR$/crm/templates/mobile/mbase.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/templates/partials/qfield.html" afterPath="$PROJECT_DIR$/crm/templates/partials/qfield.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/templates/project/OrderManager.html" afterPath="$PROJECT_DIR$/crm/templates/project/OrderManager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/templates/project/ProjManager.html" afterPath="$PROJECT_DIR$/crm/templates/project/ProjManager.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/templates/project/tables.html" afterPath="$PROJECT_DIR$/crm/templates/project/tables.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/templates/sidebar.html" afterPath="$PROJECT_DIR$/crm/templates/sidebar.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/util.py" afterPath="$PROJECT_DIR$/crm/util.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/views.py" afterPath="$PROJECT_DIR$/crm/views.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pikachu/settings.py" afterPath="$PROJECT_DIR$/pikachu/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pikachu/urls.py" afterPath="$PROJECT_DIR$/pikachu/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/admin.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/backends.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/backends.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/base_user.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/base_user.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/checks.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/checks.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/decorators.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/decorators.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/forms.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/af/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/af/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ar/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ar/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ast/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ast/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/az/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/az/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/be/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/be/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/bg/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/bg/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/bn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/bn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/br/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/br/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/bs/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/bs/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ca/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ca/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/cs/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/cs/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/cy/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/cy/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/da/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/da/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/de/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/de/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/dsb/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/dsb/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/el/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/el/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/en/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/en/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/en_AU/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/en_AU/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/en_GB/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/en_GB/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/eo/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/eo/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es_AR/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es_AR/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es_CO/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es_CO/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es_MX/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es_MX/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es_VE/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/es_VE/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/et/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/et/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/eu/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/eu/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/fa/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/fa/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/fi/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/fi/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/fr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/fr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/fy/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/fy/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ga/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ga/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/gd/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/gd/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/gl/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/gl/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/he/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/he/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/hi/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/hi/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/hr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/hr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/hsb/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/hsb/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/hu/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/hu/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ia/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ia/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/id/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/id/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/io/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/io/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/is/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/is/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/it/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/it/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ja/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ja/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ka/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ka/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/kk/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/kk/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/km/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/km/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/kn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/kn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ko/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ko/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/lb/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/lb/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/lt/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/lt/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/lv/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/lv/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/mk/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/mk/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ml/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ml/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/mn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/mn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/mr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/mr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/my/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/my/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/nb/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/nb/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ne/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ne/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/nl/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/nl/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/nn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/nn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/os/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/os/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/pa/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/pa/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/pl/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/pl/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/pt/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/pt/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/pt_BR/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/pt_BR/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ro/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ro/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ru/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ru/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sk/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sk/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sl/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sl/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sq/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sq/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sr_Latn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sr_Latn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sv/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sv/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sw/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/sw/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ta/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ta/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/te/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/te/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/th/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/th/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/tr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/tr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/tt/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/tt/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/udm/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/udm/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/uk/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/uk/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ur/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/ur/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/vi/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/vi/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/zh_Hans/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/zh_Hans/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/zh_Hant/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/locale/zh_Hant/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/migrations/0001_initial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/auth/models.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/auth/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/af/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/af/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ar/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ar/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ast/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ast/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/az/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/az/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/be/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/be/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/bg/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/bg/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/bn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/bn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/br/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/br/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/bs/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/bs/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ca/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ca/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/cs/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/cs/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/cy/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/cy/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/da/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/da/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/de/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/de/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/dsb/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/dsb/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/el/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/el/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/en/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/en/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/en_AU/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/en_AU/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/en_GB/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/en_GB/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/eo/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/eo/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es_AR/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es_AR/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es_CO/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es_CO/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es_MX/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es_MX/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es_VE/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/es_VE/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/et/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/et/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/eu/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/eu/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/fa/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/fa/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/fi/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/fi/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/fr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/fr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/fy/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/fy/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ga/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ga/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/gd/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/gd/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/gl/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/gl/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/he/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/he/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/hi/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/hi/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/hr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/hr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/hsb/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/hsb/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/hu/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/hu/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ia/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ia/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/id/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/id/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/io/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/io/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/is/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/is/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/it/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/it/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ja/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ja/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ka/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ka/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/kk/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/kk/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/km/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/km/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/kn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/kn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ko/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ko/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/lb/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/lb/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/lt/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/lt/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/lv/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/lv/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/mk/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/mk/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ml/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ml/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/mn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/mn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/mr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/mr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/my/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/my/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/nb/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/nb/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ne/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ne/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/nl/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/nl/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/nn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/nn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/os/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/os/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/pa/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/pa/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/pl/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/pl/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/pt/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/pt/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/pt_BR/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/pt_BR/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ro/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ro/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ru/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ru/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sk/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sk/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sl/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sl/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sq/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sq/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sr_Latn/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sr_Latn/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sv/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sv/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sw/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/sw/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ta/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ta/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/te/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/te/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/th/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/th/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/tr/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/tr/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/tt/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/tt/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/udm/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/udm/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/uk/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/uk/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ur/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/ur/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/vi/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/vi/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/zh_Hans/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/zh_Hans/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/zh_Hant/LC_MESSAGES/django.po" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/locale/zh_Hant/LC_MESSAGES/django.po" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/migrations/0001_initial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/models.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/templatetags/flatpages.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/flatpages/templatetags/flatpages.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/gis/db/models/manager.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/gis/db/models/manager.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/gis/feeds.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/gis/feeds.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/contrib/gis/utils/srs.py" afterPath="$PROJECT_DIR$/site-packages/django/contrib/gis/utils/srs.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/db/backends/base/creation.py" afterPath="$PROJECT_DIR$/site-packages/django/db/backends/base/creation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/db/backends/oracle/creation.py" afterPath="$PROJECT_DIR$/site-packages/django/db/backends/oracle/creation.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/db/models/expressions.py" afterPath="$PROJECT_DIR$/site-packages/django/db/models/expressions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/db/models/fields/files.py" afterPath="$PROJECT_DIR$/site-packages/django/db/models/fields/files.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/db/models/query.py" afterPath="$PROJECT_DIR$/site-packages/django/db/models/query.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/forms/forms.py" afterPath="$PROJECT_DIR$/site-packages/django/forms/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/test/runner.py" afterPath="$PROJECT_DIR$/site-packages/django/test/runner.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/site-packages/django/utils/html.py" afterPath="$PROJECT_DIR$/site-packages/django/utils/html.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/member/models.py" afterPath="$PROJECT_DIR$/siteuser/member/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/member/urls.py" afterPath="$PROJECT_DIR$/siteuser/member/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pikachutest/data.html" afterPath="$PROJECT_DIR$/pikachutest/data.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/requirements.txt" afterPath="$PROJECT_DIR$/requirements.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/member/views.py" afterPath="$PROJECT_DIR$/siteuser/member/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/middleware.py" afterPath="$PROJECT_DIR$/siteuser/middleware.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/notify/models.py" afterPath="$PROJECT_DIR$/siteuser/notify/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/notify/urls.py" afterPath="$PROJECT_DIR$/siteuser/notify/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/templates/siteuser/base.html" afterPath="$PROJECT_DIR$/siteuser/templates/siteuser/base.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/templates/siteuser/login.html" afterPath="$PROJECT_DIR$/siteuser/templates/siteuser/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/templates/siteuser/register.html" afterPath="$PROJECT_DIR$/siteuser/templates/siteuser/register.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/upload_avatar/urls.py" afterPath="$PROJECT_DIR$/siteuser/upload_avatar/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/urls.py" afterPath="$PROJECT_DIR$/siteuser/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/models.py" afterPath="$PROJECT_DIR$/users/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/templates/users/registration_form.html" afterPath="$PROJECT_DIR$/users/templates/users/registration_form.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/crm/crm_main.css" afterPath="$PROJECT_DIR$/static/css/crm/crm_main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/crm/main.js" afterPath="$PROJECT_DIR$/static/js/crm/main.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/crm/usertable.js" afterPath="$PROJECT_DIR$/static/js/crm/usertable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/crm/views/Ordermanager.js" afterPath="$PROJECT_DIR$/static/js/crm/views/Ordermanager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/siteuser/siteuser.js" afterPath="$PROJECT_DIR$/static/js/siteuser/siteuser.js" />
     </list>
     <ignored path="pikachu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -245,6 +63,7 @@
     <SUITE FILE_PATH="coverage/pikachu$GA_ENCODE.coverage" NAME="GA_ENCODE Coverage Results" MODIFIED="1501488993902" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pikachutest/timetable/GA_encoding" />
     <SUITE FILE_PATH="coverage/pikachu$util.coverage" NAME="util Coverage Results" MODIFIED="1507604177139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/crm" />
     <SUITE FILE_PATH="coverage/pikachu$tests.coverage" NAME="tests Coverage Results" MODIFIED="1510931585413" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/pikachu$scanner.coverage" NAME="scanner Coverage Results" MODIFIED="1512991362779" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pikachutest" />
     <SUITE FILE_PATH="coverage/pikachu$tablesort.coverage" NAME="tablesort Coverage Results" MODIFIED="1503217625302" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pikachutest/timetable" />
     <SUITE FILE_PATH="coverage/pikachu$DataInit.coverage" NAME="DataInit Coverage Results" MODIFIED="1505647166087" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/pikachutest/timetable" />
   </component>
@@ -259,185 +78,26 @@
     <option name="SHOW_EMPTY_GROUPS" value="false" />
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
   </component>
-  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)">
+  <component name="DjangoConsoleOptions" custom-start-script="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" module-name="pikachu" is-module-sdk="true">
     <option name="myCustomStartScript" value="import sys; print('Python %s on %s' % (sys.version, sys.platform))&#10;import django; print('Django %s' % django.get_version())&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;if 'setup' in dir(django): django.setup()&#10;import django_manage_shell; django_manage_shell.run(PROJECT_ROOT)" />
-  </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <splitter split-orientation="horizontal" split-proportion="0.45724258">
-            <split-first>
-              <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-                <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/crm/templates/base.html">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="765">
-                        <caret line="51" column="95" selection-start-line="51" selection-start-column="95" selection-end-line="51" selection-end-column="95" />
-                        <folding />
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/crm/views.py">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="420">
-                        <caret line="92" column="6" selection-start-line="92" selection-start-column="6" selection-end-line="92" selection-end-column="6" />
-                        <folding />
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="tables.html" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/crm/templates/project/tables.html">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="645">
-                        <caret line="43" column="65" selection-start-line="43" selection-start-column="65" selection-end-line="43" selection-end-column="65" />
-                        <folding>
-                          <marker date="1510759803987" expanded="true" signature="704:1019" ph="..." />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/crm/forms.py">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="720">
-                        <caret line="52" column="119" selection-start-line="52" selection-start-column="119" selection-end-line="52" selection-end-column="119" />
-                        <folding>
-                          <element signature="e#24#48#0" expanded="true" />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="siteuser.js" pinned="false" current-in-tab="true">
-                  <entry file="file://$PROJECT_DIR$/static/js/siteuser/siteuser.js">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="-180">
-                        <caret line="81" column="37" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
-                        <folding />
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/login.html">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="165">
-                        <caret line="11" column="63" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="63" />
-                        <folding />
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="register.html" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/register.html">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="150">
-                        <caret line="10" column="39" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="39" />
-                        <folding />
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="decorators.py" pinned="false" current-in-tab="false">
-                  <entry file="file:///usr/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="165">
-                        <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-                        <folding>
-                          <element signature="e#0#27#0" expanded="true" />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-              </leaf>
-            </split-first>
-            <split-second>
-              <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-                <file leaf-file-name="mem_views.py" pinned="false" current-in-tab="true">
-                  <entry file="file://$PROJECT_DIR$/crm/crmmember/mem_views.py">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="313">
-                        <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-                        <folding>
-                          <element signature="e#23#58#0" expanded="true" />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="qfield.html" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/crm/templates/partials/qfield.html">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="405">
-                        <caret line="27" column="47" selection-start-line="27" selection-start-column="47" selection-end-line="27" selection-end-column="47" />
-                        <folding />
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="usertable.js" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/static/js/crm/usertable.js">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="2205">
-                        <caret line="147" column="33" selection-start-line="147" selection-start-column="33" selection-end-line="147" selection-end-column="33" />
-                        <folding>
-                          <marker date="1510738210746" expanded="true" signature="4428:4651" ph="[...]" />
-                          <marker date="1510738210746" expanded="true" signature="4429:4650" ph="{...}" />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="sidebar.html" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/crm/templates/sidebar.html">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="30">
-                        <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="19" />
-                        <folding />
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-                <file leaf-file-name="OrderManager.html" pinned="false" current-in-tab="false">
-                  <entry file="file://$PROJECT_DIR$/crm/templates/project/OrderManager.html">
-                    <provider selected="true" editor-type-id="text-editor">
-                      <state relative-caret-position="1035">
-                        <caret line="69" column="47" selection-start-line="48" selection-start-column="40" selection-end-line="69" selection-end-column="47" />
-                        <folding>
-                          <marker date="1510761508898" expanded="true" signature="714:1029" ph="..." />
-                        </folding>
-                      </state>
-                    </provider>
-                  </entry>
-                </file>
-              </leaf>
-            </split-second>
-          </splitter>
-        </state>
-      </content>
-    </window>
+    <option name="myUseModuleSdk" value="true" />
+    <option name="myModuleName" value="pikachu" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="pikachu" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.6200345">
+    <splitter split-orientation="vertical" split-proportion="0.50555557">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.47992164">
+        <splitter split-orientation="horizontal" split-proportion="0.50278294">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/siteuser/member/views.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="129">
-                      <caret line="120" column="32" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
+                    <state relative-caret-position="3840">
+                      <caret line="256" column="0" selection-start-line="256" selection-start-column="0" selection-end-line="256" selection-end-column="0" />
                       <folding>
                         <element signature="e#24#33#0" expanded="true" />
                       </folding>
@@ -445,28 +105,30 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="base.py" pinned="false" current-in-tab="false">
-                <entry file="file:///usr/local/lib/python2.7/site-packages/django/views/generic/base.py">
+              <file leaf-file-name="Ordermanager.js" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/static/js/crm/views/Ordermanager.js">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="855">
-                      <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+                    <state relative-caret-position="15">
+                      <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+                      <folding>
+                        <element signature="n#!!doc" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/siteuser/functional/__init__.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="45">
+                      <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="siteuser.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/siteuser/member/static/js/siteuser.js">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="840">
-                      <caret line="56" column="35" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="notify.html" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/notify.html">
+              <file leaf-file-name="mail.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/siteuser/functional/mail.py">
                   <provider selected="true" editor-type-id="text-editor">
                     <state relative-caret-position="0">
                       <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -475,33 +137,53 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="response.py" pinned="false" current-in-tab="false">
-                <entry file="file:///usr/local/lib/python2.7/site-packages/django/http/response.py">
+              <file leaf-file-name="connection.py" pinned="false" current-in-tab="false">
+                <entry file="file:///usr/local/lib/python2.7/site-packages/amqp/connection.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="138">
-                      <caret line="293" column="0" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
+                    <state relative-caret-position="2700">
+                      <caret line="185" column="0" selection-start-line="185" selection-start-column="0" selection-end-line="185" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="middleware.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/siteuser/middleware.py">
+              <file leaf-file-name="basehttp.py" pinned="false" current-in-tab="false">
+                <entry file="file:///usr/local/lib/python2.7/site-packages/django/core/servers/basehttp.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="75">
-                      <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+                    <state relative-caret-position="2265">
+                      <caret line="164" column="18" selection-start-line="164" selection-start-column="18" selection-end-line="164" selection-end-column="18" />
                       <folding>
-                        <element signature="e#25#77#0" expanded="true" />
+                        <marker date="1520848571394" expanded="false" signature="312:501" ph="import ..." />
                       </folding>
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="os.py" pinned="false" current-in-tab="false">
-                <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/os.py">
+              <file leaf-file-name="Proj_new.html" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/crm/templates/partials/Proj_new.html">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="520">
-                      <caret line="547" column="0" selection-start-line="547" selection-start-column="0" selection-end-line="547" selection-end-column="0" />
+                    <state relative-caret-position="435">
+                      <caret line="29" column="76" selection-start-line="29" selection-start-column="76" selection-end-line="29" selection-end-column="76" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="transport.py" pinned="false" current-in-tab="false">
+                <entry file="file:///usr/local/lib/python2.7/site-packages/amqp/transport.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="1335">
+                      <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="Projmanager.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/static/js/crm/views/Projmanager.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="240">
+                      <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
@@ -511,58 +193,14 @@
           </split-first>
           <split-second>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/siteuser/member/urls.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="454">
-                      <caret line="32" column="21" selection-start-line="32" selection-start-column="3" selection-end-line="32" selection-end-column="21" />
+                    <state relative-caret-position="150">
+                      <caret line="13" column="55" selection-start-line="13" selection-start-column="55" selection-end-line="13" selection-end-column="55" />
                       <folding>
                         <element signature="e#25#57#0" expanded="true" />
                       </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="mem_custom.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/crm/crmmember/mem_custom.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="345">
-                      <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
-                      <folding>
-                        <element signature="e#194#236#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/base.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="0">
-                      <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/siteuser/member/models.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="220">
-                      <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-                      <folding>
-                        <element signature="e#24#33#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="manager.py" pinned="false" current-in-tab="false">
-                <entry file="file:///usr/local/lib/python2.7/site-packages/django/db/models/manager.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="2655">
-                      <caret line="184" column="0" selection-start-line="184" selection-start-column="0" selection-end-line="184" selection-end-column="0" />
-                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -580,8 +218,72 @@
               <file leaf-file-name="base_user.py" pinned="false" current-in-tab="false">
                 <entry file="file:///usr/local/lib/python2.7/site-packages/django/contrib/auth/base_user.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="138">
+                    <state relative-caret-position="1005">
                       <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="siteuser.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/static/js/siteuser/siteuser.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="225">
+                      <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/static/js/crm/main.js">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="315">
+                      <caret line="23" column="34" selection-start-line="23" selection-start-column="34" selection-end-line="23" selection-end-column="34" />
+                      <folding>
+                        <element signature="e#0#50#0" expanded="false" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/login.html">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="570">
+                      <caret line="38" column="102" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="102" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="crm_main.css" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/static/css/crm/crm_main.css">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="45">
+                      <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="tests.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/pikachutest/tests.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="90">
+                      <caret line="12" column="35" selection-start-line="12" selection-start-column="35" selection-end-line="12" selection-end-column="35" />
+                      <folding>
+                        <element signature="e#0#32#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="data.html" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/pikachutest/data.html">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="0">
+                      <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
@@ -592,69 +294,78 @@
         </splitter>
       </split-first>
       <split-second>
-        <splitter split-orientation="horizontal" split-proportion="0.47992164">
+        <splitter split-orientation="horizontal" split-proportion="0.50249255">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/static/js/crm/main.js">
+              <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/FP_risk/models.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="210">
-                      <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
+                    <state relative-caret-position="120">
+                      <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
                       <folding>
-                        <element signature="e#0#50#0" expanded="false" />
+                        <element signature="e#0#39#0" expanded="true" />
                       </folding>
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="usertable.js" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/static/js/crm/usertable.js">
+              <file leaf-file-name="cache.py" pinned="false" current-in-tab="false">
+                <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/cache.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="2460">
-                      <caret line="164" column="29" selection-start-line="164" selection-start-column="29" selection-end-line="164" selection-end-column="29" />
+                    <state relative-caret-position="885">
+                      <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="default.py" pinned="false" current-in-tab="false">
+                <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/client/default.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="1335">
+                      <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="client.py" pinned="false" current-in-tab="false">
+                <entry file="file:///usr/local/lib/python2.7/site-packages/redis/client.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="8205">
+                      <caret line="547" column="0" selection-start-line="547" selection-start-column="0" selection-end-line="547" selection-end-column="0" />
                       <folding>
-                        <marker date="1510738210746" expanded="true" signature="4428:4651" ph="[...]" />
-                        <marker date="1510738210746" expanded="true" signature="4429:4650" ph="{...}" />
+                        <element signature="e#0#37#0" expanded="true" />
                       </folding>
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="genericpath.py" pinned="false" current-in-tab="false">
-                <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/genericpath.py">
+              <file leaf-file-name="connection.py" pinned="false" current-in-tab="false">
+                <entry file="file:///usr/local/lib/python2.7/site-packages/redis/connection.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="405">
-                      <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/crm/views.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="75">
-                      <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/pikachu/urls.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="274">
-                      <caret line="33" column="24" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="24" />
+                    <state relative-caret-position="13605">
+                      <caret line="914" column="36" selection-start-line="914" selection-start-column="19" selection-end-line="914" selection-end-column="36" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
               <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/users/urls.py">
+                <entry file="file://$PROJECT_DIR$/pikachu/urls.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="45">
-                      <caret line="14" column="54" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="54" />
+                    <state relative-caret-position="465">
+                      <caret line="36" column="17" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="17" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/crm/urls.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="0">
+                      <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                       <folding>
                         <element signature="e#0#32#0" expanded="true" />
                       </folding>
@@ -662,24 +373,22 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="registration_form.html" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/users/templates/users/registration_form.html">
+              <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/crm/mobile/urls.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="135">
-                      <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+                    <state relative-caret-position="60">
+                      <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/crm/mobile/urls.py">
+              <file leaf-file-name="mobile_view.py" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/crm/mobile/mobile_view.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="90">
-                      <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
-                      <folding>
-                        <element signature="e#24#56#0" expanded="true" />
-                      </folding>
+                    <state relative-caret-position="165">
+                      <caret line="33" column="56" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="56" />
+                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -688,53 +397,11 @@
           </split-first>
           <split-second>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="mobile_view.py" pinned="false" current-in-tab="true">
-                <entry file="file://$PROJECT_DIR$/crm/mobile/mobile_view.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="190">
-                      <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-                      <folding>
-                        <element signature="e#24#59#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/users/models.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-124">
-                      <caret line="173" column="26" selection-start-line="173" selection-start-column="26" selection-end-line="173" selection-end-column="26" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="0001_initial.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/siteuser/member/migrations/0001_initial.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="525">
-                      <caret line="38" column="23" selection-start-line="38" selection-start-column="23" selection-end-line="38" selection-end-column="23" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="merror.html" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/crm/templates/mobile/merror.html">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="120">
-                      <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
               <file leaf-file-name="morder.html" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/templates/mobile/morder.html">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="375">
-                      <caret line="25" column="10" selection-start-line="3" selection-start-column="4" selection-end-line="25" selection-end-column="10" />
+                    <state relative-caret-position="255">
+                      <caret line="17" column="73" selection-start-line="17" selection-start-column="73" selection-end-line="17" selection-end-column="73" />
                       <folding />
                     </state>
                   </provider>
@@ -763,11 +430,79 @@
               <file leaf-file-name="util.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/util.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="150">
-                      <caret line="145" column="32" selection-start-line="145" selection-start-column="32" selection-end-line="145" selection-end-column="32" />
+                    <state relative-caret-position="2445">
+                      <caret line="174" column="75" selection-start-line="174" selection-start-column="75" selection-end-line="174" selection-end-column="75" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="tablesort2.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/pikachutest/timetable/tablesort2.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="14025">
+                      <caret line="946" column="79" selection-start-line="946" selection-start-column="76" selection-end-line="946" selection-end-column="79" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="DataInit.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/pikachutest/timetable/DataInit.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="1440">
+                      <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="105" selection-end-column="43" />
                       <folding>
-                        <element signature="e#24#35#0" expanded="true" />
+                        <marker date="1504798076000" expanded="true" signature="831:912" ph="select * fro... pikachutest_timetablemissing_value" />
+                        <marker date="1504798076000" expanded="true" signature="1983:2016" ph="select * fro... pikachutest_teachermissing_value" />
+                        <marker date="1504798076000" expanded="true" signature="2275:2308" ph="select * fro... pikachutest_studentmissing_value" />
+                        <marker date="1504798076000" expanded="true" signature="3916:4044" ph="insert into pikachutest_studentmissing_value... " />
+                        <marker date="1504798076000" expanded="true" signature="5068:5187" ph="insert into pikachutest_timetablemissing_value... " />
+                        <marker date="1504798076000" expanded="true" signature="6289:6362" ph="insert into pikachutest_teachermissing_value... " />
+                        <marker date="1504798076000" expanded="true" signature="21946:22070" ph="insert into pikachutest_studentmissing_value... " />
+                        <marker date="1504798076000" expanded="true" signature="23029:23144" ph="insert into pikachutest_timetablemissing_value... " />
+                        <marker date="1504798076000" expanded="true" signature="24082:24155" ph="insert into pikachutest_teachermissing_value... " />
                       </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="tablesort.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/pikachutest/timetable/tablesort.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="12390">
+                      <caret line="837" column="40" selection-start-line="833" selection-start-column="12" selection-end-line="837" selection-end-column="40" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/siteuser/notify/models.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="45">
+                      <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/FP_risk/base/utils.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="90">
+                      <caret line="6" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/.gitignore">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="0">
+                      <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -783,8 +518,8 @@
       <list>
         <option value="CSS File" />
         <option value="JavaScript File" />
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -794,35 +529,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/static/js/crm/usertable.js" />
-        <option value="$PROJECT_DIR$/static/js/jquery.pjax.js" />
-        <option value="$PROJECT_DIR$/crm/templates/project/pjax.html" />
-        <option value="$PROJECT_DIR$/crm/templates/project/OrderManager-pjax.html" />
-        <option value="$PROJECT_DIR$/crm/templates/project/tables.html" />
-        <option value="$PROJECT_DIR$/crm/templates/pjax_base.html" />
-        <option value="$PROJECT_DIR$/crm/templates/project/OrderManager.html" />
-        <option value="$PROJECT_DIR$/crm/crmmember/urls.py" />
-        <option value="$PROJECT_DIR$/crm/urls.py" />
-        <option value="$PROJECT_DIR$/crm/templates/mobile/mindex.html" />
-        <option value="$PROJECT_DIR$/crm/templates/mobile/morderinfo.html" />
-        <option value="$PROJECT_DIR$/crm/forms.py" />
-        <option value="$PROJECT_DIR$/crm/templates/mobile/morder.html" />
-        <option value="$PROJECT_DIR$/crm/crmmember/mem_views.py" />
-        <option value="$PROJECT_DIR$/users/migrations/0004_user_mid.py" />
-        <option value="$PROJECT_DIR$/users/migrations/0007_member_id_type.py" />
-        <option value="$PROJECT_DIR$/users/migrations/0008_member_email.py" />
-        <option value="$PROJECT_DIR$/users/migrations/0009_auto_20171107_1741.py" />
-        <option value="$PROJECT_DIR$/users/migrations/0006_auto_20171104_2326.py" />
-        <option value="$PROJECT_DIR$/users/migrations/0005_member.py" />
-        <option value="$PROJECT_DIR$/users/migrations/0003_user_usertoken.py" />
-        <option value="$PROJECT_DIR$/users/migrations/0002_sessiontoken.py" />
         <option value="$PROJECT_DIR$/users/migrations/0010_order_mid.py" />
         <option value="$PROJECT_DIR$/users/migrations/0011_auto_20171109_1502.py" />
         <option value="$PROJECT_DIR$/users/migrations/0012_auto_20171109_1504.py" />
-        <option value="$PROJECT_DIR$/pikachu/settings.py" />
         <option value="$PROJECT_DIR$/crm/mobile/models.py" />
-        <option value="$PROJECT_DIR$/crm/models.py" />
-        <option value="$PROJECT_DIR$/pikachu/urls.py" />
         <option value="$PROJECT_DIR$/siteuser/urls.py" />
         <option value="$PROJECT_DIR$/siteuser/upload_avatar/urls.py" />
         <option value="$PROJECT_DIR$/siteuser/notify/urls.py" />
@@ -834,17 +544,42 @@
         <option value="$PROJECT_DIR$/crm/mobile/urls.py" />
         <option value="$PROJECT_DIR$/crm/templates/mobile/merror.html" />
         <option value="$PROJECT_DIR$/siteuser/middleware.py" />
-        <option value="$PROJECT_DIR$/crm/views.py" />
-        <option value="$PROJECT_DIR$/crm/templates/mobile/mbase.html" />
-        <option value="$PROJECT_DIR$/siteuser/templates/siteuser/login.html" />
-        <option value="$PROJECT_DIR$/siteuser/templates/siteuser/register.html" />
-        <option value="$PROJECT_DIR$/static/js/siteuser/siteuser.js" />
         <option value="$PROJECT_DIR$/siteuser/member/models.py" />
         <option value="$PROJECT_DIR$/siteuser/member/urls.py" />
         <option value="$PROJECT_DIR$/crm/mobile/settings.py" />
-        <option value="$PROJECT_DIR$/crm/mobile/mobile_view.py" />
-        <option value="$PROJECT_DIR$/crm/util.py" />
+        <option value="$PROJECT_DIR$/crm/templates/mobile/mbase.html" />
+        <option value="$PROJECT_DIR$/siteuser/templates/siteuser/login.html" />
         <option value="$PROJECT_DIR$/siteuser/member/views.py" />
+        <option value="$PROJECT_DIR$/siteuser/templates/siteuser/register.html" />
+        <option value="$PROJECT_DIR$/static/css/crm/mobile_base.css" />
+        <option value="$PROJECT_DIR$/pikachu/urls.py" />
+        <option value="$PROJECT_DIR$/crm/templates/sidebar.html" />
+        <option value="$PROJECT_DIR$/static/js/crm/usertable.js" />
+        <option value="$PROJECT_DIR$/crm/templates/project/ProjManager.html" />
+        <option value="$PROJECT_DIR$/crm/templates/project/tables.html" />
+        <option value="$PROJECT_DIR$/crm/templates/partials/Proj_new.html" />
+        <option value="$PROJECT_DIR$/crm/templates/project/OrderManager.html" />
+        <option value="$PROJECT_DIR$/static/js/siteuser/siteuser.js" />
+        <option value="$PROJECT_DIR$/crm/mobile/mobile_view.py" />
+        <option value="$PROJECT_DIR$/crm/views.py" />
+        <option value="$PROJECT_DIR$/crm/local_Interface/urls.py" />
+        <option value="$PROJECT_DIR$/static/js/crm/views/Projmanager.js" />
+        <option value="$PROJECT_DIR$/crm/local_Interface/view.py" />
+        <option value="$PROJECT_DIR$/crm/forms.py" />
+        <option value="$PROJECT_DIR$/crm/templates/partials/order_new.html" />
+        <option value="$PROJECT_DIR$/static/js/crm/main.js" />
+        <option value="$PROJECT_DIR$/static/css/crm/crm_main.css" />
+        <option value="$PROJECT_DIR$/static/js/crm/views/Ordermanager.js" />
+        <option value="$PROJECT_DIR$/crm/templates/partials/qfield.html" />
+        <option value="$PROJECT_DIR$/pikachutest/scanner.py" />
+        <option value="$PROJECT_DIR$/crm/util.py" />
+        <option value="$PROJECT_DIR$/crm/models.py" />
+        <option value="$PROJECT_DIR$/FP_risk/apps.py" />
+        <option value="$PROJECT_DIR$/FP_risk/riskmodule/black_number.py" />
+        <option value="$PROJECT_DIR$/FP_risk/worker.py" />
+        <option value="$PROJECT_DIR$/FP_risk/base/utils.py" />
+        <option value="$PROJECT_DIR$/pikachu/settings.py" />
+        <option value="$PROJECT_DIR$/FP_risk/models.py" />
       </list>
     </option>
   </component>
@@ -906,6 +641,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -984,7 +720,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="django" />
+              <option name="myItemId" value="django_redis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1010,101 +746,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="django" />
+              <option name="myItemId" value="django_redis" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.12 (/usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="python2.7" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="site-packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="django" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.12 (/usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="python2.7" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="site-packages" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="django" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="management" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="commands" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="&lt; Python 2.7.12 (/usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/bin/python2.7) &gt;" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="site-packages" />
+              <option name="myItemId" value="client" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1115,275 +761,12 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="users" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="static" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="siteuser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="siteuser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="siteuser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="siteuser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="siteuser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="member" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="data" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mobile" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1391,7 +774,7 @@
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="com.intellij.database.dataSource.DataSourceTemplate" value="MySQL" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
-    <property name="settings.editor.selected.configurable" value="File.Encoding" />
+    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
@@ -1400,6 +783,16 @@
     <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
     <property name="FullScreen" value="true" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+  </component>
+  <component name="PyConsoleOptionsProvider">
+    <option name="myPythonConsoleState">
+      <console-settings module-name="pikachu" is-module-sdk="true">
+        <option name="myUseModuleSdk" value="true" />
+        <option name="myModuleName" value="pikachu" />
+      </console-settings>
+    </option>
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1410,24 +803,6 @@
     </key>
   </component>
   <component name="RunManager" selected="Django server.pikachu">
-    <configuration default="false" name="tablesort" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pikachutest/timetable" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="pikachu" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pikachutest/timetable/tablesort.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
     <configuration default="false" name="DataInit" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -1497,6 +872,24 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
       <option name="PARAMETERS" value="makemigrations" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="scanner" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/pikachutest" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="pikachu" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/pikachutest/scanner.py" />
+      <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
     </configuration>
@@ -1750,26 +1143,26 @@
       <option name="additionalOptions" value="" />
       <option name="browserUrl" value="" />
       <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
+      <option name="runNoReload" value="true" />
       <option name="useCustomRunCommand" value="false" />
       <option name="customRunCommand" value="runserver 0.0.0.0:80" />
       <method />
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="Django server.pikachu" />
-      <item index="1" class="java.lang.String" itemvalue="Python.tablesort" />
-      <item index="2" class="java.lang.String" itemvalue="Python.DataInit" />
-      <item index="3" class="java.lang.String" itemvalue="Python.util" />
-      <item index="4" class="java.lang.String" itemvalue="Python.views" />
-      <item index="5" class="java.lang.String" itemvalue="Python.tests" />
+      <item index="1" class="java.lang.String" itemvalue="Python.DataInit" />
+      <item index="2" class="java.lang.String" itemvalue="Python.util" />
+      <item index="3" class="java.lang.String" itemvalue="Python.views" />
+      <item index="4" class="java.lang.String" itemvalue="Python.tests" />
+      <item index="5" class="java.lang.String" itemvalue="Python.scanner" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.tests" />
-        <item index="1" class="java.lang.String" itemvalue="Python.util" />
-        <item index="2" class="java.lang.String" itemvalue="Python.views" />
-        <item index="3" class="java.lang.String" itemvalue="Python.DataInit" />
-        <item index="4" class="java.lang.String" itemvalue="Python.tablesort" />
+        <item index="0" class="java.lang.String" itemvalue="Python.scanner" />
+        <item index="1" class="java.lang.String" itemvalue="Python.tests" />
+        <item index="2" class="java.lang.String" itemvalue="Python.util" />
+        <item index="3" class="java.lang.String" itemvalue="Python.views" />
+        <item index="4" class="java.lang.String" itemvalue="Python.DataInit" />
       </list>
     </recent_temporary>
   </component>
@@ -1808,28 +1201,28 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16720517" sideWeight="0.48820058" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14383562" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32876712" sideWeight="0.503231" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739726" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3368336" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32739726" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32673267" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16986302" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17128713" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17528272" sideWeight="0.48820058" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.041001067" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21089108" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17123288" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.16347177" sideWeight="0.5117994" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25068492" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26027396" sideWeight="0.49676898" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Thumbnails" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290938" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20821919" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3178082" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14383562" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1946,11 +1339,6 @@
           <option name="timeStamp" value="289" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file:///usr/local/lib/python2.7/site-packages/easy_pjax/templatetags/pjax_tags.py</url>
-          <line>38</line>
-          <option name="timeStamp" value="292" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
           <url>file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/django/core/management/commands/makemigrations.py</url>
           <line>65</line>
           <option name="timeStamp" value="298" />
@@ -1997,13 +1385,53 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/siteuser/member/views.py</url>
-          <line>236</line>
+          <line>246</line>
           <option name="timeStamp" value="335" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/siteuser/member/views.py</url>
-          <line>398</line>
+          <line>408</line>
           <option name="timeStamp" value="337" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/siteuser/functional/mail.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="351" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file:///usr/local/lib/python2.7/site-packages/django_redis/client/default.py</url>
+          <line>105</line>
+          <option name="timeStamp" value="376" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/django_redis/client/default.py</url>
+          <line>105</line>
+          <option name="timeStamp" value="379" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/django_redis/pool.py</url>
+          <line>63</line>
+          <option name="timeStamp" value="380" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file:///usr/local/lib/python2.7/site-packages/django_redis/pool.py</url>
+          <line>75</line>
+          <option name="timeStamp" value="381" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file:///usr/local/lib/python2.7/site-packages/redis/client.py</url>
+          <line>544</line>
+          <option name="timeStamp" value="382" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file:///usr/local/lib/python2.7/site-packages/redis/client.py</url>
+          <line>499</line>
+          <option name="timeStamp" value="383" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file:///usr/local/lib/python2.7/site-packages/redis/client.py</url>
+          <line>485</line>
+          <option name="timeStamp" value="384" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="django-line">
           <url>file://$PROJECT_DIR$/users/templates/users/partials/field.html</url>
@@ -2021,17 +1449,18 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="340" />
+      <option name="time" value="385" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.DjangoServer">
-        <watch expression="request.merchant" language="Python" />
-        <watch expression="super(SiteUserLoginView, self)" language="Python" />
-        <watch expression="request.META" language="Python" />
+        <watch expression="self._options" language="Python" />
+        <watch expression="self._clients" language="Python" />
+        <watch expression="self.connect(index)" language="Python" />
         <watch expression="list(Order.objects.filter(mid=_merchant).values())" language="Python" />
         <watch expression="Member.objects.get(id=1)" language="Python" />
         <watch expression="pjax_template_name.strip() or default" language="Python" />
         <watch expression="SiteUser.objects" language="Python" />
+        <watch expression="sortway" />
       </configuration>
       <configuration name="PythonConfigurationType">
         <watch expression="self.to_state.models.keys()" language="Python" />
@@ -2043,448 +1472,401 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/js/crm/usertable.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2460">
-          <caret line="164" column="29" selection-start-line="164" selection-start-column="29" selection-end-line="164" selection-end-column="29" />
-          <folding>
-            <marker date="1510738210746" expanded="true" signature="4428:4651" ph="[...]" />
-            <marker date="1510738210746" expanded="true" signature="4429:4650" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/notify.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/crm/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#50#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/views/generic/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/jquery.pjax.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="718" column="0" selection-start-line="718" selection-start-column="0" selection-end-line="718" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/member/static/js/siteuser.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="56" column="35" selection-start-line="56" selection-start-column="35" selection-end-line="56" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="27" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/templates/project/tables.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="645">
-          <caret line="43" column="65" selection-start-line="43" selection-start-column="65" selection-end-line="43" selection-end-column="65" />
-          <folding>
-            <marker date="1510759803987" expanded="true" signature="704:1019" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/genericpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="51" column="95" selection-start-line="51" selection-start-column="95" selection-end-line="51" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="14" column="54" selection-start-line="14" selection-start-column="40" selection-end-line="14" selection-end-column="54" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pikachu/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1185">
-          <caret line="81" column="14" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="14" />
-          <folding>
-            <element signature="e#311#320#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="20" selection-start-line="0" selection-start-column="20" selection-end-line="0" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/templates/pjax_base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="29" selection-start-line="1" selection-start-column="29" selection-end-line="1" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1515">
-          <caret line="109" column="30" selection-start-line="109" selection-start-column="30" selection-end-line="109" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/notify/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
-          <folding>
-            <element signature="e#25#57#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#32#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/core/servers/basehttp.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="498">
-          <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/templates/users/registration_form.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/SocketServer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/templates/mobile/mindex.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="10" selection-start-line="12" selection-start-column="10" selection-end-line="12" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/templates/mobile/mproductinfo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/templates/mobile/morder.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="10" selection-start-line="3" selection-start-column="4" selection-end-line="25" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crm/templates/mobile/merror.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="8" column="14" selection-start-line="8" selection-start-column="14" selection-end-line="8" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/utils/functional.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="359" column="22" selection-start-line="359" selection-start-column="6" selection-end-line="359" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/templates/mobile/mbase.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
-          <folding>
-            <marker date="1511362497503" expanded="true" signature="1460:1800" ph="..." />
-            <marker date="1511362497503" expanded="true" signature="1503:1786" ph="..." />
-            <marker date="1511362497503" expanded="true" signature="1519:1771" ph="..." />
-            <marker date="1511362497503" expanded="true" signature="1590:1660" ph="..." />
-            <marker date="1511362497503" expanded="true" signature="1671:1767" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/middleware.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-          <folding>
-            <element signature="e#25#77#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/login.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="63" selection-start-line="11" selection-start-column="56" selection-end-line="11" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-124">
-          <caret line="173" column="26" selection-start-line="173" selection-start-column="26" selection-end-line="173" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/crmmember/mem_custom.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="12" selection-start-line="23" selection-start-column="12" selection-end-line="23" selection-end-column="12" />
-          <folding>
-            <element signature="e#194#236#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/mobile/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="38" selection-start-line="5" selection-start-column="38" selection-end-line="5" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/contrib/auth/base_user.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/member/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="48" column="13" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="13" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/templates/siteuser/register.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="39" selection-start-line="10" selection-start-column="23" selection-end-line="10" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/mobile/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="26" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/http/response.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="293" column="0" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/socialoauth/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/context_processors.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-30">
-          <caret line="6" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/member/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="454">
-          <caret line="32" column="21" selection-start-line="32" selection-start-column="3" selection-end-line="32" selection-end-column="21" />
-          <folding>
-            <element signature="e#25#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#27#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crm/crmmember/mem_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="313">
-          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+        <state relative-caret-position="45">
+          <caret line="20" column="20" selection-start-line="20" selection-start-column="20" selection-end-line="20" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/crm/usertable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1860">
+          <caret line="124" column="41" selection-start-line="124" selection-start-column="41" selection-end-line="124" selection-end-column="41" />
           <folding>
-            <element signature="e#23#58#0" expanded="true" />
+            <marker date="1511613787671" expanded="true" signature="4723:4946" ph="[...]" />
+            <marker date="1511613787671" expanded="true" signature="4724:4945" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/js/siteuser/siteuser.js">
+    <entry file="file://$PROJECT_DIR$/crm/templates/partials/order_new.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180">
-          <caret line="81" column="37" selection-start-line="81" selection-start-column="37" selection-end-line="81" selection-end-column="37" />
+        <state relative-caret-position="222">
+          <caret line="21" column="31" selection-start-line="21" selection-start-column="31" selection-end-line="21" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/djcelery/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-81">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/templates/partials/qfield.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django/core/management/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="83">
+          <caret line="285" column="8" selection-start-line="285" selection-start-column="8" selection-end-line="285" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/tttbbb/std_tttbbb.csv" />
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="12" selection-start-line="12" selection-start-column="12" selection-end-line="12" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/tests.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/mobile/urls.py">
+    <entry file="file://$PROJECT_DIR$/crm/apps.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="42" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/forms.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1170">
+          <caret line="82" column="92" selection-start-line="82" selection-start-column="92" selection-end-line="82" selection-end-column="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
           <folding>
-            <element signature="e#24#56#0" expanded="true" />
+            <element signature="e#24#63#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pikachu/urls.py">
+    <entry file="file://$PROJECT_DIR$/crm/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="33" column="24" selection-start-line="33" selection-start-column="11" selection-end-line="33" selection-end-column="24" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#35#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/jquery-3.2.1.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1224">
+          <caret line="6093" column="21" selection-start-line="6093" selection-start-column="21" selection-end-line="6093" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django/contrib/auth/decorators.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-60">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="80" column="9" selection-start-line="80" selection-start-column="9" selection-end-line="80" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siteuser/notify/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crm/util.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="145" column="32" selection-start-line="145" selection-start-column="32" selection-end-line="145" selection-end-column="32" />
+        <state relative-caret-position="2445">
+          <caret line="174" column="75" selection-start-line="174" selection-start-column="75" selection-end-line="174" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/multiprocessing/pool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="344" column="0" selection-start-line="344" selection-start-column="0" selection-end-line="344" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/crm/crm_main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/js/crm/views/Ordermanager.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="36" column="20" selection-start-line="36" selection-start-column="20" selection-end-line="36" selection-end-column="20" />
           <folding>
-            <element signature="e#24#35#0" expanded="true" />
+            <element signature="n#!!doc" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1337">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/_threading_local.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="185" column="6" selection-start-line="185" selection-start-column="6" selection-end-line="185" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/riskmodule/black_number.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site-packages/django/core/cache/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="35" column="19" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="33" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/base/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django/core/cache/backends/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="89">
+          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pikachu/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="190" column="17" selection-start-line="190" selection-start-column="9" selection-end-line="190" selection-end-column="17" />
+          <folding>
+            <element signature="e#311#320#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/django_redis/cache.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="50" column="47" selection-start-line="50" selection-start-column="47" selection-end-line="50" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/worker.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="79" column="18" selection-start-line="79" selection-start-column="18" selection-end-line="79" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django/core/cache/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="74">
+          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/django_redis/pool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/pool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="75" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/django_redis/client/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-516">
+          <caret line="58" column="48" selection-start-line="58" selection-start-column="48" selection-end-line="58" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/redis/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8205">
+          <caret line="547" column="0" selection-start-line="547" selection-start-column="0" selection-end-line="547" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/redis/connection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13605">
+          <caret line="914" column="36" selection-start-line="914" selection-start-column="19" selection-end-line="914" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/cache.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="885">
+          <caret line="66" column="0" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/client/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1335">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="13" column="37" selection-start-line="13" selection-start-column="37" selection-end-line="13" selection-end-column="37" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pikachu/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="36" column="17" selection-start-line="36" selection-start-column="11" selection-end-line="36" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="dbDummy://dbtable:/9b1c957d/a068e049-e2fc-4058-8487-3fdf86ab124b/cms.crm_merchant">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/mobile/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="5" column="30" selection-start-line="5" selection-start-column="30" selection-end-line="5" selection-end-column="30" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crm/mobile/mobile_view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
-          <folding>
-            <element signature="e#24#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/os.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="520">
-          <caret line="547" column="0" selection-start-line="547" selection-start-column="0" selection-end-line="547" selection-end-column="0" />
+        <state relative-caret-position="165">
+          <caret line="33" column="56" selection-start-line="33" selection-start-column="38" selection-end-line="33" selection-end-column="56" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/member/views.py">
+    <entry file="file://$PROJECT_DIR$/users/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="120" column="32" selection-start-line="120" selection-start-column="32" selection-end-line="120" selection-end-column="32" />
-          <folding>
-            <element signature="e#24#33#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="1095">
+          <caret line="88" column="12" selection-start-line="88" selection-start-column="6" selection-end-line="88" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

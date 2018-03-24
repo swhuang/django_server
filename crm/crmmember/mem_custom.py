@@ -14,8 +14,8 @@ from django.shortcuts import redirect
 class AccountMxin(object):
     login_template = 'siteuser/login.html'  # 你项目的登录页面模板
     register_template = 'siteuser/register.html'  # 你项目的注册页面模板
-    reset_passwd_template = 'reset_password.html'  # 忘记密码的重置密码模板
-    change_passwd_template = 'change_password.html'  # 登录用户修改密码的模板
+    reset_passwd_template = 'siteuser/reset_password.html'  # 忘记密码的重置密码模板
+    change_passwd_template = 'siteuser/change_password.html'  # 登录用户修改密码的模板
     notify_template = 'siteuser/notify.html'
     reset_passwd_email_title = u'重置密码'  # 重置密码发送电子邮件的标题
     reset_passwd_link_expired_in = 24  # 重置密码链接多少小时后失效

@@ -2,20 +2,57 @@
 
 {% block siteuserform %}
     <form>{% csrf_token %}
-        <fieldset>
-            <label>电子邮件</label>
-            <input id="siteuserRegEmail" type="text" placeholder="电子邮件">
-            <label>用户名</label>
-            <input id="siteuserRegUsername" type="text" placeholder="用户名">
-            <label>手机</label>
-            <input id="siteuserRegPhone" type="text" placeholder="手机号">
-            <label>密码</label>
-            <input id="siteuserRegPassword" type="password" placeholder="密码">
-            <label>重复密码</label>
-            <input id="siteuserRegPassword2" type="password" placeholder="重复密码">
-        </fieldset>
-        <button id="siteuserRegister" type="submit" class="btn" referer={{ referer }}>注册</button>
+        <div class="mycenter">
+            <div class="mysign">
+                <div class="col-lg-11 text-center text-info">
+                    <h2>{{ merchant }}</h2>
+                </div>
+                <div class="col-lg-10">
+                    <input id="siteuserRegEmail" type="text" class="form-control" placeholder="请输电子邮件"
+                           required autofocus/>
+                </div>
+                <div class="col-lg-10"></div>
+                <div class="col-lg-10">
+                    <input id="siteuserRegUsername" type="text" class="form-control"
+                           placeholder="请输入用户名" required/>
+                </div>
+                <div class="col-lg-10"></div>
+                <div class="col-lg-10">
+                    <input id="siteuserRegPhone" type="text" class="form-control"
+                           placeholder="请输入手机号" required/>
+                </div>
+                <div class="col-lg-10"></div>
+                <div class="col-lg-10">
+                    <input id="siteuserRegPassword" type="password" class="form-control"
+                           placeholder="请输入密码" required/>
+                </div>
+                <div class="col-lg-10"></div>
+                <div class="col-lg-10">
+                    <input id="siteuserRegPassword2" type="password" class="form-control"
+                           placeholder="请重复密码" required/>
+                </div>
+                <div class="col-lg-10"></div>
+                <div class="col-lg-10">
+                    <button id="siteuserRegister" type="submit" class="btn btn-success" referer={{ referer }}>注册
+                    </button>
+                </div>
+                <div id="siteuserRegisterWarning" class="alert alert-error" style="display: none;">
+                </div>
+            </div>
+            <!--<fieldset>
+                <label>电子邮件</label>
+                <input id="siteuserRegEmail" type="text" placeholder="电子邮件">
+                <label>用户名</label>
+                <input id="siteuserRegUsername" type="text" placeholder="用户名">
+                <label>手机</label>
+                <input id="siteuserRegPhone" type="text" placeholder="手机号">
+                <label>密码</label>
+                <input id="siteuserRegPassword" type="password" placeholder="密码">
+                <label>重复密码</label>
+                <input id="siteuserRegPassword2" type="password" placeholder="重复密码">
+            </fieldset>-->
+
+        </div>
     </form>
-    <div id="siteuserRegisterWarning" class="alert alert-error" style="display: none;">
-    </div>
+
 {% endblock %}

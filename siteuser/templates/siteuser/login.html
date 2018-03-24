@@ -2,15 +2,46 @@
 
 {% block siteuserform %}
     <form>{% csrf_token %}
-        <fieldset>
-            <label>电子邮件</label>
-            <input id="siteuserLoginEmail" type="text" placeholder="电子邮件">
-            <label>密码</label>
-            <input id="siteuserLoginPassword" type="password" placeholder="密码">
-        </fieldset>
-        <button id="siteuserLogin" class="btn" referer={{ referer }}>登录</button>
-        <button id="siteuserReg" class="btn" referer={{ reg_ref }}>注册</button>
+        <div class="mycenter">
+            <div class="mysign">
+                <div class="col-lg-11 text-center text-info">
+                    <h2>{{ merchant }}</h2>
+                </div>
+                <div class="col-lg-10">
+                    <input id="siteuserLoginEmail" type="text" class="form-control" name="username" placeholder="请输入账户名"
+                           required autofocus/>
+                </div>
+                <div class="col-lg-10"></div>
+                <div class="col-lg-10">
+                    <input id="siteuserLoginPassword" type="password" class="form-control" name="password"
+                           placeholder="请输入密码" required autofocus/>
+                </div>
+                <div class="col-lg-10"></div>
+
+                <div class="col-lg-10">
+                    <button id="siteuserLogin" type="button" class="btn btn-success col-lg-12" referer={{ referer }}>
+                        登录
+                    </button>
+                    <button id="siteuserReg" type="button" class="btn col-lg-12" referer={{ reg_ref }}>注册</button>
+                </div>
+                <!--<fieldset>
+                    <div class="row">
+                        <label>电子邮件</label>
+                        <input id="siteuserLoginEmail" type="text" placeholder="电子邮件">
+                    </div>
+                    <div class="row">
+                        <label>密码</label>
+                        <input id="siteuserLoginPassword" type="password" placeholder="密码">
+                    </div>
+                </fieldset>
+                <button id="siteuserLogin" class="btn" referer={{ referer }}>登录</button>
+                <button id="siteuserReg" class="btn" referer={{ reg_ref }}>注册</button>-->
+                <div id="siteuserLoginWarning" class="alert alert-error" style="display: none;"></div>
+                <div class="col-lg-10">
+                    <p><a href="{% url 'siteuser_reset_step1' %}">忘记密码？</a></p>
+                </div>
+            </div>
+        </div>
     </form>
-    <div id="siteuserLoginWarning" class="alert alert-error" style="display: none;"></div>
-    <p><a href="{% url 'siteuser_reset_step1' %}">忘记密码？</a></p>
+
 {% endblock %}

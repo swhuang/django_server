@@ -6,7 +6,8 @@
     {% include "users/partials/honeypot.html" %}
 {% else %}
     <!--<div class="form-group">-->
-
+    <div class="col-sm-4" xmlns="http://www.w3.org/1999/html">
+        <div class="input-group">
             {% if field.errors %}
                 <ul class="errorlist">
                     {{ field.errors|unordered_list }}
@@ -15,25 +16,29 @@
             {% if field|is_checkbox %}
                 {{ field }}
             {% endif %}
+            <div class="col-sm-5 ">
+            <label for="{{ field.id_for_label }}"{% if field.field.required %}
+                   class="required control-label"{% endif %}
+                   style="width:100px">
+                {% if field.id_for_label == 'id_password' %}
+                    密码
+                {% else %}
+                    {{ field.label }}
+                {% endif %}
 
-                <label for="{{ field.id_for_label }}"{% if field.field.required %} class="required col-sm-2 control-label"{% endif %}
-                style="width:100px">
-                    {% if field.id_for_label == 'id_password' %}
-                        密码
-                    {% else %}
-                        {{ field.label }}
-                    {% endif %}
+            </label>
+            </div>
+            <div class="col-sm-7 form-input" style="padding-left: 0px;padding-right: 0px;height: 30px">
+                {% if not field|is_checkbox %}
+                    {{ field }}
+                    </input>
+                {% endif %}
+                {% if field.help_text %}
+                    <div class="help_text invisible">{{ field.help_text|safe }}</div>
+                {% endif %}
+            </div>
 
-                </label>
-                <div class="col-sm-2 form-input">
-                    {% if not field|is_checkbox %}
-                        {{ field }}
-                    {% endif %}
-                    {% if field.help_text %}
-                        <div class="help_text">{{ field.help_text|safe }}</div>
-                    {% endif %}
-                </div>
-
-
+        </div>
+    </div>
     <!--</div>-->
 {% endif %}
