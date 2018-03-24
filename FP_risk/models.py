@@ -13,8 +13,9 @@ print(r.get('gender'))
 
 cache.set("foo", "value", timeout=25)
 print cache.get("foo")
-
+'''
 worker = Worker()
 worker.start()
 r = worker.submit(pow, 3,3)
 print(r.result())
+'''
