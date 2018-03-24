@@ -136,9 +136,9 @@ def generatetestmerchant(request):
     _key = mUtil.generate_key()
     print _key
     try:
-        p = Merchant.objects.get(merchantid='100000000000007')
+        p = Merchant.objects.get(merchantid='100000000000001')
     except Merchant.DoesNotExist:
-        p = Merchant(merchantid='100000000000007', name=u'测试商户1', key=_key)
+        p = Merchant(merchantid='100000000000001', name=u'测试商户1', key=_key)
         p.save()
         _mcht = Merchant.objects.get(merchantid='100000000000001')
         p = Project(proj_name=u'测试项目1', mid=_mcht)
