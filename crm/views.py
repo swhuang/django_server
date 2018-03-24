@@ -138,6 +138,7 @@ def generatetestmerchant(request):
     except Merchant.DoesNotExist:
         p = Merchant(merchantid='100000000000007', name=u'测试商户1', key=_key)
         p.save()
+    return HttpResponse('ook')
     l = []
     from django.db.models import Count
     count = Userdata.objects.aggregate(Count('id'))
