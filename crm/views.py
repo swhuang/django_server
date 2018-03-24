@@ -127,16 +127,21 @@ def test(request):
 
 
 def generatetestmerchant(request):
+    '''
     _mcht = Merchant.objects.get(merchantid='100000000000001')
     p = Project(proj_name=u'测试项目1', mid=_mcht)
     p.save()
     return HttpResponse('I am ok')
+    '''
     _key = mUtil.generate_key()
     print _key
     try:
         p = Merchant.objects.get(merchantid='100000000000007')
     except Merchant.DoesNotExist:
         p = Merchant(merchantid='100000000000007', name=u'测试商户1', key=_key)
+        p.save()
+        _mcht = Merchant.objects.get(merchantid='100000000000001')
+        p = Project(proj_name=u'测试项目1', mid=_mcht)
         p.save()
     return HttpResponse('ook')
     l = []
