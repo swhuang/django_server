@@ -1,3 +1,4 @@
 *.py[cod]
 site-packages/*
 *.pyc
+.idea/workspace.xml
