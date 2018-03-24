@@ -65,7 +65,8 @@ class UserCreationForm(forms.ModelForm):
             from crm.models import Merchant
             _merchant = Merchant.objects.get(merchantid=self.cleaned_data['mid'])
         except:
-            print "error!!!!"
+            print "error!!!!"+str(self.cleaned_data['mid'])
+
         user.mid = _merchant
         if commit:
             user.save()
@@ -106,7 +107,7 @@ class MemberCreationForm(forms.ModelForm):
             from crm.models import Merchant
             _merchant = Merchant.objects.get(merchantid=self.cleaned_data['mid'])
         except:
-            print "error!!!!"
+            print "error!!!!"+"error!!!!"+str(self.cleaned_data['mid'])
         member.mid = _merchant
         if commit:
             member.save()
