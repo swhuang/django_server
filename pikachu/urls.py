@@ -21,7 +21,7 @@ from django.contrib.auth import urls as auth_urls
 from users import views as userview
 
 urlpatterns = [
-    url(r'^$', app_view.index, name="home"),
+    url(r'^$', crm_view.crm_main, name="home"),
     url(r'^test', userview.mmmtest),
     url(r'^getmodel', app_view.getmodel),
     url(r'^GetParkingInfo', app_view.GetParkingInfo),

@@ -3,7 +3,7 @@ import views
 import crmmember.mem_views as mem_views
 
 urlpatterns = [
-    url(r'form/$', views.crmtest, name='content_manager'),
+    url(r'form/$', views.crm_main, name='content_manager'),
     url(r'interfacetest/$', views.test),
     url(r'getsessiontoken/$', views.getSessionToken),
     url(r'getuserdata/$', views.getUserData),

@@ -26,7 +26,7 @@ def pjaxtest(request):
 @permission_required('crm.view')
 @login_required(login_url="/accounts/login/")
 #@pjax("project/tables-pjax.html")
-def crmtest(request, template_name="project/tables.html"):
+def crm_main(request, template_name="project/tables.html"):
     r'''
     用户管理页面
     :param request:

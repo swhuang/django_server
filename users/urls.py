@@ -20,7 +20,7 @@ urlpatterns = [
         activate, name='users_activate'),
 
     url(r'^login/$', login, {'template_name': 'users/login.html'}, name='users_login'),
-    url(r'^crmtest/$',crmviews.crmtest),
+    url(r'^crmtest/$', crmviews.crm_main),
     #url(r'^logout/$', logout, {'template_name': 'users/logout.html','extra_context':{'pagename':'users_logout'}}, name='users_logout'),
     url(r'^logout/$', logout_then_login, name='users_logout'),
     url(r'^password_change/$', password_change,
