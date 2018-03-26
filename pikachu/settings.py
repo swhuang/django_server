@@ -32,6 +32,8 @@ if platform.system() == 'Darwin':
 else:
     DEBUG = False
 
+DEBUG = True
+
 ALLOWED_HOSTS = ['*', ]
 
 from os import environ
