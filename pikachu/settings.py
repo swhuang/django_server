@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 import os
 import djcelery
 import siteuser
+import platform
 
 djcelery.setup_loader()
 
@@ -26,7 +27,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'tiz+&t3)%9-!s*ia&0l!9q=cb2k4o8vbjphglrffnk@a)=wjxe'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if platform.system() == 'Darwin':
+    DEBUG = True
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['*', ]
 
