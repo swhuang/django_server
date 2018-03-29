@@ -37,43 +37,7 @@ DEBUG = True
 ALLOWED_HOSTS = ['*', ]
 
 from os import environ
-#import sae.const
-'''
-print "I am testing!!"
 
-if 'SERVER_SOFTWARE' in environ:
-    DOMAIN = 'http://pikachu.sinaapp.com'
-
-    db_name = sae.const.MYSQL_DB
-    name = sae.const.MYSQL_USER
-    pwd = sae.const.MYSQL_PASS
-    host = sae.const.MYSQL_HOST
-    port = sae.const.MYSQL_PORT
-    host_s = sae.const.MYSQL_HOST_S
-    # CACHES_BACKEND=
-    UEDITOR_UPLOAD = {
-        'BACKEND': 'DjangoUeditor.saebackend',
-        'DOMAIN': 'pikachu',
-    }
-else:
-    DOMAIN = 'http://localhost:3306'
-    CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
-    if True:
-        host = 'localhost'
-        port = '3306'
-        name = 'root'
-        pwd = 'vq8612VQE'
-        db_name = 'cms'
-    else:
-        from sae._restful_mysql import monkey
-
-        monkey.patch()
-        host = sae.const.MYSQL_HOST
-        port = sae.const.MYSQL_PORT
-        name = '01zm2lxz4k'
-        pwd = 'k1mxkm35yj3ilw2hz4lxik2hklhwmx35zymh24hj'
-        db_name = 'app_pikachu'
-'''
 DOMAIN = 'http://localhost:3306'
 #CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
 host = 'localhost'
@@ -104,7 +68,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pikachutest',
     'crm',
     'users',
     'easy_pjax',

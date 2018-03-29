@@ -15,6 +15,7 @@ from django.template.response import TemplateResponse
 from users.models import Member, Merchant, Project, ExtendMember
 import copy
 from djpjax import pjax
+from django.contrib.auth.models import Group,Permission
 
 
 @pjax("project/tables-pjax.html")
@@ -133,8 +134,19 @@ def generatetestmerchant(request):
     p.save()
     return HttpResponse('I am ok')
     '''
+
     _key = mUtil.generate_key()
     print _key
+    try:
+        Gp = Group.objects.get(name='OrderUser')
+        Gp.permissions = [i for i in Permission.objects.all()]
+    except:
+        Gp = Group(name='OrderUser')
+        Gp.save()
+        Gp.permissions = [i for i in Permission.objects.all()]
+
+    print("Create group 'OrderUser' done!")
+
     try:
         p = Merchant.objects.get(merchantid='100000000000001')
     except Merchant.DoesNotExist:

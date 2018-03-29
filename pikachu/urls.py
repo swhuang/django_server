@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from pikachutest import views as app_view
 from crm import views as crm_view
 from django.contrib.auth import urls as auth_urls
 from users import views as userview
@@ -23,13 +22,7 @@ from users import views as userview
 urlpatterns = [
     url(r'^$', crm_view.crm_main, name="home"),
     url(r'^test', userview.mmmtest),
-    url(r'^getmodel', app_view.getmodel),
-    url(r'^GetParkingInfo', app_view.GetParkingInfo),
     url(r'^admin/', admin.site.urls),
-    url(r'^initatable', app_view.initatable),
-    url(r'^UpdateParkingData', app_view.UpdateParkingData),
-    url(r'^TimeTable', app_view.TimeTable),
-    url(r'^SortTable', app_view.SortTable),
     url(r'', include('siteuser.urls')),
     url(r'^accounts/', include('users.urls')),
     url(r'^userform/', include('crm.urls')),

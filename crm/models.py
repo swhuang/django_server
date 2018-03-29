@@ -49,7 +49,8 @@ class Merchant(models.Model):
     def save(self, *args, **kwargs):
         _m = super(Merchant, self).save(*args, **kwargs)
         #_m = self.save()
-        self.merchantid = "%015d" % self.id
+        if self.merchantid == None or self.merchantid == '':
+            self.merchantid = "%015d" % self.id
         super(Merchant, self).save(force_update=True, update_fields=['merchantid'])
 
     def toJSON(self):
