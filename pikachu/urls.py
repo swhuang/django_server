@@ -20,12 +20,12 @@ from django.contrib.auth import urls as auth_urls
 from users import views as userview
 
 urlpatterns = [
-    url(r'^$', crm_view.crm_main, name="home"),
+    #url(r'^$', crm_view.crm_main, name="home"),
     url(r'^test', userview.mmmtest),
     url(r'^admin/', admin.site.urls),
     url(r'', include('siteuser.urls')),
     url(r'^accounts/', include('users.urls')),
-    url(r'^userform/', include('crm.urls')),
+    url(r'^', include('crm.urls')),
     url(r'^local/', include('crm.local_Interface.urls')),
     url(r'^mobile/', include('crm.mobile.urls'))
 ]
