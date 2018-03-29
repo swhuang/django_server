@@ -10,7 +10,7 @@ import crm.util as mUtil
 from django.views.decorators.csrf import csrf_exempt
 import json
 from crm.forms import QueryForm, OrderPaymentForm, OrderGenForm
-from users.models import User as Usermodel
+from users.models import Order
 from django.template.response import TemplateResponse
 from users.models import Member, Merchant, Project
 from django.core.urlresolvers import reverse
@@ -71,6 +71,8 @@ def ordersubmit(request):
             context['form'] = OrderPaymentForm()
         except p.DoesNotExist:
             print "Not found project"
+        #add new order
+        #new_order = Order()
         return TemplateResponse(request, "mobile/morder.html", context)
     else:
         pass
