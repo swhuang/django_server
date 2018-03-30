@@ -5,22 +5,19 @@
     <div class="navbar-collapse collapse templatemo-sidebar">
         <ul class="templatemo-sidebar-menu">
             <li>
-                <span>商户号: {{ merchant }}</span>
-            </li>
-            <li>
                 <form class="navbar-form">
                     <input type="text" class="form-control" id="templatemo_search_box" placeholder="Search...">
                     <span class="btn btn-default">Go</span>
                 </form>
             </li>
-            <li><a href="index.html"><i class="fa fa-home"></i>{{ merchant }}</a></li>
+            <li><a href="index.html"><i class="fa fa-home"></i>{{ mid_name }}</a></li>
             <li class="sub">
                 <a href="javascript:;">
                     <i class="fa fa-users"></i> 会员信息管理
                     <div class="pull-right"><span class="caret"></span></div>
                 </a>
                 <ul class="templatemo-submenu">
-                    <li><a data-pjax href="{% url 'content_manager' %}">会员信息管理</a></li>
+                    <li><a data-pjax href="{% url 'membermgr' %}">会员信息管理</a></li>
                 </ul>
             </li>
             <li class="sub">
@@ -40,6 +37,16 @@
                 </a>
                 <ul class="templatemo-submenu">
                     <li><a data-pjax href="{% url 'ordermanager' %}">订单查询</a></li>
+                    <li><a href="#">支付订单查询</a></li>
+                </ul>
+            </li>
+            <li class="sub">
+                <a href="javascript:;">
+                    <i class="fa fa-cubes"></i> 门店管理
+                    <div class="pull-right"><span class="caret"></span></div>
+                </a>
+                <ul class="templatemo-submenu">
+                    <li><a data-pjax href="{% url 'submanager' %}">门店查询</a></li>
                     <li><a href="#">支付订单查询</a></li>
                 </ul>
             </li>

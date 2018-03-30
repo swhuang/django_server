@@ -12,5 +12,7 @@ urlpatterns = [
     url(r'projectmanager/$', views.panel_projectform, name='prj_manager'),
     url(r'member_reg/$', mem_views.member_reg, name='member_reg'),
     url(r'preferences/$', views.panel_preferences, name='preferences'),
-    url(r'ordermanager', views.panel_ordermanager, name='ordermanager')
+    url(r'ordermanager', views.panel_ordermanager, name='ordermanager'),
+    url(r'membermanager', views.crm_main, name='membermgr'),
+    url(r'submanager', views.panel_submanager, name='submanager')
 ]

@@ -26,7 +26,6 @@ def pjaxtest(request):
 # Create your views here.
 @permission_required('crm.view')
 @login_required(login_url="/accounts/login/")
-#@pjax("project/tables-pjax.html")
 def crm_main(request, template_name="project/tables.html"):
     r'''
     用户管理页面
@@ -71,6 +70,7 @@ def crm_main(request, template_name="project/tables.html"):
         'ispjax': ispjax,
         'form': form,
         'merchant': _merchant.merchantid,
+        'mid_name': _merchant.name,
         'tablename': u'用户管理',
         'col_name': keylst,
         'mem_data': mem_data
@@ -86,6 +86,7 @@ def panel_projectform(request):
     context = {
         'tablename': u'项目管理',
         'merchant': request.user.mid.merchantid,
+        'mid_name': request.user.mid.name,
         'form': form,
         'form_new': form_new
     }
@@ -106,6 +107,21 @@ def panel_ordermanager(request):
     context = {
         'tablename': u'订单管理',
         'merchant': request.user.mid.merchantid,
+        'mid_name': request.user.mid.name,
+        'form': form,
+        'form_new': form_new
+    }
+    return render(request, "project/OrderManager.html", context)
+
+@permission_required('crm.view')
+@login_required(login_url="/accounts/login/")
+def panel_submanager(request):
+    form = OrderQueryForm(request.user.mid)
+    form_new = OrderGenForm(request.user.mid)
+    context = {
+        'tablename': u'门店管理',
+        'merchant': request.user.mid.merchantid,
+        'mid_name': request.user.mid.name,
         'form': form,
         'form_new': form_new
     }
