@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'crm',
     'users',
     'easy_pjax',
+    'commom',
     'djcelery',
     'siteuser.member',
     'siteuser.notify',

@@ -12,7 +12,7 @@ import json
 from crm.forms import QueryForm, OrderQueryForm, ProjQueryForm, ProjNewFrom, OrderGenForm
 from users.models import User as Usermodel
 from django.template.response import TemplateResponse
-from users.models import Member, Merchant, Project, ExtendMember
+from users.models import Member, ExtendMember
 import copy
 from djpjax import pjax
 from django.contrib.auth.models import Group,Permission
@@ -82,7 +82,7 @@ def crm_main(request, template_name="project/tables.html"):
 @login_required(login_url="/accounts/login/")
 def panel_projectform(request):
     form = ProjQueryForm()
-    form_new = ProjNewFrom()
+    form_new = ProjNewFrom(request.user.mid)
     context = {
         'tablename': u'项目管理',
         'merchant': request.user.mid.merchantid,

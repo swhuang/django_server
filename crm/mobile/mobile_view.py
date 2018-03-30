@@ -10,9 +10,10 @@ import crm.util as mUtil
 from django.views.decorators.csrf import csrf_exempt
 import json
 from crm.forms import QueryForm, OrderPaymentForm, OrderGenForm
-from users.models import Order
 from django.template.response import TemplateResponse
-from users.models import Member, Merchant, Project
+from users.models import Member
+from crm.models import Merchant,Project
+
 from django.core.urlresolvers import reverse
 from crm.mobile.settings import ErrorInfo
 from crm.util import mlogin_required

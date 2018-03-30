@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from crm.models import Merchant
-from users.models import Project
+from crm.models import Merchant,Project
 from users.fields import PhoneField, MerchantField
 from django.utils.translation import ugettext_lazy as _
 
@@ -62,8 +61,20 @@ class ProjNewFrom(forms.Form):
     新增项目表单
     '''
     error_messages = {}
+    _attrs = {'class': 'form-control input-sm'}
+    def __init__(self, _merchant):
+        '''
+
+        :param _merchant: Merchant object
+        '''
+        super(ProjNewFrom, self).__init__()
+        self.merchant = _merchant
+
+
     projname = forms.CharField(label=_(u'项目名称'), max_length=100,
                                widget=forms.TextInput(attrs={'class': 'form-control input-sm'}))
+
+
 
 
 class OrderGenForm(forms.Form):

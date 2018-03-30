@@ -12,7 +12,7 @@ import json
 from crm.forms import QueryForm, OrderGenForm
 from users.models import User as Usermodel
 from django.template.response import TemplateResponse
-from users.models import Member, Merchant, Order, Project
+from users.models import Member
 import copy
 
 

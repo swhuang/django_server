@@ -13,8 +13,8 @@ from utils import gettimestamp
 import datetime
 from decimal import Decimal
 import json
-from django.contrib.auth.backends import ModelBackend
-from django.contrib.auth.tokens import default_token_generator
+#from django.contrib.auth.backends import ModelBackend
+#from django.contrib.auth.tokens import default_token_generator
 
 
 class AbstractUser(AbstractBaseUser, PermissionsMixin):
@@ -216,115 +216,6 @@ class ExtendMember(AbstractBaseUser):
             else:
                 d[attr] = getattr(self, attr)
         return d
-
-
-class Project(models.Model):
-    r"""
-
-    """
-    proj_id = models.CharField(max_length=10, default='', db_index=True)
-    proj_name = models.CharField(max_length=128, default='')
-    mid = models.ForeignKey(Merchant, null=True)
-
-    def save(self, *args, **kwargs):
-        super(Project, self).save(*args, **kwargs)
-        self.proj_id = "%010d" % self.id
-        super(Project, self).save(force_update=True, update_fields=['proj_id'])
-
-    def toJSON(self):
-        fields = []
-        for field in self._meta.fields:
-            fields.append(field.name)
-
-        d = {}
-        for attr in fields:
-            if isinstance(getattr(self, attr), Merchant):
-                dic = json.loads(getattr(self, attr).toJSON())
-                d.update(dic)
-            elif isinstance(getattr(self, attr), Decimal):
-                d[attr] = str(getattr(self, attr))
-            else:
-                d[attr] = getattr(self, attr)
-        return json.dumps(d)
-
-    def getDict(self):
-        fields = []
-        for field in self._meta.fields:
-            fields.append(field.name)
-
-        d = {}
-        for attr in fields:
-            if isinstance(getattr(self, attr), Merchant):
-                d.update(getattr(self, attr).getDict())
-            elif isinstance(getattr(self, attr), Decimal):
-                d[attr] = str(getattr(self, attr))
-            else:
-                d[attr] = getattr(self, attr)
-        return d
-
-
-class Order(models.Model):
-    r"""
-
-    """
-    userinfo = models.ForeignKey(Member, null=True)
-    proj = models.ForeignKey(Project, null=True)
-    paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
-    orderamount = models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
-    payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
-    payment_status = models.SmallIntegerField(_(u'支付状态'))
-    mid = models.ForeignKey(Merchant, db_index=True, null=True)
-    orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
-
-    def toJSON(self):
-        fields = []
-        for field in self._meta.fields:
-            fields.append(field.name)
-
-        d = {}
-        for attr in fields:
-            if isinstance(getattr(self, attr), datetime.datetime):
-                d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
-            elif isinstance(getattr(self, attr), datetime.date):
-                d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
-            elif isinstance(getattr(self, attr), Merchant):
-                dic = json.loads(getattr(self, attr).toJSON())
-                d.update(dic)
-            elif isinstance(getattr(self, attr), Project):
-                dic = json.loads(getattr(self, attr).toJSON())
-                d.update(dic)
-            elif isinstance(getattr(self, attr), Member):
-                dic = json.loads(getattr(self, attr).toJSON())
-                d.update(dic)
-            elif isinstance(getattr(self, attr), Decimal):
-                d[attr] = str(getattr(self, attr))
-            else:
-                d[attr] = getattr(self, attr)
-        return json.dumps(d)
-
-    def getDict(self):
-        fields = []
-        for field in self._meta.fields:
-            fields.append(field.name)
-
-        d = {}
-        for attr in fields:
-            if isinstance(getattr(self, attr), datetime.datetime):
-                d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
-            elif isinstance(getattr(self, attr), datetime.date):
-                d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
-            elif isinstance(getattr(self, attr), Merchant):
-                d.update(getattr(self, attr).getDict())
-            elif isinstance(getattr(self, attr), Project):
-                d.update(getattr(self, attr).getDict())
-            elif isinstance(getattr(self, attr), Member):
-                d.update(getattr(self, attr).getDict())
-            elif isinstance(getattr(self, attr), Decimal):
-                d[attr] = str(getattr(self, attr))
-            else:
-                d[attr] = getattr(self, attr)
-        return d
-
 
 '''
 class Permission(models.Model):
