@@ -20,7 +20,6 @@ from django.contrib.auth import urls as auth_urls
 from users import views as userview
 
 urlpatterns = [
-    #url(r'^$', crm_view.crm_main, name="home"),
     url(r'^test', userview.mmmtest),
     url(r'^admin/', admin.site.urls),
     url(r'', include('siteuser.urls')),

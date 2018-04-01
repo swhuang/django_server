@@ -29,7 +29,7 @@ def index(request):
     try:
         p = Project.objects.get(id=1)
         context['projects'].append(p.getDict())
-    except p.DoesNotExist:
+    except Project.DoesNotExist:
         print "Not found project"
         pass
     return TemplateResponse(request, "mobile/mindex.html", context)
