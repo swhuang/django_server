@@ -76,7 +76,7 @@ INSTALLED_APPS = [
     'siteuser.member',
     'siteuser.notify',
     'FP_risk',
-    # 'gunicorn',
+    'gunicorn',
 ]
 
 AUTH_USER_MODEL = 'users.User'
@@ -186,6 +186,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'collectstatic')
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
+    '/siteuser/member/static',
 )
 
 DEFAULT_CHARSET = 'GBK'
