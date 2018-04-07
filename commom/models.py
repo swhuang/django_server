@@ -6,18 +6,32 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from pikachu import settings
 
-
-
 # Create your models here.
-class BaseModel(models.Model):
-
+class initModel(models.Model):
     gmt_create = models.DateTimeField(_('添加时间'), default=timezone.now)
     gmt_modified = models.DateTimeField(_('修改时间'), default=timezone.now)
+
     class Meta:
         abstract = True
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
         self.gmt_modified = timezone.now()
-        super(BaseModel, self).save()
+        super(initModel, self).save()
+
+    def getDict(self):
+        d = {}
+        print '{k}'.format(k='删掉')
+        d['gmt_create'] = self.gmt_create.strftime('%y-%m-%d %H:%M:%S')
+        d['gmt_modified'] = self.gmt_modified.strftime('%y-%m-%d %H:%M:%S')
+        print d
+        return d
+
+class BaseModel(initModel):
+
+    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
+
+    class Meta:
+        abstract = True
+
 

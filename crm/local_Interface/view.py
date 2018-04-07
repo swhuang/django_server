@@ -29,7 +29,7 @@ def GetTableData(request):
         _search = request.POST.get('search', None)
         rspdata = []
         marg = {
-            'mid': _merchant
+            'mid': _merchant.merchantid
         }
         max_count = 0
         if table_name == 'member':

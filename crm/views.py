@@ -144,12 +144,12 @@ def test(request):
 
 
 def generatetestmerchant(request):
-    '''
+
     _mcht = Merchant.objects.get(merchantid='100000000000001')
-    p = Project(proj_name=u'测试项目1', mid=_mcht)
+    p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
     p.save()
     return HttpResponse('I am ok')
-    '''
+
 
     _key = mUtil.generate_key()
     print _key

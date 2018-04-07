@@ -6,7 +6,7 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from commom.models import BaseModel
+from commom.models import BaseModel, initModel
 from pikachu import settings
 from decimal import Decimal
 from users.utils import gettimestamp
@@ -39,7 +39,7 @@ class MerchantManager(models.Manager):
 
 # @python_2_unicode_compatible
 #主商户
-class Merchant(BaseModel):
+class Merchant(initModel):
     _uuid = autonumber
     merchantid = models.CharField(_(u'商户号'), max_length=15, unique=True, db_index=True, default='10000000123')
     name = models.CharField(_(u'商户名称'), max_length=200)
@@ -86,13 +86,14 @@ class Merchant(BaseModel):
                 d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
             else:
                 d[attr] = getattr(self, attr)
+        d.update(super(Merchant, self).getDict())
         return d
 
 DEFAULT_MERCHANT_OBJ = Merchant(merchantid=settings.DEFAULT_MERCHANT)#
 # 门店
 class Submerchant(BaseModel):
     subid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, unique=True) #primary key
-    basemerchantid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    #basemerchantid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
     class Meta:
         verbose_name = _('Submerchant')
         verbose_name_plural = _('Submerchant')
@@ -100,14 +101,14 @@ class Submerchant(BaseModel):
 
 #商品
 class ProductDetail(BaseModel):
-    productid = models.CharField(_(u'产品编号'), max_length=18, db_index=True, unique=True) #primary key
-    productname = models.CharField(_(u'产品名称'), max_length=30)
+    productid = models.CharField(_(u'产品编号'), max_length=18, db_index=True, unique=True, default='0') #primary key
+    productname = models.CharField(_(u'产品名称'), max_length=30, null=True)
     productprice = models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
-    proddesc = models.CharField(_(u'产品描述'), max_length=500)
-    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    proddesc = models.CharField(_(u'产品描述'), max_length=500, null=True)
+    #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
 
     class Meta:
-        ordering = ('productid', )
+        ordering = ('productid', 'mid')
 
     def __str__(self):
         return self.productid
@@ -120,7 +121,12 @@ class Project(BaseModel):
     proj_id = models.CharField(max_length=10, default='', db_index=True)
     proj_name = models.CharField(max_length=128, default='')
     #mid = models.ForeignKey(Merchant, null=True, default=Merchant(merchantid=settings.DEFAULT_MERCHANT))
-    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
+    userid = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+
+    class Meta:
+        ordering = ('proj_id', 'mid')
 
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
@@ -156,6 +162,7 @@ class Project(BaseModel):
                 d[attr] = str(getattr(self, attr))
             else:
                 d[attr] = getattr(self, attr)
+        d.update(super(Project, self).getDict())
         return d
 
 class Order(BaseModel):
@@ -164,13 +171,14 @@ class Order(BaseModel):
     """
     from users.models import Member
     userinfo = models.ForeignKey(Member, null=True)
+    userid = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     proj = models.ForeignKey(Project, null=True)
     paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
     orderamount = models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
     payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
     payment_status = models.SmallIntegerField(_(u'支付状态'))
     #mid = models.ForeignKey(Merchant, db_index=True, null=True, default=Merchant(merchantid=settings.DEFAULT_MERCHANT))
-    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
     orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
 
     class Meta:
@@ -224,12 +232,14 @@ class Order(BaseModel):
                 d[attr] = str(getattr(self, attr))
             else:
                 d[attr] = getattr(self, attr)
+        d.update(super(Order,self).getDict())
         return d
 
 
 class PaymentOrder(BaseModel):
     payment_id = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
-    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    order_id = models.CharField(max_length=20, default='0')
+    #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
 
 class Userdata(models.Model):
     username = models.CharField(_(u'用户名'), max_length=200)
