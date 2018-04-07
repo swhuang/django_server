@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from commom.models import BaseModel
-
+from pikachu import settings
 from decimal import Decimal
 from users.utils import gettimestamp
 import random
@@ -38,6 +38,7 @@ class MerchantManager(models.Manager):
     '''
 
 # @python_2_unicode_compatible
+#主商户
 class Merchant(BaseModel):
     _uuid = autonumber
     merchantid = models.CharField(_(u'商户号'), max_length=15, unique=True, db_index=True, default='10000000123')
@@ -87,13 +88,39 @@ class Merchant(BaseModel):
                 d[attr] = getattr(self, attr)
         return d
 
+DEFAULT_MERCHANT_OBJ = Merchant(merchantid=settings.DEFAULT_MERCHANT)#
+# 门店
+class Submerchant(BaseModel):
+    subid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, unique=True) #primary key
+    basemerchantid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    class Meta:
+        verbose_name = _('Submerchant')
+        verbose_name_plural = _('Submerchant')
+
+
+#商品
+class ProductDetail(BaseModel):
+    productid = models.CharField(_(u'产品编号'), max_length=18, db_index=True, unique=True) #primary key
+    productname = models.CharField(_(u'产品名称'), max_length=30)
+    productprice = models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
+    proddesc = models.CharField(_(u'产品描述'), max_length=500)
+    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+
+    class Meta:
+        ordering = ('productid', )
+
+    def __str__(self):
+        return self.productid
+
+#租赁服务
 class Project(BaseModel):
     r"""
 
     """
     proj_id = models.CharField(max_length=10, default='', db_index=True)
     proj_name = models.CharField(max_length=128, default='')
-    mid = models.ForeignKey(Merchant, null=True)
+    #mid = models.ForeignKey(Merchant, null=True, default=Merchant(merchantid=settings.DEFAULT_MERCHANT))
+    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
 
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
@@ -142,8 +169,12 @@ class Order(BaseModel):
     orderamount = models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
     payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
     payment_status = models.SmallIntegerField(_(u'支付状态'))
-    mid = models.ForeignKey(Merchant, db_index=True, null=True)
+    #mid = models.ForeignKey(Merchant, db_index=True, null=True, default=Merchant(merchantid=settings.DEFAULT_MERCHANT))
+    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
     orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
+
+    class Meta:
+        ordering = ('orderid',)
 
     def toJSON(self):
         fields = []
@@ -196,6 +227,10 @@ class Order(BaseModel):
         return d
 
 
+class PaymentOrder(BaseModel):
+    payment_id = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
+    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+
 class Userdata(models.Model):
     username = models.CharField(_(u'用户名'), max_length=200)
     date_joined = models.DateTimeField(_(u'添加时间'), default=timezone.now)
@@ -215,9 +250,6 @@ class Userdata(models.Model):
     class Meta:
         verbose_name = _('Userdata')
         verbose_name_plural = _('Merchant')
-
-
-
 
 
 class Datapool(models.Model):
@@ -260,3 +292,4 @@ class TokenManager(models.Model):
     token = models.CharField(_(u'用户token'), max_length=100, db_index=True)
     count = models.IntegerField(_(u'已访问次数'), default=0)
     max_count = models.IntegerField(_(u'最大访问次数'), default=100)
+

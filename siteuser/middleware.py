@@ -4,6 +4,7 @@ from django.utils.functional import SimpleLazyObject
 
 from siteuser.member.models import SiteUser
 from users.models import Merchant
+from crm.models import DEFAULT_MERCHANT_OBJ
 
 # add 'siteuser.middleware.User' in MIDDLEWARE_CLASSES
 # then the request object will has a `siteuser` property
@@ -49,4 +50,6 @@ class User(MiddlewareMixin):
             return _merchant
 
         request.siteuser = SimpleLazyObject(get_user)
+        if not request.session.has_key('merchant'):
+            request.session['merchant'] = DEFAULT_MERCHANT_OBJ.merchantid
         request.merchant = SimpleLazyObject(get_merchant)

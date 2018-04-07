@@ -38,8 +38,10 @@ ALLOWED_HOSTS = ['*', ]
 
 from os import environ
 
+#DOMAIN = 'http://120.55.55.106:3306'
 DOMAIN = 'http://localhost:3306'
 #CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
+#host = '120.55.55.106'
 host = 'localhost'
 port = '3306'
 name = 'root'
@@ -224,3 +226,6 @@ USERS_SUPERUSER_PASSWORD = 'vq8612VQE'
 LOGIN_REDIRECT_URL = '/userform/form/'
 
 LGOIN_URL = '/accounts/login/'
+
+DEFAULT_MERCHANT = '100000000000001'
+DEFAULT_MERCHANT_ID = 1

@@ -4,6 +4,9 @@ from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from pikachu import settings
+
+
 
 # Create your models here.
 class BaseModel(models.Model):
@@ -17,3 +20,4 @@ class BaseModel(models.Model):
              update_fields=None):
         self.gmt_modified = timezone.now()
         super(BaseModel, self).save()
+
