@@ -2,10 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6f10766-122f-4f3c-913d-16864b137eb1" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0001_initial.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0002_merchant_userdata.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0003_datapool.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0004_datapool_merchantid.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0005_auto_20171012_1452.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0006_orderinfo_description.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0007_auto_20180330_1809.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0008_auto_20180330_1815.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0009_auto_20180330_1815.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0010_auto_20180331_0022.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0011_auto_20180331_0028.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0012_auto_20180407_1807.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crm/migrations/0013_auto_20180407_2350.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/siteuser/member/migrations/0001_initial.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/siteuser/member/migrations/0002_inneruser_description.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/siteuser/member/migrations/0003_auto_20180407_1811.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0001_initial.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0002_sessiontoken.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0003_user_usertoken.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0004_user_mid.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0005_member.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0006_auto_20171104_2326.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0007_member_id_type.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0008_member_email.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0009_auto_20171107_1741.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0010_order_mid.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0011_auto_20171109_1502.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0012_auto_20171109_1504.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0013_auto_20180331_0022.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/users/migrations/0014_auto_20180407_1811.py" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/commom/models.py" afterPath="$PROJECT_DIR$/commom/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/local_Interface/view.py" afterPath="$PROJECT_DIR$/crm/local_Interface/view.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/models.py" afterPath="$PROJECT_DIR$/crm/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/views.py" afterPath="$PROJECT_DIR$/crm/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/models.py" afterPath="$PROJECT_DIR$/users/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/utils.py" afterPath="$PROJECT_DIR$/users/utils.py" />
     </list>
     <ignored path="pikachu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -77,8 +109,8 @@
               <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/users/models.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-930">
-                      <caret line="92" column="54" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
+                    <state relative-caret-position="570">
+                      <caret line="81" column="50" selection-start-line="81" selection-start-column="50" selection-end-line="81" selection-end-column="50" />
                       <folding>
                         <element signature="e#24#97#0" expanded="true" />
                       </folding>
@@ -94,16 +126,6 @@
                       <folding>
                         <element signature="e#24#59#0" expanded="true" />
                       </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/pikachu/wsgi.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="255">
-                      <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -131,13 +153,13 @@
               <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/crm/models.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="350">
-                      <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+                    <state relative-caret-position="2063">
+                      <caret line="294" column="28" selection-start-line="294" selection-start-column="28" selection-end-line="294" selection-end-column="28" />
                       <folding>
                         <element signature="e#24#63#0" expanded="true" />
-                        <element signature="e#9288#9997#0" expanded="false" />
-                        <element signature="e#10034#10945#0" expanded="false" />
-                        <element signature="e#10986#11212#0" expanded="false" />
+                        <element signature="e#9124#9833#0" expanded="false" />
+                        <element signature="e#9870#10781#0" expanded="false" />
+                        <element signature="e#10822#11048#0" expanded="false" />
                       </folding>
                     </state>
                   </provider>
@@ -146,7 +168,7 @@
               <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/local_Interface/view.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="146">
+                    <state relative-caret-position="1215">
                       <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
                       <folding>
                         <element signature="e#24#59#0" expanded="true" />
@@ -162,9 +184,11 @@
               <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/users/utils.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="350">
-                      <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
-                      <folding />
+                    <state relative-caret-position="225">
+                      <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+                      <folding>
+                        <element signature="e#0#25#0" expanded="true" />
+                      </folding>
                     </state>
                   </provider>
                 </entry>
@@ -226,8 +250,8 @@
               <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/crm/views.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-1489">
-                      <caret line="147" column="62" selection-start-line="147" selection-start-column="62" selection-end-line="147" selection-end-column="62" />
+                    <state relative-caret-position="15">
+                      <caret line="146" column="4" selection-start-line="146" selection-start-column="4" selection-end-line="146" selection-end-column="4" />
                       <folding>
                         <element signature="e#24#59#0" expanded="true" />
                       </folding>
@@ -326,8 +350,8 @@
               <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/commom/models.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="90">
-                      <caret line="24" column="71" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
+                    <state relative-caret-position="75">
+                      <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
                       <folding>
                         <element signature="e#24#63#0" expanded="true" />
                       </folding>
@@ -389,7 +413,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/crm/templates/mobile/merror.html" />
         <option value="$PROJECT_DIR$/siteuser/member/models.py" />
         <option value="$PROJECT_DIR$/siteuser/member/urls.py" />
         <option value="$PROJECT_DIR$/crm/mobile/settings.py" />
@@ -431,15 +454,16 @@
         <option value="$PROJECT_DIR$/crm/server_utils/Authentication.py" />
         <option value="$PROJECT_DIR$/dj.conf" />
         <option value="$PROJECT_DIR$/requirements.txt" />
-        <option value="$PROJECT_DIR$/users/models.py" />
         <option value="$PROJECT_DIR$/commom/apps.py" />
         <option value="$PROJECT_DIR$/commom/Global.py" />
         <option value="$PROJECT_DIR$/pikachu/settings.py" />
         <option value="$PROJECT_DIR$/siteuser/middleware.py" />
         <option value="$PROJECT_DIR$/crm/local_Interface/view.py" />
-        <option value="$PROJECT_DIR$/crm/views.py" />
-        <option value="$PROJECT_DIR$/crm/models.py" />
+        <option value="$PROJECT_DIR$/users/utils.py" />
         <option value="$PROJECT_DIR$/commom/models.py" />
+        <option value="$PROJECT_DIR$/users/models.py" />
+        <option value="$PROJECT_DIR$/crm/models.py" />
+        <option value="$PROJECT_DIR$/crm/views.py" />
       </list>
     </option>
   </component>
@@ -550,6 +574,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="users" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="migrations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pikachu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pikachu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="siteuser" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -569,6 +611,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="member" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pikachu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pikachu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="siteuser" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="member" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -633,6 +697,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="mobile" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pikachu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="pikachu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="crm" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1142,7 +1224,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31683168" sideWeight="0.5021299" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14931507" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32673267" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.6443024" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2" sideWeight="0.6443024" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17029703" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10969116" sideWeight="0.48820058" order="0" side_tool="false" content_ui="combo" />
@@ -1407,46 +1489,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file:///usr/local/lib/python2.7/site-packages/amqp/transport.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="94" column="0" selection-start-line="94" selection-start-column="0" selection-end-line="94" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/local_Interface/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/mobile/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="5" column="29" selection-start-line="5" selection-start-column="29" selection-end-line="5" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pikachu/wsgi.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crm/mobile/mobile_view.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -1713,16 +1755,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-930">
-          <caret line="92" column="54" selection-start-line="92" selection-start-column="54" selection-end-line="92" selection-end-column="54" />
-          <folding>
-            <element signature="e#24#97#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crm/mobile/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -1736,26 +1768,6 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1489">
-          <caret line="147" column="62" selection-start-line="147" selection-start-column="62" selection-end-line="147" selection-end-column="62" />
-          <folding>
-            <element signature="e#24#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/local_Interface/view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#59#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1819,33 +1831,105 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/models.py">
+    <entry file="file://$PROJECT_DIR$/crm/migrations/0013_auto_20180407_2350.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
-          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-            <element signature="e#9288#9997#0" expanded="false" />
-            <element signature="e#10034#10945#0" expanded="false" />
-            <element signature="e#10986#11212#0" expanded="false" />
-          </folding>
+          <caret line="52" column="37" selection-start-line="52" selection-start-column="37" selection-end-line="52" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/migrations/0012_auto_20180407_1807.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/users/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
+        <state relative-caret-position="225">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/migrations/0015_auto_20180408_2333.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/migrations/0014_auto_20180408_2329.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="34" column="38" selection-start-line="34" selection-start-column="38" selection-end-line="34" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="570">
+          <caret line="81" column="50" selection-start-line="81" selection-start-column="50" selection-end-line="81" selection-end-column="50" />
+          <folding>
+            <element signature="e#24#97#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/local_Interface/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1215">
+          <caret line="81" column="0" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#59#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/commom/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="24" column="71" selection-start-line="24" selection-start-column="71" selection-end-line="24" selection-end-column="71" />
+        <state relative-caret-position="75">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2063">
+          <caret line="294" column="28" selection-start-line="294" selection-start-column="28" selection-end-line="294" selection-end-column="28" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+            <element signature="e#9124#9833#0" expanded="false" />
+            <element signature="e#9870#10781#0" expanded="false" />
+            <element signature="e#10822#11048#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="146" column="4" selection-start-line="146" selection-start-column="4" selection-end-line="146" selection-end-column="4" />
+          <folding>
+            <element signature="e#24#59#0" expanded="true" />
           </folding>
         </state>
       </provider>

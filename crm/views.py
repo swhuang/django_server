@@ -144,7 +144,7 @@ def test(request):
 
 
 def generatetestmerchant(request):
-
+    
     _mcht = Merchant.objects.get(merchantid='100000000000001')
     p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
     p.save()
@@ -169,7 +169,7 @@ def generatetestmerchant(request):
         p = Merchant(merchantid='100000000000001', name=u'测试商户1', key=_key)
         p.save()
         _mcht = Merchant.objects.get(merchantid='100000000000001')
-        p = Project(proj_name=u'测试项目1', mid=_mcht)
+        p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
         p.save()
     return HttpResponse('ook')
     l = []

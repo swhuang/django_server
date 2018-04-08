@@ -9,8 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from .conf import settings
 from .managers import UserInheritanceManager, UserManager
 from crm.models import Merchant
-from utils import gettimestamp
-import datetime
+
 from decimal import Decimal
 import json
 #from django.contrib.auth.backends import ModelBackend
@@ -80,7 +79,7 @@ class User(AbstractUser):
 
     usertoken = models.CharField(max_length=100, default='')
 
-    mid = models.ForeignKey(Merchant, null=True, default=settings.DEFAULT_MERCHANT_ID)
+    mid = models.ForeignKey(Merchant, null=True) #, default=settings.DEFAULT_MERCHANT_ID)
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'
@@ -94,7 +93,7 @@ class Member(AbstractBaseUser):
     id_type = models.IntegerField(default=0)
     gender = models.BooleanField(default=True)
     phone = models.CharField(_(u'用户名'), default='', unique=True, db_index=True, max_length=50)
-    mid = models.ForeignKey(Merchant, null=True, db_index=True, default=settings.DEFAULT_MERCHANT_ID)
+    mid = models.ForeignKey(Merchant, null=True, db_index=True) #, default=settings.DEFAULT_MERCHANT_ID)
     email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
     '''
     class Meta:
@@ -160,7 +159,7 @@ class ExtendMember(AbstractBaseUser):
     id_type = models.IntegerField(default=0)
     gender = models.BooleanField(default=True)
     phone = models.CharField(_(u'用户名'), default='', unique=True, db_index=True, max_length=50)
-    mid = models.ForeignKey(Merchant, null=True, db_index=True, default=settings.DEFAULT_MERCHANT_ID)
+    mid = models.ForeignKey(Merchant, null=True, db_index=True) #, default=settings.DEFAULT_MERCHANT_ID)
     email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
 
     class Meta:

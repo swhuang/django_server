@@ -6,10 +6,9 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
-from commom.models import BaseModel, initModel
+from commom.models import *
 from pikachu import settings
 from decimal import Decimal
-from users.utils import gettimestamp
 import random
 import json
 import datetime
@@ -93,7 +92,6 @@ DEFAULT_MERCHANT_OBJ = Merchant(merchantid=settings.DEFAULT_MERCHANT)#
 # 门店
 class Submerchant(BaseModel):
     subid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, unique=True) #primary key
-    #basemerchantid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
     class Meta:
         verbose_name = _('Submerchant')
         verbose_name_plural = _('Submerchant')
@@ -120,10 +118,8 @@ class Project(BaseModel):
     """
     proj_id = models.CharField(max_length=10, default='', db_index=True)
     proj_name = models.CharField(max_length=128, default='')
-    #mid = models.ForeignKey(Merchant, null=True, default=Merchant(merchantid=settings.DEFAULT_MERCHANT))
-    #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
     productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
-    userid = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+    user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
 
     class Meta:
         ordering = ('proj_id', 'mid')
@@ -165,13 +161,14 @@ class Project(BaseModel):
         d.update(super(Project, self).getDict())
         return d
 
+#订单
 class Order(BaseModel):
     r"""
 
     """
     from users.models import Member
     userinfo = models.ForeignKey(Member, null=True)
-    userid = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+    user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     proj = models.ForeignKey(Project, null=True)
     paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
     orderamount = models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
@@ -236,9 +233,12 @@ class Order(BaseModel):
         return d
 
 
+#支付订单
 class PaymentOrder(BaseModel):
-    payment_id = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
+    payment_id = models.CharField(max_length=20, default=Paytimestamp, db_index=True, unique=True)
     order_id = models.CharField(max_length=20, default='0')
+    user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+    payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
     #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
 
 class Userdata(models.Model):

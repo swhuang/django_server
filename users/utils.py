@@ -144,5 +144,6 @@ def send_activation_email(
         email_message.send()
 
 
+
 def gettimestamp():
     return datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
