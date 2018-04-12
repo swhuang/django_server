@@ -20,7 +20,7 @@ from django.contrib.auth import urls as auth_urls
 from users import views as userview
 
 urlpatterns = [
-    url(r'^test', userview.mmmtest),
+    url(r'^api-auth/', include('crm.api.urls', namespace='rest_framework')),
     url(r'^admin/', admin.site.urls),
     url(r'', include('siteuser.urls')),
     url(r'^accounts/', include('users.urls')),
@@ -28,3 +28,12 @@ urlpatterns = [
     url(r'^local/', include('crm.local_Interface.urls')),
     url(r'^mobile/', include('crm.mobile.urls'))
 ]
+
+from rest_framework import routers
+from crm.api.view import MerchantViewset
+
+router = routers.DefaultRouter()
+
+router.register(r'merchant', MerchantViewset)
+
+urlpatterns

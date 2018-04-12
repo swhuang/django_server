@@ -9,15 +9,18 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from commom.models import *
 from pikachu import settings
 from decimal import Decimal
+from server_utils.base.FSM import *
 import random
 import json
 import datetime
+
 
 # Create your models here.
 # @python_2_unicode_compatible
 class OrderInfo(BaseModel):
     orderid = models.CharField(_(u'订单信息'), max_length=30)
     description = models.CharField(_(u'描述信息'), max_length=500, null=True)
+
     class Meta:
         permissions = (
             ("view", "can view the available order"),
@@ -36,8 +39,9 @@ class MerchantManager(models.Manager):
 
     '''
 
+
 # @python_2_unicode_compatible
-#主商户
+# 主商户
 class Merchant(initModel):
     _uuid = autonumber
     merchantid = models.CharField(_(u'商户号'), max_length=15, unique=True, db_index=True, default='10000000123')
@@ -46,13 +50,14 @@ class Merchant(initModel):
     key = models.CharField(_(u'密钥'), max_length=200, default='')
     expiretime = models.CharField(_(u'有效时间'), max_length=6, default='3600')
     daily_maxcount = models.IntegerField(_(u'每日最大访问次数'), default=100)
+
     class Meta:
         verbose_name = _('Merchant')
         verbose_name_plural = _('Merchant')
 
     def save(self, *args, **kwargs):
         _m = super(Merchant, self).save(*args, **kwargs)
-        #_m = self.save()
+        # _m = self.save()
         if self.merchantid == None or self.merchantid == '':
             self.merchantid = "%015d" % self.id
         super(Merchant, self).save(force_update=True, update_fields=['merchantid'])
@@ -88,22 +93,25 @@ class Merchant(initModel):
         d.update(super(Merchant, self).getDict())
         return d
 
-DEFAULT_MERCHANT_OBJ = Merchant(merchantid=settings.DEFAULT_MERCHANT)#
+
+DEFAULT_MERCHANT_OBJ = Merchant(merchantid=settings.DEFAULT_MERCHANT)  #
+
+
 # 门店
 class Submerchant(BaseModel):
-    subid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, unique=True) #primary key
+    subid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, unique=True)  # primary key
+
     class Meta:
         verbose_name = _('Submerchant')
         verbose_name_plural = _('Submerchant')
 
 
-#商品
+# 商品
 class ProductDetail(BaseModel):
-    productid = models.CharField(_(u'产品编号'), max_length=18, db_index=True, unique=True, default='0') #primary key
+    productid = models.CharField(_(u'产品编号'), max_length=18, db_index=True, unique=True, default='0')  # primary key
     productname = models.CharField(_(u'产品名称'), max_length=30, null=True)
     productprice = models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
     proddesc = models.CharField(_(u'产品描述'), max_length=500, null=True)
-    #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
 
     class Meta:
         ordering = ('productid', 'mid')
@@ -111,7 +119,13 @@ class ProductDetail(BaseModel):
     def __str__(self):
         return self.productid
 
-#租赁服务
+
+
+START_STATE = 0
+RENTALPROC_STATE = 1
+SELLPROC_STATE = 2
+COMPLETE = 3
+# 租赁服务
 class Project(BaseModel):
     r"""
 
@@ -120,9 +134,19 @@ class Project(BaseModel):
     proj_name = models.CharField(max_length=128, default='')
     productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+    state = models.IntegerField(_(u'服务状态'), default=0)
 
     class Meta:
         ordering = ('proj_id', 'mid')
+        #abstract = True
+
+    def __init__(self):
+        if not self.state:
+            self.curr = Start()
+            self.state = START_STATE
+
+    def __set_state(self, s):
+        self.curr = s
 
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
@@ -161,7 +185,18 @@ class Project(BaseModel):
         d.update(super(Project, self).getDict())
         return d
 
-#订单
+
+# 商品租赁服务
+class ProductRental(Project):
+    pass
+
+
+# 套餐租赁服务
+class ComboRental(Project):
+    pass
+
+
+# 订单
 class Order(BaseModel):
     r"""
 
@@ -174,8 +209,6 @@ class Order(BaseModel):
     orderamount = models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
     payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
     payment_status = models.SmallIntegerField(_(u'支付状态'))
-    #mid = models.ForeignKey(Merchant, db_index=True, null=True, default=Merchant(merchantid=settings.DEFAULT_MERCHANT))
-    #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
     orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
 
     class Meta:
@@ -229,17 +262,18 @@ class Order(BaseModel):
                 d[attr] = str(getattr(self, attr))
             else:
                 d[attr] = getattr(self, attr)
-        d.update(super(Order,self).getDict())
+        d.update(super(Order, self).getDict())
         return d
 
 
-#支付订单
+# 支付订单
 class PaymentOrder(BaseModel):
     payment_id = models.CharField(max_length=20, default=Paytimestamp, db_index=True, unique=True)
     order_id = models.CharField(max_length=20, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
-    #mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    # mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+
 
 class Userdata(models.Model):
     username = models.CharField(_(u'用户名'), max_length=200)
@@ -302,4 +336,3 @@ class TokenManager(models.Model):
     token = models.CharField(_(u'用户token'), max_length=100, db_index=True)
     count = models.IntegerField(_(u'已访问次数'), default=0)
     max_count = models.IntegerField(_(u'最大访问次数'), default=100)
-

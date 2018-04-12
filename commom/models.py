@@ -8,6 +8,7 @@ from pikachu import settings
 import datetime
 import random
 
+
 # Create your models here.
 class initModel(models.Model):
     gmt_create = models.DateTimeField(_('添加时间'), default=timezone.now)
@@ -15,7 +16,7 @@ class initModel(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ('gmt_create', 'gmt_modified', )
+        ordering = ('gmt_create', 'gmt_modified',)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
@@ -28,8 +29,8 @@ class initModel(models.Model):
         d['gmt_modified'] = self.gmt_modified.strftime('%y-%m-%d %H:%M:%S')
         return d
 
-class BaseModel(initModel):
 
+class BaseModel(initModel):
     mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
 
     class Meta:
@@ -49,11 +50,8 @@ def gettimestamp():
 
 
 def Ordertimestamp():
-    return 'O'+gettimestamp()+randomtril()
+    return 'O' + gettimestamp() + randomtril()
 
 
 def Paytimestamp():
-    return 'P'+gettimestamp()+randomtril()
-
-
-
+    return 'P' + gettimestamp() + randomtril()

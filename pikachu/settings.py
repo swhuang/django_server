@@ -78,9 +78,18 @@ INSTALLED_APPS = [
     'siteuser.member',
     'siteuser.notify',
     'FP_risk',
+    'rest_framework',
     'gunicorn',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2,
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
 AUTH_USER_MODEL = 'users.User'
 SITEUSER_EXTEND_MODEL = 'users.models.ExtendMember'
 SITEUSER_ACCOUNT_MIXIN = 'crm.crmmember.mem_custom.AccountMxin'
