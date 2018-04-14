@@ -28,12 +28,3 @@ urlpatterns = [
     url(r'^local/', include('crm.local_Interface.urls')),
     url(r'^mobile/', include('crm.mobile.urls'))
 ]
-
-from rest_framework import routers
-from crm.api.view import MerchantViewset
-
-router = routers.DefaultRouter()
-
-router.register(r'merchant', MerchantViewset)
-
-urlpatterns

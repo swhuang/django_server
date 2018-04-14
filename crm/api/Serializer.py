@@ -6,4 +6,4 @@ class MerchantSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Merchant
-        fields = ('merchantid', 'name', 'date_joined', 'key', 'expiretime','daily_maxcount')
+        fields = ('merchantid', 'name', 'date_joined', 'key','daily_maxcount')

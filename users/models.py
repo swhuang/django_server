@@ -86,7 +86,7 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.mid:
-            self.mid = settings.DEFAULT_MERCHANT_ID
+            pass#self.mid = settings.DEFAULT_MERCHANT_ID
         super(User,self).save(*args, **kwargs)
 
 
@@ -108,7 +108,7 @@ class Member(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         if not self.mid:
-            self.mid = settings.DEFAULT_MERCHANT_ID
+            pass#self.mid = settings.DEFAULT_MERCHANT_ID
         super(Member, self).save(*args, **kwargs)
         self.memberid = "%010d" % self.id
         super(Member, self).save(force_update=True, update_fields=['memberid'])
@@ -176,7 +176,7 @@ class ExtendMember(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         if not self.mid:
-            self.mid = settings.DEFAULT_MERCHANT_ID
+            pass#self.mid = settings.DEFAULT_MERCHANT_ID
         super(ExtendMember, self).save(*args, **kwargs)
         self.memberid = "%010d" % self.id
         super(ExtendMember, self).save(force_update=True, update_fields=['memberid'])

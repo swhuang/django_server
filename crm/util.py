@@ -139,7 +139,7 @@ class UserDataRsp(Rspinfo):
     def dict(self):
         return self.retmsg
 
-
+#siteuser 登录验证
 def mlogin_required(func):
     @wraps(func)
     def deco(request, *args, **kwargs):
@@ -147,7 +147,6 @@ def mlogin_required(func):
             print reverse('siteuser_login')
             return HttpResponseRedirect(reverse('siteuser_login'))
         return func(request, *args, **kwargs)
-
     return deco
 
 def crmlogin_check(func):

@@ -120,25 +120,47 @@ class ProductDetail(BaseModel):
         return self.productid
 
 
+# 套餐
+class Package(BaseModel):
+    name = models.CharField(_('套餐名字'), max_length=10, default='')
+    low_bound = models.DecimalField(_('价格下限'), max_digits=12, decimal_places=2)
+    high_bound = models.DecimalField(_('价格上限'), max_digits=12, decimal_places=2)
+
+    def getProductList(self, offset=0, limit=0):
+        marg = {}
+        marg['productprice__gte'] = self.low_bound
+        marg['productprice__lte'] = self.high_bound
+        if offset == 0 and limit == 0:
+            productinfo = list(ProductDetail.objects.filter(**marg))
+        else:
+            productinfo = list(ProductDetail.objects.filter(**marg)[offset:offset + limit])
+
+        return productinfo
+
 
 START_STATE = 0
 RENTALPROC_STATE = 1
 SELLPROC_STATE = 2
 COMPLETE = 3
+
+
 # 租赁服务
 class Project(BaseModel):
     r"""
 
     """
-    proj_id = models.CharField(max_length=10, default='', db_index=True)
+    proj_id = models.CharField(_(u'服务编号'),max_length=10, default='', db_index=True)
     proj_name = models.CharField(max_length=128, default='')
-    productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
+    # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     state = models.IntegerField(_(u'服务状态'), default=0)
+    create_user = models.CharField(_(u'创建者'), max_length=10, null=True)  # 创建者:店员or用户
+    start_time = models.DateTimeField(_(u'开始时间'), default=timezone.now)
+    end_time = models.DateTimeField(_(u'结束时间'), null=True)
 
     class Meta:
         ordering = ('proj_id', 'mid')
-        #abstract = True
+        abstract = True
 
     def __init__(self):
         if not self.state:
@@ -188,11 +210,15 @@ class Project(BaseModel):
 
 # 商品租赁服务
 class ProductRental(Project):
+    product = models.ForeignKey(ProductDetail)
     pass
 
 
 # 套餐租赁服务
 class ComboRental(Project):
+    product = models.ForeignKey(Package)
+    current_product = models.ForeignKey(ProductDetail, null=True)
+
     pass
 
 
@@ -204,7 +230,8 @@ class Order(BaseModel):
     from users.models import Member
     userinfo = models.ForeignKey(Member, null=True)
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    proj = models.ForeignKey(Project, null=True)
+    #proj = models.ForeignKey(Project, null=True)
+    proj = models.CharField(_(u'服务编号'), max_length=10, null=False, default='0')
     paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
     orderamount = models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
     payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)

@@ -15,7 +15,7 @@ from django.template.response import TemplateResponse
 from users.models import Member, ExtendMember
 import copy
 from djpjax import pjax
-from django.contrib.auth.models import Group,Permission
+from django.contrib.auth.models import Group, Permission
 
 
 @pjax("project/tables-pjax.html")
@@ -144,7 +144,8 @@ def test(request):
 
 
 def generatetestmerchant(request):
-    
+
+    '''
     _mcht = Merchant.objects.get(merchantid='100000000000001')
     p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
     p.save()
@@ -171,6 +172,7 @@ def generatetestmerchant(request):
         _mcht = Merchant.objects.get(merchantid='100000000000001')
         p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
         p.save()
+    '''
     return HttpResponse('ook')
     l = []
     from django.db.models import Count
