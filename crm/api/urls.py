@@ -9,7 +9,7 @@ router.register(r'merchant', MerchantViewset)
 #router.register(r'test', RestTest.as_view())
 
 urlpatterns = [
-    url(r'test/$', RestTest.as_view()),
+    url(r'admin/', include('crm.api.admin.urls')),
 ]
 
 urlpatterns += router.urls

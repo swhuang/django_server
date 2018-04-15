@@ -144,19 +144,19 @@ def test(request):
 
 
 def generatetestmerchant(request):
-
     '''
     _mcht = Merchant.objects.get(merchantid='100000000000001')
     p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
     p.save()
     return HttpResponse('I am ok')
-
+    '''
 
     _key = mUtil.generate_key()
     print _key
     try:
         Gp = Group.objects.get(name='OrderUser')
         Gp.permissions = [i for i in Permission.objects.all()]
+        Gp.save()
     except:
         Gp = Group(name='OrderUser')
         Gp.save()
@@ -169,10 +169,12 @@ def generatetestmerchant(request):
     except Merchant.DoesNotExist:
         p = Merchant(merchantid='100000000000001', name=u'测试商户1', key=_key)
         p.save()
+        '''
         _mcht = Merchant.objects.get(merchantid='100000000000001')
         p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
         p.save()
-    '''
+        '''
+
     return HttpResponse('ook')
     l = []
     from django.db.models import Count

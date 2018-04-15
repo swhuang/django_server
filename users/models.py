@@ -75,7 +75,7 @@ class User(AbstractUser):
     """
     username = models.TextField(max_length=100, default=u"黄圣伟")
 
-    identifcation = models.IntegerField(default=0)
+    identification = models.IntegerField(default=0)
 
     usertoken = models.CharField(max_length=100, default='')
 
