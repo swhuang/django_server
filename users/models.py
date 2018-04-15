@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from .conf import settings
 from .managers import UserInheritanceManager, UserManager
-from crm.models import Merchant
+from crm.models import Merchant, Submerchant
 
 from decimal import Decimal
 import json
@@ -80,6 +80,8 @@ class User(AbstractUser):
     usertoken = models.CharField(max_length=100, default='')
 
     mid = models.ForeignKey(Merchant, null=True) #, default=settings.DEFAULT_MERCHANT_ID)
+
+    submerchant = models.ForeignKey(Submerchant, null=True)
 
     class Meta(AbstractUser.Meta):
         swappable = 'AUTH_USER_MODEL'

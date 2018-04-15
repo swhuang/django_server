@@ -55,3 +55,9 @@ def Ordertimestamp():
 
 def Paytimestamp():
     return 'P' + gettimestamp() + randomtril()
+
+
+class BillamountField(models.DecimalField):
+    def __init__(self, verbose_name=None, name=None, max_digits=None,
+                 decimal_places=None, **kwargs):
+        super(BillamountField, self).__init__(verbose_name=verbose_name, max_digits=12, decimal_places=2, **kwargs)

@@ -9,13 +9,12 @@ https://docs.djangoproject.com/en/1.10/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.10/ref/settings/
 """
-
+from __future__ import absolute_import
 import os
 import djcelery
 import siteuser
 import platform
 
-djcelery.setup_loader()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -75,6 +74,7 @@ INSTALLED_APPS = [
     'easy_pjax',
     'commom',
     'djcelery',
+    'periodic',
     'siteuser.member',
     'siteuser.notify',
     'FP_risk',
@@ -239,3 +239,18 @@ LGOIN_URL = '/accounts/login/'
 
 DEFAULT_MERCHANT = '100000000000001'
 DEFAULT_MERCHANT_ID = 1
+# timely task
+from celery.schedules import crontab
+djcelery.setup_loader()
+BROKER_URL = 'redis://127.0.0.1:6379/1'
+
+from datetime import timedelta
+
+CELERYBEAT_SCHEDULE = {
+    'add-every-3-seconds': {
+        'task': 'periodic.tasks.test_celery',
+        # 'schedule': crontab(minute=u'40', hour=u'17',),
+        'schedule': timedelta(seconds=3),
+        'args': (16, 16)
+    },
+}

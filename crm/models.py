@@ -60,7 +60,7 @@ class Merchant(initModel):
         # _m = self.save()
         if self.merchantid == None or self.merchantid == '':
             self.merchantid = "%015d" % self.id
-        super(Merchant, self).save(force_update=True, update_fields=['merchantid'])
+            super(Merchant, self).save(force_update=True, update_fields=['merchantid'])
 
     def toJSON(self):
         fields = []
@@ -110,7 +110,7 @@ class Submerchant(BaseModel):
 class ProductDetail(BaseModel):
     productid = models.CharField(_(u'产品编号'), max_length=18, db_index=True, unique=True, default='0')  # primary key
     productname = models.CharField(_(u'产品名称'), max_length=30, null=True)
-    productprice = models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
+    productprice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
     proddesc = models.CharField(_(u'产品描述'), max_length=500, null=True)
 
     class Meta:
@@ -123,8 +123,8 @@ class ProductDetail(BaseModel):
 # 套餐
 class Package(BaseModel):
     name = models.CharField(_('套餐名字'), max_length=10, default='')
-    low_bound = models.DecimalField(_('价格下限'), max_digits=12, decimal_places=2)
-    high_bound = models.DecimalField(_('价格上限'), max_digits=12, decimal_places=2)
+    low_bound = BillamountField(_('价格下限'))  # models.DecimalField(_('价格下限'), max_digits=12, decimal_places=2)
+    high_bound = BillamountField(_('价格上限'))  # models.DecimalField(_('价格上限'), max_digits=12, decimal_places=2)
 
     def getProductList(self, offset=0, limit=0):
         marg = {}
@@ -149,7 +149,7 @@ class Project(BaseModel):
     r"""
 
     """
-    proj_id = models.CharField(_(u'服务编号'),max_length=10, default='', db_index=True)
+    proj_id = models.CharField(_(u'服务编号'), max_length=10, default='', db_index=True)
     proj_name = models.CharField(max_length=128, default='')
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
@@ -230,11 +230,11 @@ class Order(BaseModel):
     from users.models import Member
     userinfo = models.ForeignKey(Member, null=True)
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    #proj = models.ForeignKey(Project, null=True)
+    # proj = models.ForeignKey(Project, null=True)
     proj = models.CharField(_(u'服务编号'), max_length=10, null=False, default='0')
     paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
-    orderamount = models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
-    payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
+    orderamount = BillamountField(_(u'订单金额'))  # models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
+    payedamount = BillamountField(_(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
     payment_status = models.SmallIntegerField(_(u'支付状态'))
     orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
 
@@ -298,7 +298,8 @@ class PaymentOrder(BaseModel):
     payment_id = models.CharField(max_length=20, default=Paytimestamp, db_index=True, unique=True)
     order_id = models.CharField(max_length=20, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    payedamount = models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
+    payedamount = BillamountField(
+        _(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
     # mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
 
 
