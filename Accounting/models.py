@@ -27,12 +27,13 @@ class AccountClassifaction(models.Model):
     acid = models.CharField(_(u'科目编号'), unique=True, max_length=6)
     desc = models.CharField(_('描述'))
 
-
+#账务明细表
 class Baseacct(BaseModel):
     seq = models.CharField(_(u'账户编号'), max_length=15, unique=True, db_index=True, null=True)
     debit_credit = models.BooleanField(_(u'借贷方向'))
     acid = models.CharField(_(u'科目编号'))
     user = models.ForeignKey(SiteUser)
+    projid = models.CharField(_(u'服务项目编号'), max_length=10)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

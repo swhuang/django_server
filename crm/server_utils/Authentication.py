@@ -17,7 +17,7 @@ class MsgAuthentication(object):
         chars=['0','1','2','3','4','5','6','7','8','9']
         x = random.choice(chars),random.choice(chars),random.choice(chars),random.choice(chars)
         verifyCode = "".join(x)
-        session["phoneVerifyCode"] = {"time":int(time.time()), "code":verifyCode}
+        session["VerifyCode"] = {"time":int(time.time()), "code":verifyCode}
         return verifyCode
 
     @staticmethod

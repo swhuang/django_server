@@ -178,10 +178,14 @@ class ExtendMember(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         if not self.mid:
-            pass#self.mid = settings.DEFAULT_MERCHANT_ID
+            try:
+                self.mid = Merchant.objects.get(merchantid=settings.DEFAULT_MERCHANT) #settings.DEFAULT_MERCHANT_ID
+            except:
+                self.mid = None
         super(ExtendMember, self).save(*args, **kwargs)
-        self.memberid = "%010d" % self.id
-        super(ExtendMember, self).save(force_update=True, update_fields=['memberid'])
+        if self.memberid == '':
+            self.memberid = "%010d" % self.id
+            super(ExtendMember, self).save(force_update=True, update_fields=['memberid'])
 
     def default_init(self):
         self.username = 'hsw'

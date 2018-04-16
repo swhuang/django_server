@@ -10,6 +10,7 @@ router.register(r'merchant', MerchantViewset)
 
 urlpatterns = [
     url(r'admin/', include('crm.api.admin.urls')),
+    url(r'client/', include('crm.api.client.urls')),
 ]
 
 urlpatterns += router.urls
