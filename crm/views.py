@@ -16,6 +16,9 @@ from users.models import Member, ExtendMember
 import copy
 from djpjax import pjax
 from django.contrib.auth.models import Group, Permission
+from siteuser.member.models import InnerUser, SiteUser
+from django.core.exceptions import ValidationError
+
 
 
 @pjax("project/tables-pjax.html")
@@ -39,8 +42,10 @@ def crm_main(request, template_name="project/tables.html"):
         _merchant = 'None'
         if request.user.mid:
             _merchant = request.user.mid
+        elif request.user.is_superuser:
+            _merchant = Merchant.objects.get(merchantid=settings.DEFAULT_MERCHANT)
         else:
-            return HttpResponse('ok')
+            return HttpResponse('iok')
             # _merchant = request.user.mid.merchantid
         keylst = [u'用户名', u'学生id', u'身份证姓名', u'身份证号', u'性别', u'电话']
         membs = list(
@@ -144,13 +149,6 @@ def test(request):
 
 
 def generatetestmerchant(request):
-    '''
-    _mcht = Merchant.objects.get(merchantid='100000000000001')
-    p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
-    p.save()
-    return HttpResponse('I am ok')
-    '''
-
     _key = mUtil.generate_key()
     print _key
     try:
@@ -169,24 +167,66 @@ def generatetestmerchant(request):
     except Merchant.DoesNotExist:
         p = Merchant(merchantid='100000000000001', name=u'测试商户1', key=_key)
         p.save()
-        '''
-        _mcht = Merchant.objects.get(merchantid='100000000000001')
-        p = Project(proj_name=u'测试项目1', mid=_mcht.merchantid)
-        p.save()
-        '''
+
+    print "Create initial merchant: 100000000000001"
+
+    try:
+        sp = Submerchant.objects.get(subid='000000000000001')
+    except Submerchant.DoesNotExist:
+        sp = Submerchant()
+        sp.save()
+    else:
+        pass
+    finally:
+        pass
+
+    print "Create Submerchant:"+ sp.subid
+
+    try:
+        prod = ProductDetail.objects.get(id=1)
+    except ProductDetail.DoesNotExist:
+        prod = ProductDetail(productname='测试产品', productprice=1000.0, guarantee=600.0, rentalprice=5.0)
+        prod.save()
+    else:
+        pass
+    finally:
+        pass
+
+    print "Create test product:"+ prod.productid
+
+    try:
+        site_user = SiteUser.objects.get(id=1)
+        name = site_user.username
+    except SiteUser.DoesNotExist:
+        name = 'xyn' + str(timezone.now())
+        site_user = InnerUser.objects.create(username=name)
+
+    print "Create site_user: " + name
+
+    try:
+        rentalproj = ProductRental.objects.get(id=1)
+    except ProductRental.DoesNotExist:
+        rentalproj = ProductRental(product=prod, user_id=siteuser.memberid)
+        rentalproj.save()
+
+    print "Create ProductRental:"+ rentalproj.proj_id
+
+    try:
+        r_order = RentalOrder.objects.get(id=1)
+    except RentalOrder.DoesNotExist:
+        try:
+            r_order = RentalOrder(proj=rentalproj, user_id=siteuser.memberid)
+            r_order.save()
+        except ValidationError, e:
+            print e.msg
+
+
+    '''
+    try:
+        myorder = RentalOrder(proj=rentalproj, )
+    '''
 
     return HttpResponse('ook')
-    l = []
-    from django.db.models import Count
-    count = Userdata.objects.aggregate(Count('id'))
-    for i in xrange(count['id__count']):
-        l.append(str(i + 1))
-        if ((i + 1) % 100) == 0:
-            dp = Datapool(mid=p, datapool=','.join(l), merchantid=p.merchantid)
-            dp.save()
-            l = []
-
-    return HttpResponse('ok')
 
 
 def djtest(request):

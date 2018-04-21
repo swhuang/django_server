@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from siteuser.member.models import SiteUser
 from django.utils.translation import ugettext_lazy as _
-
+import pikachu.settings
 from commom.models import BaseModel, BillamountField, initModel
 
 
@@ -34,6 +34,8 @@ class Baseacct(BaseModel):
     acid = models.CharField(_(u'科目编号'))
     user = models.ForeignKey(SiteUser)
     projid = models.CharField(_(u'服务项目编号'), max_length=10)
+    merchantid = models.CharField(_(u'商户编号'), default=pikachu.settings.DEFAULT_MERCHANT)
+    balance = BillamountField(_(u'当时账户余额'))
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):

@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from pikachu import settings
 import datetime
 import random
+import json
 
 
 # Create your models here.
@@ -32,6 +33,7 @@ class initModel(models.Model):
 
 class BaseModel(initModel):
     mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
+    #submid = models.CharField(_(u'门店编号'), max_length, db_index=True)
 
     class Meta:
         abstract = True
@@ -61,3 +63,24 @@ class BillamountField(models.DecimalField):
     def __init__(self, verbose_name=None, name=None, max_digits=None,
                  decimal_places=None, **kwargs):
         super(BillamountField, self).__init__(verbose_name=verbose_name, max_digits=12, decimal_places=2, **kwargs)
+
+
+class JSONField(models.TextField):  
+
+    def from_db_value(self, value, expression, connection, context):
+        v = models.TextField.to_python(self, value)
+        try:
+            return json.loads(v)['v']
+        except:
+            pass
+        return v
+
+    def to_python(self, value):  
+        v = models.TextField.to_python(self, value)  
+        try:  
+            return json.loads(v)['v']  
+        except:  
+            pass  
+        return v  
+    def get_prep_value(self, value):  
+        return json.dumps({'v':value})

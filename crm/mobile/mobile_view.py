@@ -78,7 +78,7 @@ def ordersubmit(request):
     else:
         pass
 
-    return HttpResponse('ok')
+    return HttpResponse('sok')
 
 
 def doPayment(request):
@@ -87,4 +87,4 @@ def doPayment(request):
     :param request:
     :return:
     '''
-    return HttpResponse('ok')
+    return HttpResponse('pok')

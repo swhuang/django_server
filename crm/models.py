@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from commom.models import *
 from pikachu import settings
@@ -34,6 +35,9 @@ class autonumber(object):
         return '10000'
 
 
+INVENTORY = 1000
+
+
 class MerchantManager(models.Manager):
     r'''
 
@@ -44,21 +48,25 @@ class MerchantManager(models.Manager):
 # 主商户
 class Merchant(initModel):
     _uuid = autonumber
-    merchantid = models.CharField(_(u'商户号'), max_length=15, unique=True, db_index=True, default='10000000123')
+    merchantid = models.CharField(_(u'商户号'), max_length=15, unique=True, db_index=True, default='10000000123',
+                                  editable=False)
     name = models.CharField(_(u'商户名称'), max_length=200)
     date_joined = models.DateTimeField(_('添加时间'), default=timezone.now)
     key = models.CharField(_(u'密钥'), max_length=200, default='')
     expiretime = models.CharField(_(u'有效时间'), max_length=6, default='3600')
     daily_maxcount = models.IntegerField(_(u'每日最大访问次数'), default=100)
 
+    guarantee_pct = models.PositiveIntegerField(_(u'押金比例'), default=70)  # 70 = 70%
+    daily_amount_pct = models.PositiveIntegerField(_(u'日租金比例'), default=5)  # 5 = 5%
+
     class Meta:
-        verbose_name = _('Merchant')
-        verbose_name_plural = _('Merchant')
+        verbose_name = _('商户管理')
+        verbose_name_plural = _('商户管理')
 
     def save(self, *args, **kwargs):
         _m = super(Merchant, self).save(*args, **kwargs)
         # _m = self.save()
-        if self.merchantid == None or self.merchantid == '':
+        if self.merchantid == None or self.merchantid == '10000000123':
             self.merchantid = "%015d" % self.id
             super(Merchant, self).save(force_update=True, update_fields=['merchantid'])
 
@@ -99,25 +107,78 @@ DEFAULT_MERCHANT_OBJ = Merchant(merchantid=settings.DEFAULT_MERCHANT)  #
 
 # 门店
 class Submerchant(BaseModel):
-    subid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, unique=True)  # primary key
+    subid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, unique=True, default='0',
+                             editable=False)  # primary key
 
     class Meta:
-        verbose_name = _('Submerchant')
-        verbose_name_plural = _('Submerchant')
+        verbose_name = _('门店管理')
+        verbose_name_plural = _('门店管理')
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        _m = super(Submerchant, self).save(force_insert=force_insert, force_update=force_update, using=using,
+                                           update_fields=update_fields)
+        if self.subid == '0':
+            self.subid = "%015d" % self.id
+            super(Submerchant, self).save(force_update=True, update_fields=['subid'])
+
+
+CATEGORY = {}
+CATEGORY['ALL'] = 0
+CATEGORY['项链'] = 1
+CATEGORY['戒指'] = 2
 
 
 # 商品
 class ProductDetail(BaseModel):
-    productid = models.CharField(_(u'产品编号'), max_length=18, db_index=True, unique=True, default='0')  # primary key
-    productname = models.CharField(_(u'产品名称'), max_length=30, null=True)
+    productid = models.CharField(_(u'产品编号'), max_length=15, db_index=True, unique=True, default='0',
+                                 editable=False)  # primary key
+    productname = models.CharField(_(u'产品名称'), max_length=30, default='')
+    category = models.PositiveIntegerField(_(u'商品分类'), default=CATEGORY['ALL'])
     productprice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
-    proddesc = models.CharField(_(u'产品描述'), max_length=500, null=True)
+    proddesc = models.CharField(_(u'产品描述'), max_length=500, default='')
+    ptype = models.CharField(_(u'型号编码'), max_length=20, default='')
+    inventory = models.IntegerField(_(u'库存数量'), default=INVENTORY)
+    guarantee = BillamountField(_(u'押金'), default=0.0)
+    rentalprice = BillamountField(_(u'租赁单价'), default=0.0)
+    attributes = JSONField(_(u'产品参数'), default={})
+    image1 = models.ImageField(_(u'图片1'), null=True, upload_to='img/product', default='')
+    image2 = models.ImageField(_(u'图片2'), null=True, upload_to='img/product', default='')
+    image3 = models.ImageField(_(u'图片3'), null=True, upload_to='img/product', default='')
+    image4 = models.ImageField(_(u'图片4'), null=True, upload_to='img/product', default='')
+    image5 = models.ImageField(_(u'图片5'), null=True, upload_to='img/product', default='')
+    image6 = models.ImageField(_(u'图片6'), null=True, upload_to='img/product', default='')
 
     class Meta:
         ordering = ('productid', 'mid')
+        verbose_name = '商品管理'
+        verbose_name_plural = '商品管理'
 
     def __str__(self):
         return self.productid
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        _m = super(ProductDetail, self).save(force_insert=force_insert, force_update=force_update, using=using,
+                                             update_fields=update_fields)
+        if self.productid == '0':
+            self.productid = "%015d" % self.id
+            super(ProductDetail, self).save(force_update=True, update_fields=['productid'])
+
+
+# SKU商品
+class ProductItem(BaseModel):
+    itemid = models.CharField(_(u'真实产品ID'), max_length=18, db_index=True, unique=True, default='0', editable=False)
+    name = models.CharField(_(u'产品名字'), max_length=50)
+    inventory = models.IntegerField(_(u'库存数量'), default=INVENTORY)
+    attributes = JSONField(_(u'产品参数'), default={})
+    productprice = BillamountField(_(u'产品售价'))
+    pdetail = models.ForeignKey(ProductDetail, related_name='proditem')
+
+    class Meta:
+        ordering = ('itemid',)
+        verbose_name = 'SKU商品'
+        verbose_name_plural = 'SKU商品'
 
 
 # 套餐
@@ -137,6 +198,10 @@ class Package(BaseModel):
 
         return productinfo
 
+    class Meta:
+        verbose_name_plural = _('套餐管理')
+        verbose_name = _('套餐管理')
+
 
 START_STATE = 0
 RENTALPROC_STATE = 1
@@ -149,31 +214,54 @@ class Project(BaseModel):
     r"""
 
     """
-    proj_id = models.CharField(_(u'服务编号'), max_length=10, default='', db_index=True)
+    proj_id = models.CharField(_(u'服务编号'), max_length=10, default='', db_index=True, editable=False)
     proj_name = models.CharField(max_length=128, default='')
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     state = models.IntegerField(_(u'服务状态'), default=0)
-    create_user = models.CharField(_(u'创建者'), max_length=10, null=True)  # 创建者:店员or用户
+    create_user = models.CharField(_(u'创建者'), max_length=10, default='user')  # 创建者:店员or用户
     start_time = models.DateTimeField(_(u'开始时间'), default=timezone.now)
     end_time = models.DateTimeField(_(u'结束时间'), null=True)
+    cycle_day = models.IntegerField(_(u'租赁周期'), default=1)
+    process_day = models.IntegerField(_(u'租赁时长'), default=1)
+    guarantee = BillamountField(_(u'押金'), default=0.0)
+    payed_amount = BillamountField(_(u'总共支付的金额'), default=0.0)
+    current_payamount = BillamountField(_(u'当前需要支付金额'), default=0.0)
 
     class Meta:
         ordering = ('proj_id', 'mid')
         abstract = True
 
-    def __init__(self):
-        if not self.state:
-            self.curr = Start()
-            self.state = START_STATE
+    def __init__(self, *args, **kwargs):
+        m = Merchant.objects.get(merchantid=self.mid)
+        super(Project, self).__init__(*args, **kwargs)
+        if not self.product:
+            print ("error for null product")
+            return
 
-    def __set_state(self, s):
-        self.curr = s
+        if self.guarantee == 0.0:
+            self.guarantee = round((m.guarantee_pct / 100) * self.product.rentalprice, 2)
+
+        if self.current_payamount == 0.0:
+            self.current_payamount = round(
+                self.guarantee + self.process_day * self.product.rentalprice * (m.daily_amount_pct / 100), 2)
+
+        if not self.state:
+            self.__curr = Start()
+            self.__state = START_STATE
+
+    def set_state(self, s):
+        self.__curr = s
+
+    def updatestate(self):
+        self.__curr.updatestate(self)
 
     def save(self, *args, **kwargs):
+        self.state = self.__curr.getstatevalue()
         super(Project, self).save(*args, **kwargs)
-        self.proj_id = "%010d" % self.id
-        super(Project, self).save(force_update=True, update_fields=['proj_id'])
+        if self.proj_id == '':
+            self.proj_id = "%010d" % self.id
+            super(Project, self).save(force_update=True, update_fields=['proj_id'])
 
     def toJSON(self):
         fields = []
@@ -211,6 +299,23 @@ class Project(BaseModel):
 # 商品租赁服务
 class ProductRental(Project):
     product = models.ForeignKey(ProductDetail)
+
+    def __init__(self, *args, **kwargs):
+        super(ProductRental, self).__init__(*args, **kwargs)
+
+        if self.product != None:
+            v = self.product
+            self.proj_name = v.productname
+            self.guarantee = v.guarantee
+        self.set_state(Start())
+
+    def genRentalOrder(self):
+        ro = RentalOrder(proj=self, user_id=self.user_id)  # to_be_done
+
+    class Meta:
+        verbose_name = _('租赁服务')
+        verbose_name_plural = _('租赁服务')
+
     pass
 
 
@@ -218,6 +323,15 @@ class ProductRental(Project):
 class ComboRental(Project):
     product = models.ForeignKey(Package)
     current_product = models.ForeignKey(ProductDetail, null=True)
+    changelist = models.CharField(_(u'租品变化情况'), default='', max_length=3000)
+
+    def save(self, *args, **kwargs):
+        super(ComboRental, self).save(*args, **kwargs)
+        pass
+
+    class Meta:
+        verbose_name = _('套餐租赁服务')
+        verbose_name_plural = _('套餐租赁服务')
 
     pass
 
@@ -227,19 +341,32 @@ class Order(BaseModel):
     r"""
 
     """
-    from users.models import Member
-    userinfo = models.ForeignKey(Member, null=True)
-    user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    # proj = models.ForeignKey(Project, null=True)
-    proj = models.CharField(_(u'服务编号'), max_length=10, null=False, default='0')
+    # from users.models import Member
+    # userinfo = models.ForeignKey(Member, null=True)
+    user_id = models.CharField(_(u'用户编号'), max_length=15, null=False)
+
+    # proj = models.CharField(_(u'服务编号'), max_length=10, null=False, default='0')
     paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
     orderamount = BillamountField(_(u'订单金额'))  # models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
-    payedamount = BillamountField(_(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
-    payment_status = models.SmallIntegerField(_(u'支付状态'))
-    orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True)
+    payedamount = BillamountField(_(u'支付金额'),
+                                  default=0.0)  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
+    payment_status = models.SmallIntegerField(_(u'支付状态'))  # 0:未支付 1:支付成功
+    orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
+
+    def __init__(self, *args, **kwargs):
+        super(Order, self).__init__(*args, **kwargs)
+        if self.proj_id and self.comboproj:
+            raise ValidationError(_('proj 和 comboproj 无法同时存在'))
+        if not self.proj_id and not self.comboproj:
+            raise ValidationError(_('proj 和 comboproj 无法同时为空'))
+        if self.proj:
+            self.orderamount = self.proj.current_payamount
+        if self.comboproj:
+            self.orderamount = self.comboproj.current_payamount
 
     class Meta:
         ordering = ('orderid',)
+        abstract = True
 
     def toJSON(self):
         fields = []
@@ -293,14 +420,55 @@ class Order(BaseModel):
         return d
 
 
+class RentalOrder(Order):
+    proj = models.ForeignKey(ProductRental, null=True, related_name="RentalOrderid")
+    comboproj = models.ForeignKey(ComboRental, null=True, related_name="RentalOrderid")
+
+    class Meta:
+        verbose_name = _('租赁订单')
+        verbose_name_plural = _('租赁订单')
+
+    def clean(self):
+        if self.proj_id and self.comboproj:
+            raise ValidationError(_('proj 和 comboproj 无法同时存在'))
+        if not self.proj_id and not self.comboproj:
+            raise ValidationError(_('proj 和 comboproj 无法同时为空'))
+
+
+class SaleOrder(Order):
+    proj = models.ForeignKey(ProductRental, null=True, related_name='SaleOrderid')
+    comboproj = models.ForeignKey(ComboRental, null=True, related_name='SaleOrderid')
+
+    class Meta:
+        verbose_name = _('销售订单')
+        verbose_name_plural = _('销售订单')
+
+    def clean(self):
+        if self.proj_id and self.comboproj:
+            raise ValidationError(_('proj 和 comboproj 无法同时存在'))
+        if not self.proj_id and not self.comboproj:
+            raise ValidationError(_('proj 和 comboproj 无法同时为空'))
+
+
 # 支付订单
 class PaymentOrder(BaseModel):
-    payment_id = models.CharField(max_length=20, default=Paytimestamp, db_index=True, unique=True)
+    pay_id = models.CharField(max_length=20, db_index=True, unique=True)
     order_id = models.CharField(max_length=20, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     payedamount = BillamountField(
         _(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
+
     # mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    class Meta:
+        verbose_name = _('支付订单')
+        verbose_name_plural = _('支付订单')
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.payment_id == '' or self.payment_id == None:
+            self.payment_id = Paytimestamp()
+        super(PaymentOrder, self).save(force_insert=False, force_update=False, using=None,
+                                       update_fields=None)
 
 
 class Userdata(models.Model):

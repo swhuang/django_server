@@ -40,7 +40,7 @@ class User(MiddlewareMixin):
         def get_merchant():
             mid = request.session.get('mid', None)
             if not mid:
-                return None
+                mid = 1
 
             try:
                 _merchant = Merchant.objects.get(id=int(mid))
