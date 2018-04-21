@@ -198,7 +198,7 @@ def generatetestmerchant(request):
         site_user = SiteUser.objects.get(id=1)
         name = site_user.username
     except SiteUser.DoesNotExist:
-        name = 'xyn' + str(timezone.now())
+        name = 'xyn' + str(timezone.now())[-5:-1]
         site_user = InnerUser.objects.create(username=name)
 
     print "Create site_user: " + name
@@ -206,7 +206,7 @@ def generatetestmerchant(request):
     try:
         rentalproj = ProductRental.objects.get(id=1)
     except ProductRental.DoesNotExist:
-        rentalproj = ProductRental(product=prod, user_id=siteuser.memberid)
+        rentalproj = ProductRental(product=prod, user_id=site_user.memberid)
         rentalproj.save()
 
     print "Create ProductRental:"+ rentalproj.proj_id
@@ -215,7 +215,7 @@ def generatetestmerchant(request):
         r_order = RentalOrder.objects.get(id=1)
     except RentalOrder.DoesNotExist:
         try:
-            r_order = RentalOrder(proj=rentalproj, user_id=siteuser.memberid)
+            r_order = RentalOrder(proj=rentalproj, user_id=site_user.memberid)
             r_order.save()
         except ValidationError, e:
             print e.msg

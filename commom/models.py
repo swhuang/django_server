@@ -5,6 +5,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from pikachu import settings
+from crm.server_utils.base import FSM as fsm
 import datetime
 import random
 import json
@@ -31,9 +32,16 @@ class initModel(models.Model):
         return d
 
 
-class BaseModel(initModel):
+class SubBaseModel(initModel):
     mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
     #submid = models.CharField(_(u'门店编号'), max_length, db_index=True)
+
+    class Meta:
+        abstract = True
+
+class BaseModel(initModel):
+    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
+    submid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, default='')
 
     class Meta:
         abstract = True
@@ -75,12 +83,29 @@ class JSONField(models.TextField):
             pass
         return v
 
-    def to_python(self, value):  
-        v = models.TextField.to_python(self, value)  
-        try:  
-            return json.loads(v)['v']  
-        except:  
-            pass  
-        return v  
     def get_prep_value(self, value):  
         return json.dumps({'v':value})
+
+
+
+class StatusField(models.IntegerField):
+
+    def from_db_value(self, value, expression, connection, context):
+        v = models.IntegerField.to_python(self, value)
+        ret = None
+        if v == fsm.START_STATE:
+            ret = fsm.Start()
+        elif v == fsm.RENTAL_CONFIRM:
+            ret = fsm.RentalConfirmed()
+        elif v == fsm.RENTALPROC_STATE:
+            ret = fsm.RentalProcessing()
+        elif v == fsm.COMPLETE:
+            ret = fsm.Completed()
+        try:
+            return ret
+        except:
+            pass
+        return ret
+
+    def get_prep_value(self, value):
+        return value.statevalue

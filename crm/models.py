@@ -106,7 +106,7 @@ DEFAULT_MERCHANT_OBJ = Merchant(merchantid=settings.DEFAULT_MERCHANT)  #
 
 
 # 门店
-class Submerchant(BaseModel):
+class Submerchant(SubBaseModel):
     subid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, unique=True, default='0',
                              editable=False)  # primary key
 
@@ -218,10 +218,10 @@ class Project(BaseModel):
     proj_name = models.CharField(max_length=128, default='')
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    state = models.IntegerField(_(u'服务状态'), default=0)
+    currsts = StatusField(_(u'服务状态'), default=Start)# models.IntegerField(_(u'服务状态'), default=0)
     create_user = models.CharField(_(u'创建者'), max_length=10, default='user')  # 创建者:店员or用户
-    start_time = models.DateTimeField(_(u'开始时间'), default=timezone.now)
-    end_time = models.DateTimeField(_(u'结束时间'), null=True)
+    start_time = models.DateField(_(u'开始时间'), auto_now=True) #models.DateTimeField(_(u'开始时间'), default=timezone.now)
+    end_time = models.DateField(_(u'结束时间'), default=timezone.now().strftime('%Y-%m-%d'))
     cycle_day = models.IntegerField(_(u'租赁周期'), default=1)
     process_day = models.IntegerField(_(u'租赁时长'), default=1)
     guarantee = BillamountField(_(u'押金'), default=0.0)
@@ -233,8 +233,9 @@ class Project(BaseModel):
         abstract = True
 
     def __init__(self, *args, **kwargs):
-        m = Merchant.objects.get(merchantid=self.mid)
+
         super(Project, self).__init__(*args, **kwargs)
+        m = Merchant.objects.get(merchantid=self.mid)
         if not self.product:
             print ("error for null product")
             return
@@ -247,17 +248,16 @@ class Project(BaseModel):
                 self.guarantee + self.process_day * self.product.rentalprice * (m.daily_amount_pct / 100), 2)
 
         if not self.state:
-            self.__curr = Start()
-            self.__state = START_STATE
+            self.currsts = Start()
+            #self.__state = START_STATE
 
     def set_state(self, s):
-        self.__curr = s
+        self.currsts = s
 
     def updatestate(self):
-        self.__curr.updatestate(self)
+        self.currsts.updatestate(self)
 
     def save(self, *args, **kwargs):
-        self.state = self.__curr.getstatevalue()
         super(Project, self).save(*args, **kwargs)
         if self.proj_id == '':
             self.proj_id = "%010d" % self.id
@@ -300,6 +300,9 @@ class Project(BaseModel):
 class ProductRental(Project):
     product = models.ForeignKey(ProductDetail)
 
+    def __unicode__(self):
+        return self.proj_id
+
     def __init__(self, *args, **kwargs):
         super(ProductRental, self).__init__(*args, **kwargs)
 
@@ -324,6 +327,9 @@ class ComboRental(Project):
     product = models.ForeignKey(Package)
     current_product = models.ForeignKey(ProductDetail, null=True)
     changelist = models.CharField(_(u'租品变化情况'), default='', max_length=3000)
+
+    def __unicode__(self):
+        return self.proj_id
 
     def save(self, *args, **kwargs):
         super(ComboRental, self).save(*args, **kwargs)
@@ -350,7 +356,7 @@ class Order(BaseModel):
     orderamount = BillamountField(_(u'订单金额'))  # models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
     payedamount = BillamountField(_(u'支付金额'),
                                   default=0.0)  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
-    payment_status = models.SmallIntegerField(_(u'支付状态'))  # 0:未支付 1:支付成功
+    payment_status = models.SmallIntegerField(_(u'支付状态'), default=0)  # 0:未支付 1:支付成功
     orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
 
     def __init__(self, *args, **kwargs):
@@ -363,6 +369,7 @@ class Order(BaseModel):
             self.orderamount = self.proj.current_payamount
         if self.comboproj:
             self.orderamount = self.comboproj.current_payamount
+
 
     class Meta:
         ordering = ('orderid',)

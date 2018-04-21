@@ -5,23 +5,25 @@ class State(object):
         pass
 
 START_STATE = 0
-RENTALPROC_STATE = 1
-SELLPROC_STATE = 2
-COMPLETE = 3
+RENTAL_CONFIRM = 1
+RENTALPROC_STATE = 2
+SELLPROC_STATE = 3
+COMPLETE = 4
 
 # 创建等待付款
 class Start(State):
+    statevalue = START_STATE
     def updatestate(self, w):
-        if w.Orderid != []:
+        #若生成订单,则可进入下 确认服务 状态
+        if w.RentalOrderid != [] and w.RentalOrderid !=[]:
             w.set_state(RentalConfirmed())
         pass
 
-    def getstatevalue(self):
-        return START_STATE
 
-# 确认服务(生成订单)
+# 确认服务(已生成订单)
 class RentalConfirmed(State):
     def updatestate(self, w):
+        #if
         pass
 
 
