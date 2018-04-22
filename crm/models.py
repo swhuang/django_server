@@ -247,7 +247,7 @@ class Project(BaseModel):
             self.current_payamount = round(
                 self.guarantee + self.process_day * self.product.rentalprice * (m.daily_amount_pct / 100), 2)
 
-        if not self.state:
+        if not self.currsts:
             self.currsts = Start()
             #self.__state = START_STATE
 

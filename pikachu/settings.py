@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 Django settings for pikachu project.
 
@@ -14,7 +15,6 @@ import os
 import djcelery
 import siteuser
 import platform
-
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -37,10 +37,10 @@ ALLOWED_HOSTS = ['*', ]
 
 from os import environ
 
-#DOMAIN = 'http://120.55.55.106:3306'
+# DOMAIN = 'http://120.55.55.106:3306'
 DOMAIN = 'http://localhost:3306'
-#CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
-#host = '120.55.55.106'
+# CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
+# host = '120.55.55.106'
 host = 'localhost'
 port = '3306'
 name = 'root'
@@ -57,7 +57,6 @@ DATABASES = {
         'PORT': port,  # Set to empty string for default. Not used with sqlite3.
     }
 }
-
 
 # Application definition
 
@@ -104,10 +103,10 @@ SITEUSER_EMAIL = {
 AVATAR_DIR = 'crm/data'
 
 USERS_PASSWORD_POLICY = {
-        'UPPER': 0,       # Uppercase 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-        'LOWER': 0,       # Lowercase 'abcdefghijklmnopqrstuvwxyz'
-        'DIGITS': 0,      # Digits '0123456789'
-        'PUNCTUATION': 0  # Punctuation """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"""
+    'UPPER': 0,  # Uppercase 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    'LOWER': 0,  # Lowercase 'abcdefghijklmnopqrstuvwxyz'
+    'DIGITS': 0,  # Digits '0123456789'
+    'PUNCTUATION': 0  # Punctuation """!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~"""
 }
 
 MIDDLEWARE = [
@@ -144,8 +143,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'pikachu.wsgi.application'
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -204,7 +201,7 @@ STATICFILES_DIRS = (
     '/siteuser/member/static',
 )
 
-#DEFAULT_CHARSET = 'GBK'
+# DEFAULT_CHARSET = 'GBK'
 DEFAULT_CHARSET = 'UTF-8'
 
 USERS_EMAIL_DOMAINS_BLACKLIST = []
@@ -245,6 +242,7 @@ DEFAULT_MERCHANT = '100000000000001'
 DEFAULT_MERCHANT_ID = 1
 # timely task
 from celery.schedules import crontab
+
 djcelery.setup_loader()
 BROKER_URL = 'redis://127.0.0.1:6379/1'
 
@@ -257,4 +255,22 @@ CELERYBEAT_SCHEDULE = {
         'schedule': timedelta(seconds=3),
         'args': (16, 16)
     },
+    'add-every-4-seconds': {
+        'task': 'periodic.tasks.test_multiply',
+        # 'schedule': crontab(minute=u'40', hour=u'17',),
+        'schedule': timedelta(seconds=4),
+        'args': (16, 16)
+    },
+    'add-every-2-seconds': {
+        'task': 'periodic.tasks.test_do_order',
+        # 'schedule': crontab(minute=u'40', hour=u'17',),
+        'schedule': timedelta(seconds=2),
+        'args': (16, 16)
+    },
 }
+
+# 增加定时任务用于
+from crm.server_utils.base.DQS import Order_timer
+import threading
+ORDERTIMER = threading.Timer(2.0, Order_timer)
+ORDERTIMER.start()

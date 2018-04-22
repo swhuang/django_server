@@ -18,6 +18,8 @@ from djpjax import pjax
 from django.contrib.auth.models import Group, Permission
 from siteuser.member.models import InnerUser, SiteUser
 from django.core.exceptions import ValidationError
+from crm.server_utils.base.DQS import SingletonFactory
+import datetime
 
 
 
@@ -220,7 +222,8 @@ def generatetestmerchant(request):
         except ValidationError, e:
             print e.msg
 
-
+    str = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
+    SingletonFactory.getCycleQueue().putitem(str)
     '''
     try:
         myorder = RentalOrder(proj=rentalproj, )
