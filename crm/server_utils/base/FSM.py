@@ -15,7 +15,7 @@ class Start(State):
     statevalue = START_STATE
     def updatestate(self, w):
         #若生成订单,则可进入下 确认服务 状态
-        if w.RentalOrderid != [] and w.RentalOrderid !=[]:
+        if w.RentalOrderid != [] or w.RentalOrderid !=[]:
             w.set_state(RentalConfirmed())
         pass
 
@@ -50,6 +50,17 @@ class Completed(State):
 
 class Closed(State):
     pass
+
+# **************订单状态*****************
+
+ORDER_START = 0
+ORDER_FINISHED = 1
+ORDER_CANCELED = 2
+
+class OrderState(object):
+    def __init__(self):
+        pass
+
 
 
 # 售卖服务进行中

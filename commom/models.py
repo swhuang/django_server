@@ -109,3 +109,4 @@ class StatusField(models.IntegerField):
 
     def get_prep_value(self, value):
         return value.statevalue
+

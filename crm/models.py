@@ -359,6 +359,8 @@ class Order(BaseModel):
     payment_status = models.SmallIntegerField(_(u'支付状态'), default=0)  # 0:未支付 1:支付成功
     orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
 
+    status = models.IntegerField(_('订单状态'),default = fsm.ORDER_START)
+
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
         if self.proj_id and self.comboproj:

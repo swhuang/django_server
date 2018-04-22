@@ -2,17 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6f10766-122f-4f3c-913d-16864b137eb1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crm/server_utils/base/DQS.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/crm/server_utils/base/redis-Int.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/celerybeat-schedule" afterPath="$PROJECT_DIR$/celerybeat-schedule" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dump.rdb" afterPath="$PROJECT_DIR$/dump.rdb" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FP_risk/base/utils.py" afterPath="$PROJECT_DIR$/FP_risk/base/utils.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FP_risk/models.py" afterPath="$PROJECT_DIR$/FP_risk/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/commom/models.py" afterPath="$PROJECT_DIR$/commom/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/models.py" afterPath="$PROJECT_DIR$/crm/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/views.py" afterPath="$PROJECT_DIR$/crm/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/server_utils/base/DQS.py" afterPath="$PROJECT_DIR$/crm/server_utils/base/DQS.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/server_utils/base/FSM.py" afterPath="$PROJECT_DIR$/crm/server_utils/base/FSM.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/periodic/tasks.py" afterPath="$PROJECT_DIR$/periodic/tasks.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pikachu/settings.py" afterPath="$PROJECT_DIR$/pikachu/settings.py" />
     </list>
     <ignored path="pikachu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -138,11 +135,11 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="FSM.py" pinned="false" current-in-tab="false">
+              <file leaf-file-name="FSM.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/crm/server_utils/base/FSM.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="375">
-                      <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
+                    <state relative-caret-position="286">
+                      <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
                       <folding />
                     </state>
                   </provider>
@@ -158,10 +155,10 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/views.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="349">
+                    <state relative-caret-position="1144">
                       <caret line="225" column="48" selection-start-line="225" selection-start-column="48" selection-end-line="225" selection-end-column="48" />
                       <folding>
                         <element signature="e#24#59#0" expanded="true" />
@@ -174,23 +171,23 @@
           </split-first>
           <split-second>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="DQS.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="DQS.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/server_utils/base/DQS.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="316">
-                      <caret line="110" column="12" selection-start-line="110" selection-start-column="12" selection-end-line="110" selection-end-column="12" />
+                    <state relative-caret-position="-686">
+                      <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
                       <folding>
-                        <element signature="e#49#61#0" expanded="true" />
+                        <element signature="e#49#92#0" expanded="true" />
                       </folding>
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="tasks.py" pinned="false" current-in-tab="false">
+              <file leaf-file-name="tasks.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/periodic/tasks.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="391">
-                      <caret line="39" column="17" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="17" />
+                    <state relative-caret-position="406">
+                      <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="33" />
                       <folding>
                         <element signature="e#24#62#0" expanded="true" />
                       </folding>
@@ -233,20 +230,30 @@
               <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/models.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="356">
-                      <caret line="249" column="0" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
+                    <state relative-caret-position="-169">
+                      <caret line="361" column="69" selection-start-line="361" selection-start-column="69" selection-end-line="361" selection-end-column="69" />
                       <folding>
                         <element signature="e#24#63#0" expanded="true" />
                         <element signature="e#2290#2791#0" expanded="false" />
                         <element signature="e#2824#3363#0" expanded="false" />
                         <element signature="e#9972#10459#0" expanded="false" />
                         <element signature="e#10492#10979#0" expanded="false" />
-                        <element signature="e#13529#14597#0" expanded="false" />
-                        <element signature="e#14630#15621#0" expanded="false" />
-                        <element signature="e#17659#18368#0" expanded="false" />
-                        <element signature="e#18405#19316#0" expanded="false" />
-                        <element signature="e#19357#19583#0" expanded="false" />
+                        <element signature="e#13600#14668#0" expanded="false" />
+                        <element signature="e#14701#15692#0" expanded="false" />
+                        <element signature="e#17730#18439#0" expanded="false" />
+                        <element signature="e#18476#19387#0" expanded="false" />
+                        <element signature="e#19428#19654#0" expanded="false" />
                       </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="redis-Int.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/crm/server_utils/base/redis-Int.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="15">
+                      <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -357,23 +364,11 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/Accounting/models.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="165">
-                      <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
-                      <folding>
-                        <element signature="e#24#63#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
               <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/commom/models.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="172">
-                      <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="61" />
+                    <state relative-caret-position="148">
+                      <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
                       <folding>
                         <element signature="e#24#63#0" expanded="true" />
                       </folding>
@@ -384,7 +379,7 @@
               <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/pikachu/settings.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="0">
+                    <state relative-caret-position="-930">
                       <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
                       <folding />
                     </state>
@@ -398,28 +393,6 @@
                       <caret line="16" column="75" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
                       <folding>
                         <element signature="e#25#57#0" expanded="true" />
-                      </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/users/urls.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="45">
-                      <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
-                <entry file="file:///usr/local/lib/python2.7/site-packages/django/contrib/auth/views.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="148">
-                      <caret line="81" column="18" selection-start-line="81" selection-start-column="18" selection-end-line="81" selection-end-column="18" />
-                      <folding>
-                        <element signature="e#0#16#0" expanded="true" />
                       </folding>
                     </state>
                   </provider>
@@ -440,9 +413,23 @@
               <file leaf-file-name="celery.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/pikachu/celery.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-75">
+                    <state relative-caret-position="15">
+                      <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+                      <folding>
+                        <element signature="e#24#62#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/pikachu/__init__.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="0">
                       <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                      <folding />
+                      <folding>
+                        <element signature="e#0#38#0" expanded="true" />
+                      </folding>
                     </state>
                   </provider>
                 </entry>
@@ -509,17 +496,17 @@
         <option value="$PROJECT_DIR$/Accounting/models.py" />
         <option value="$PROJECT_DIR$/siteuser/middleware.py" />
         <option value="$PROJECT_DIR$/crm/admin.py" />
-        <option value="$PROJECT_DIR$/commom/models.py" />
-        <option value="$PROJECT_DIR$/crm/server_utils/base/FSM.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/base/Delayed queue system.py" />
         <option value="$PROJECT_DIR$/FP_risk/base/utils.py" />
-        <option value="$PROJECT_DIR$/periodic/tasks.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/base/redis-Int.py" />
         <option value="$PROJECT_DIR$/FP_risk/models.py" />
         <option value="$PROJECT_DIR$/pikachu/settings.py" />
         <option value="$PROJECT_DIR$/crm/views.py" />
-        <option value="$PROJECT_DIR$/crm/models.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/base/DQS.py" />
+        <option value="$PROJECT_DIR$/crm/server_utils/base/FSM.py" />
+        <option value="$PROJECT_DIR$/commom/models.py" />
+        <option value="$PROJECT_DIR$/crm/models.py" />
+        <option value="$PROJECT_DIR$/periodic/tasks.py" />
       </list>
     </option>
   </component>
@@ -1678,11 +1665,6 @@
           <line>40</line>
           <option name="timeStamp" value="432" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/crm/models.py</url>
-          <line>235</line>
-          <option name="timeStamp" value="433" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="django-line">
           <url>file://$PROJECT_DIR$/users/templates/users/partials/field.html</url>
           <line>30</line>
@@ -1722,46 +1704,12 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/crm/mobile/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/contrib/auth/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="88">
-          <caret line="62" column="7" selection-start-line="62" selection-start-column="7" selection-end-line="62" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python2.7/site-packages/django/contrib/auth/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="148">
           <caret line="81" column="18" selection-start-line="81" selection-start-column="18" selection-end-line="81" selection-end-column="18" />
           <folding>
-            <element signature="e#0#16#0" expanded="true" />
+            <element signature="e#0#16#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1946,14 +1894,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/FSM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crm/util.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2279">
@@ -1981,14 +1921,6 @@
     <entry file="file://$PROJECT_DIR$/periodic/admin.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pikachu/celery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-75">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -2060,14 +1992,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pikachu/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Accounting/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -2080,14 +2004,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/redis-Int.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
           <folding />
         </state>
       </provider>
@@ -2108,26 +2024,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/commom/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="61" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="225" column="48" selection-start-line="225" selection-start-column="48" selection-end-line="225" selection-end-column="48" />
-          <folding>
-            <element signature="e#24#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/FP_risk/worker.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="436">
@@ -2136,41 +2032,133 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/periodic/tasks.py">
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/redis-Int.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="39" column="17" selection-start-line="39" selection-start-column="4" selection-end-line="39" selection-end-column="17" />
+        <state relative-caret-position="15">
+          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Accounting/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="30" column="18" selection-start-line="30" selection-start-column="18" selection-end-line="30" selection-end-column="18" />
+          <folding>
+            <element signature="e#24#63#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pikachu/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-930">
+          <caret line="0" column="23" selection-start-line="0" selection-start-column="23" selection-end-line="0" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django/db/models/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="104" column="0" selection-start-line="104" selection-start-column="0" selection-end-line="104" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django/apps/registry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="123" column="0" selection-start-line="123" selection-start-column="0" selection-end-line="123" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pikachu/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pikachu/celery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
             <element signature="e#24#62#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/models.py">
+    <entry file="file://$PROJECT_DIR$/crm/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="249" column="0" selection-start-line="249" selection-start-column="0" selection-end-line="249" selection-end-column="0" />
+        <state relative-caret-position="1144">
+          <caret line="225" column="48" selection-start-line="225" selection-start-column="48" selection-end-line="225" selection-end-column="48" />
           <folding>
-            <element signature="e#24#63#0" expanded="true" />
-            <element signature="e#2290#2791#0" expanded="false" />
-            <element signature="e#2824#3363#0" expanded="false" />
-            <element signature="e#9972#10459#0" expanded="false" />
-            <element signature="e#10492#10979#0" expanded="false" />
-            <element signature="e#13529#14597#0" expanded="false" />
-            <element signature="e#14630#15621#0" expanded="false" />
-            <element signature="e#17659#18368#0" expanded="false" />
-            <element signature="e#18405#19316#0" expanded="false" />
-            <element signature="e#19357#19583#0" expanded="false" />
+            <element signature="e#24#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crm/server_utils/base/DQS.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="110" column="12" selection-start-line="110" selection-start-column="12" selection-end-line="110" selection-end-column="12" />
+        <state relative-caret-position="-686">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
           <folding>
-            <element signature="e#49#61#0" expanded="true" />
+            <element signature="e#49#92#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/FSM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="57" column="18" selection-start-line="57" selection-start-column="18" selection-end-line="57" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/commom/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="112" column="0" selection-start-line="112" selection-start-column="0" selection-end-line="112" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-169">
+          <caret line="361" column="69" selection-start-line="361" selection-start-column="69" selection-end-line="361" selection-end-column="69" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+            <element signature="e#2290#2791#0" expanded="false" />
+            <element signature="e#2824#3363#0" expanded="false" />
+            <element signature="e#9972#10459#0" expanded="false" />
+            <element signature="e#10492#10979#0" expanded="false" />
+            <element signature="e#13600#14668#0" expanded="false" />
+            <element signature="e#14701#15692#0" expanded="false" />
+            <element signature="e#17730#18439#0" expanded="false" />
+            <element signature="e#18476#19387#0" expanded="false" />
+            <element signature="e#19428#19654#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/periodic/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="70" column="4" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="33" />
+          <folding>
+            <element signature="e#24#62#0" expanded="true" />
           </folding>
         </state>
       </provider>

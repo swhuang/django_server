@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # 该模块用于构建环形队列,以便实现订单超时功能
-import Queue
-from array import array
 from FP_risk.base.utils import synchronized
 from django.utils import timezone
 from FP_risk.worker import Worker
 import threading
 import datetime
 import copy
+from periodic.tasks import ExpireOrderProc
 from django.core.cache import cache
 
 MAXMINUTE = 15  # 15 minutes
@@ -55,10 +54,10 @@ class SingletonFactory(Singleton):
 
 #
 def TreatOrder(orderlist):
-    #处理过期订单
+    # 处理过期订单
     pass
-    #print orderlist
-    #print "time: " + str(timezone.now())
+    # print orderlist
+    # print "time: " + str(timezone.now())
 
 
 class CycleQueue(Singleton):
@@ -67,10 +66,10 @@ class CycleQueue(Singleton):
         self.current_point = 0
         self.maxcount = MAXMINUTE * 60 * 100  # 总交易数
         self.maxnode = maxsize  # MAXMINUTE*60
-        self.__queue = [{'data': [], 'np':-1} for i in range(self.maxnode)]
+        self.__queue = [{'data': [], 'np': -1} for i in range(self.maxnode)]
         self.curitem = 0
-        self.mWorker = Worker()
-        self.mWorker.start()
+        # self.mWorker = Worker()
+        # self.mWorker.start()
 
     def __getitem__(self, item):
         if not isinstance(item, int):
@@ -86,7 +85,11 @@ class CycleQueue(Singleton):
                 if ele and ele['ctag'] == 1:
                     dk.append(i)
                     p.append(ele['v'])
-                    self.mWorker.submit(TreatOrder, p)  # 考虑用celery worker去做
+                    # self.mWorker.submit(TreatOrder, p)  # 考虑用celery worker去做
+                    try:
+                        r = ExpireOrderProc.delay(p)
+                    except Exception, e:
+                        print str(e)
                     self.curitem -= 1
                     self.__queue[self.current_point]['data'][i] = None
             except AttributeError, e:
@@ -96,7 +99,7 @@ class CycleQueue(Singleton):
                 print ele
                 print "==========debugingend==========="
                 break
-        if len(dk) != 0: # delete keywords
+        if len(dk) != 0:  # delete keywords
             self.__queue[self.current_point]['np'] = dk[0]
             self.LogInfo()
         else:
