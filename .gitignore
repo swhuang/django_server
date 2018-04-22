@@ -2,3 +2,4 @@
 site-packages/*
 *.pyc
 .idea/workspace.xml
+celerybeat-schedule
