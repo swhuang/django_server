@@ -82,7 +82,7 @@ class SocialUser(models.Model):
 class InnerUser(models.Model):
     """自身注册用户"""
     user = models.OneToOneField('SiteUser', related_name='inner_user')
-    email = models.CharField(max_length=MAX_EMAIL_LENGTH, unique=True)
+    email = models.CharField(max_length=MAX_EMAIL_LENGTH, blank=True)
     passwd = models.CharField(max_length=40)
     description = models.CharField(max_length=255, null=True)
 

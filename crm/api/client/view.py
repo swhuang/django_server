@@ -27,8 +27,9 @@ class SiteUserLoginView(APIView):
                     with transaction.atomic():
                         usr = InnerUser.objects.create(username=username, phone=username)
                         request.session['uid'] = usr.user.id
-                        act = Account.objects.create(user=usr, balance=0.0)
-                except:
+                        act = Account.objects.create(user=usr.user, balance=0.0)
+                except Exception,e:
+                    print e
                     return Response({"detail": "注册/登录失败"}, HTTP_400_BAD_REQUEST)
             else:
                 return Response({"detail", "success"})
