@@ -44,8 +44,10 @@ class UserSerializer(serializers.ModelSerializer):
             p = Merchant.objects.get(merchantid=settings.DEFAULT_MERCHANT)
         validated_data['mid'] = p
         validated_data['username'] = unicode(validated_data['username'].encode("raw_unicode_escape"), 'UTF-8')
+        self.context['request'].POST['mid'] = p.merchantid
         form = RegistrationForm(self.context['request'].POST)
-        user = form.save()
+        if form.is_valid():
+            user = form.save()
         return user
 
 

@@ -31,6 +31,12 @@ class UserCreationForm(forms.ModelForm):
         #fields = ('email',)
         fields = ('userid',)
 
+    '''
+    def __init__(self, *args, **kwargs):
+        args[0][u'merchantid']
+        pass
+    '''
+
     def clean_email(self):
 
         # Since User.email is unique, this check is redundant,
@@ -61,11 +67,13 @@ class UserCreationForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password1'])
         user.is_active = not settings.USERS_VERIFY_EMAIL
         _merchant = None
+
         try:
             from crm.models import Merchant
             _merchant = Merchant.objects.get(merchantid=self.cleaned_data['mid'])
         except:
             print "error!!!!"+str(self.cleaned_data['mid'])
+
 
         user.mid = _merchant
         if commit:
