@@ -141,6 +141,7 @@ def Order_timer():
 
 
 if __name__ == '__main__':
+    print str(datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))[-5:-1]
     a = CycleQueue(MAXMINUTE * 30)
     b = CycleQueue(MAXMINUTE * 30)
     print id(a)

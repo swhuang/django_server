@@ -200,7 +200,7 @@ def generatetestmerchant(request):
         site_user = SiteUser.objects.get(id=1)
         name = site_user.username
     except SiteUser.DoesNotExist:
-        name = 'xyn' + str(timezone.now())[-5:-1]
+        name = 'xyn' + str(datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))[-5:-1]
         site_user = InnerUser.objects.create(username=name)
 
     print "Create site_user: " + name
@@ -396,11 +396,4 @@ def getUserData(request):
 
 
 if __name__ == '__main__':
-    import httplib
-
-    conn = httplib.HTTPConnection("127.0.0.1:8000")
-    conn.request("GET", "/userform/getSessionToken/")
-    ri = conn.getresponse()
-    print ri.status, ri.reason
-    data = ri.read()
-    print data
+    print str(timezone.now())[-5:-1]
