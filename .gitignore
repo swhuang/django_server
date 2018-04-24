@@ -3,3 +3,4 @@ site-packages/*
 *.pyc
 .idea/workspace.xml
 celerybeat-schedule
+*/migrations/0*.py
