@@ -200,7 +200,7 @@ def generatetestmerchant(request):
         site_user = SiteUser.objects.get(id=1)
         name = site_user.username
     except SiteUser.DoesNotExist:
-        name = 'xyn' + str(datetime.datetime.now().strftime("%Y%m%d%H%M%S%f"))[-5:-1]
+        name = 'xyn' + datetime.datetime.now().strftime("%Y%m%d%H%M%S%f")[-5:-1]
         site_user = InnerUser.objects.create(username=name)
 
     print "Create site_user: " + name
