@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """pikachu URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,9 +16,9 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from crm import views as crm_view
 from django.contrib.auth import urls as auth_urls
-from users import views as userview
+from crm.server_utils.base.DQS import Order_timer
+import threading
 
 urlpatterns = [
     url(r'^api-auth/', include('crm.api.urls', namespace='rest_framework')),
@@ -28,3 +29,9 @@ urlpatterns = [
     url(r'^local/', include('crm.local_Interface.urls')),
     url(r'^mobile/', include('crm.mobile.urls'))
 ]
+
+# 增加定时任务用于
+'''
+ORDERTIMER = threading.Timer(2.0, Order_timer)
+ORDERTIMER.start()
+'''

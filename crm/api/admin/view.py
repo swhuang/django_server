@@ -7,6 +7,7 @@ from rest_framework.status import *
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .Serializer import *
+from crm.models import *
 import sys
 
 reload(sys)
@@ -42,10 +43,21 @@ class UserLogView(APIView):
             login(request, form.get_user())
             return Response("success")
         else:
-            return Response({"detail":"登录失败"}, HTTP_400_BAD_REQUEST)
+            return Response({"detail": "登录失败"}, HTTP_400_BAD_REQUEST)
 
-    '''
-    def perform_create(self, serializer):
+
+# 取货完成接口
+class CompClaimView(APIView):
+    permissions_classes = (permissions.IsAdminUser,)
+
+    def get(self, request, format=None):
+        serv_id = request.data.get("projid", None)
+        serv_type = request.data.get("type", None)
+
+        if serv_type == 'zl':
+            cur_serv = ProductRental.objects.get(proj_id=serv_id)
+        elif serv_type == 'tc':
+            cur_serv = ComboRental.objects.get(proj_id=serv_id)
+
+        cur_serv.set_state(RentalProcessing())
         pass
-    '''
-    # serializer.save()

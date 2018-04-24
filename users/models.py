@@ -9,11 +9,14 @@ from django.utils.translation import ugettext_lazy as _
 from .conf import settings
 from .managers import UserInheritanceManager, UserManager
 from crm.models import Merchant, Submerchant
-
+from commom.models import JSONField
 from decimal import Decimal
+from django.db import transaction
 import json
-#from django.contrib.auth.backends import ModelBackend
-#from django.contrib.auth.tokens import default_token_generator
+
+
+# from django.contrib.auth.backends import ModelBackend
+# from django.contrib.auth.tokens import default_token_generator
 
 
 class AbstractUser(AbstractBaseUser, PermissionsMixin):
@@ -79,7 +82,7 @@ class User(AbstractUser):
 
     usertoken = models.CharField(max_length=100, default='')
 
-    mid = models.ForeignKey(Merchant, null=True) #, default=settings.DEFAULT_MERCHANT_ID)
+    mid = models.ForeignKey(Merchant, null=True)  # , default=settings.DEFAULT_MERCHANT_ID)
 
     submerchant = models.ForeignKey(Submerchant, null=True)
 
@@ -88,8 +91,8 @@ class User(AbstractUser):
 
     def save(self, *args, **kwargs):
         if not self.mid:
-            pass#self.mid = settings.DEFAULT_MERCHANT_ID
-        super(User,self).save(*args, **kwargs)
+            self.mid = Merchant.objects.all().first()
+        super(User, self).save(*args, **kwargs)
 
 
 class Member(AbstractBaseUser):
@@ -100,7 +103,7 @@ class Member(AbstractBaseUser):
     id_type = models.IntegerField(default=0)
     gender = models.BooleanField(default=True)
     phone = models.CharField(_(u'用户名'), default='', unique=True, db_index=True, max_length=50)
-    mid = models.ForeignKey(Merchant, null=True, db_index=True) #, default=settings.DEFAULT_MERCHANT_ID)
+    mid = models.ForeignKey(Merchant, null=True, db_index=True)  # , default=settings.DEFAULT_MERCHANT_ID)
     email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
     '''
     class Meta:
@@ -110,7 +113,7 @@ class Member(AbstractBaseUser):
 
     def save(self, *args, **kwargs):
         if not self.mid:
-            pass#self.mid = settings.DEFAULT_MERCHANT_ID
+            pass  # self.mid = settings.DEFAULT_MERCHANT_ID
         super(Member, self).save(*args, **kwargs)
         self.memberid = "%010d" % self.id
         super(Member, self).save(force_update=True, update_fields=['memberid'])
@@ -161,31 +164,38 @@ class Member(AbstractBaseUser):
 
 
 class ExtendMember(AbstractBaseUser):
-    #username = models.TextField(max_length=100, default=u'hsw')
-    memberid = models.CharField(max_length=15, default='')
-    id_name = models.CharField(max_length=15, null=True)
-    id_no = models.CharField(max_length=15, null=True)
-    id_type = models.IntegerField(default=0)
-    gender = models.BooleanField(default=True)
-    phone = models.CharField(_(u'用户名'), default='', unique=True, db_index=True, max_length=50)
-    mid = models.ForeignKey(Merchant, null=True, db_index=True) #, default=settings.DEFAULT_MERCHANT_ID)
+    # username = models.TextField(max_length=100, default=u'hsw')
+    memberid = models.CharField(_(u'会员ID号'), max_length=15, default='')
+    name = models.CharField(_(u'用户真名'), max_length=15, null=True)
+    idNo = models.CharField(_(u'证件号码'), max_length=15, null=True)
+    idType = models.IntegerField(_(u'证件类型'), default=0)
+    gender = models.BooleanField(_(u'性别'), default=True)
+    phone = models.CharField(_(u'手机号'), default='', unique=True, db_index=True, max_length=50)
+    mid = models.ForeignKey(Merchant, null=True, db_index=True)  # , default=settings.DEFAULT_MERCHANT_ID)
     email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
+    address = JSONField(_(u'地址'), default={})
+    birthday = models.DateField(_(u'生日'), blank=True, null=True)
+    source = models.IntegerField(_(u'创建来源'), blank=True, default=0)
 
     class Meta:
         abstract = True
 
     USERNAME_FIELD = 'phone'
 
+    def __unicode__(self):
+        return self.memberid
+
     def save(self, *args, **kwargs):
         if not self.mid:
             try:
-                self.mid = Merchant.objects.get(merchantid=settings.DEFAULT_MERCHANT) #settings.DEFAULT_MERCHANT_ID
+                self.mid = Merchant.objects.get(merchantid=settings.DEFAULT_MERCHANT)  # settings.DEFAULT_MERCHANT_ID
             except:
                 self.mid = None
-        super(ExtendMember, self).save(*args, **kwargs)
-        if self.memberid == '':
-            self.memberid = "%010d" % self.id
-            super(ExtendMember, self).save(force_update=True, update_fields=['memberid'])
+        with transaction.atomic():
+            super(ExtendMember, self).save(*args, **kwargs)
+            if self.memberid == '':
+                self.memberid = "%010d" % self.id
+                super(ExtendMember, self).save(force_update=True, update_fields=['memberid'])
 
     def default_init(self):
         self.username = 'hsw'
@@ -230,6 +240,7 @@ class ExtendMember(AbstractBaseUser):
             else:
                 d[attr] = getattr(self, attr)
         return d
+
 
 '''
 class Permission(models.Model):

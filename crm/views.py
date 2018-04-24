@@ -228,6 +228,9 @@ def generatetestmerchant(request):
     try:
         myorder = RentalOrder(proj=rentalproj, )
     '''
+    qp = ProductDetail.objects.all().first()
+    print qp.image1['avatar']
+
 
     return HttpResponse('ook')
 

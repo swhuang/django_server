@@ -65,5 +65,12 @@ class LogSerializer(serializers.Serializer):
         model = User
         fields = ('userid', 'username', 'password')
 
+class CompClaimSerializer(serializers.Serializer):
+    projid = serializers.CharField(max_length=15)
+    type = serializers.CharField(max_length=2)
+
+    def validate(self, attrs):
+        if attrs['type'] != 'zl' and attrs['type'] != 'tc':
+            raise serializers.ValidationError('"type" illagel')
 
         # def validate_identification(self,):

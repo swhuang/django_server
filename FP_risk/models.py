@@ -20,5 +20,3 @@ worker.start()
 r = worker.submit(pow, 3,3)
 print(r.result())
 '''
-cache.set("foo", "value", timeout=25)
-print cache.get("foo")

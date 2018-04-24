@@ -111,7 +111,7 @@ class CycleQueue(Singleton):
             if e and e['ctag'] == 0:
                 e['ctag'] = 1
 
-        pass
+
 
     @synchronized
     def putitem(self, v):

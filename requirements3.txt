@@ -56,3 +56,4 @@ web.py==0.38
 Werkzeug==0.12.1
 yarg==0.1.9
 zope.interface==4.2.0
+easy-thumbnails==2.5

@@ -101,6 +101,8 @@ class StatusField(models.IntegerField):
             ret = fsm.RentalProcessing()
         elif v == fsm.COMPLETE:
             ret = fsm.Completed()
+        elif v == fsm.READYFORGOOD_STATE:
+            ret = fsm.ReadyForGood()
         try:
             return ret
         except:

@@ -6,9 +6,10 @@ class State(object):
 
 START_STATE = 0
 RENTAL_CONFIRM = 1
-RENTALPROC_STATE = 2
-SELLPROC_STATE = 3
-COMPLETE = 4
+READYFORGOOD_STATE = 2
+RENTALPROC_STATE = 3
+SELLPROC_STATE = 4
+COMPLETE = 5
 
 # 创建等待付款
 class Start(State):
@@ -20,15 +21,16 @@ class Start(State):
         pass
 
 
-# 确认服务(已生成订单)
+# 确认服务(已生成订单) = 待支付
 class RentalConfirmed(State):
+    statevalue = RENTAL_CONFIRM
     def updatestate(self, w):
         #if
         pass
 
 
-# 完成支付
-class RentalPayed(State):
+# 完成支付 = 待取货
+class ReadyForGood(State):
     def updatestate(self, w):
         pass
 
@@ -37,6 +39,14 @@ class RentalPayed(State):
 class RentalProcessing(State):
     def updatestate(self, w):
         pass
+
+
+# 退款进行中
+class RefundProcessing(State):
+    def updatestate(self, w):
+        pass
+
+
 
 # 租赁服务逾期进行中
 class ExpiredProcessing(State):
@@ -48,7 +58,12 @@ class Completed(State):
     pass
 
 
+# 服务关闭
 class Closed(State):
+    pass
+
+# 退款完成
+class RefundDone(State):
     pass
 
 # **************订单状态*****************

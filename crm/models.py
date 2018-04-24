@@ -14,6 +14,8 @@ from server_utils.base.FSM import *
 import random
 import json
 import datetime
+from easy_thumbnails.fields import ThumbnailerImageField
+
 
 
 # Create your models here.
@@ -142,12 +144,13 @@ class ProductDetail(BaseModel):
     guarantee = BillamountField(_(u'押金'), default=0.0)
     rentalprice = BillamountField(_(u'租赁单价'), default=0.0)
     attributes = JSONField(_(u'产品参数'), default={})
-    image1 = models.ImageField(_(u'图片1'), null=True, upload_to='img/product', default='')
-    image2 = models.ImageField(_(u'图片2'), null=True, upload_to='img/product', default='')
-    image3 = models.ImageField(_(u'图片3'), null=True, upload_to='img/product', default='')
-    image4 = models.ImageField(_(u'图片4'), null=True, upload_to='img/product', default='')
-    image5 = models.ImageField(_(u'图片5'), null=True, upload_to='img/product', default='')
-    image6 = models.ImageField(_(u'图片6'), null=True, upload_to='img/product', default='')
+    image1 = ThumbnailerImageField(verbose_name=_(u'图片1'), upload_to='img/product', default='', blank=True)
+    #image1 = models.ImageField(_(u'图片1'), null=True, upload_to='img/product', default='')
+    image2 = models.ImageField(_(u'图片2'), blank=True, upload_to='img/product', default='')
+    image3 = models.ImageField(_(u'图片3'), blank=True, upload_to='img/product', default='')
+    image4 = models.ImageField(_(u'图片4'), blank=True, upload_to='img/product', default='')
+    image5 = models.ImageField(_(u'图片5'), blank=True, upload_to='img/product', default='')
+    image6 = models.ImageField(_(u'图片6'), blank=True, upload_to='img/product', default='')
 
     class Meta:
         ordering = ('productid', 'mid')

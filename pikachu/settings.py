@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crm',
+    'Accounting',
     'users',
     'easy_pjax',
     'commom',
@@ -76,6 +77,7 @@ INSTALLED_APPS = [
     'periodic',
     'siteuser.member',
     'siteuser.notify',
+    'easy_thumbnails',
     'FP_risk',
     'rest_framework',
     'gunicorn',
@@ -201,6 +203,11 @@ STATICFILES_DIRS = (
     '/siteuser/member/static',
 )
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'avatar': {'size': (200, 200), 'crop': True},
+    },
+}
 # DEFAULT_CHARSET = 'GBK'
 DEFAULT_CHARSET = 'UTF-8'
 
@@ -269,8 +276,3 @@ CELERYBEAT_SCHEDULE = {
     },
 }
 
-# 增加定时任务用于
-from crm.server_utils.base.DQS import Order_timer
-import threading
-ORDERTIMER = threading.Timer(2.0, Order_timer)
-ORDERTIMER.start()

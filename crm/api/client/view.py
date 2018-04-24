@@ -6,6 +6,8 @@ from rest_framework.status import *
 from .Serializer import SiteUserSerializer, LoginSerializer
 from crm.server_utils.Authentication import MsgAuthentication
 from siteuser.member.models import SiteUser, InnerUser
+from Accounting.models import Account
+from django.db import transaction
 
 
 class SiteUserLoginView(APIView):
@@ -21,11 +23,14 @@ class SiteUserLoginView(APIView):
             try:
                 usr = SiteUser.objects.get(username=username)
             except SiteUser.DoesNotExist:
-                usr = InnerUser.objects.create(username=username, phone=username)
-                request.session['uid'] = usr.user.id
+                try:
+                    with transaction.atomic():
+                        usr = InnerUser.objects.create(username=username, phone=username)
+                        request.session['uid'] = usr.user.id
+                        act = Account.objects.create(user=usr, balance=0.0)
+                except:
+                    return Response({"detail": "注册/登录失败"}, HTTP_400_BAD_REQUEST)
             else:
-                return Response({"detail": "注册/登录失败"}, HTTP_400_BAD_REQUEST)
-            finally:
                 return Response({"detail", "success"})
         else:
             return Response({"detail": "验证码错误"}, HTTP_400_BAD_REQUEST)
