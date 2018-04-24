@@ -9,6 +9,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from .Serializer import *
 from crm.models import *
 from siteuser.member.models import SiteUser
+from django_filters.rest_framework import DjangoFilterBackend
 import sys
 
 reload(sys)
@@ -19,6 +20,13 @@ class MemberViewset(viewsets.ModelViewSet):
     queryset = SiteUser.objects.all()
     serializer_class = MemberSerializer
     permission_classes = (permissions.AllowAny,)
+    filter_backends = (DjangoFilterBackend,)
+    # 定义需要使用过滤器的字段
+    filter_fields = ('memberid','name', 'idType', 'idNo', 'phone')
 
     def perform_create(self, serializer):
         serializer.save()
+
+    def perform_update(self, serializer):
+        serializers.save()
+

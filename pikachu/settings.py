@@ -78,6 +78,7 @@ INSTALLED_APPS = [
     'siteuser.member',
     'siteuser.notify',
     'easy_thumbnails',
+    'django_filters',
     'FP_risk',
     'rest_framework',
     'gunicorn',
@@ -127,7 +128,7 @@ ROOT_URLCONF = 'pikachu.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [siteuser.SITEUSER_TEMPLATE],
+        'DIRS': [siteuser.SITEUSER_TEMPLATE, 'django_filters.templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'builtins': [

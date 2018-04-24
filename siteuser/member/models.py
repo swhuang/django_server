@@ -14,6 +14,7 @@ from siteuser.settings import (
 )
 
 from siteuser.upload_avatar.signals import avatar_crop_done
+from django.utils.translation import ugettext_lazy as _
 
 """
 siteuser的核心，
@@ -83,7 +84,7 @@ class InnerUser(models.Model):
     """自身注册用户"""
     user = models.OneToOneField('SiteUser', related_name='inner_user')
     email = models.CharField(max_length=MAX_EMAIL_LENGTH, blank=True)
-    passwd = models.CharField(max_length=40)
+    #passwd = models.CharField(max_length=40)
     description = models.CharField(max_length=255, null=True)
 
     objects = InnerUserManager()
@@ -122,9 +123,9 @@ class SiteUser(_siteuser_extend()):
     """
     is_social = models.BooleanField()
     is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField()
+    date_joined = models.DateTimeField(_(u'加入时间'),blank=True,null=True)
 
-    username = models.CharField(max_length=MAX_USERNAME_LENGTH, db_index=True)
+    username = models.CharField(max_length=MAX_USERNAME_LENGTH, blank=True)
     # avatar_url for social user
     avatar_url = models.CharField(max_length=255, blank=True)
     # avatar_name for inner user uploaded avatar
@@ -140,6 +141,11 @@ class SiteUser(_siteuser_extend()):
         if self.is_social:
             return self.avatar_url
         return AVATAR_URL_PREFIX + self.avatar_name
+
+    def save(self, *args, **kwargs):
+        if not self.date_joined:
+            self.date_joined = timezone.now()
+        return super(SiteUser, self).save(*args, **kwargs)
 
 
 def _save_avatar_in_db(sender, uid, avatar_name, **kwargs):

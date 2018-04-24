@@ -163,7 +163,7 @@ class Member(AbstractBaseUser):
         return d
 
 
-class ExtendMember(AbstractBaseUser):
+class ExtendMember(models.Model):
     # username = models.TextField(max_length=100, default=u'hsw')
     memberid = models.CharField(_(u'会员ID号'), max_length=15, default='')
     name = models.CharField(_(u'用户真名'), max_length=15, null=True)

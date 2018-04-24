@@ -18,29 +18,28 @@ def merchant_valid(mid):
 
 
 class MemberSerializer(serializers.ModelSerializer):
-    '''
-    email = serializers.EmailField()
-    userid = serializers.CharField(max_length=15, validators=[UniqueValidator(queryset=User.objects.all())])
-    #mid = serializers.CharField(max_length=15, validators=[merchant_valid])
-    #mid = serializers.SlugRelatedField(queryset=Merchant.objects.all(), slug_field='merchantid')
-    merchantid = serializers.CharField(source='mid.merchantid', validators=[merchant_valid])
-    password1 = serializers.CharField(max_length=128, write_only=True)
-    password2 = serializers.CharField(max_length=128, write_only=True)
-    '''
     class Meta:
         model = SiteUser
-        fields = "__all__"
-    # register
-    '''
-    def create(self, validated_data):
-        try:
-            p = Merchant.objects.get(merchantid=validated_data['mid'])
-        except Merchant.DoesNotExist:
-            p = Merchant.objects.get(merchantid=settings.DEFAULT_MERCHANT)
-        validated_data['mid'] = p
-        validated_data['username'] = unicode(validated_data['username'].encode("raw_unicode_escape"), 'UTF-8')
-        form = RegistrationForm(self.context['request'].POST)
-        user = form.save()
-        return user
-    '''
+        # fields = "__all__"
+        exclude = ('is_social', 'is_active', 'username', 'avatar_url', 'avatar_name', 'mid')
+        read_only_fields = ('name', 'idNo', 'idType', 'gender', 'phone', 'birthday', 'source', 'date_joined')
 
+    def update(self, instance, validated_data):
+        instance.email = validated_data['email']
+        instance.address = validated_data['address']
+        instance.save()
+        return instance
+
+    # register
+    def validate(self, attrs):
+        try:
+            p = SiteUser.objects.get(memberid=attrs['memberid'])
+        except SiteUser.DoesNotExist:
+            raise serializers.ValidationError("memberid 错误")
+        return attrs
+
+    def create(self, validated_data):
+        p = SiteUser.objects.get(memberid=validated_data['memberid'])
+        p.email = validated_data['email']
+        p.address = validated_data['address']
+        return p
