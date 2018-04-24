@@ -248,7 +248,7 @@ class Project(BaseModel):
 
         if self.current_payamount == 0.0:
             self.current_payamount = round(
-                self.guarantee + self.process_day * self.product.rentalprice * (m.daily_amount_pct / 100), 2)
+                Decimal(self.guarantee) + Decimal(self.process_day * self.product.rentalprice * (m.daily_amount_pct / 100)), 2)
 
         if not self.currsts:
             self.currsts = Start()
