@@ -15,15 +15,16 @@ import json
 class initModel(models.Model):
     gmt_create = models.DateTimeField(_('添加时间'), default=timezone.now)
     gmt_modified = models.DateTimeField(_('修改时间'), default=timezone.now)
+    createdBy = models.CharField(_('创建者id'), default='', max_length=15)
+    lastModifiedBy = models.CharField(_('修改者id'), default='', max_length=15)
 
     class Meta:
         abstract = True
         ordering = ('gmt_create', 'gmt_modified',)
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
+    def save(self, userid=None, *args, **kwargs):
         self.gmt_modified = timezone.now()
-        super(initModel, self).save()
+        super(initModel, self).save(*args, **kwargs)
 
     def getDict(self):
         d = {}

@@ -15,6 +15,7 @@ import random
 import json
 import datetime
 from easy_thumbnails.fields import ThumbnailerImageField
+from users.models import User as adminUser
 
 
 
@@ -135,22 +136,39 @@ CATEGORY['戒指'] = 2
 class ProductDetail(BaseModel):
     productid = models.CharField(_(u'产品编号'), max_length=15, db_index=True, unique=True, default='0',
                                  editable=False)  # primary key
+    model = models.CharField(_(u'商品型号'), max_length=10, unique=True, null=True)
     productname = models.CharField(_(u'产品名称'), max_length=30, default='')
     category = models.PositiveIntegerField(_(u'商品分类'), default=CATEGORY['ALL'])
+    goldType = models.CharField(_(u'商品材质'), max_length=10, default='')
+    goldContent = models.CharField(_(u'含金量(克)'), max_length=10, default='')
+    diamondWeight = models.CharField(_(u'钻石重量(克)'), max_length=10, default='')
     productprice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
+    releaseStatus = models.BooleanField(_(u'是否发布'), default=False)
     proddesc = models.CharField(_(u'产品描述'), max_length=500, default='')
-    ptype = models.CharField(_(u'型号编码'), max_length=20, default='')
+    series = models.CharField(_(u'系列'), max_length=10, default='')
+    certificate = models.CharField(_(u'证书'), max_length=30, default='')
     inventory = models.IntegerField(_(u'库存数量'), default=INVENTORY)
     guarantee = BillamountField(_(u'押金'), default=0.0)
+    size = models.CharField(_(u'尺寸'), max_length=5, default='')
+    remark = models.CharField(_(u'备注'), max_length=100, default='')
     rentalprice = BillamountField(_(u'租赁单价'), default=0.0)
+    rentType = models.CharField(_(u'租赁类型'), default=0, max_length=1) #0：日租，1：周租，2：月租
+    rentcycle = models.PositiveSmallIntegerField(_(u'租赁起始天数'), default=1)
+    reletcycle = models.PositiveSmallIntegerField(_(u'租赁周期'), default=1)
+
     attributes = JSONField(_(u'产品参数'), default={})
+
+    detailImages = ThumbnailerImageField(verbose_name=_(u'详情图片'), upload_to='img/product', default='', blank=True)
+
     image1 = ThumbnailerImageField(verbose_name=_(u'图片1'), upload_to='img/product', default='', blank=True)
     #image1 = models.ImageField(_(u'图片1'), null=True, upload_to='img/product', default='')
-    image2 = models.ImageField(_(u'图片2'), blank=True, upload_to='img/product', default='')
-    image3 = models.ImageField(_(u'图片3'), blank=True, upload_to='img/product', default='')
-    image4 = models.ImageField(_(u'图片4'), blank=True, upload_to='img/product', default='')
-    image5 = models.ImageField(_(u'图片5'), blank=True, upload_to='img/product', default='')
-    image6 = models.ImageField(_(u'图片6'), blank=True, upload_to='img/product', default='')
+    image2 = ThumbnailerImageField(verbose_name =_(u'图片2'), blank=True, upload_to='img/product', default='')
+    image3 = ThumbnailerImageField(verbose_name =_(u'图片3'), blank=True, upload_to='img/product', default='')
+    image4 = ThumbnailerImageField(verbose_name =_(u'图片4'), blank=True, upload_to='img/product', default='')
+    image5 = ThumbnailerImageField(verbose_name =_(u'图片5'), blank=True, upload_to='img/product', default='')
+    image6 = ThumbnailerImageField(verbose_name =_(u'图片6'), blank=True, upload_to='img/product', default='')
+
+    reserved = models.CharField(_(u'reserved'), default='')
 
     class Meta:
         ordering = ('productid', 'mid')

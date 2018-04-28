@@ -69,6 +69,14 @@ def ExpireOrderProc(data):
             pass
 
     p = RentalOrder.objects.all()
-    print p
-    print "******get param*********"
+
     print data
+
+#批量导入解析商品文件
+@task
+def ImportingCSV(file):
+    from crm.models import ProductDetail
+    import csv
+    csv_reader = csv.reader(open('file', encoding='utf-8'))
+    for row in csv_reader:
+        print(row)
