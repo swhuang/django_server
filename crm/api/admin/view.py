@@ -27,6 +27,7 @@ class UserLogView(APIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = LogSerializer
 
+
     def get(self, request, format=None):
         d = {}
         d['name'] = 'hsw'

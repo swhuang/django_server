@@ -185,7 +185,7 @@ def generatetestmerchant(request):
     print "Create Submerchant:"+ sp.subid
 
     try:
-        prod = ProductDetail.objects.get(id=1)
+        prod = ProductDetail.objects.all().first()
     except ProductDetail.DoesNotExist:
         prod = ProductDetail(productname='测试产品', productprice=1000.0, guarantee=600.0, rentalprice=5.0)
         prod.save()

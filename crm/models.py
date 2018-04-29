@@ -15,7 +15,6 @@ import random
 import json
 import datetime
 from easy_thumbnails.fields import ThumbnailerImageField
-from users.models import User as adminUser
 
 
 
@@ -134,14 +133,14 @@ CATEGORY['戒指'] = 2
 
 # 商品
 class ProductDetail(BaseModel):
-    productid = models.CharField(_(u'产品编号'), max_length=15, db_index=True, unique=True, default='0',
-                                 editable=False)  # primary key
+    productid = models.CharField(_(u'产品编号'), max_length=15, db_index=True, unique=True, default='0')  # primary key
     model = models.CharField(_(u'商品型号'), max_length=10, unique=True, null=True)
     productname = models.CharField(_(u'产品名称'), max_length=30, default='')
     category = models.PositiveIntegerField(_(u'商品分类'), default=CATEGORY['ALL'])
     goldType = models.CharField(_(u'商品材质'), max_length=10, default='')
+    goldpurity = models.CharField(_(u'材质纯度'), max_length=5, default='')
     goldContent = models.CharField(_(u'含金量(克)'), max_length=10, default='')
-    diamondWeight = models.CharField(_(u'钻石重量(克)'), max_length=10, default='')
+    diamondWeight = models.FloatField(_(u'钻石重量(克)'), default=0.0)#models.CharField(_(u'钻石重量(克)'), max_length=10, default='')
     productprice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
     releaseStatus = models.BooleanField(_(u'是否发布'), default=False)
     proddesc = models.CharField(_(u'产品描述'), max_length=500, default='')
@@ -168,7 +167,7 @@ class ProductDetail(BaseModel):
     image5 = ThumbnailerImageField(verbose_name =_(u'图片5'), blank=True, upload_to='img/product', default='')
     image6 = ThumbnailerImageField(verbose_name =_(u'图片6'), blank=True, upload_to='img/product', default='')
 
-    reserved = models.CharField(_(u'reserved'), default='')
+    reserved = models.CharField(_(u'reserved'), default='', max_length=200)
 
     class Meta:
         ordering = ('productid', 'mid')
