@@ -3,7 +3,7 @@ from rest_framework import routers
 from .view import UserViewset, UserLogView
 from django.conf.urls import url, include
 from .member.view import MemberViewset
-from .product.view import ProductViewset, ProductUpdateView
+from .product.view import ProductViewset, ProductUpdateView, ProductFileView
 
 router = routers.DefaultRouter()
 
@@ -16,6 +16,7 @@ router.register(r'product', ProductViewset)
 urlpatterns = [
     url(r'UserLogin/$', UserLogView.as_view()),
     url(r'productupdate/$', ProductUpdateView.as_view()),
+    url(r'productfile/$', ProductFileView.as_view()),
 ]
 
 

@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from .Serializer import *
 from crm.models import *
+from .product.Serializer import ProductFileSerializer
 import sys
 
 reload(sys)
@@ -45,6 +46,8 @@ class UserLogView(APIView):
             return Response("success")
         else:
             return Response({"detail": "登录失败"}, HTTP_400_BAD_REQUEST)
+
+
 
 
 # 取货完成接口

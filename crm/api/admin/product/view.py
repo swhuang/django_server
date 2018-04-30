@@ -1,15 +1,13 @@
 # -*- coding: utf-8 -*-
 from rest_framework import viewsets
 from crm.models import ProductDetail
-from .Serializer import ProductSerializer
+from .Serializer import ProductSerializer, ProductFileSerializer
 from rest_framework import permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import *
 from rest_framework.generics import GenericAPIView
-
-
 
 
 class ProductViewset(viewsets.ModelViewSet):
@@ -30,7 +28,6 @@ class ProductUpdateView(GenericAPIView):
     queryset = ProductDetail.objects.all()
     _ignore_model_permissions = True
 
-
     def post(self, request, *args, **kwargs):
         validated_data = request.data
         pid = validated_data.pop('productid')
@@ -39,8 +36,19 @@ class ProductUpdateView(GenericAPIView):
         except ProductDetail.DoesNotExist:
             return Response({"detail": "无效的productid"}, HTTP_400_BAD_REQUEST)
         try:
-            self.get_serializer(instance=p,data=request.data).update(p, validated_data)
-        except Exception,e:
-            return Response({"detail":e.message}, HTTP_400_BAD_REQUEST)
+            self.get_serializer(instance=p, data=request.data).update(p, validated_data)
+        except Exception, e:
+            return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
         return Response("sucess")
 
+#文件上传接口
+class ProductFileView(APIView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = ProductFileSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = ProductFileSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

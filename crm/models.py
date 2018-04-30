@@ -143,6 +143,7 @@ class ProductDetail(BaseModel):
     diamondWeight = models.FloatField(_(u'钻石重量(克)'), default=0.0)#models.CharField(_(u'钻石重量(克)'), max_length=10, default='')
     productprice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
     releaseStatus = models.BooleanField(_(u'是否发布'), default=False)
+    brand = models.CharField(_(u'品牌'), max_length=20, default='')
     proddesc = models.CharField(_(u'产品描述'), max_length=500, default='')
     series = models.CharField(_(u'系列'), max_length=10, default='')
     certificate = models.CharField(_(u'证书'), max_length=30, default='')
