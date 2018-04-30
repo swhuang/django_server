@@ -5,3 +5,4 @@ site-packages/*
 celerybeat-schedule
 */migrations/0*.py
 */*/migrations/0*.py
+media/*
