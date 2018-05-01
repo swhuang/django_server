@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6f10766-122f-4f3c-913d-16864b137eb1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/periodic/upload 20180428.csv" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/commom/models.py" afterPath="$PROJECT_DIR$/commom/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/api/admin/product/Serializer.py" afterPath="$PROJECT_DIR$/crm/api/admin/product/Serializer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/api/admin/product/view.py" afterPath="$PROJECT_DIR$/crm/api/admin/product/view.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/models.py" afterPath="$PROJECT_DIR$/crm/models.py" />
     </list>
     <ignored path="pikachu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,11 +52,11 @@
         <splitter split-orientation="horizontal" split-proportion="0.53071016">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="false">
+              <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/crm/api/admin/product/Serializer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="316">
-                      <caret line="195" column="12" selection-start-line="195" selection-start-column="12" selection-end-line="195" selection-end-column="12" />
+                    <state relative-caret-position="16">
+                      <caret line="95" column="22" selection-start-line="95" selection-start-column="22" selection-end-line="95" selection-end-column="22" />
                       <folding>
                         <element signature="e#24#62#0" expanded="true" />
                       </folding>
@@ -69,11 +64,11 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="view.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/admin/product/view.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="404">
-                      <caret line="54" column="76" selection-start-line="54" selection-start-column="76" selection-end-line="54" selection-end-column="76" />
+                    <state relative-caret-position="765">
+                      <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
                       <folding>
                         <element signature="e#24#59#0" expanded="true" />
                       </folding>
@@ -435,8 +430,8 @@
         <option value="$PROJECT_DIR$/periodic/tasks.py" />
         <option value="$PROJECT_DIR$/crm/models.py" />
         <option value="$PROJECT_DIR$/commom/models.py" />
-        <option value="$PROJECT_DIR$/crm/api/admin/product/Serializer.py" />
         <option value="$PROJECT_DIR$/crm/api/admin/product/view.py" />
+        <option value="$PROJECT_DIR$/crm/api/admin/product/Serializer.py" />
       </list>
     </option>
   </component>
@@ -1485,7 +1480,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/crm/api/admin/product/Serializer.py</url>
-          <line>128</line>
+          <line>127</line>
           <option name="timeStamp" value="492" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
@@ -1495,7 +1490,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/crm/api/admin/product/Serializer.py</url>
-          <line>139</line>
+          <line>138</line>
           <option name="timeStamp" value="497" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="django-line">
@@ -1936,22 +1931,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/admin/product/Serializer.py">
+    <entry file="file://$PROJECT_DIR$/crm/api/admin/product/view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="316">
-          <caret line="195" column="12" selection-start-line="195" selection-start-column="12" selection-end-line="195" selection-end-column="12" />
+        <state relative-caret-position="765">
+          <caret line="51" column="16" selection-start-line="51" selection-start-column="16" selection-end-line="51" selection-end-column="16" />
           <folding>
-            <element signature="e#24#62#0" expanded="true" />
+            <element signature="e#24#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/admin/product/view.py">
+    <entry file="file://$PROJECT_DIR$/crm/api/admin/product/Serializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="404">
-          <caret line="54" column="76" selection-start-line="54" selection-start-column="76" selection-end-line="54" selection-end-column="76" />
+        <state relative-caret-position="16">
+          <caret line="95" column="22" selection-start-line="95" selection-start-column="22" selection-end-line="95" selection-end-column="22" />
           <folding>
-            <element signature="e#24#59#0" expanded="true" />
+            <element signature="e#24#62#0" expanded="true" />
           </folding>
         </state>
       </provider>

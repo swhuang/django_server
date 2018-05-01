@@ -94,14 +94,13 @@ def ImportCSV(filedir):
             for ii, xi in enumerate(row):
                 row[ii] = xi.decode('gbk')
             if i == 0:
-                print(row)
                 continue
             IsPub = False
             if row[15] == '1':
                 IsPub = True
 
             if not CATEGORY.has_key(str(row[2])):
-                print "error!!"
+                logging.error("Category 没有:"+ str(row[2]))
 
             param = {
                 'productname': row[1], 'category': CATEGORY[str(row[2])], 'brand': row[3], 'series': row[4],
