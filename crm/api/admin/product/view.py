@@ -49,6 +49,10 @@ class ProductFileView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = ProductFileSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=HTTP_201_CREATED)
+            try:
+                serializer.save()
+            except Exception,e:
+                return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
+            else:
+                return Response('success', status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

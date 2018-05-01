@@ -78,14 +78,14 @@ def ImportCSV(filedir):
     for file in os.listdir(filedir):
         if file.split('.')[-1] == 'csv':
             csvfile = file
-        elif file == 'Image.rar':
+        elif file == 'Image.zip':
             Imagefile = file
 
     # init logging
     LOG_FORMAT = "%(asctime)s - %(levelname)s - %(message)s"
     DATE_FORMAT = "%m/%d/%Y %H:%M:%S %p"
 
-    logging.basicConfig(filename='filedir.log', level=logging.DEBUG, format=LOG_FORMAT, datefmt=DATE_FORMAT)
+    logging.basicConfig(filename=filedir+'.log', level=logging.DEBUG, format=LOG_FORMAT, datefmt=DATE_FORMAT)
 
 
     with open(csvfile, 'rb') as csvfile:
@@ -126,7 +126,7 @@ def ImportCSV(filedir):
     os.makedirs(filedir+'/Image')
     azip.extractall(path=filedir+'/Image')
     for file in os.listdir(filedir+'/Image'):
-        c_imgfile = file.split('[')[0]
+        c_imgfile = file.split('[')
         try:
             pd = ProductDetail.objects.get(model=c_imgfile[0])
         except ProductDetail.DoesNotExist:
@@ -136,18 +136,21 @@ def ImportCSV(filedir):
             #todo
             fp = open(filedir+'/Image/'+ file)
             thubnailer = get_thumbnailer(fp, relative_name=file)
-            if c_imgfile[-1][0] == '0':
-                pd.image1 = thubnailer.get_thumbnail({'size': (200, 200), 'crop': True})
-            elif c_imgfile[-1][0] == '1':
-                pd.image2 = thubnailer.get_thumbnail({'size': (200, 200), 'crop': True})
+            pd.image2.save('test.png', thubnailer)
+            if c_imgfile[-1][0] == '1':
+                pd.image1.save(file, thubnailer, {'size': (200, 200), 'crop': True})# = thubnailer.get_thumbnail({'size': (200, 200), 'crop': True})
             elif c_imgfile[-1][0] == '2':
-                pd.image3 = thubnailer.get_thumbnail({'size': (200, 200), 'crop': True})
+                pd.image2.save(file, thubnailer, {'size': (200, 200), 'crop': True})
             elif c_imgfile[-1][0] == '3':
-                pd.image4 = thubnailer.get_thumbnail({'size': (200, 200), 'crop': True})
+                pd.image3.save(file, thubnailer, {'size': (200, 200), 'crop': True})
             elif c_imgfile[-1][0] == '4':
-                pd.image5 = thubnailer.get_thumbnail({'size': (200, 200), 'crop': True})
+                pd.image4.save(file, thubnailer, {'size': (200, 200), 'crop': True})
             elif c_imgfile[-1][0] == '5':
-                pd.image6 = thubnailer.get_thumbnail({'size': (200, 200), 'crop': True})
+                pd.image5.save(file, thubnailer, {'size': (200, 200), 'crop': True})
+            elif c_imgfile[-1][0] == '6':
+                pd.image6.save(file, thubnailer, {'size': (200, 200), 'crop': True})
+            elif c_imgfile[-1][0] == '0':
+                pd.detailImages.save(file, thubnailer, {'size': (200, 200), 'crop': True})
             pd.save()
             fp.close()
             logging.info(file+" added")
@@ -182,7 +185,7 @@ class ProductFileSerializer(serializers.Serializer):
 
         if ImageData.name.split('.')[-1] != 'zip':
             raise serializers.ValidationError("图片压缩文件格式错误")
-        ImageDest = open(filedir + '/' + 'Image.rar', 'wb+')
+        ImageDest = open(filedir + '/' + 'Image.zip', 'wb+')
         for chunk in ImageData.chunks():
             ImageDest.write(chunk)
         ImageDest.close()
@@ -191,8 +194,9 @@ class ProductFileSerializer(serializers.Serializer):
         # todo
 
         try:
-            ImportCSV('upload 20180428.csv')
+            ImportCSV(filedir=filedir)
             # r = ImportingCSV.delay(filedir+'/'+filedata.name)
         except Exception, e:
             raise serializers.ValidationError(e.message)
+
         return filedata.name

@@ -15,8 +15,8 @@ import json
 class initModel(models.Model):
     gmt_create = models.DateTimeField(_('添加时间'), default=timezone.now)
     gmt_modified = models.DateTimeField(_('修改时间'), default=timezone.now)
-    createdBy = models.CharField(_('创建者id'), default='', max_length=15)
-    lastModifiedBy = models.CharField(_('修改者id'), default='', max_length=15)
+    createdBy = models.CharField(_('创建者id'), default='', max_length=15, blank=True)
+    lastModifiedBy = models.CharField(_('修改者id'), default='', max_length=15, blank=True)
 
     class Meta:
         abstract = True
@@ -34,7 +34,7 @@ class initModel(models.Model):
 
 
 class SubBaseModel(initModel):
-    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
+    mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True, blank=True)
     #submid = models.CharField(_(u'门店编号'), max_length, db_index=True)
 
     class Meta:
@@ -42,7 +42,7 @@ class SubBaseModel(initModel):
 
 class BaseModel(initModel):
     mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
-    submid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, default='')
+    submid = models.CharField(_(u'门店编号'), max_length=15, db_index=True, default='', blank=True)
 
     class Meta:
         abstract = True
