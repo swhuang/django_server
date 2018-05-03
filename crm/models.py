@@ -161,7 +161,7 @@ class ProductDetail(BaseModel):
     detailImages = ThumbnailerImageField(verbose_name=_(u'详情图片'), upload_to='img/product', default='', blank=True)
 
     image1 = ThumbnailerImageField(verbose_name=_(u'图片1'), upload_to='img/product', default='', blank=True)
-    #image1 = models.ImageField(_(u'图片1'), null=True, upload_to='img/product', default='')
+    # image1 = models.ImageField(_(u'图片1'), null=True, upload_to='img/product', default='')
     image2 = ThumbnailerImageField(verbose_name =_(u'图片2'), blank=True, upload_to='img/product', default='')
     image3 = ThumbnailerImageField(verbose_name =_(u'图片3'), blank=True, upload_to='img/product', default='')
     image4 = ThumbnailerImageField(verbose_name =_(u'图片4'), blank=True, upload_to='img/product', default='')
