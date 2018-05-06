@@ -74,9 +74,13 @@ class ProductViewset(viewsets.ModelViewSet):
                         filterargs['category__in'] = category_list
             try:
                 filterargs.pop('limit')
+            except:
+                pass
+            try:
                 filterargs.pop('offset')
             except:
                 pass
+
             try:
                 queryset = ProductDetail.objects.filter(**filterargs)
             except Exception, e:

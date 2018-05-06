@@ -4,6 +4,7 @@ from crm.models import ProductDetail
 import datetime
 import os
 from periodic.tasks import ImportCSV
+from easy_thumbnails.exceptions import InvalidImageFormatError
 import zipfile
 
 
@@ -25,8 +26,7 @@ class ThumbnailImageField(serializers.ImageField):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-
-    detailImage = serializers.SerializerMethodField()
+    LImage = serializers.SerializerMethodField()
 
     mainImage1 = serializers.SerializerMethodField()
     mainImage2 = serializers.SerializerMethodField()
@@ -34,56 +34,77 @@ class ProductSerializer(serializers.ModelSerializer):
     mainImage4 = serializers.SerializerMethodField()
     mainImage5 = serializers.SerializerMethodField()
     mainImage6 = serializers.SerializerMethodField()
+    image1 = serializers.ImageField(write_only=True)
+    image2 = serializers.ImageField(write_only=True)
+    image3 = serializers.ImageField(write_only=True)
+    image4 = serializers.ImageField(write_only=True)
+    image5 = serializers.ImageField(write_only=True)
+    image6 = serializers.ImageField(write_only=True)
+    detailImages = serializers.ImageField(write_only=True)
 
     class Meta:
         model = ProductDetail
-        exclude = ('reserved', 'gmt_create', 'gmt_modified', 'createdBy', 'lastModifiedBy',
-                    'image1','image2', 'image3', 'image4', 'image5', 'image6', 'detailImages')
+        exclude = ('reserved', 'gmt_create', 'gmt_modified', 'createdBy', 'lastModifiedBy',)
         # read_only_fields = ('productid', )
+        write_only_fields = ('image1',)
+
 
     # def post(self):
-    def get_detailImage(self, obj):
+    def get_LImage(self, obj):
         try:
-            return obj.detailImages.url
-        except ValueError,e:
+            return {'avatar':obj.detailImages['avatar'].url, 'image': obj.detailImages.url}
+        except ValueError, e:
+            return None
+        except InvalidImageFormatError, e:
             return None
 
     def get_mainImage1(self, obj):
         try:
-            return obj.image1.url
-        except ValueError,e:
+            return {'avatar':obj.image1['avatar'].url, 'image': obj.image1.url}
+        except ValueError, e:
+            return None
+        except InvalidImageFormatError, e:
             return None
 
     def get_mainImage2(self, obj):
         try:
-            return obj.image2.url
-        except ValueError,e:
+            return {'avatar':obj.image2['avatar'].url, 'image': obj.image2.url}
+        except ValueError, e:
+            return None
+        except InvalidImageFormatError, e:
             return None
 
     def get_mainImage3(self, obj):
         try:
-            return obj.image3.url
-        except ValueError,e:
+            return {'avatar':obj.image3['avatar'].url, 'image': obj.image3.url}
+        except ValueError, e:
+            return None
+        except InvalidImageFormatError, e:
             return None
 
     def get_mainImage4(self, obj):
         try:
-            return obj.image4.url
-        except ValueError,e:
+            return {'avatar':obj.image4['avatar'].url, 'image': obj.image4.url}
+        except ValueError, e:
+            return None
+        except InvalidImageFormatError, e:
             return None
 
     def get_mainImage5(self, obj):
         try:
-            return obj.image5.url
-        except ValueError,e:
+            return {'avatar':obj.image5['avatar'].url, 'image': obj.image5.url}
+        except ValueError, e:
+            return None
+        except InvalidImageFormatError, e:
             return None
 
     def get_mainImage6(self, obj):
         try:
-            return obj.image6.url
-        except ValueError,e:
+            return {'avatar':obj.image6['avatar'].url, 'image': obj.image6.url}
+        except ValueError, e:
             return None
-
+        except InvalidImageFormatError, e:
+            return None
 
     def create(self, validated_data):
         if validated_data.has_key('productid'):
@@ -96,7 +117,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
             self.update(p, validated_data)
         else:  # new
-            return self.save()
+            return super(ProductSerializer, self).create(validated_data)
 
 
 def ImportCSV(filedir):

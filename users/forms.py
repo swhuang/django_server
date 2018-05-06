@@ -17,7 +17,9 @@ class UserCreationForm(forms.ModelForm):
         'password_mismatch': _('The two password fields didn\'t match.'),
     }
 
-    #email = UsersEmailField(label=_('Email Address'), max_length=255)
+    email = UsersEmailField(label=_('Email Address'), max_length=255)
+    identification = forms.CharField(label=_(u'性别'), max_length=1)
+    username = UsercharField(label=_(u'用户姓名'), max_length=100)
     userid = UsercharField(label=_(u'用户名'), max_length=255)
     password1 = PasswordField(label=_(u'密码'))
     password2 = PasswordField(
@@ -28,14 +30,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        #fields = ('email',)
         fields = ('userid',)
-
-    '''
-    def __init__(self, *args, **kwargs):
-        args[0][u'merchantid']
-        pass
-    '''
 
     def clean_email(self):
 
@@ -66,6 +61,9 @@ class UserCreationForm(forms.ModelForm):
         user = super(UserCreationForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password1'])
         user.is_active = not settings.USERS_VERIFY_EMAIL
+        user.email = self.cleaned_data['email']
+        user.identification = int(self.cleaned_data['identification'])
+        user.username = self.cleaned_data['username']
         _merchant = None
 
         try:

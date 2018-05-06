@@ -7,16 +7,16 @@ from .product.view import ProductViewset, ProductUpdateView, ProductFileView
 
 router = routers.DefaultRouter()
 
-router.register(r'User', UserViewset)
-router.register(r'member', MemberViewset)
-router.register(r'product', ProductViewset)
+router.register(r'User', UserViewset)# 管理员用户
+router.register(r'member', MemberViewset)# 会员
+router.register(r'product', ProductViewset)# 商品
 #router.register(r'UserLogin', UserLogView)
 
 
 urlpatterns = [
-    url(r'UserLogin/$', UserLogView.as_view()),
-    url(r'productupdate/$', ProductUpdateView.as_view()),
-    url(r'productfile/$', ProductFileView.as_view()),
+    url(r'UserLogin/$', UserLogView.as_view(), name='User login'),
+    url(r'productupdate/$', ProductUpdateView.as_view(), name='update product'),
+    url(r'productfile/$', ProductFileView.as_view(), name='batch update product'),
 ]
 
 

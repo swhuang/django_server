@@ -58,9 +58,9 @@ class CompClaimView(APIView):
         serv_id = request.data.get("projid", None)
         serv_type = request.data.get("type", None)
 
-        if serv_type == 'zl':
+        if serv_type == 'zl':#租赁
             cur_serv = ProductRental.objects.get(proj_id=serv_id)
-        elif serv_type == 'tc':
+        elif serv_type == 'tc':#套餐
             cur_serv = ComboRental.objects.get(proj_id=serv_id)
 
         cur_serv.set_state(RentalProcessing())

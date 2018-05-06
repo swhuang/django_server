@@ -31,6 +31,7 @@ urlpatterns = [
     url(r'^local/', include('crm.local_Interface.urls')),
     url(r'^mobile/', include('crm.mobile.urls')),
     url(r'^media/(?P<path>.*)$',  serve, {"document_root": MEDIA_ROOT}),
+    #url(r'^favicon.ico$', RedirectView.as_view(url=r'static/favicon.ico')),
 ]
 
 # 增加定时任务用于

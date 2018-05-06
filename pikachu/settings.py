@@ -173,8 +173,17 @@ CACHES = {
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
         }
+    },
+    "session_redis": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/2",
     }
 }
+
+#add session engine
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+SESSION_CACHE_ALIAS = "session_redis"
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
@@ -256,6 +265,9 @@ BROKER_URL = 'redis://127.0.0.1:6379/1'
 
 from datetime import timedelta
 
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+
+'''
 CELERYBEAT_SCHEDULE = {
     'add-every-3-seconds': {
         'task': 'periodic.tasks.test_celery',
@@ -276,4 +288,4 @@ CELERYBEAT_SCHEDULE = {
         'args': (16, 16)
     },
 }
-
+'''

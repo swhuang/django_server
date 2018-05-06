@@ -8,6 +8,18 @@ $(function () {
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
 
+    $.ajax(
+        {
+            type:'POST',
+            url:"api-auth/admin/product/",
+            data:{
+                limit:3,
+                offset:2,
+                category:'[1,2,3]',
+                csrfmiddlewaretoken:'erlfqqLcktIMdbDE89uJqKK2G8yOh0krKKjGOneFwoKp4Tn42HNZHUozU50nSsOi'
+            }
+        }
+    )
 });
 
 //var taskService = abp.services.app.task;

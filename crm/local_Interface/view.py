@@ -7,7 +7,7 @@ from crm.models import *
 import os
 import hashlib
 import crm.util as mUtil
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 import json
 from crm.forms import QueryForm, OrderGenForm
 from users.models import User as Usermodel
@@ -16,7 +16,8 @@ from users.models import Member
 import copy
 
 
-@csrf_exempt
+# @csrf_exempt
+@csrf_protect
 def GetTableData(request):
     if request.method == 'POST':
         _merchant = 'None'
@@ -100,8 +101,9 @@ def CreateProject(request):
             p = Project(proj_name=projectname, mid=_merchant)
             p.save()
         except Exception as e:
-            return dump({'ok': False, 'msg': '创建失败:'+e.message.encode('utf-8')})
-        return dump({'ok':True})
+            return dump({'ok': False, 'msg': '创建失败:' + e.message.encode('utf-8')})
+        return dump({'ok': True})
+
 
 @csrf_exempt
 @mUtil.crmlogin_check
@@ -119,6 +121,7 @@ def userVerification(request):
             'username': puser.username
         })
         return JsonResponse(retcontext)
+
 
 def GetOrderCreateForm(request):
     pass
