@@ -17,7 +17,6 @@ import datetime
 from easy_thumbnails.fields import ThumbnailerImageField
 
 
-
 # Create your models here.
 # @python_2_unicode_compatible
 class OrderInfo(BaseModel):
@@ -131,6 +130,10 @@ CATEGORY['项链'] = 1
 CATEGORY['戒指'] = 2
 
 
+def getuploadpath(model, filename):
+    return 'img/product/%s/%s' % (model.model, filename)
+
+
 # 商品
 class ProductDetail(BaseModel):
     productid = models.CharField(_(u'产品编号'), max_length=15, db_index=True, unique=True, default='0')  # primary key
@@ -140,7 +143,8 @@ class ProductDetail(BaseModel):
     goldType = models.CharField(_(u'商品材质'), max_length=10, default='', blank=True)
     goldpurity = models.CharField(_(u'材质纯度'), max_length=5, default='', blank=True)
     goldContent = models.CharField(_(u'含金量(克)'), max_length=10, default='', blank=True)
-    diamondWeight = models.FloatField(_(u'钻石重量(克)'), default=0.0)#models.CharField(_(u'钻石重量(克)'), max_length=10, default='')
+    diamondWeight = models.FloatField(_(u'钻石重量(克)'),
+                                      default=0.0)  # models.CharField(_(u'钻石重量(克)'), max_length=10, default='')
     productprice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
     releaseStatus = models.BooleanField(_(u'是否发布'), default=False)
     brand = models.CharField(_(u'品牌'), max_length=20, default='', blank=True)
@@ -152,21 +156,21 @@ class ProductDetail(BaseModel):
     size = models.CharField(_(u'尺寸'), max_length=5, default='', blank=True)
     remark = models.CharField(_(u'备注'), max_length=100, default='', blank=True)
     rentalprice = BillamountField(_(u'租赁单价'), default=0.0)
-    rentType = models.CharField(_(u'租赁类型'), default=0, max_length=1) #0：日租，1：周租，2：月租
+    rentType = models.CharField(_(u'租赁类型'), default=0, max_length=1)  # 0：日租，1：周租，2：月租
     rentcycle = models.PositiveSmallIntegerField(_(u'租赁起始天数'), default=1)
     reletcycle = models.PositiveSmallIntegerField(_(u'租赁周期'), default=1)
 
     attributes = JSONField(_(u'产品参数'), default={})
 
-    detailImages = ThumbnailerImageField(verbose_name=_(u'详情图片'), upload_to='img/product', default='', blank=True)
+    detailImages = ThumbnailerImageField(verbose_name=_(u'详情图片'), upload_to=getuploadpath, default='', blank=True)
 
-    image1 = ThumbnailerImageField(verbose_name=_(u'图片1'), upload_to='img/product', default='', blank=True)
+    image1 = ThumbnailerImageField(verbose_name=_(u'图片1'), upload_to=getuploadpath, default='', blank=True)
     # image1 = models.ImageField(_(u'图片1'), null=True, upload_to='img/product', default='')
-    image2 = ThumbnailerImageField(verbose_name =_(u'图片2'), blank=True, upload_to='img/product', default='')
-    image3 = ThumbnailerImageField(verbose_name =_(u'图片3'), blank=True, upload_to='img/product', default='')
-    image4 = ThumbnailerImageField(verbose_name =_(u'图片4'), blank=True, upload_to='img/product', default='')
-    image5 = ThumbnailerImageField(verbose_name =_(u'图片5'), blank=True, upload_to='img/product', default='')
-    image6 = ThumbnailerImageField(verbose_name =_(u'图片6'), blank=True, upload_to='img/product', default='')
+    image2 = ThumbnailerImageField(verbose_name=_(u'图片2'), blank=True, upload_to=getuploadpath, default='')
+    image3 = ThumbnailerImageField(verbose_name=_(u'图片3'), blank=True, upload_to=getuploadpath, default='')
+    image4 = ThumbnailerImageField(verbose_name=_(u'图片4'), blank=True, upload_to=getuploadpath, default='')
+    image5 = ThumbnailerImageField(verbose_name=_(u'图片5'), blank=True, upload_to=getuploadpath, default='')
+    image6 = ThumbnailerImageField(verbose_name=_(u'图片6'), blank=True, upload_to=getuploadpath, default='')
 
     reserved = models.CharField(_(u'reserved'), default='', max_length=200, blank=True)
 
@@ -239,9 +243,9 @@ class Project(BaseModel):
     proj_name = models.CharField(max_length=128, default='')
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
     user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    currsts = StatusField(_(u'服务状态'), default=Start)# models.IntegerField(_(u'服务状态'), default=0)
+    currsts = StatusField(_(u'服务状态'), default=Start)  # models.IntegerField(_(u'服务状态'), default=0)
     create_user = models.CharField(_(u'创建者'), max_length=10, default='user')  # 创建者:店员or用户
-    start_time = models.DateField(_(u'开始时间'), auto_now=True) #models.DateTimeField(_(u'开始时间'), default=timezone.now)
+    start_time = models.DateField(_(u'开始时间'), auto_now=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
     end_time = models.DateField(_(u'结束时间'), default=timezone.now().strftime('%Y-%m-%d'))
     cycle_day = models.IntegerField(_(u'租赁周期'), default=1)
     process_day = models.IntegerField(_(u'租赁时长'), default=1)
@@ -266,11 +270,12 @@ class Project(BaseModel):
 
         if self.current_payamount == 0.0:
             self.current_payamount = round(
-                Decimal(self.guarantee) + Decimal(self.process_day * self.product.rentalprice * (m.daily_amount_pct / 100)), 2)
+                Decimal(self.guarantee) + Decimal(
+                    self.process_day * self.product.rentalprice * (m.daily_amount_pct / 100)), 2)
 
         if not self.currsts:
             self.currsts = Start()
-            #self.__state = START_STATE
+            # self.__state = START_STATE
 
     def set_state(self, s):
         self.currsts = s
@@ -380,7 +385,7 @@ class Order(BaseModel):
     payment_status = models.SmallIntegerField(_(u'支付状态'), default=0)  # 0:未支付 1:支付成功
     orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
 
-    status = models.IntegerField(_('订单状态'),default = fsm.ORDER_START)
+    status = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
 
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
@@ -392,7 +397,6 @@ class Order(BaseModel):
             self.orderamount = self.proj.current_payamount
         if self.comboproj:
             self.orderamount = self.comboproj.current_payamount
-
 
     class Meta:
         ordering = ('orderid',)

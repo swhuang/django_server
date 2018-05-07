@@ -5,6 +5,11 @@ import datetime
 import os
 from periodic.tasks import ImportCSV
 from easy_thumbnails.exceptions import InvalidImageFormatError
+from easy_thumbnails.fields import ThumbnailerImageField
+from easy_thumbnails.files import ThumbnailerImageFieldFile
+from rest_framework.settings import api_settings
+
+
 import zipfile
 
 
@@ -24,39 +29,76 @@ class ThumbnailImageField(serializers.ImageField):
         except Exception:
             return None
 
+class PdImageField(serializers.ImageField):
+
+    def to_representation(self, value):
+        if not value:
+            return None
+
+        use_url = getattr(self, 'use_url', api_settings.UPLOADED_FILES_USE_URL)
+
+        if use_url:
+            if not getattr(value, 'url', None):
+                # If the file has not been saved it may not have a URL.
+                return None
+            url = value.url
+            avatar = value['avatar'].url
+            name = value.url.split('/')[-1]
+            '''
+            request = self.context.get('request', None)
+            if request is not None:
+                return request.build_absolute_uri(url)
+            name: '',
+            file: null,
+            url: '',
+            avatar: '',
+
+            '''
+            return {'url':url, 'avatar':avatar, 'name': name}
+        return value.name
 
 class ProductSerializer(serializers.ModelSerializer):
-    LImage = serializers.SerializerMethodField()
 
-    mainImage1 = serializers.SerializerMethodField()
-    mainImage2 = serializers.SerializerMethodField()
-    mainImage3 = serializers.SerializerMethodField()
-    mainImage4 = serializers.SerializerMethodField()
-    mainImage5 = serializers.SerializerMethodField()
-    mainImage6 = serializers.SerializerMethodField()
-    image1 = serializers.ImageField(write_only=True)
-    image2 = serializers.ImageField(write_only=True)
-    image3 = serializers.ImageField(write_only=True)
-    image4 = serializers.ImageField(write_only=True)
-    image5 = serializers.ImageField(write_only=True)
-    image6 = serializers.ImageField(write_only=True)
-    detailImages = serializers.ImageField(write_only=True)
+    MainImage0 = PdImageField(source='image1', required=False)
+    MainImage1 = PdImageField(source='image2', required=False)
+    MainImage2 = PdImageField(source='image3', required=False)
+    MainImage3 = PdImageField(source='image4', required=False)
+    MainImage4 = PdImageField(source='image5', required=False)
+    MainImage5 = PdImageField(source='image6', required=False)
+    detailImages = PdImageField(required=False)
 
     class Meta:
         model = ProductDetail
-        exclude = ('reserved', 'gmt_create', 'gmt_modified', 'createdBy', 'lastModifiedBy',)
+        exclude = ('reserved', 'gmt_create', 'gmt_modified', 'createdBy', 'lastModifiedBy',
+                   'image1', 'image2', 'image3', 'image4', 'image5', 'image6')
         # read_only_fields = ('productid', )
         write_only_fields = ('image1',)
 
 
     # def post(self):
-    def get_LImage(self, obj):
-        try:
-            return {'avatar':obj.detailImages['avatar'].url, 'image': obj.detailImages.url}
-        except ValueError, e:
-            return None
-        except InvalidImageFormatError, e:
-            return None
+    '''
+    def get_MainImage(self, obj):
+        retitem = {}
+        for field in obj.__dict__:
+            if isinstance(getattr(obj, field, None), ThumbnailerImageFieldFile):
+                retdict = {}
+                try:
+                    retdict['avatar'] = getattr(obj, field, None)['avatar'].url
+                    retdict['image'] = getattr(obj, field, None).url
+                except ValueError,e:
+                    retdict['avatar'] = None
+                    retdict['image'] = None
+                except InvalidImageFormatError, e:
+                    retdict['avatar'] = None
+                    retdict['image'] = None
+                retitem[field] = retdict
+        return retitem
+
+    def get_DetailImage(self, obj):
+        pass
+        return None
+
+
 
     def get_mainImage1(self, obj):
         try:
@@ -105,6 +147,7 @@ class ProductSerializer(serializers.ModelSerializer):
             return None
         except InvalidImageFormatError, e:
             return None
+    '''
 
     def create(self, validated_data):
         if validated_data.has_key('productid'):

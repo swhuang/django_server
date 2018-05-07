@@ -105,7 +105,7 @@ class ProductUpdateView(GenericAPIView):
         validated_data = request.data
         pid = validated_data.pop('productid')
         try:
-            p = ProductDetail.objects.get(productid=pid)
+            p = ProductDetail.objects.get(productid=pid[0])
         except ProductDetail.DoesNotExist:
             return Response({"detail": "无效的productid"}, HTTP_400_BAD_REQUEST)
         try:
