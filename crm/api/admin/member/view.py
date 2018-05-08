@@ -22,7 +22,7 @@ class MemberViewset(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
     filter_backends = (DjangoFilterBackend,)
     # 定义需要使用过滤器的字段
-    filter_fields = ('memberid','name', 'idType', 'idNo', 'phone')
+    filter_fields = ('memberId','name', 'idType', 'idNo', 'phone')
 
     def perform_create(self, serializer):
         serializer.save()

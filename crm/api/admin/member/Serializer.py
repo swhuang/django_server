@@ -19,13 +19,12 @@ def merchant_valid(mid):
 
 class MemberSerializer(serializers.ModelSerializer):
 
-    createdDate = serializers.DateTimeField(source='date_joined', read_only=True)
 
     class Meta:
         model = SiteUser
         # fields = "__all__"
-        exclude = ('is_social', 'is_active', 'username', 'avatar_url', 'avatar_name', 'mid','date_joined')
-        read_only_fields = ('name', 'idNo', 'idType', 'gender', 'phone', 'birthday', 'source' )
+        exclude = ('is_social', 'is_active', 'username', 'avatar_url', 'avatar_name', 'mid', 'date_joined')
+        read_only_fields = ('name', 'idNo', 'idType', 'gender', 'phone', 'birthday', 'source', 'createdDate')
 
     def update(self, instance, validated_data):
         instance.email = validated_data['email']

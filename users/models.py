@@ -97,11 +97,11 @@ class User(AbstractUser):
 
 class Member(AbstractBaseUser):
     username = models.TextField(max_length=100, default=u'hsw')
-    memberid = models.CharField(max_length=15, default='')
+    memberId = models.CharField(max_length=15, default='')
     id_name = models.CharField(max_length=15, null=True)
     id_no = models.CharField(max_length=15, null=True)
     id_type = models.IntegerField(default=0)
-    gender = models.BooleanField(default=True)
+    gender = models.CharField(max_length=1, default='0')
     phone = models.CharField(_(u'用户名'), default='', unique=True, db_index=True, max_length=50)
     mid = models.ForeignKey(Merchant, null=True, db_index=True)  # , default=settings.DEFAULT_MERCHANT_ID)
     email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
@@ -165,17 +165,18 @@ class Member(AbstractBaseUser):
 
 class ExtendMember(models.Model):
     # username = models.TextField(max_length=100, default=u'hsw')
-    memberid = models.CharField(_(u'会员ID号'), max_length=15, default='')
+    memberId = models.CharField(_(u'会员ID号'), max_length=15, default='')
     name = models.CharField(_(u'用户真名'), max_length=15, null=True)
     idNo = models.CharField(_(u'证件号码'), max_length=15, null=True)
     idType = models.IntegerField(_(u'证件类型'), default=0)
-    gender = models.BooleanField(_(u'性别'), default=True)
+    gender = models.CharField(_(u'性别'), max_length=1, default='0')
     phone = models.CharField(_(u'手机号'), default='', unique=True, db_index=True, max_length=50)
     mid = models.ForeignKey(Merchant, null=True, db_index=True)  # , default=settings.DEFAULT_MERCHANT_ID)
     email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
     address = JSONField(_(u'地址'), default={})
     birthday = models.DateField(_(u'生日'), blank=True, null=True)
     source = models.IntegerField(_(u'创建来源'), blank=True, default=0)
+    createdDate = models.DateField(_(u'创建日期'), blank=True, default=timezone.now().strftime("%Y-%m-%d"))
 
     class Meta:
         abstract = True
