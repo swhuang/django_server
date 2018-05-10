@@ -125,9 +125,9 @@ class Submerchant(SubBaseModel):
 
 
 CATEGORY = {}
-CATEGORY['ALL'] = 0
-CATEGORY['项链'] = 1
-CATEGORY['戒指'] = 2
+CATEGORY['ALL'] = '0'
+CATEGORY['项链'] = '1'
+CATEGORY['戒指'] = '2'
 
 
 def getuploadpath(model, filename):
@@ -139,7 +139,7 @@ class ProductDetail(BaseModel):
     productid = models.CharField(_(u'产品编号'), max_length=15, db_index=True, unique=True, default='0')  # primary key
     model = models.CharField(_(u'商品型号'), max_length=10, unique=True, null=True, blank=True)
     productname = models.CharField(_(u'产品名称'), max_length=30, default='')
-    category = models.PositiveIntegerField(_(u'商品分类'), default=CATEGORY['ALL'])
+    category = models.CharField(_(u'商品分类'), default=CATEGORY['ALL'], max_length=2)
     goldType = models.CharField(_(u'商品材质'), max_length=10, default='', blank=True)
     goldpurity = models.CharField(_(u'材质纯度'), max_length=5, default='', blank=True)
     goldContent = models.CharField(_(u'含金量(克)'), max_length=10, default='', blank=True)
@@ -148,7 +148,7 @@ class ProductDetail(BaseModel):
     productprice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
     releaseStatus = models.BooleanField(_(u'是否发布'), default=False)
     brand = models.CharField(_(u'品牌'), max_length=20, default='', blank=True)
-    proddesc = models.CharField(_(u'产品描述'), max_length=500, default='', blank=True)
+    desc = models.CharField(_(u'产品描述'), max_length=500, default='', blank=True)
     series = models.CharField(_(u'系列'), max_length=10, default='', blank=True)
     certificate = models.CharField(_(u'证书'), max_length=30, default='', blank=True)
     inventory = models.IntegerField(_(u'库存数量'), default=INVENTORY)
@@ -183,11 +183,15 @@ class ProductDetail(BaseModel):
         return self.productid
 
     def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
+             update_fields=None, userid=None):
         _m = super(ProductDetail, self).save(force_insert=force_insert, force_update=force_update, using=using,
                                              update_fields=update_fields)
+        if not userid:
+            self.lastModifiedBy = userid
         if self.productid == '0':
             self.productid = "%015d" % self.id
+            if not userid:
+                self.createdBy = userid
             super(ProductDetail, self).save(force_update=True, update_fields=['productid'])
 
 

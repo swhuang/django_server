@@ -166,16 +166,16 @@ class Member(AbstractBaseUser):
 class ExtendMember(models.Model):
     # username = models.TextField(max_length=100, default=u'hsw')
     memberId = models.CharField(_(u'会员ID号'), max_length=15, default='')
-    name = models.CharField(_(u'用户真名'), max_length=15, null=True)
-    idNo = models.CharField(_(u'证件号码'), max_length=15, null=True)
-    idType = models.IntegerField(_(u'证件类型'), default=0)
+    name = models.CharField(_(u'用户真名'), max_length=15, default='')
+    idNo = models.CharField(_(u'证件号码'), max_length=15, default='')
+    idType = models.CharField(_(u'证件类型'), default='0', max_length=15)
     gender = models.CharField(_(u'性别'), max_length=1, default='0')
     phone = models.CharField(_(u'手机号'), default='', unique=True, db_index=True, max_length=50)
     mid = models.ForeignKey(Merchant, null=True, db_index=True)  # , default=settings.DEFAULT_MERCHANT_ID)
-    email = models.EmailField(_(u'邮箱'), max_length=255, null=True)
-    address = JSONField(_(u'地址'), default={})
-    birthday = models.DateField(_(u'生日'), blank=True, null=True)
-    source = models.IntegerField(_(u'创建来源'), blank=True, default=0)
+    email = models.EmailField(_(u'邮箱'), max_length=255, default='')
+    address = models.CharField(_(u'地址'), default="[]", max_length=500)
+    birthday = models.DateField(_(u'生日'), blank=True, default='1990-01-01')
+    source = models.CharField(_(u'创建来源'), blank=True, default='0', max_length=1)
     createdDate = models.DateField(_(u'创建日期'), blank=True, default=timezone.now().strftime("%Y-%m-%d"))
 
     class Meta:
@@ -194,9 +194,9 @@ class ExtendMember(models.Model):
                 self.mid = None
         with transaction.atomic():
             super(ExtendMember, self).save(*args, **kwargs)
-            if self.memberid == '':
-                self.memberid = "%010d" % self.id
-                super(ExtendMember, self).save(force_update=True, update_fields=['memberid'])
+            if self.memberId == '':
+                self.memberId = "%010d" % self.id
+                super(ExtendMember, self).save(force_update=True, update_fields=['memberId'])
 
     def default_init(self):
         self.username = 'hsw'

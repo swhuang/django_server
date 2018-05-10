@@ -12,6 +12,7 @@ from rest_framework.generics import GenericAPIView
 import json
 
 
+
 class ProductFilter(FilterSet):
     """
     自定义过滤类
@@ -109,10 +110,11 @@ class ProductUpdateView(GenericAPIView):
         except ProductDetail.DoesNotExist:
             return Response({"detail": "无效的productid"}, HTTP_400_BAD_REQUEST)
         try:
+            validated_data[u'lastModifiedBy'] = request.user.userid
             self.get_serializer(instance=p, data=request.data).update(p, validated_data)
         except Exception, e:
             return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
-        return Response("sucess")
+        return Response("success")
 
 
 # 文件上传接口

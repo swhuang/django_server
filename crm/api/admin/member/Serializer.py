@@ -35,13 +35,18 @@ class MemberSerializer(serializers.ModelSerializer):
     # register
     def validate(self, attrs):
         try:
-            p = SiteUser.objects.get(memberid=attrs['memberid'])
+            p = SiteUser.objects.get(memberId=attrs['memberId'])
         except SiteUser.DoesNotExist:
-            raise serializers.ValidationError("memberid 错误")
+            raise serializers.ValidationError("memberId 错误")
+        except Exception, e:
+            raise serializers.ValidationError(e.message)
         return attrs
 
     def create(self, validated_data):
-        p = SiteUser.objects.get(memberid=validated_data['memberid'])
-        p.email = validated_data['email']
-        p.address = validated_data['address']
+        p = SiteUser.objects.get(memberId=validated_data['memberId'])
+        if validated_data.has_key('email'):
+            p.email = validated_data['email']
+        if validated_data.has_key('address'):
+            p.address = validated_data['address']
+        p.save()
         return p

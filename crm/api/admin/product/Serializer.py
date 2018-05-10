@@ -4,11 +4,14 @@ from crm.models import ProductDetail
 import datetime
 import os
 from periodic.tasks import ImportCSV
+from rest_framework import ISO_8601
+from django.utils import six, timezone
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.fields import ThumbnailerImageField
 from easy_thumbnails.files import ThumbnailerImageFieldFile
 from rest_framework.settings import api_settings
-
+import decimal
+from django.utils.formats import localize_input
 
 import zipfile
 
@@ -29,8 +32,8 @@ class ThumbnailImageField(serializers.ImageField):
         except Exception:
             return None
 
-class PdImageField(serializers.ImageField):
 
+class PdImageField(serializers.ImageField):
     def to_representation(self, value):
         if not value:
             return None
@@ -54,11 +57,49 @@ class PdImageField(serializers.ImageField):
             avatar: '',
 
             '''
-            return {'url':url, 'avatar':avatar, 'name': name}
+            return {'url': url, 'avatar': avatar, 'name': name}
         return value.name
 
-class ProductSerializer(serializers.ModelSerializer):
 
+class ModifiedDateTimeField(serializers.DateTimeField):
+    def to_representation(self, value):
+        if not value:
+            return None
+
+        output_format = getattr(self, 'format', api_settings.DATETIME_FORMAT)
+
+        if output_format is None or isinstance(value, six.string_types):
+            return value
+
+        value = self.enforce_timezone(value)
+
+        if output_format.lower() == ISO_8601:
+            value = value.isoformat()
+            return value[0:10]
+            if value.endswith('+00:00'):
+                value = value[:-6] + 'Z'
+            return value
+        return value.strftime(output_format)
+
+
+class AmountField(serializers.DecimalField):
+    def __init__(self, coerce_to_string=None, max_value=None, min_value=None,
+                 localize=False, rounding=None, **kwargs):
+
+        super(AmountField, self).__init__(max_digits=12, decimal_places=2, coerce_to_string=coerce_to_string,
+                                          max_value=max_value, min_value=min_value,
+                                          localize=localize, rounding=rounding, **kwargs)
+
+    def to_representation(self, value):
+        return str(super(AmountField, self).to_representation(value))
+
+class StrfloatField(serializers.FloatField):
+
+    def to_representation(self, value):
+        return str(value)
+
+
+class ProductSerializer(serializers.ModelSerializer):
     MainImage0 = PdImageField(source='image1', required=False)
     MainImage1 = PdImageField(source='image2', required=False)
     MainImage2 = PdImageField(source='image3', required=False)
@@ -66,14 +107,19 @@ class ProductSerializer(serializers.ModelSerializer):
     MainImage4 = PdImageField(source='image5', required=False)
     MainImage5 = PdImageField(source='image6', required=False)
     detailImages = PdImageField(required=False)
+    createdDate = ModifiedDateTimeField(source='gmt_create', read_only=True)
+    createdBy = serializers.CharField(read_only=True)
+    lastModifiedBy = serializers.CharField(read_only=True)
+    lastModified = serializers.DateTimeField(source='gmt_modified', read_only=True)
+    productprice = AmountField()
+    diamondWeight = StrfloatField()
 
     class Meta:
         model = ProductDetail
-        exclude = ('reserved', 'gmt_create', 'gmt_modified', 'createdBy', 'lastModifiedBy',
+        exclude = ('reserved',
                    'image1', 'image2', 'image3', 'image4', 'image5', 'image6')
         # read_only_fields = ('productid', )
         write_only_fields = ('image1',)
-
 
     # def post(self):
     '''
@@ -160,6 +206,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
             self.update(p, validated_data)
         else:  # new
+            validated_data[u'createdBy'] = self.context['request'].user.userid
             return super(ProductSerializer, self).create(validated_data)
 
 
@@ -230,6 +277,12 @@ def ImportCSV(filedir):
             '''
             obj, created = ProductDetail.objects.update_or_create(model=row[0], defaults=param)
 
+    logging.info(csvfile + " process compeleted!")
+
+    if not Imagefile:
+        logging.warn("No image file found!")
+        return False
+
     azip = zipfile.ZipFile(filedir + '/' + Imagefile)
     os.makedirs(filedir + '/Image')
     azip.extractall(path=filedir + '/Image')
@@ -263,6 +316,7 @@ def ImportCSV(filedir):
             pd.save()
             fp.close()
             logging.info(file + " added")
+    return True
 
 
 class ProductFileSerializer(serializers.Serializer):
@@ -286,14 +340,15 @@ class ProductFileSerializer(serializers.Serializer):
         dest.close()
 
         # Image
-        ImageData = validated_data['SixImage']
+        if validated_data.has_key('SixImage'):
+            ImageData = validated_data['SixImage']
 
-        if ImageData.name.split('.')[-1] != 'zip':
-            raise serializers.ValidationError("图片压缩文件格式错误")
-        ImageDest = open(filedir + '/' + 'Image.zip', 'wb+')
-        for chunk in ImageData.chunks():
-            ImageDest.write(chunk)
-        ImageDest.close()
+            if ImageData.name.split('.')[-1] != 'zip':
+                raise serializers.ValidationError("图片压缩文件格式错误")
+            ImageDest = open(filedir + '/' + 'Image.zip', 'wb+')
+            for chunk in ImageData.chunks():
+                ImageDest.write(chunk)
+            ImageDest.close()
 
         # DetailImage
         # todo
