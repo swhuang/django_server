@@ -138,24 +138,24 @@ def getuploadpath(model, filename):
 class ProductDetail(BaseModel):
     productid = models.CharField(_(u'产品编号'), max_length=15, db_index=True, unique=True, default='0')  # primary key
     model = models.CharField(_(u'商品型号'), max_length=10, unique=True, null=True, blank=True)
-    productname = models.CharField(_(u'产品名称'), max_length=30, default='')
+    title = models.CharField(_(u'产品名称'), max_length=30, default='')
     category = models.CharField(_(u'商品分类'), default=CATEGORY['ALL'], max_length=2)
     goldType = models.CharField(_(u'商品材质'), max_length=10, default='', blank=True)
     goldpurity = models.CharField(_(u'材质纯度'), max_length=5, default='', blank=True)
     goldContent = models.CharField(_(u'含金量(克)'), max_length=10, default='', blank=True)
     diamondWeight = models.FloatField(_(u'钻石重量(克)'),
                                       default=0.0)  # models.CharField(_(u'钻石重量(克)'), max_length=10, default='')
-    productprice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
-    releaseStatus = models.BooleanField(_(u'是否发布'), default=False)
+    sellingPrice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
+    releaseStatus = models.CharField(_(u'是否发布'), default='0', max_length=1)
     brand = models.CharField(_(u'品牌'), max_length=20, default='', blank=True)
     desc = models.CharField(_(u'产品描述'), max_length=500, default='', blank=True)
     series = models.CharField(_(u'系列'), max_length=10, default='', blank=True)
     certificate = models.CharField(_(u'证书'), max_length=30, default='', blank=True)
     inventory = models.IntegerField(_(u'库存数量'), default=INVENTORY)
-    guarantee = BillamountField(_(u'押金'), default=0.0)
+    deposit = BillamountField(_(u'押金'), default=0.0)
     size = models.CharField(_(u'尺寸'), max_length=5, default='', blank=True)
     remark = models.CharField(_(u'备注'), max_length=100, default='', blank=True)
-    rentalprice = BillamountField(_(u'租赁单价'), default=0.0)
+    rent = BillamountField(_(u'租赁单价'), default=0.0)
     rentType = models.CharField(_(u'租赁类型'), default=0, max_length=1)  # 0：日租，1：周租，2：月租
     rentcycle = models.PositiveSmallIntegerField(_(u'租赁起始天数'), default=1)
     reletcycle = models.PositiveSmallIntegerField(_(u'租赁周期'), default=1)
@@ -201,7 +201,7 @@ class ProductItem(BaseModel):
     name = models.CharField(_(u'产品名字'), max_length=50)
     inventory = models.IntegerField(_(u'库存数量'), default=INVENTORY)
     attributes = JSONField(_(u'产品参数'), default={})
-    productprice = BillamountField(_(u'产品售价'))
+    sellingPrice = BillamountField(_(u'产品售价'))
     pdetail = models.ForeignKey(ProductDetail, related_name='proditem')
 
     class Meta:
@@ -218,8 +218,8 @@ class Package(BaseModel):
 
     def getProductList(self, offset=0, limit=0):
         marg = {}
-        marg['productprice__gte'] = self.low_bound
-        marg['productprice__lte'] = self.high_bound
+        marg['sellingPrice__gte'] = self.low_bound
+        marg['sellingPrice__lte'] = self.high_bound
         if offset == 0 and limit == 0:
             productinfo = list(ProductDetail.objects.filter(**marg))
         else:
@@ -253,7 +253,7 @@ class Project(BaseModel):
     end_time = models.DateField(_(u'结束时间'), default=timezone.now().strftime('%Y-%m-%d'))
     cycle_day = models.IntegerField(_(u'租赁周期'), default=1)
     process_day = models.IntegerField(_(u'租赁时长'), default=1)
-    guarantee = BillamountField(_(u'押金'), default=0.0)
+    deposit = BillamountField(_(u'押金'), default=0.0)
     payed_amount = BillamountField(_(u'总共支付的金额'), default=0.0)
     current_payamount = BillamountField(_(u'当前需要支付金额'), default=0.0)
 
@@ -269,13 +269,13 @@ class Project(BaseModel):
             print ("error for null product")
             return
 
-        if self.guarantee == 0.0:
-            self.guarantee = round((m.guarantee_pct / 100) * self.product.rentalprice, 2)
+        if self.deposit == 0.0:
+            self.deposit = round((m.guarantee_pct / 100) * self.product.rent, 2)
 
         if self.current_payamount == 0.0:
             self.current_payamount = round(
-                Decimal(self.guarantee) + Decimal(
-                    self.process_day * self.product.rentalprice * (m.daily_amount_pct / 100)), 2)
+                Decimal(self.deposit) + Decimal(
+                    self.process_day * self.product.rent * (m.daily_amount_pct / 100)), 2)
 
         if not self.currsts:
             self.currsts = Start()
@@ -338,8 +338,8 @@ class ProductRental(Project):
 
         if self.product != None:
             v = self.product
-            self.proj_name = v.productname
-            self.guarantee = v.guarantee
+            self.proj_name = v.title
+            self.guarantee = v.deposit
         self.set_state(Start())
 
     def genRentalOrder(self):

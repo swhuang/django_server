@@ -42,37 +42,62 @@ class ProductViewset(viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         key_model = request.GET.get('model', None)
-        key_category = request.GET.get('category', None)
-        if not key_model and not key_category:
+        key_goldType = request.GET.getlist('goldType[]', None)
+        if key_goldType == []:
+            key_goldType = None
+
+        key_category = request.GET.getlist('category[]', None)
+        if key_category == []:
+            key_goldType = None
+
+        key_title = request.GET.get('title', None)
+
+        if not key_model and not key_category and not key_goldType and not key_title:
             return super(ProductViewset, self).list(self.request, *args, **kwargs)
         else:
             filterargs = request.GET.copy().dict()
             if key_model:
                 try:
-                    model_list = json.loads(filterargs.pop('model'))
+                    _model = filterargs.pop('model')
                 except Exception, e:
                     return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
-                if not isinstance(model_list, list):
-                    return Response({"detail": 'Invalid parameter model'}, HTTP_400_BAD_REQUEST)
-                else:
-                    if len(model_list) == 1:
-                        filterargs['model'] = model_list[0]
-                    else:
-                        filterargs['model__in'] = model_list
+
+                filterargs['model__contains'] = _model
+
+            if key_title:
+                try:
+                    _title = filterargs.pop('title')
+                except Exception, e:
+                    return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
+                filterargs['title_contains'] = _title
 
             if key_category:
                 try:
-                    v = filterargs.pop('category')
-                    category_list = json.loads(v)
+                    vlist = filterargs.pop('category[]')
                 except Exception, e:
                     return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
-                if not isinstance(category_list, list):
+                if not isinstance(key_category, list):
                     return Response({"detail": 'Invalid parameter category'}, HTTP_400_BAD_REQUEST)
                 else:
-                    if len(category_list) == 1:
-                        filterargs['category'] = category_list[0]
+                    if len(key_category) == 1:
+                        filterargs['category'] = key_category[0]
                     else:
-                        filterargs['category__in'] = category_list
+                        filterargs['category__in'] = key_category
+
+            if key_goldType:
+                try:
+                    vlist = filterargs.pop('goldType[]')
+                except Exception, e:
+                    return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
+
+                if not isinstance(key_goldType, list):
+                    return Response({"detail": 'Invalid parameter goldType'}, HTTP_400_BAD_REQUEST)
+                else:
+                    if len(key_goldType) == 1:
+                        filterargs['goldType'] = key_goldType[0]
+                    else:
+                        filterargs['goldType__in'] = key_goldType
+
             try:
                 filterargs.pop('limit')
             except:

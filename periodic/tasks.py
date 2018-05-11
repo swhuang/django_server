@@ -103,8 +103,8 @@ def ImportCSV(file):
             if not CATEGORY.has_key(str(row[2])):
                 print "error!!"
 
-            pd = ProductDetail(model=row[0], productname=row[1], category=CATEGORY[str(row[2])], brand=row[3], series=row[4],
+            pd = ProductDetail(model=row[0], title=row[1], category=CATEGORY[str(row[2])], brand=row[3], series=row[4],
                                certificate=row[5], goldType=row[6], goldContent=row[7], diamondWeight=float(row[8]),
-                               size=row[9], productprice=float(row[10]), rentalprice=float(row[11]), rentcycle=int(row[12]),
-                               reletcycle=int(row[13]), guarantee=float(row[14]), releaseStatus=IsPub, remark=row[16])
+                               size=row[9], sellingPrice=float(row[10]), rent=float(row[11]), rentcycle=int(row[12]),
+                               reletcycle=int(row[13]), deposit=float(row[14]), releaseStatus=IsPub, remark=row[16])
             pd.save()

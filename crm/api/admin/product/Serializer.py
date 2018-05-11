@@ -111,7 +111,7 @@ class ProductSerializer(serializers.ModelSerializer):
     createdBy = serializers.CharField(read_only=True)
     lastModifiedBy = serializers.CharField(read_only=True)
     lastModified = serializers.DateTimeField(source='gmt_modified', read_only=True)
-    productprice = AmountField()
+    sellingPrice = AmountField()
     diamondWeight = StrfloatField()
 
     class Meta:
@@ -259,11 +259,11 @@ def ImportCSV(filedir):
                 logging.error("Category 没有:" + str(row[2]))
 
             param = {
-                'productname': row[1], 'category': CATEGORY[str(row[2])], 'brand': row[3], 'series': row[4],
+                'title': row[1], 'category': CATEGORY[str(row[2])], 'brand': row[3], 'series': row[4],
                 'certificate': row[5], 'goldType': row[6], 'goldContent': row[7], 'diamondWeight': float(row[8]),
-                'size': row[9], 'productprice': float(row[10]), 'rentalprice': float(row[11]),
+                'size': row[9], 'sellingPrice': float(row[10]), 'rent': float(row[11]),
                 'rentcycle': int(row[12]), 'model': row[0],
-                'reletcycle': int(row[13]), 'guarantee': float(row[14]), 'releaseStatus': IsPub, 'remark': row[16]
+                'reletcycle': int(row[13]), 'deposit': float(row[14]), 'releaseStatus': IsPub, 'remark': row[16]
             }
             '''
 

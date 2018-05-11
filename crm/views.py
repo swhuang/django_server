@@ -187,7 +187,7 @@ def generatetestmerchant(request):
     try:
         prod = ProductDetail.objects.all().first()
     except ProductDetail.DoesNotExist:
-        prod = ProductDetail(productname='测试产品', productprice=1000.0, guarantee=600.0, rentalprice=5.0)
+        prod = ProductDetail(title='测试产品', sellingPrice=1000.0, deposit=600.0, rent=5.0)
         prod.save()
     else:
         pass
