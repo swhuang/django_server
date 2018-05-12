@@ -243,22 +243,38 @@ class Project(BaseModel):
     r"""
 
     """
-    proj_id = models.CharField(_(u'服务编号'), max_length=10, default='', db_index=True, editable=False)
+    serviceNo = models.CharField(_(u'服务编号'), max_length=10, default='', db_index=True, editable=False)
     proj_name = models.CharField(max_length=128, default='')
+    serviceType = models.CharField(_(u'服务状态'), max_length=1, default='')
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
-    user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    currsts = StatusField(_(u'服务状态'), default=Start)  # models.IntegerField(_(u'服务状态'), default=0)
+    memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+    serviceStatus = StatusField(_(u'服务状态'), default=Start)  # models.IntegerField(_(u'服务状态'), default=0)
     create_user = models.CharField(_(u'创建者'), max_length=10, default='user')  # 创建者:店员or用户
-    start_time = models.DateField(_(u'开始时间'), auto_now=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
-    end_time = models.DateField(_(u'结束时间'), default=timezone.now().strftime('%Y-%m-%d'))
+    rentStartDate = models.DateField(_(u'开始时间'), auto_now=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
+    rentDueDate = models.DateField(_(u'结束时间'), default=timezone.now().strftime('%Y-%m-%d'))
     cycle_day = models.IntegerField(_(u'租赁周期'), default=1)
-    process_day = models.IntegerField(_(u'租赁时长'), default=1)
-    deposit = BillamountField(_(u'押金'), default=0.0)
+    rentPeriod = models.IntegerField(_(u'租赁时长'), default=1)
+    initialRent = BillamountField(_(u'初始租金'), default=0.0)
+    initialDeposit = BillamountField(_(u'初始押金'), default=0.0)
     payed_amount = BillamountField(_(u'总共支付的金额'), default=0.0)
     current_payamount = BillamountField(_(u'当前需要支付金额'), default=0.0)
+    realChargingTime = models.PositiveIntegerField(_(u'实际计费时长'), default=0)
+    residualRent = BillamountField(_(u'剩余租金'), default=0.0)
+    residualDeposit = BillamountField(_(u'剩余押金'), default=0.0)
+    remarks = models.CharField(_(u'备注'), max_length=500, default='')
+    finishTime = models.DateTimeField(_(u'服务结束时间'), default=None, null=True)
+    commodityEntry = models.CharField(_(u'提货经办人'), max_length=10, default='')
+    serviceCompletion = models.CharField(_(u'服务完成人'), max_length=10, default='')
+    store = models.CharField(_(u'取货门店'), max_length=15, default=0)
+    completeMode = models.IntegerField(_(u'服务完成方式'), default=0)
+    realChargingRent = BillamountField(_(u'已付租金'), default=0.0)
+    returnDeposit = BillamountField(_(u'应退款'), default=0.0)
+    serialNumber = models.CharField(_(u'SKU商品编号'), max_length=10, default='')
+    store = models.CharField(_(u'取货门店'), max_length=15, default='')
+    retStore = models.CharField(_(u'还货门店'), max_length=15, default='')
 
     class Meta:
-        ordering = ('proj_id', 'mid')
+        ordering = ('serviceNo', 'mid')
         abstract = True
 
     def __init__(self, *args, **kwargs):
@@ -269,29 +285,39 @@ class Project(BaseModel):
             print ("error for null product")
             return
 
-        if self.deposit == 0.0:
-            self.deposit = round((m.guarantee_pct / 100) * self.product.rent, 2)
+        if self.initialDeposit == 0.0:
+            raise ValueError("初始租金为0")
+            self.initialDeposit = round((m.guarantee_pct / 100) * self.product.rent, 2)
 
         if self.current_payamount == 0.0:
+            self.current_payamount = self.initialDeposit + self.initialRent
+            '''
             self.current_payamount = round(
                 Decimal(self.deposit) + Decimal(
-                    self.process_day * self.product.rent * (m.daily_amount_pct / 100)), 2)
+                    self.rentPeriod * self.product.rent), 2)
+            '''
 
-        if not self.currsts:
-            self.currsts = Start()
+        if self.residualDeposit == 0.0:
+            self.residualDeposit = self.initialDeposit
+
+        if self.residualRent == 0.0:
+            self.residualRent = self.initialRent
+
+        if not self.serviceStatus:
+            self.serviceStatus = Start()
             # self.__state = START_STATE
 
     def set_state(self, s):
-        self.currsts = s
+        self.serviceStatus = s
 
     def updatestate(self):
-        self.currsts.updatestate(self)
+        self.serviceStatus.updatestate(self)
 
     def save(self, *args, **kwargs):
         super(Project, self).save(*args, **kwargs)
-        if self.proj_id == '':
-            self.proj_id = "%010d" % self.id
-            super(Project, self).save(force_update=True, update_fields=['proj_id'])
+        if self.serviceNo == '':
+            self.serviceNo = "%010d" % self.id
+            super(Project, self).save(force_update=True, update_fields=['serviceNo'])
 
     def toJSON(self):
         fields = []
@@ -331,7 +357,7 @@ class ProductRental(Project):
     product = models.ForeignKey(ProductDetail)
 
     def __unicode__(self):
-        return self.proj_id
+        return self.serviceNo
 
     def __init__(self, *args, **kwargs):
         super(ProductRental, self).__init__(*args, **kwargs)
@@ -339,11 +365,11 @@ class ProductRental(Project):
         if self.product != None:
             v = self.product
             self.proj_name = v.title
-            self.guarantee = v.deposit
+            self.initialDeposit = v.deposit
         self.set_state(Start())
 
     def genRentalOrder(self):
-        ro = RentalOrder(proj=self, user_id=self.user_id)  # to_be_done
+        ro = RentalOrder(proj=self, memberId=self.memberId)  # to_be_done
 
     class Meta:
         verbose_name = _('租赁服务')
@@ -359,7 +385,7 @@ class ComboRental(Project):
     changelist = models.CharField(_(u'租品变化情况'), default='', max_length=3000)
 
     def __unicode__(self):
-        return self.proj_id
+        return self.serviceNo
 
     def save(self, *args, **kwargs):
         super(ComboRental, self).save(*args, **kwargs)
@@ -379,7 +405,7 @@ class Order(BaseModel):
     """
     # from users.models import Member
     # userinfo = models.ForeignKey(Member, null=True)
-    user_id = models.CharField(_(u'用户编号'), max_length=15, null=False)
+    memberId = models.CharField(_(u'用户编号'), max_length=15, null=False)
 
     # proj = models.CharField(_(u'服务编号'), max_length=10, null=False, default='0')
     paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
@@ -393,12 +419,12 @@ class Order(BaseModel):
 
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
-        if self.proj_id and self.comboproj:
-            raise ValidationError(_('proj 和 comboproj 无法同时存在'))
-        if not self.proj_id and not self.comboproj:
-            raise ValidationError(_('proj 和 comboproj 无法同时为空'))
-        if self.proj:
-            self.orderamount = self.proj.current_payamount
+        if self.serviceNo and self.comboproj:
+            raise ValidationError(_('serviceNo 和 comboproj 无法同时存在'))
+        if not self.serviceNo and not self.comboproj:
+            raise ValidationError(_('serviceNo 和 comboproj 无法同时为空'))
+        if self.serviceNo:
+            self.orderamount = self.serviceNo.current_payamount
         if self.comboproj:
             self.orderamount = self.comboproj.current_payamount
 
@@ -459,7 +485,7 @@ class Order(BaseModel):
 
 
 class RentalOrder(Order):
-    proj = models.ForeignKey(ProductRental, null=True, related_name="RentalOrderid")
+    serviceNo = models.ForeignKey(ProductRental, null=True, related_name="RentalOrderid")
     comboproj = models.ForeignKey(ComboRental, null=True, related_name="RentalOrderid")
 
     class Meta:
@@ -467,14 +493,14 @@ class RentalOrder(Order):
         verbose_name_plural = _('租赁订单')
 
     def clean(self):
-        if self.proj_id and self.comboproj:
-            raise ValidationError(_('proj 和 comboproj 无法同时存在'))
-        if not self.proj_id and not self.comboproj:
-            raise ValidationError(_('proj 和 comboproj 无法同时为空'))
+        if self.serviceNo and self.comboproj:
+            raise ValidationError(_('serviceNo 和 comboproj 无法同时存在'))
+        if not self.serviceNo and not self.comboproj:
+            raise ValidationError(_('serviceNo 和 comboproj 无法同时为空'))
 
 
 class SaleOrder(Order):
-    proj = models.ForeignKey(ProductRental, null=True, related_name='SaleOrderid')
+    serviceNo = models.ForeignKey(ProductRental, null=True, related_name='SaleOrderid')
     comboproj = models.ForeignKey(ComboRental, null=True, related_name='SaleOrderid')
 
     class Meta:
@@ -482,17 +508,17 @@ class SaleOrder(Order):
         verbose_name_plural = _('销售订单')
 
     def clean(self):
-        if self.proj_id and self.comboproj:
-            raise ValidationError(_('proj 和 comboproj 无法同时存在'))
-        if not self.proj_id and not self.comboproj:
-            raise ValidationError(_('proj 和 comboproj 无法同时为空'))
+        if self.serviceNo and self.comboproj:
+            raise ValidationError(_('serviceNo 和 comboproj 无法同时存在'))
+        if not self.serviceNo and not self.comboproj:
+            raise ValidationError(_('serviceNo 和 comboproj 无法同时为空'))
 
 
 # 支付订单
 class PaymentOrder(BaseModel):
     pay_id = models.CharField(max_length=20, db_index=True, unique=True)
     order_id = models.CharField(max_length=20, default='0')
-    user_id = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+    memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     payedamount = BillamountField(
         _(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
 

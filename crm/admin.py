@@ -14,7 +14,7 @@ class CrmAdmin(admin.ModelAdmin):
 
 @admin.register(RentalOrder)
 class RentalOrderAdmin(admin.ModelAdmin):
-    list_display = ['orderid', 'orderamount', 'user_id', 'proj', 'comboproj']
+    list_display = ['orderid', 'orderamount', 'memberId', 'serviceNo', 'comboproj']
     pass
 
 

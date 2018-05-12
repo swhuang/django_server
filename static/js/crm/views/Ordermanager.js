@@ -209,7 +209,7 @@ var TableInit = function () {
                 field: 'proj_name',
                 title: '项目名称'
             },{
-                field: 'proj_id',
+                field: 'serviceNo',
                 title: '项目编号'
             },{
                 field: 'payment_status',

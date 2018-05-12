@@ -209,16 +209,16 @@ def generatetestmerchant(request):
     try:
         rentalproj = ProductRental.objects.get(id=1)
     except ProductRental.DoesNotExist:
-        rentalproj = ProductRental(product=prod, user_id=site_user.memberid)
+        rentalproj = ProductRental(product=prod, memberId=site_user.memberid)
         rentalproj.save()
 
-    print "Create ProductRental:"+ rentalproj.proj_id
+    print "Create ProductRental:"+ rentalproj.serviceNo
 
     try:
         r_order = RentalOrder.objects.get(id=1)
     except RentalOrder.DoesNotExist:
         try:
-            r_order = RentalOrder(proj=rentalproj, user_id=site_user.memberid)
+            r_order = RentalOrder(proj=rentalproj, memberId=site_user.memberid)
             r_order.save()
         except ValidationError, e:
             print e.msg

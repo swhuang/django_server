@@ -144,7 +144,7 @@ queryParams = function (params) {
         //升序降序
         search: {
             'proj_name': $("#id_projname").val(),
-            'proj_id': $("#id_projid").val()
+            'serviceNo': $("#id_projid").val()
         },
         //自定义传参-任务名称
         status: $("#txt-search-status").val(),
@@ -193,7 +193,7 @@ var TableInit = function () {
             {
                 radio: true
             }, {
-                field: 'proj_id',
+                field: 'serviceNo',
                 title: '项目编号'
             },{
                 field: 'name',
@@ -221,7 +221,7 @@ var TableInit = function () {
                 field: 'proj_name',
                 title: '项目名称'
             },{
-                field: 'proj_id',
+                field: 'serviceNo',
                 title: '项目编号'
             },{
                 field: 'payment_status',

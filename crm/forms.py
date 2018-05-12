@@ -43,7 +43,7 @@ class OrderQueryForm(forms.Form):
         super(OrderQueryForm, self).__init__()
         self.fields['project'] = ProjChoiceField(label=_(u'缴费项目'),
                                                         queryset=Project.objects.filter(mid=_merchant),
-                                                        empty_label=_(u"请选择缴费项目"), to_field_name="proj_id",
+                                                        empty_label=_(u"请选择缴费项目"), to_field_name="serviceNo",
                                                         widget=forms.Select(attrs={'class': 'form-control input-sm'}))
 
 class ProjQueryForm(forms.Form):
@@ -87,12 +87,12 @@ class OrderGenForm(forms.Form):
         super(OrderGenForm, self).__init__()
         self.fields['project'] = ProjChoiceField(label=_(u'项目'),
                                                  queryset=Project.objects.filter(mid=_merchant),
-                                                 empty_label=_(u"请选择项目"), to_field_name="proj_id",
+                                                 empty_label=_(u"请选择项目"), to_field_name="serviceNo",
                                                  widget=forms.Select(attrs=self._attrs))
         self.fields['user_id'] = forms.CharField(label=_(u'用户编号'), widget=forms.NumberInput(attrs=self._attrs))
 
     orderamount = forms.CharField(label=_(u'订单金额'), widget=forms.NumberInput(attrs=_attrs), help_text=_(u'精确到小数点后两位'))
-    proj_id = forms.CharField(label=_(u'项目编号'), widget=forms.NumberInput(attrs=_attrs))
+    serviceNo = forms.CharField(label=_(u'项目编号'), widget=forms.NumberInput(attrs=_attrs))
 
 
 
