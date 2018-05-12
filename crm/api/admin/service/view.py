@@ -6,7 +6,7 @@ from .Serializer import RentalServiceSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 
 
-class RentalServiceViewset(viewsets.ModelViewSet):
+class RentalServiceViewset(viewsets.ReadOnlyModelViewSet):
     queryset = ProductRental.objects.all()
     serializer_class = RentalServiceSerializer
     permission_classes = (permissions.AllowAny,)

@@ -44,9 +44,20 @@ class PdImageField(serializers.ImageField):
             if not getattr(value, 'url', None):
                 # If the file has not been saved it may not have a URL.
                 return None
-            url = value.url
-            avatar = value['avatar'].url
+
+            request = self.context.get('request', None)
+            if request is not None:
+                url = '{scheme}://{host}/{path}'.format(scheme=request.scheme,
+                                                           host=request.get_host(),
+                                                           path=value.url)
+                avatar = '{scheme}://{host}/{path}'.format(scheme=request.scheme,
+                                                           host=request.get_host(),
+                                                           path=value['avatar'].url)
+            else:
+                url = value.url
+                avatar = value['avatar'].url
             name = value.url.split('/')[-1]
+
             '''
             request = self.context.get('request', None)
             if request is not None:
@@ -112,7 +123,7 @@ class ProductSerializer(serializers.ModelSerializer):
     lastModifiedBy = serializers.CharField(read_only=True)
     lastModified = serializers.DateTimeField(source='gmt_modified', read_only=True)
     sellingPrice = AmountField()
-    diamondWeight = StrfloatField()
+    diamondWeight = StrfloatField(required=False)
 
     class Meta:
         model = ProductDetail
@@ -204,10 +215,13 @@ class ProductSerializer(serializers.ModelSerializer):
             except ProductDetail.DoesNotExist:
                 raise serializers.ValidationError(detail={"message": "无效的productid"})
 
-            self.update(p, validated_data)
+            return self.update(p, validated_data)
         else:  # new
             validated_data[u'createdBy'] = self.context['request'].user.userid
-            return super(ProductSerializer, self).create(validated_data)
+            try:
+                return super(ProductSerializer, self).create(validated_data)
+            except Exception, e:
+                raise serializers.ValidationError(detail={"message": e.message})
 
 
 def ImportCSV(filedir):
