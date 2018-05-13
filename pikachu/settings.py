@@ -136,7 +136,8 @@ ROOT_URLCONF = 'pikachu.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [siteuser.SITEUSER_TEMPLATE, 'django_filters.templates'],
+        'DIRS': [siteuser.SITEUSER_TEMPLATE, 'django_filters.templates',
+                 os.path.join(BASE_DIR, 'vue-pages/admin')],
         'APP_DIRS': True,
         'OPTIONS': {
             'builtins': [
@@ -217,7 +218,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = 'media/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'vue-pages/admin/static'),
+    #os.path.join(BASE_DIR, "static"),
     '/siteuser/member/static',
 )
 

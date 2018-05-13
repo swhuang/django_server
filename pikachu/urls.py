@@ -18,6 +18,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from .settings import MEDIA_ROOT
 from django.views.static import serve
+from crm.views import RenderIndex
 from django.contrib.auth import urls as auth_urls
 from crm.server_utils.base.DQS import Order_timer
 import threading
@@ -27,7 +28,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('siteuser.urls')),
     url(r'^accounts/', include('users.urls')),
-    url(r'^', include('crm.urls')),
+    #url(r'^', include('crm.urls')),
+    url(r'^', RenderIndex),
     url(r'^local/', include('crm.local_Interface.urls')),
     url(r'^mobile/', include('crm.mobile.urls')),
     url(r'^media/(?P<path>.*)$',  serve, {"document_root": MEDIA_ROOT}),

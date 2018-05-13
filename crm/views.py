@@ -149,6 +149,9 @@ def test(request):
 
     return HttpResponse("testok!")
 
+def RenderIndex(request):
+    return render(request, "index.html", locals())
+
 
 def generatetestmerchant(request):
 
