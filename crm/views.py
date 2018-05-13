@@ -151,13 +151,7 @@ def test(request):
 
 
 def generatetestmerchant(request):
-    prd = ProductDetail.objects.get(productid='000000000000002')
-    prd.image1=''
-    prd.save()
 
-    return HttpResponse("okokoksasa")
-    _key = mUtil.generate_key()
-    print _key
     try:
         Gp = Group.objects.get(name='OrderUser')
         Gp.permissions = [i for i in Permission.objects.all()]
