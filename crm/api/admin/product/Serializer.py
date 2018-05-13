@@ -35,7 +35,7 @@ class ThumbnailImageField(serializers.ImageField):
 
 class PdImageField(serializers.ImageField):
     def to_representation(self, value):
-        if not value:
+        if not value or value == 'null' or value == '':
             return None
 
         use_url = getattr(self, 'use_url', api_settings.UPLOADED_FILES_USE_URL)
@@ -101,10 +101,23 @@ class AmountField(serializers.DecimalField):
                                           max_value=max_value, min_value=min_value,
                                           localize=localize, rounding=rounding, **kwargs)
 
+
+    def to_internal_value(self, data):
+        return super(AmountField, self).to_internal_value(data)
+
     def to_representation(self, value):
         return str(super(AmountField, self).to_representation(value))
 
 class StrfloatField(serializers.FloatField):
+
+    def to_internal_value(self, data):
+        if isinstance(data, six.text_type) and len(data) > self.MAX_STRING_LENGTH:
+            self.fail('max_string_length')
+
+        try:
+            return float(data)
+        except (TypeError, ValueError):
+            self.fail('invalid')
 
     def to_representation(self, value):
         return str(value)
@@ -127,9 +140,9 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductDetail
-        exclude = ('reserved',
+        exclude = ('reserved', 'gmt_create','gmt_modified',
                    'image1', 'image2', 'image3', 'image4', 'image5', 'image6')
-        # read_only_fields = ('productid', )
+        #read_only_fields = ('productid', )
         write_only_fields = ('image1',)
 
     # def post(self):

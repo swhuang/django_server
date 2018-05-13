@@ -141,7 +141,7 @@ class ProductDetail(BaseModel):
     title = models.CharField(_(u'产品名称'), max_length=30, default='')
     category = models.CharField(_(u'商品分类'), default=CATEGORY['ALL'], max_length=2)
     goldType = models.CharField(_(u'商品材质'), max_length=10, default='', blank=True)
-    goldpurity = models.CharField(_(u'材质纯度'), max_length=5, default='', blank=True)
+    goldPurity = models.CharField(_(u'材质纯度'), max_length=5, default='', blank=True)
     goldContent = models.CharField(_(u'含金量(克)'), max_length=10, default='', blank=True)
     diamondWeight = models.FloatField(_(u'钻石重量(克)'),
                                       default=0.0)  # models.CharField(_(u'钻石重量(克)'), max_length=10, default='')

@@ -9,6 +9,9 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.status import *
 from rest_framework.generics import GenericAPIView
+from django.db import transaction
+from django.core.exceptions import ValidationError
+
 import json
 
 
@@ -129,17 +132,52 @@ class ProductUpdateView(GenericAPIView):
 
     def post(self, request, *args, **kwargs):
         validated_data = request.data
+
+        if not validated_data.has_key('productid'):
+            return Response({"detail": "productid 缺失"}, HTTP_400_BAD_REQUEST)
+
         pid = validated_data.pop('productid')
+
         try:
             p = ProductDetail.objects.get(productid=pid[0])
         except ProductDetail.DoesNotExist:
-            return Response({"detail": "无效的productid"}, HTTP_400_BAD_REQUEST)
+            try:
+                p = ProductDetail.objects.get(productid=pid)
+            except ProductDetail.DoesNotExist:
+                return Response({"detail": "无效的productid"}, HTTP_400_BAD_REQUEST)
+        #try:
+        translate_dict = {
+            'MainImage0': 'image1',
+            'MainImage1': 'image2',
+            'MainImage2': 'image3',
+            'MainImage3': 'image4',
+            'MainImage4': 'image5',
+            'MainImage5': 'image6',
+        }
+        validated_data[u'lastModifiedBy'] = 'sabi' #request.user.userid
+        for key, value in validated_data.items():
+            old_key = key
+            if translate_dict.has_key(key):
+                key = translate_dict[key]
+                validated_data[key] = value
+                del validated_data[old_key]
+
         try:
-            validated_data[u'lastModifiedBy'] = request.user.userid
-            self.get_serializer(instance=p, data=request.data).update(p, validated_data)
+            with transaction.atomic():
+                mSerializer = self.get_serializer(instance=p, data=request.data)
+                if mSerializer.is_valid(raise_exception=True):
+                    mSerializer.update(p, validated_data)
+                    if getattr(p, '_prefetched_objects_cache', None):
+                        # If 'prefetch_related' has been applied to a queryset, we need to
+                        # forcibly invalidate the prefetch cache on the instance.
+                        p._prefetched_objects_cache = {}
+                    return Response(mSerializer.data)
         except Exception, e:
+            if hasattr(e, 'detail'):
+                return Response(e.detail, HTTP_400_BAD_REQUEST)
             return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
-        return Response("success")
+
+
 
 
 # 文件上传接口
