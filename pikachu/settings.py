@@ -29,10 +29,10 @@ SECRET_KEY = 'tiz+&t3)%9-!s*ia&0l!9q=cb2k4o8vbjphglrffnk@a)=wjxe'
 if platform.system() == 'Darwin':
     DEBUG = True
     # DOMAIN = 'http://120.55.55.106:3306'
-    DOMAIN = 'rm-bp1h06uw3zk7a18x2.mysql.rds.aliyuncs.com:3306'
+    DOMAIN = 'http://localhost:3306'
     # CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
     # host = '120.55.55.106'
-    host = 'rm-bp1h06uw3zk7a18x2.mysql.rds.aliyuncs.com'
+    host = 'localhost'
     port = '3306'
     name = 'root'
     pwd = 'vq8612VQE'
@@ -40,10 +40,10 @@ if platform.system() == 'Darwin':
 else:
     DEBUG = False
     # DOMAIN = 'http://120.55.55.106:3306'
-    DOMAIN = 'http://localhost:3306'
+    DOMAIN = 'rm-bp1h06uw3zk7a18x2.mysql.rds.aliyuncs.com:3306'
     # CACHES_BACKEND = 'django.core.cache.backends.memcached.MemcachedCache'
     # host = '120.55.55.106'
-    host = 'localhost'
+    host = 'rm-bp1h06uw3zk7a18x2.mysql.rds.aliyuncs.com'
     port = '3306'
     name = 'root'
     pwd = 'vq8612VQE'
