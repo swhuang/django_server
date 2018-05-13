@@ -1,6 +1,7 @@
 *.py[cod]
 site-packages/*
 *.pyc
+dump.rdb
 .idea/workspace.xml
 celerybeat-schedule
 */migrations/0*.py

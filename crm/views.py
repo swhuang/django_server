@@ -152,6 +152,8 @@ def test(request):
 
 def generatetestmerchant(request):
 
+    _key = mUtil.generate_key()
+    print _key
     try:
         Gp = Group.objects.get(name='OrderUser')
         Gp.permissions = [i for i in Permission.objects.all()]
