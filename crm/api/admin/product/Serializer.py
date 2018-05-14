@@ -273,7 +273,7 @@ def ImportCSV(filedir):
 
     logging.basicConfig(filename=filedir + '.log', level=logging.DEBUG, format=LOG_FORMAT, datefmt=DATE_FORMAT)
 
-    with open(csvfile, 'rb') as csvfile:
+    with open(filedir+'/'+csvfile, 'rb') as csvfile:
         csv_reader = csv.reader(csvfile)
         for i, row in enumerate(csv_reader):
             for ii, xi in enumerate(row):
