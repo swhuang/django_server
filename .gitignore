@@ -8,3 +8,4 @@ celerybeat-schedule
 */*/migrations/0*.py
 media/*
 *.log
+*.csv
