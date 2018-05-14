@@ -74,7 +74,7 @@ class ProductViewset(viewsets.ModelViewSet):
                     _title = filterargs.pop('title')
                 except Exception, e:
                     return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
-                filterargs['title_contains'] = _title
+                filterargs['title__contains'] = _title
 
             if key_category:
                 try:
