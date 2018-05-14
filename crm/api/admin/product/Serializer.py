@@ -7,6 +7,7 @@ from periodic.tasks import ImportCSV
 from rest_framework import ISO_8601
 from django.utils import six, timezone
 from django.db.utils import DataError
+import logging
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.fields import ThumbnailerImageField
 from easy_thumbnails.files import ThumbnailerImageFieldFile
@@ -386,6 +387,8 @@ class ProductFileSerializer(serializers.Serializer):
         except DataError, e:
             raise serializers.ValidationError(e.args[1])
         except Exception, e:
+            logger = logging.getLogger('django')
+            logger.error(e)
             raise serializers.ValidationError(e.message)
 
         return filedata.name
