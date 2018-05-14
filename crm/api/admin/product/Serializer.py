@@ -6,6 +6,7 @@ import os
 from periodic.tasks import ImportCSV
 from rest_framework import ISO_8601
 from django.utils import six, timezone
+from django.db.utils import DataError
 from easy_thumbnails.exceptions import InvalidImageFormatError
 from easy_thumbnails.fields import ThumbnailerImageField
 from easy_thumbnails.files import ThumbnailerImageFieldFile
@@ -278,9 +279,9 @@ def ImportCSV(filedir):
                 row[ii] = xi.decode('gbk')
             if i == 0:
                 continue
-            IsPub = False
+            IsPub = '0'
             if row[15] == '1':
-                IsPub = True
+                IsPub = '1'
 
             if not CATEGORY.has_key(str(row[2])):
                 logging.error("Category 没有:" + str(row[2]))
@@ -304,7 +305,7 @@ def ImportCSV(filedir):
             '''
             obj, created = ProductDetail.objects.update_or_create(model=row[0], defaults=param)
 
-    logging.info(csvfile + " process compeleted!")
+    logging.info(csvfile.name + " process compeleted!")
 
     if not Imagefile:
         logging.warn("No image file found!")
@@ -382,6 +383,8 @@ class ProductFileSerializer(serializers.Serializer):
 
         try:
             ImportCSV(filedir=filedir)
+        except DataError, e:
+            raise serializers.ValidationError(e.args[1])
         except Exception, e:
             raise serializers.ValidationError(e.message)
 

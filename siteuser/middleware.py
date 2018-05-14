@@ -48,7 +48,8 @@ class User(MiddlewareMixin):
                 return None
 
             return _merchant
-
+        #disable csrf
+        setattr(request, '_dont_enforce_csrf_checks', True)
         request.siteuser = SimpleLazyObject(get_user)
         if not request.session.has_key('merchant'):
             request.session['merchant'] = DEFAULT_MERCHANT_OBJ.merchantid

@@ -124,11 +124,12 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'siteuser.middleware.User',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'siteuser.middleware.User',
+
 ]
 
 ROOT_URLCONF = 'pikachu.urls'
@@ -219,7 +220,7 @@ MEDIA_URL = 'media/'
 
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'vue-pages/admin/static'),
-    #os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "static"),
     '/siteuser/member/static',
 )
 

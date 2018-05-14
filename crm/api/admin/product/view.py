@@ -10,6 +10,7 @@ from rest_framework.response import Response
 from rest_framework.status import *
 from rest_framework.generics import GenericAPIView
 from django.db import transaction
+from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ValidationError
 
 import json
@@ -184,7 +185,9 @@ class ProductUpdateView(GenericAPIView):
 class ProductFileView(APIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = ProductFileSerializer
+    _ignore_model_permissions = True
 
+    @csrf_exempt
     def post(self, request, *args, **kwargs):
         serializer = ProductFileSerializer(data=request.data)
         if serializer.is_valid():
