@@ -11,6 +11,7 @@ from rest_framework.status import *
 from rest_framework.generics import GenericAPIView
 from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
+import logging
 from django.core.exceptions import ValidationError
 
 import json
@@ -194,6 +195,9 @@ class ProductFileView(APIView):
             try:
                 serializer.save()
             except Exception, e:
+                print e
+                logger = logging.getLogger('django')
+                logger.error(e)
                 return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
             else:
                 return Response('success', status=HTTP_201_CREATED)
