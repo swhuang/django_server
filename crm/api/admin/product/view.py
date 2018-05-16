@@ -46,6 +46,7 @@ class ProductViewset(viewsets.ModelViewSet):
         serializer.save()
 
     def list(self, request, *args, **kwargs):
+        logger = logging.getLogger('django')
         key_model = request.GET.get('model', None)
         key_goldType = request.GET.getlist('goldType[]', None)
         if key_goldType == []:
@@ -115,6 +116,7 @@ class ProductViewset(viewsets.ModelViewSet):
             try:
                 queryset = ProductDetail.objects.filter(**filterargs)
             except Exception, e:
+                logger.error(e)
                 return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
             else:
                 page = self.paginate_queryset(queryset)

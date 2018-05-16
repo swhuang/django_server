@@ -243,12 +243,33 @@ class Project(BaseModel):
     r"""
 
     """
+    Credit_Level = {
+        (0, '正常'),
+        (1, '逾期'),
+        (2, '超限'),
+    }
+
+    service_status = {
+        (0, '租赁服务已创建'),
+        (1, '待支付'),
+        (2, '待取货'),
+        (3, '服务关闭'),
+        (4, '租赁中'),
+        (5, '租赁完成'),
+        (6, '租转售完成'),
+    }
+
     serviceNo = models.CharField(_(u'服务编号'), max_length=10, default='', db_index=True, editable=False)
     proj_name = models.CharField(max_length=128, default='')
     serviceType = models.CharField(_(u'服务状态'), max_length=1, default='')
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
     memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    serviceStatus = StatusField(_(u'服务状态'), default=Start)  # models.IntegerField(_(u'服务状态'), default=0)
+    name = models.CharField(_(u'姓名'), max_length=100, default='')
+    phone = models.CharField(_(u'手机号'), max_length=50, default='', db_index=True)
+    receiverName = models.CharField(_(u'收货人姓名'), max_length=50, default='')
+    receiverPhone = models.CharField(_(u'收货人手机'), max_length=50, default='', help_text=u'客户端填写的收货人信息')
+    address = models.CharField(_(u'地址'), max_length=200, default='', blank=True, help_text=u'客户端填写的地址,覆盖原地址')
+    serviceStatus = StatusField(_(u'服务状态'), default=Start, choices=service_status)  # models.IntegerField(_(u'服务状态'), default=0)
     create_user = models.CharField(_(u'创建者'), max_length=10, default='user')  # 创建者:店员or用户
     rentStartDate = models.DateField(_(u'开始时间'), auto_now=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
     rentDueDate = models.DateField(_(u'结束时间'), default=timezone.now().strftime('%Y-%m-%d'))
@@ -261,6 +282,9 @@ class Project(BaseModel):
     realChargingTime = models.PositiveIntegerField(_(u'实际计费时长'), default=0)
     residualRent = BillamountField(_(u'剩余租金'), default=0.0)
     residualDeposit = BillamountField(_(u'剩余押金'), default=0.0)
+    creditStatus = models.IntegerField(_(u'服务信用状态'), choices=Credit_Level, default=0)
+    deliveryOperator = models.CharField(_(u'提货经办人'), max_length=100, help_text=u'店员账号')
+    serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=100, help_text=u'店员账号')
     remarks = models.CharField(_(u'备注'), max_length=500, default='')
     finishTime = models.DateTimeField(_(u'服务结束时间'), default=None, null=True)
     commodityEntry = models.CharField(_(u'提货经办人'), max_length=10, default='')
@@ -272,6 +296,7 @@ class Project(BaseModel):
     serialNumber = models.CharField(_(u'SKU商品编号'), max_length=10, default='')
     store = models.CharField(_(u'取货门店'), max_length=15, default='')
     retStore = models.CharField(_(u'还货门店'), max_length=15, default='')
+    curProcOrder = models.CharField(_(u'当前处理订单号'), max_length=20, default='')
 
     class Meta:
         ordering = ('serviceNo', 'mid')

@@ -281,7 +281,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': '[%(asctime)s] [%(levelname)s] %(message)s'
+            'format': '[%(asctime)s] [%(levelname)s] {<%(filename)s> <%(funcName)s> [%(lineno)d]} %(message)s'
         },
     },
     'handlers': {
