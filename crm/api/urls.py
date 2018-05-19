@@ -6,7 +6,6 @@ from django.conf.urls import url, include
 router = routers.DefaultRouter()
 
 router.register(r'merchant', MerchantViewset)
-#router.register(r'test', RestTest.as_view())
 
 urlpatterns = [
     url(r'admin/', include('crm.api.admin.urls')),

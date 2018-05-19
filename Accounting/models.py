@@ -12,7 +12,7 @@ from commom.models import BaseModel, BillamountField, initModel
 # 用户账户
 class Account(BaseModel):
     acctid = models.CharField(_(u'账户编号'), max_length=10, unique=True, db_index=True, null=True)
-    user = models.ForeignKey(SiteUser)
+    user = models.ForeignKey(SiteUser, related_name='account')
     balance = BillamountField(_(u'账户余额'))
 
     def save(self, force_insert=False, force_update=False, using=None,
@@ -25,24 +25,32 @@ class Account(BaseModel):
     def __unicode__(self):
         return self.acctid
 
-#会计科目
-class AccountClassifaction(models.Model):
-    acid = models.CharField(_(u'科目编号'), unique=True, max_length=6)
-    desc = models.CharField(_('描述'), max_length=255, blank=True)
 
-#账务明细表
+# 会计科目
+class AccountClassifaction(models.Model):
+    c2d = {
+        (True, '相对商户入账'),
+        (False, '相对商户出账')
+    }
+    acid = models.CharField(_(u'科目编号'), unique=True, max_length=15)
+    desc = models.CharField(_('描述'), max_length=255, blank=True)
+    debit_credit = models.BooleanField(_(u'借贷方向'), help_text='True:相对商户入账【】False:相对商户出账', default=True, choices=c2d)
+
+
+# 账务明细表
 class Baseacct(BaseModel):
     seq = models.CharField(_(u'账户编号'), max_length=15, unique=True, db_index=True, null=True)
-    debit_credit = models.BooleanField(_(u'借贷方向'))
+    debit_credit = models.BooleanField(_(u'借贷方向'), help_text='True:相对商户入账【】False:相对商户出账')
     acid = models.CharField(_(u'科目编号'), max_length=6, blank=True)
-    user = models.ForeignKey(SiteUser)
     projid = models.CharField(_(u'服务项目编号'), max_length=10)
     merchantid = models.CharField(_(u'商户编号'), default=pikachu.settings.DEFAULT_MERCHANT, max_length=18)
-    balance = BillamountField(_(u'当时账户余额'))
+    balance = BillamountField(_(u'当时账户余额'), help_text='该笔账务产生前账户余额')
+    billingamt = BillamountField(_(u'账务金额'), default=0.0)
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None):
-        m = super(Baseacct, self).save()
+        m = super(Baseacct, self).save(force_insert=force_insert, force_update=force_update, using=using,
+                                       update_fields=update_fields)
         if not self.acctid or self.acctid == '':
             self.acctid = "%015d" % self.id
             super(Baseacct, self).save(force_update=True, update_fields=['acctid'])

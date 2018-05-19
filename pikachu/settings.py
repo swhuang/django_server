@@ -308,6 +308,11 @@ LOGGING = {
             'level': 'INFO',
             'propagate': True,
         },
+        'batch': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        }
     },
 }
 

@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
+from django.db import transaction
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from commom.models import *
@@ -15,6 +16,7 @@ import random
 import json
 import datetime
 from easy_thumbnails.fields import ThumbnailerImageField
+import logging
 
 
 # Create your models here.
@@ -184,6 +186,7 @@ class ProductDetail(BaseModel):
 
     def save(self, force_insert=False, force_update=False, using=None,
              update_fields=None, userid=None):
+
         _m = super(ProductDetail, self).save(force_insert=force_insert, force_update=force_update, using=using,
                                              update_fields=update_fields)
         if not userid:
@@ -238,15 +241,20 @@ SELLPROC_STATE = 2
 COMPLETE = 3
 
 
+class ServiceManager(models.Manager):
+
+    def create(self, *args, **kwargs):
+        pass
+
 # 租赁服务
 class Project(BaseModel):
     r"""
 
     """
     Credit_Level = {
-        (0, '正常'),
-        (1, '逾期'),
-        (2, '超限'),
+        ('0', '正常'),
+        ('1', '逾期'),
+        ('2', '超限'),
     }
 
     service_status = {
@@ -259,7 +267,13 @@ class Project(BaseModel):
         (6, '租转售完成'),
     }
 
-    serviceNo = models.CharField(_(u'服务编号'), max_length=10, default='', db_index=True, editable=False)
+    delivery_dic = {
+        ('0', '自提'),
+        ('1', '邮寄')
+    }
+
+    serviceNo = models.CharField(_(u'服务编号'), max_length=20, default='', db_index=True, editable=False)
+    isCompleted = models.BooleanField(_(u'服务单是否完成'), default=False, db_index=True)
     proj_name = models.CharField(max_length=128, default='')
     serviceType = models.CharField(_(u'服务状态'), max_length=1, default='')
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
@@ -282,11 +296,13 @@ class Project(BaseModel):
     realChargingTime = models.PositiveIntegerField(_(u'实际计费时长'), default=0)
     residualRent = BillamountField(_(u'剩余租金'), default=0.0)
     residualDeposit = BillamountField(_(u'剩余押金'), default=0.0)
-    creditStatus = models.IntegerField(_(u'服务信用状态'), choices=Credit_Level, default=0)
-    deliveryOperator = models.CharField(_(u'提货经办人'), max_length=100, help_text=u'店员账号')
-    serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=100, help_text=u'店员账号')
+    creditStatus = models.CharField(_(u'服务信用状态'), choices=Credit_Level, default='0', max_length=1)
+    deliveryStore = models.CharField(_(u'提货门店'), max_length=15, default='')
+    deliveryOperator = models.CharField(_(u'提货经办人'), max_length=100, help_text=u'店员账号', default='')
+    serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=100, help_text=u'店员账号', default='')
+    deliverymode = models.CharField(_(u'物流方式'), max_length=1, choices=delivery_dic, default='0')
     remarks = models.CharField(_(u'备注'), max_length=500, default='')
-    finishTime = models.DateTimeField(_(u'服务结束时间'), default=None, null=True)
+    finishDate = models.DateField(_(u'服务结束时间'), default=None, null=True)
     commodityEntry = models.CharField(_(u'提货经办人'), max_length=10, default='')
     serviceCompletion = models.CharField(_(u'服务完成人'), max_length=10, default='')
     store = models.CharField(_(u'取货门店'), max_length=15, default=0)
@@ -305,10 +321,7 @@ class Project(BaseModel):
     def __init__(self, *args, **kwargs):
 
         super(Project, self).__init__(*args, **kwargs)
-        m = Merchant.objects.get(merchantid=self.mid)
-        if not self.product:
-            print ("error for null product")
-            return
+        #m = Merchant.objects.get(merchantid=self.mid)
 
         if self.initialDeposit == 0.0:
             raise ValueError("初始租金为0")
@@ -339,10 +352,22 @@ class Project(BaseModel):
         self.serviceStatus.updatestate(self)
 
     def save(self, *args, **kwargs):
-        super(Project, self).save(*args, **kwargs)
-        if self.serviceNo == '':
-            self.serviceNo = "%010d" % self.id
-            super(Project, self).save(force_update=True, update_fields=['serviceNo'])
+        if self.name == '' or self.phone == '':
+            from siteuser.member.models import SiteUser
+            try:
+                usr = SiteUser.objects.get(memberId = self.memberId)
+            except Exception, e:
+                logger = logging.getLogger('django')
+                logger.error(e)
+            else:
+                self.name = usr.name
+                self.phone = usr.phone
+
+        with transaction.atomic:
+            super(Project, self).save(*args, **kwargs)
+            if self.serviceNo == '':
+                self.serviceNo = 'S'+gettimestamp()
+                super(Project, self).save(force_update=True, update_fields=['serviceNo'])
 
     def toJSON(self):
         fields = []
@@ -379,18 +404,17 @@ class Project(BaseModel):
 
 # 商品租赁服务
 class ProductRental(Project):
-    product = models.ForeignKey(ProductDetail)
+    product = models.CharField(_(u'租赁产品编号'), max_length=15, default='')
+    reservedProduct = models.CharField(_(u'预约产品编号'), max_length=15, default='')
 
     def __unicode__(self):
         return self.serviceNo
 
     def __init__(self, *args, **kwargs):
         super(ProductRental, self).__init__(*args, **kwargs)
+        if not self.product:
+            raise TypeError("error for null product")
 
-        if self.product != None:
-            v = self.product
-            self.proj_name = v.title
-            self.initialDeposit = v.deposit
         self.set_state(Start())
 
     def genRentalOrder(self):
