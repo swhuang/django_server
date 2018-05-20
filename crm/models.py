@@ -461,21 +461,21 @@ class Order(BaseModel):
     orderamount = BillamountField(_(u'订单金额'))  # models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
     payedamount = BillamountField(_(u'支付金额'),
                                   default=0.0)  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
-    payment_status = models.SmallIntegerField(_(u'支付状态'), default=0)  # 0:未支付 1:支付成功
+    payment_status = models.SmallIntegerField(_(u'支付状态'), default=0)  # 0:未支付 1:支付中 2:支付成功
     orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
 
     status = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
+    payid = models.CharField(_('支付订单号'), max_length=20, default='')
+
 
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
-        if self.serviceNo and self.comboproj:
-            raise ValidationError(_('serviceNo 和 comboproj 无法同时存在'))
-        if not self.serviceNo and not self.comboproj:
-            raise ValidationError(_('serviceNo 和 comboproj 无法同时为空'))
-        if self.serviceNo:
-            self.orderamount = self.serviceNo.current_payamount
-        if self.comboproj:
-            self.orderamount = self.comboproj.current_payamount
+
+    def save(self, userid=None, *args, **kwargs):
+        if self.orderid == '' or self.orderid == None:
+            self.orderid = Ordertimestamp()
+        super(Order, self).save(force_insert=False, force_update=False, using=None,
+                                       update_fields=None)
 
     class Meta:
         ordering = ('orderid',)
@@ -534,39 +534,30 @@ class Order(BaseModel):
 
 
 class RentalOrder(Order):
-    serviceNo = models.ForeignKey(ProductRental, null=True, related_name="RentalOrderid")
-    comboproj = models.ForeignKey(ComboRental, null=True, related_name="RentalOrderid")
+    order_type = {
+        (0, '租赁订单'),
+        (1, '套餐订单'),
+        (2, '销售订单'),
+        (3, '套餐租赁转售订单'),
+        (4, '单品租赁转售订单')
+    }
+    serviceNo = models.CharField(_(u'服务单号'), max_length=20, default='')
+    type = models.PositiveSmallIntegerField(_(u'订单类型'), choices=order_type, default=0)
+    desc = models.CharField(_(u'订单描述'), max_length=100, default='')
 
     class Meta:
         verbose_name = _('租赁订单')
         verbose_name_plural = _('租赁订单')
 
     def clean(self):
-        if self.serviceNo and self.comboproj:
-            raise ValidationError(_('serviceNo 和 comboproj 无法同时存在'))
-        if not self.serviceNo and not self.comboproj:
-            raise ValidationError(_('serviceNo 和 comboproj 无法同时为空'))
+        pass
 
-
-class SaleOrder(Order):
-    serviceNo = models.ForeignKey(ProductRental, null=True, related_name='SaleOrderid')
-    comboproj = models.ForeignKey(ComboRental, null=True, related_name='SaleOrderid')
-
-    class Meta:
-        verbose_name = _('销售订单')
-        verbose_name_plural = _('销售订单')
-
-    def clean(self):
-        if self.serviceNo and self.comboproj:
-            raise ValidationError(_('serviceNo 和 comboproj 无法同时存在'))
-        if not self.serviceNo and not self.comboproj:
-            raise ValidationError(_('serviceNo 和 comboproj 无法同时为空'))
 
 
 # 支付订单
 class PaymentOrder(BaseModel):
     pay_id = models.CharField(max_length=20, db_index=True, unique=True)
-    order_id = models.CharField(max_length=20, default='0')
+    order_id = models.CharField(max_length=200, default='0')
     memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     payedamount = BillamountField(
         _(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)

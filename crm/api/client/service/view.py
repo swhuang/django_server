@@ -20,6 +20,12 @@ class ClientRentalServiceViewset(RentalServiceViewset, mixins.CreateModelMixin):
     def perform_create(self, serializer):
         serializer.save()
 
+    def get_queryset(self):
+        v = {}
+        if hasattr(self.request, 'siteuser'):
+            v['memberId'] = self.request.siteuser.memberId
+        return ProductRental.objects.filter(**v)
+
 
 
 

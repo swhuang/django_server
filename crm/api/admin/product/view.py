@@ -115,6 +115,7 @@ class ProductViewset(viewsets.ModelViewSet):
 
             try:
                 queryset = ProductDetail.objects.filter(**filterargs)
+                queryset = self.filter_queryset(queryset)
             except Exception, e:
                 logger.error(e)
                 return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
