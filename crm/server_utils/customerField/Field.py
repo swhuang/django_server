@@ -99,6 +99,11 @@ class StatusField(serializers.IntegerField):
 
     def to_representation(self, value):
         if isinstance(value, FSM.State):
-            return int(value.statevalue)
+            return str(value.statevalue)
         else:
-            return super(StatusField, self).to_representation(value)
+            return str(super(StatusField, self).to_representation(value))
+
+class JsonField(serializers.CharField):
+    def to_representation(self, value):
+        return value
+        #return super(JsonField, self).to_representation(value)

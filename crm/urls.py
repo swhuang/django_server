@@ -2,13 +2,14 @@ from django.conf.urls import url
 import views
 import crmmember.mem_views as mem_views
 from weixin import Weixin
+from crm.server_utils.payment import wepay
 
 config = dict(WEXIN_APP_ID='wx1c88e225b036f07a', WEIXIN_APP_SECRET='6fd6d2e8e7b3df81361d7bfb5521a9de')
 weixin = Weixin(config)
 
 urlpatterns = [
     url(r'^$', views.crm_main, name='content_manager'),
-    url(r'weixin/$', weixin.django_view_func(), name='index'),
+    url(r'weixin/$', wepay.pay_notify),
     url(r'getsessiontoken/$', views.getSessionToken),
     url(r'getuserdata/$', views.getUserData),
     url(r'generatetestmerchant', views.generatetestmerchant),

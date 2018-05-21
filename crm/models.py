@@ -11,6 +11,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from commom.models import *
 from pikachu import settings
 from decimal import Decimal
+from django.forms.models import model_to_dict
 from server_utils.base.FSM import *
 import random
 import json
@@ -272,7 +273,7 @@ class Project(BaseModel):
         ('1', '邮寄')
     }
 
-    serviceNo = models.CharField(_(u'服务编号'), max_length=20, default='', db_index=True, editable=False)
+    serviceNo = models.CharField(_(u'服务编号'), max_length=25, default='', db_index=True, editable=False)
     isCompleted = models.BooleanField(_(u'服务单是否完成'), default=False, db_index=True)
     proj_name = models.CharField(max_length=128, default='')
     serviceType = models.CharField(_(u'服务状态'), max_length=1, default='')
@@ -300,19 +301,22 @@ class Project(BaseModel):
     deliveryStore = models.CharField(_(u'提货门店'), max_length=15, default='')
     deliveryOperator = models.CharField(_(u'提货经办人'), max_length=100, help_text=u'店员账号', default='')
     serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=100, help_text=u'店员账号', default='')
-    deliverymode = models.CharField(_(u'物流方式'), max_length=1, choices=delivery_dic, default='0')
+    deliveryMode = models.CharField(_(u'物流方式'), max_length=1, choices=delivery_dic, default='0')
+    logisticsCompany = models.CharField(_(u'物流公司'), max_length=20, default='')
+    trackingNumber = models.CharField(_(u'运单号'), max_length=20, default='')
     remarks = models.CharField(_(u'备注'), max_length=500, default='')
     finishDate = models.DateField(_(u'服务结束时间'), default=None, null=True)
-    commodityEntry = models.CharField(_(u'提货经办人'), max_length=10, default='')
-    serviceCompletion = models.CharField(_(u'服务完成人'), max_length=10, default='')
-    store = models.CharField(_(u'取货门店'), max_length=15, default=0)
+    #commodityEntry = models.CharField(_(u'提货经办人'), max_length=10, default='')
+    serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=10, default='')
+    #store = models.CharField(_(u'取货门店'), max_length=15, default=0)
     completeMode = models.IntegerField(_(u'服务完成方式'), default=0)
     realChargingRent = BillamountField(_(u'已付租金'), default=0.0)
     returnDeposit = BillamountField(_(u'应退款'), default=0.0)
     serialNumber = models.CharField(_(u'SKU商品编号'), max_length=10, default='')
-    store = models.CharField(_(u'取货门店'), max_length=15, default='')
-    retStore = models.CharField(_(u'还货门店'), max_length=15, default='')
+    #deliveryStore = models.CharField(_(u'取货门店'), max_length=15, default='')
+    returnStore = models.CharField(_(u'还货门店'), max_length=15, default='')
     curProcOrder = models.CharField(_(u'当前处理订单号'), max_length=20, default='')
+    adjustmentAmount = BillamountField(_(u'租转售补差金额'), default=0.0)
 
     class Meta:
         ordering = ('serviceNo', 'mid')
@@ -324,8 +328,9 @@ class Project(BaseModel):
         #m = Merchant.objects.get(merchantid=self.mid)
 
         if self.initialDeposit == 0.0:
-            raise ValueError("初始租金为0")
-            self.initialDeposit = round((m.guarantee_pct / 100) * self.product.rent, 2)
+            pass
+            #raise ValueError("初始租金为0")
+            #self.initialDeposit = round((m.guarantee_pct / 100) * self.product.rent, 2)
 
         if self.current_payamount == 0.0:
             self.current_payamount = self.initialDeposit + self.initialRent
@@ -363,11 +368,11 @@ class Project(BaseModel):
                 self.name = usr.name
                 self.phone = usr.phone
 
-        with transaction.atomic:
-            super(Project, self).save(*args, **kwargs)
-            if self.serviceNo == '':
-                self.serviceNo = 'S'+gettimestamp()
-                super(Project, self).save(force_update=True, update_fields=['serviceNo'])
+        #with transaction.atomic:
+        super(Project, self).save(*args, **kwargs)
+        if self.serviceNo == '':
+            self.serviceNo = 'S'+gettimestamp()
+            super(Project, self).save(force_update=True, update_fields=['serviceNo'])
 
     def toJSON(self):
         fields = []
@@ -404,18 +409,39 @@ class Project(BaseModel):
 
 # 商品租赁服务
 class ProductRental(Project):
-    product = models.CharField(_(u'租赁产品编号'), max_length=15, default='')
-    reservedProduct = models.CharField(_(u'预约产品编号'), max_length=15, default='')
+    productid = models.CharField(_(u'租赁产品编号'), max_length=15, default='')
+    product = JSONField(_(u'商品快照'), max_length=1000, default='')
+
+    reservedProductid = models.CharField(_(u'预约产品编号'), max_length=15, default='')
+    reservedProduct = JSONField(_(u'预约商品快照'), max_length=1000, default='')
 
     def __unicode__(self):
         return self.serviceNo
 
     def __init__(self, *args, **kwargs):
         super(ProductRental, self).__init__(*args, **kwargs)
-        if not self.product:
-            raise TypeError("error for null product")
+        if not self.productid:
+            raise TypeError("error for null productid")
+            logging.getLogger('django').error("error for null productid")
 
         self.set_state(Start())
+
+    def save(self, *args, **kwargs):
+        if self.product == '' and self.productid:
+            try:
+                pd = ProductDetail.objects.get(productid=self.productid)
+            except ProductDetail.DoesNotExist:
+                raise ValueError("productid 错误")
+            self.product = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+        if self.reservedProduct == '' and self.reservedProductid:
+            try:
+                pd = ProductDetail.objects.get(productid=self.reservedProductid)
+            except ProductDetail.DoesNotExist:
+                raise ValueError("productid 错误")
+            self.reservedProduct = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+
+        return super(ProductRental, self).save(*args, **kwargs)
+
 
     def genRentalOrder(self):
         ro = RentalOrder(proj=self, memberId=self.memberId)  # to_be_done

@@ -45,6 +45,19 @@ def DailyBatch(mcht=''):
                 DailyBilling.save(force_insert=True)
                 acct.balance -= dailyAmt
                 acct.save()
+                #服务单金额变化
+                v = prl.residualRent - dailyAmt
+                if v >= 0:
+                    prl.residualRent -= dailyAmt
+                else:
+                    prl.residualRent = 0.0
+                    if v*(-1) <= prl.residualDeposit:
+                        prl.residualDeposit -= v*(-1)
+                    else:
+                        # 超限
+                        pass
+                prl.save()
+
 
             pass
 

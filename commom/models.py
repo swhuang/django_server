@@ -6,9 +6,12 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from pikachu import settings
 from crm.server_utils.base import FSM as fsm
+from decimal import Decimal
 import datetime
 import random
 import json
+import logging
+
 
 
 # Create your models here.
@@ -80,12 +83,19 @@ class JSONField(models.TextField):
         v = models.TextField.to_python(self, value)
         try:
             return json.loads(v)['v']
-        except:
+        except Exception, e:
+            logging.getLogger('django')
             pass
         return v
 
     def get_prep_value(self, value):  
-        return json.dumps({'v':value})
+        if isinstance(value, dict):
+            for k in value:
+                if isinstance(value[k], Decimal):
+                    value[k] = float(value[k])
+                else:
+                    value[k] = str(value[k])
+        return json.dumps({'v':value}, ensure_ascii=False)
 
 
 

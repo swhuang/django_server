@@ -155,12 +155,8 @@ def RenderIndex(request):
 
 def generatetestmerchant(request):
 
-    tstdict = {}
-    tstdict['memberId'] = '0000000001'
-
-
-    ProductRental.objects.create(**tstdict)
-
+    rentalproj = ProductRental(productid='000000000000006', memberId='0000000006')
+    rentalproj.save()
     return HttpResponse('done')
 
     _key = mUtil.generate_key()
