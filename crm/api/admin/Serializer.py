@@ -25,15 +25,16 @@ def merchant_valid(mid):
 class UserSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     userid = serializers.CharField(max_length=15, validators=[UniqueValidator(queryset=User.objects.all())])
-    #mid = serializers.CharField(max_length=15, validators=[merchant_valid])
-    #mid = serializers.SlugRelatedField(queryset=Merchant.objects.all(), slug_field='merchantid')
+    # mid = serializers.CharField(max_length=15, validators=[merchant_valid])
+    # mid = serializers.SlugRelatedField(queryset=Merchant.objects.all(), slug_field='merchantid')
     merchantid = serializers.CharField(source='mid.merchantid', validators=[merchant_valid])
     password1 = serializers.CharField(max_length=128, write_only=True)
     password2 = serializers.CharField(max_length=128, write_only=True)
 
     class Meta:
         model = User
-        fields = ('username', 'identification', 'userid', 'merchantid', 'email', 'password1', 'password2')  # , 'password')
+        fields = (
+            'username', 'identification', 'userid', 'merchantid', 'email', 'password1', 'password2')  # , 'password')
         depth = 1
 
     # register
@@ -67,6 +68,24 @@ class LogSerializer(serializers.Serializer):
         model = User
         fields = ('userid', 'username', 'password')
 
+
+class LogOutSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=100, read_only=True)
+
+    class Meta:
+        model = User
+        fields = ('username')
+
+
+class PasswordChangeSerializer(serializers.Serializer):
+    old_password = serializers.CharField(max_length=20, write_only=True)
+    new_password1 = serializers.CharField(max_length=20, write_only=True)
+    new_password2 = serializers.CharField(max_length=20, write_only=True)
+
+    class Meta:
+        fields = ('old_password', 'new_password1', 'new_password2')
+
+
 class CompClaimSerializer(serializers.Serializer):
     projid = serializers.CharField(max_length=15)
     type = serializers.CharField(max_length=2)
@@ -75,4 +94,4 @@ class CompClaimSerializer(serializers.Serializer):
         if attrs['type'] != 'zl' and attrs['type'] != 'tc':
             raise serializers.ValidationError('"type" illagel')
 
-        # def validate_identification(self,):
+            # def validate_identification(self,):

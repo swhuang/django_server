@@ -5,11 +5,16 @@ from rest_framework.response import Response
 from rest_framework import authentication, permissions, mixins, generics
 from rest_framework.status import *
 from django.contrib.auth import login, logout
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm
 from .Serializer import *
 from crm.models import *
 from .product.Serializer import ProductFileSerializer
+from django.http import QueryDict
 import sys
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth import update_session_auth_hash
+import logging
+import urllib
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -28,7 +33,6 @@ class UserLogView(APIView):
     permission_classes = (permissions.AllowAny,)
     serializer_class = LogSerializer
 
-
     def get(self, request, format=None):
         d = {}
         d['name'] = 'hsw'
@@ -43,25 +47,38 @@ class UserLogView(APIView):
         form = AuthenticationForm(request, data=v)
         if form.is_valid():
             login(request, form.get_user())
-            return Response("success")
+            return Response({"name": form.get_user().username})
         else:
-            return Response({"detail": "登录失败"}, HTTP_400_BAD_REQUEST)
+            return Response({"detail": form.errors}, HTTP_400_BAD_REQUEST)
 
 
+class UserLogOut(APIView):
+    permission_classes = (permissions.AllowAny,)
+    serializer_class = LogOutSerializer
+
+    # logout
+    def post(self, request, format=None):
+        if not isinstance(request.user, AnonymousUser):
+            logout(request)
+        return Response({"detail": "已退出"})
 
 
-# 取货完成接口
-class CompClaimView(APIView):
-    permissions_classes = (permissions.IsAdminUser,)
+class UserChangePWD(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = PasswordChangeSerializer
 
-    def get(self, request, format=None):
-        serv_id = request.data.get("projid", None)
-        serv_type = request.data.get("type", None)
+    # change password
+    def post(self, request, format=None):
+        data = QueryDict(urllib.urlencode(request.data))
+        form = PasswordChangeForm(user=request.user, data=data)
+        if form.is_valid():
+            form.save()
+            # Updating the password logs out all other sessions for the user
+            # except the current one.
+            update_session_auth_hash(request, form.user)
+            return Response({"detail": "重置成功"})
+        else:
+            logging.getLogger('django').warning(form.errors)
+            return Response({"detail": form.errors}, HTTP_400_BAD_REQUEST)
 
-        if serv_type == 'zl':#租赁
-            cur_serv = ProductRental.objects.get(serviceNo=serv_id)
-        elif serv_type == 'tc':#套餐
-            cur_serv = ComboRental.objects.get(serviceNo=serv_id)
 
-        cur_serv.set_state(RentalProcessing())
-        pass

@@ -2,10 +2,12 @@
 from rest_framework import viewsets
 from rest_framework import permissions
 from crm.models import ProductRental
-from .Serializer import RentalServiceSerializer
+from .Serializer import RentalServiceSerializer, ClaimGoodSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.status import *
+from rest_framework.generics import GenericAPIView
+from rest_framework.views import APIView
 
 import datetime
 import logging
@@ -84,3 +86,24 @@ class RentalServiceViewset(viewsets.ReadOnlyModelViewSet):
             return Response(serializer.data)
 
         pass
+
+
+# 取货接口
+class ClaimGoodsView(APIView):
+    permissions_classes = (permissions.AllowAny,)
+
+    # _ignore_model_permissions = True
+
+    def post(self, request, *args, **kwargs):
+        serializer = ClaimGoodSerializer(data=request.data)
+        if serializer.is_valid():
+            try:
+                serializer.save()
+            except Exception, e:
+                print e
+                logger = logging.getLogger('django')
+                logger.error(e)
+                return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
+            else:
+                return Response('success', status=HTTP_201_CREATED)
+        return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)

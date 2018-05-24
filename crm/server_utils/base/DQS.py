@@ -51,6 +51,9 @@ class SingletonFactory(Singleton):
         cQueue = CycleQueue(MAXMINUTE * 2)  # 每两秒钟走一格的情况下 30 = 15分钟
         return cQueue
 
+    @staticmethod
+    def getServiceQueue():
+        return ServiceQueue(MAXMINUTE * 2)
 
 #
 def TreatOrder(orderlist):
@@ -131,6 +134,9 @@ class CycleQueue(Singleton):
 
     def LogInfo(self):
         print self.__queue
+
+class ServiceQueue(CycleQueue):
+    pass
 
 
 def Order_timer():

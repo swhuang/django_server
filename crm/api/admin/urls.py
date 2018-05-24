@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from rest_framework import routers
-from .view import UserViewset, UserLogView
+from .view import UserViewset, UserLogView, UserLogOut, UserChangePWD
 from django.conf.urls import url, include
 from .member.view import MemberViewset
 from .product.view import ProductViewset, ProductUpdateView, ProductFileView
@@ -16,7 +16,9 @@ router.register(r'RentalService', RentalServiceViewset) #租赁服务
 
 
 urlpatterns = [
+    url(r'ChangePasswd/$', UserChangePWD.as_view(), name='Change Password'),
     url(r'UserLogin/$', UserLogView.as_view(), name='User login'),
+    url(r'UserLogout/$', UserLogOut.as_view(), name='User logout'),
     url(r'productupdate/$', ProductUpdateView.as_view(), name='update product'),
     url(r'productfile/$', ProductFileView.as_view(), name='batch update product'),
 ]

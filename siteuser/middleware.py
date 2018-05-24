@@ -5,6 +5,7 @@ from django.utils.functional import SimpleLazyObject
 from siteuser.member.models import SiteUser
 from users.models import Merchant
 from crm.models import DEFAULT_MERCHANT_OBJ
+from django.contrib.auth.models import AnonymousUser
 
 # add 'siteuser.middleware.User' in MIDDLEWARE_CLASSES
 # then the request object will has a `siteuser` property
@@ -20,6 +21,10 @@ from crm.models import DEFAULT_MERCHANT_OBJ
 # `siteuser` is a lazy object, it readly called just access the `request.siteuser`
 
 from django.utils.deprecation import MiddlewareMixin
+from django.utils.http import cookie_date
+import time
+from django.conf import settings
+
 
 class User(MiddlewareMixin):
     def process_request(self, request):
@@ -48,9 +53,61 @@ class User(MiddlewareMixin):
                 return None
 
             return _merchant
-        #disable csrf
+
+        # disable csrf
         setattr(request, '_dont_enforce_csrf_checks', True)
         request.siteuser = SimpleLazyObject(get_user)
         if not request.session.has_key('merchant'):
             request.session['merchant'] = DEFAULT_MERCHANT_OBJ.merchantid
         request.merchant = SimpleLazyObject(get_merchant)
+
+    def process_response(self, request, response):
+        loginfo = request.COOKIES.get('logged', None)
+        if not loginfo:
+            if request.session.get_expire_at_browser_close():
+                max_age = None
+                expires = None
+            else:
+                max_age = request.session.get_expiry_age()
+                expires_time = time.time() + max_age
+                expires = cookie_date(expires_time)
+
+            response.set_cookie(
+                'logged', '1', max_age=max_age, expires=expires, domain=settings.SESSION_COOKIE_DOMAIN,
+                path=settings.SESSION_COOKIE_PATH,
+                secure=settings.SESSION_COOKIE_SECURE or None,
+                httponly=False,
+            )
+            loginfo = '1'
+
+        if isinstance(request.user, AnonymousUser) and loginfo == '0': #当前未登录,原来已登录
+            if request.session.get_expire_at_browser_close():
+                max_age = None
+                expires = None
+            else:
+                max_age = request.session.get_expiry_age()
+                expires_time = time.time() + max_age
+                expires = cookie_date(expires_time)
+
+            response.set_cookie(
+                'logged', '1', max_age=max_age, expires=expires, domain=settings.SESSION_COOKIE_DOMAIN,
+                path=settings.SESSION_COOKIE_PATH,
+                secure=settings.SESSION_COOKIE_SECURE or None,
+                httponly=False,
+            )
+        elif not isinstance(request.user, AnonymousUser) and loginfo == '1': #当前已登录,原来未登录
+            if request.session.get_expire_at_browser_close():
+                max_age = None
+                expires = None
+            else:
+                max_age = request.session.get_expiry_age()
+                expires_time = time.time() + max_age
+                expires = cookie_date(expires_time)
+
+            response.set_cookie(
+                'logged', '0', max_age=max_age, expires=expires, domain=settings.SESSION_COOKIE_DOMAIN,
+                path=settings.SESSION_COOKIE_PATH,
+                secure=settings.SESSION_COOKIE_SECURE or None,
+                httponly=False,
+            )
+        return response

@@ -84,7 +84,7 @@ class JSONField(models.TextField):
         try:
             return json.loads(v)['v']
         except Exception, e:
-            logging.getLogger('django')
+            logging.getLogger('django').error(e)
             pass
         return v
 
@@ -92,7 +92,7 @@ class JSONField(models.TextField):
         if isinstance(value, dict):
             for k in value:
                 if isinstance(value[k], Decimal):
-                    value[k] = float(value[k])
+                    value[k] = str(value[k])
                 else:
                     value[k] = str(value[k])
         return json.dumps({'v':value}, ensure_ascii=False)

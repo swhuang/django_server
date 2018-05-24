@@ -29,4 +29,3 @@ class MemberViewset(viewsets.ModelViewSet):
 
     def perform_update(self, serializer):
         serializers.save()
-
