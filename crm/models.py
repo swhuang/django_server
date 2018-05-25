@@ -6,24 +6,28 @@ from django.utils.encoding import python_2_unicode_compatible
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.db import transaction
-from django.core.exceptions import ValidationError
+from django.db.models.signals import post_delete
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from commom.models import *
 from pikachu import settings
 from decimal import Decimal
 from django.forms.models import model_to_dict
 from server_utils.base.FSM import *
+from django_model_changes import ChangesMixin
+from django.db.models import signals
+from django.dispatch import receiver
 import random
 import json
 import datetime
 from easy_thumbnails.fields import ThumbnailerImageField
 import logging
+import os
 
 
 # Create your models here.
 # @python_2_unicode_compatible
 class OrderInfo(BaseModel):
-    orderid = models.CharField(_(u'订单信息'), max_length=30)
+    orderNo = models.CharField(_(u'订单信息'), max_length=30)
     description = models.CharField(_(u'描述信息'), max_length=500, null=True)
 
     class Meta:
@@ -177,6 +181,22 @@ class ProductDetail(BaseModel):
 
     reserved = models.CharField(_(u'reserved'), default='', max_length=200, blank=True)
 
+    def delete_image_obj(self, obj):
+        path = os.path.join(settings.MEDIA_ROOT, obj.name)
+        logging.getLogger('django').info('Deleting file:' + path)
+        if os.path.exists(path):
+            try:
+                os.remove(path)
+            except Exception, e:
+                logging.getLogger('django').error(e)
+
+    def delete_image(self):
+        for i in range(6):
+            img = getattr(self, "image"+str(i+1), None)
+            if img:
+                self.delete_image_obj(img)
+        self.delete_image_obj(self.detailImages)
+
     class Meta:
         ordering = ('productid', 'mid')
         verbose_name = '商品管理'
@@ -198,6 +218,12 @@ class ProductDetail(BaseModel):
                 self.createdBy = userid
             super(ProductDetail, self).save(force_update=True, update_fields=['productid'])
 
+
+# 删除图片hook
+def _delete_image_on_disk(sender, instance, *args, **kwargs):
+    instance.delete_image()
+
+post_delete.connect(_delete_image_on_disk, sender=ProductDetail)
 
 # SKU商品
 class ProductItem(BaseModel):
@@ -248,7 +274,7 @@ class ServiceManager(models.Manager):
         pass
 
 # 租赁服务
-class Project(BaseModel):
+class Project(ChangesMixin, BaseModel):
     r"""
 
     """
@@ -353,8 +379,8 @@ class Project(BaseModel):
     def set_state(self, s):
         self.serviceStatus = s
 
-    def updatestate(self):
-        self.serviceStatus.updatestate(self)
+    def updatestate(self, state):
+        self.serviceStatus.updatestate(self, state)
 
     def save(self, *args, **kwargs):
         if self.name == '' or self.phone == '':
@@ -449,8 +475,24 @@ class ProductRental(Project):
     class Meta:
         verbose_name = _('租赁服务')
         verbose_name_plural = _('租赁服务')
-
     pass
+
+# 租赁服务hook
+@receiver(signal=signals.pre_save, sender=ProductRental)
+def snap_save(sender, instance, **kwargs):
+    if 'productid' in instance.changes():
+        try:
+            pd = ProductDetail.objects.get(productid=instance.productid)
+        except ProductDetail.DoesNotExist:
+            raise ValueError("productid 错误")
+        instance.product = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+    if 'reservedProductid' in instance.changes():
+        try:
+            pd = ProductDetail.objects.get(productid=instance.reservedProductid)
+        except ProductDetail.DoesNotExist:
+            raise ValueError("reservedProductid 错误")
+        instance.product = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+
 
 
 # 套餐租赁服务
@@ -478,19 +520,31 @@ class Order(BaseModel):
     r"""
 
     """
-    # from users.models import Member
-    # userinfo = models.ForeignKey(Member, null=True)
+    paytype = {
+        ('0', u'微信'),
+        ('1', u'其他')
+    }
+
+    ordersts = {
+        ('0', u'待支付'),
+        ('1', u'已支付'),
+        ('2', u'退款中'),
+        ('3', u'已退款'),
+        ('4', u'订单关闭')
+    }
+
     memberId = models.CharField(_(u'用户编号'), max_length=15, null=False)
 
     # proj = models.CharField(_(u'服务编号'), max_length=10, null=False, default='0')
-    paytime = models.DateTimeField(_(u'支付时间'), default=timezone.now)
-    orderamount = BillamountField(_(u'订单金额'))  # models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
+    paymentDatetime = models.DateTimeField(_(u'支付时间'), null=True, blank=True)
+    paymentType = models.CharField(_(u'支付方式'), max_length=1, default='0', choices=paytype)
+    amount = BillamountField(_(u'订单金额'))  # models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
     payedamount = BillamountField(_(u'支付金额'),
                                   default=0.0)  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
     payment_status = models.SmallIntegerField(_(u'支付状态'), default=0)  # 0:未支付 1:支付中 2:支付成功
-    orderid = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
+    orderNo = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
 
-    status = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
+    orderStatus = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
     payid = models.CharField(_('支付订单号'), max_length=20, default='')
 
 
@@ -498,13 +552,13 @@ class Order(BaseModel):
         super(Order, self).__init__(*args, **kwargs)
 
     def save(self, userid=None, *args, **kwargs):
-        if self.orderid == '' or self.orderid == None:
-            self.orderid = Ordertimestamp()
+        if self.orderNo == '' or self.orderNo == None:
+            self.orderNo = Ordertimestamp()
         super(Order, self).save(force_insert=False, force_update=False, using=None,
                                        update_fields=None)
 
     class Meta:
-        ordering = ('orderid',)
+        ordering = ('orderNo',)
         abstract = True
 
     def toJSON(self):
@@ -582,8 +636,9 @@ class RentalOrder(Order):
 
 # 支付订单
 class PaymentOrder(BaseModel):
+    order = models.ForeignKey(RentalOrder, related_name='relatedPaymentOrders')
     pay_id = models.CharField(max_length=20, db_index=True, unique=True)
-    order_id = models.CharField(max_length=200, default='0')
+    orderNo = models.CharField(max_length=200, default='0')
     memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     payedamount = BillamountField(
         _(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)

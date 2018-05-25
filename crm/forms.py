@@ -37,7 +37,7 @@ class OrderQueryForm(forms.Form):
     id_type = forms.TypedChoiceField(label=_(u'证件类型'), choices=([('0', '身份证'), ('1', '学生证')]), initial='0',
                                      widget=forms.Select(attrs={'class': 'form-control input-sm'}))
     id_num = forms.CharField(label=_(u'证件号'), widget=forms.NumberInput(attrs={'class': 'form-control input-sm'}))
-    orderid = forms.CharField(label=_(u'订单号'), widget=forms.NumberInput(attrs={'class': 'form-control input-sm'}))
+    orderNo = forms.CharField(label=_(u'订单号'), widget=forms.NumberInput(attrs={'class': 'form-control input-sm'}))
 
     def __init__(self, _merchant):
         super(OrderQueryForm, self).__init__()
@@ -91,7 +91,7 @@ class OrderGenForm(forms.Form):
                                                  widget=forms.Select(attrs=self._attrs))
         self.fields['user_id'] = forms.CharField(label=_(u'用户编号'), widget=forms.NumberInput(attrs=self._attrs))
 
-    orderamount = forms.CharField(label=_(u'订单金额'), widget=forms.NumberInput(attrs=_attrs), help_text=_(u'精确到小数点后两位'))
+    amount = forms.CharField(label=_(u'订单金额'), widget=forms.NumberInput(attrs=_attrs), help_text=_(u'精确到小数点后两位'))
     serviceNo = forms.CharField(label=_(u'项目编号'), widget=forms.NumberInput(attrs=_attrs))
 
 

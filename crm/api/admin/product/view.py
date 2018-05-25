@@ -130,7 +130,7 @@ class ProductViewset(viewsets.ModelViewSet):
 
 # 产品更新接口
 class ProductUpdateView(GenericAPIView):
-    permissions_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny,)
     serializer_class = ProductSerializer
     queryset = ProductDetail.objects.all()
     _ignore_model_permissions = True

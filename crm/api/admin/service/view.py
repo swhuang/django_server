@@ -36,24 +36,25 @@ class RentalServiceViewset(viewsets.ReadOnlyModelViewSet):
             fdlist = filterargs.pop('finishDate[]', None)
             lhlist = filterargs.pop('leaseholdStatus[]', None)
             cslist = filterargs.pop('creditStatus[]', None)
+            timeformat = "%Y-%m-%d %H:%M:%S"
 
             if cdlist and isinstance(cdlist, list):
                 if cdlist[0] == cdlist[1]:
-                    dt = datetime.datetime.strptime(cdlist[0], "%Y-%m-%d")
-                    filterargs['gmt_create__date'] = dt.date()
+                    dt = datetime.datetime.strptime(cdlist[0], timeformat)
+                    filterargs['gmt_create__date'] = dt#.date()
                 else:
-                    dtstart = datetime.datetime.strptime(cdlist[0], "%Y-%m-%d").date()
-                    dtend = datetime.datetime.strptime(cdlist[1], "%Y-%m-%d").date()
+                    dtstart = datetime.datetime.strptime(cdlist[0], timeformat)#.date()
+                    dtend = datetime.datetime.strptime(cdlist[1], timeformat)#.date()
                     filterargs['gmt_create__date__gte'] = dtstart
                     filterargs['gmt_create__date__lte'] = dtend
 
             if fdlist and isinstance(fdlist, list):
                 if fdlist[0] == fdlist[1]:
-                    dt = datetime.datetime.strptime(cdlist[0], "%Y-%m-%d")
-                    filterargs['finishDate'] = dt.date()
+                    dt = datetime.datetime.strptime(cdlist[0], timeformat)
+                    filterargs['finishDate'] = dt#.date()
                 else:
-                    dtstart = datetime.datetime.strptime(fdlist[0], "%Y-%m-%d").date()
-                    dtend = datetime.datetime.strptime(fdlist[1], "%Y-%m-%d").date()
+                    dtstart = datetime.datetime.strptime(fdlist[0], timeformat)#.date()
+                    dtend = datetime.datetime.strptime(fdlist[1], timeformat)#.date()
                     filterargs['finishDate__gte'] = dtstart
                     filterargs['finishDate__lte'] = dtend
 
@@ -90,20 +91,23 @@ class RentalServiceViewset(viewsets.ReadOnlyModelViewSet):
 
 # 取货接口
 class ClaimGoodsView(APIView):
-    permissions_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ClaimGoodSerializer
 
     # _ignore_model_permissions = True
 
     def post(self, request, *args, **kwargs):
-        serializer = ClaimGoodSerializer(data=request.data)
+        serializer = ClaimGoodSerializer(data=request.data, context={'request':request})
         if serializer.is_valid():
             try:
                 serializer.save()
+                serializer.data['claimResult'] = '0'
             except Exception, e:
                 print e
                 logger = logging.getLogger('django')
                 logger.error(e)
-                return Response({"detail": e.message}, HTTP_400_BAD_REQUEST)
+                return Response({"detail": e.detail[0]}, HTTP_400_BAD_REQUEST)
             else:
-                return Response('success', status=HTTP_201_CREATED)
+                return Response(serializer.data, status=HTTP_201_CREATED)
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST)
+

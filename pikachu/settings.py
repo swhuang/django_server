@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'django_filters',
     'FP_risk',
     'rest_framework',
+    'django_model_changes',
     'gunicorn',
 ]
 

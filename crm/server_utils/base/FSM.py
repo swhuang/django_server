@@ -33,11 +33,11 @@ class DeliveryCompleteEvent(Event):
 class GenOrderEvent(Event):
     desc = '生成订单'
 
-    def __init__(self, orderid):
-        self._orderid = orderid
+    def __init__(self, orderNo):
+        self._orderid = orderNo
 
     @property
-    def orderId(self):
+    def orderNo(self):
         return self._orderid
 
     pass
@@ -91,10 +91,10 @@ class State(object):
 
     def post_err(self, event):
         if not hasattr(event, 'desc'):
-            error = '错误的事件:' + str(event)
+            error = u'错误的事件:' + str(event)
             Logger.error(error)
             raise ValueError(error)
-        error = '错误的事件:' + event.desc
+        error = u'错误的事件:' + event.desc + u', 当前事件' + self.desc
         Logger.error(error)
         raise ValueError(error)
 
@@ -104,6 +104,8 @@ READYFORGOOD_STATE = 2
 RENTALPROC_STATE = 3
 SELLPROC_STATE = 4
 COMPLETE = 5
+
+
 
 
 # 创建等待付款
@@ -234,3 +236,17 @@ class OrderState(object):
 # 售卖服务进行中
 class SellingProcessing(State):
     pass
+
+
+#========================
+statedict = {
+    0: Start,
+    1: RentalConfirmed,
+    2: ReadyForGood,
+    3: RentalProcessing,
+    4: ConvertToPay,
+    5: RentalToPay,
+    6: RentalForSaleDone,
+    7: Completed,
+    8: Closed
+}

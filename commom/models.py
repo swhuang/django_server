@@ -103,17 +103,7 @@ class StatusField(models.IntegerField):
 
     def from_db_value(self, value, expression, connection, context):
         v = models.IntegerField.to_python(self, value)
-        ret = None
-        if v == fsm.START_STATE:
-            ret = fsm.Start()
-        elif v == fsm.RENTAL_CONFIRM:
-            ret = fsm.RentalConfirmed()
-        elif v == fsm.RENTALPROC_STATE:
-            ret = fsm.RentalProcessing()
-        elif v == fsm.COMPLETE:
-            ret = fsm.Completed()
-        elif v == fsm.READYFORGOOD_STATE:
-            ret = fsm.ReadyForGood()
+        ret = fsm.statedict[v]()
         try:
             return ret
         except:
@@ -121,5 +111,9 @@ class StatusField(models.IntegerField):
         return ret
 
     def get_prep_value(self, value):
-        return value.statevalue
+        for i, v in fsm.statedict.items():
+            if type(value) == v:
+                return i
+        logging.getLogger('django').error("status error" + value.__class__.__name__)
+        raise ValueError("status error" + value.__class__.__name__)
 

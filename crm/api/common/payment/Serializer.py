@@ -17,34 +17,34 @@ class PaymentSerializer(serializers.ModelSerializer):
         read_only_fields = ()
 
     def create(self, validated_data):
-        orderlist = self.context['request'].POST.getlist('orderid[]', None)
-        validated_data.pop('orderid[]', None)
+        orderlist = self.context['request'].POST.getlist('orderNo[]', None)
+        validated_data.pop('orderNo[]', None)
         if not orderlist:
-            raise serializers.ValidationError("orderid缺失")
+            raise serializers.ValidationError("orderNo缺失")
         else:
             #TODO
             #根据订单生产支付订单
             olist = []
             payamount = 0.0
             obj_list = []
-            for orderid in orderlist:
+            for orderNo in orderlist:
                 try:
-                    order = RentalOrder.objects.get(orderid)
+                    order = RentalOrder.objects.get(orderNo=orderNo)
                     if order.status != fsm.ORDER_START:
                         raise serializers.ValidationError("订单已关闭 不可支付")
                     if order.payment_status != 0: #未支付才可以支付
                         raise serializers.ValidationError("订单正在支付,不可继续操作")
                 except RentalOrder.DoesNotExist:
                     raise serializers.ValidationError("订单不存在")
-                olist.append(order.orderid)
+                olist.append(order.orderNo)
                 payamount += order.payedamount
                 obj_list.append(order)
 
-            validated_data['order_id'] = str(olist)
+            validated_data['orderNo'] = str(olist)
             validated_data['payedamount'] = payamount
             with transaction.atomic:
                 if not validated_data.has_key['payedamount']:
-                    validated_data['payedamount'] = order.orderamount
+                    validated_data['payedamount'] = order.amount
                 validated_data['memberId'] = self.context['request'].siteuser.memberId
                 inst = super(PaymentSerializer, self).create(validated_data)
                 for obj in obj_list:

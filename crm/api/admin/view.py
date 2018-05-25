@@ -82,3 +82,4 @@ class UserChangePWD(APIView):
             return Response({"detail": form.errors}, HTTP_400_BAD_REQUEST)
 
 
+

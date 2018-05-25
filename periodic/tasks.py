@@ -59,7 +59,7 @@ def ExpireOrderProc(data):
     for ele in data:
         assert isinstance(ele, str)
         try:
-            mOrder = RentalOrder.objects.get(orderid=ele)
+            mOrder = RentalOrder.objects.get(orderNo=ele)
             if mOrder.status == fsm.ORDER_START:
                 mOrder.status = fsm.ORDER_CANCELED
                 mOrder.save()

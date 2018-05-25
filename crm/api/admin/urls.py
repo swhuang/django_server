@@ -4,7 +4,7 @@ from .view import UserViewset, UserLogView, UserLogOut, UserChangePWD
 from django.conf.urls import url, include
 from .member.view import MemberViewset
 from .product.view import ProductViewset, ProductUpdateView, ProductFileView
-from .service.view import RentalServiceViewset
+from .service.view import RentalServiceViewset, ClaimGoodsView
 
 router = routers.DefaultRouter()
 
@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'UserLogout/$', UserLogOut.as_view(), name='User logout'),
     url(r'productupdate/$', ProductUpdateView.as_view(), name='update product'),
     url(r'productfile/$', ProductFileView.as_view(), name='batch update product'),
+    url(r'ClaimGoods/$', ClaimGoodsView.as_view(), name='claim goods'),
 ]
 
 

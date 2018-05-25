@@ -11,6 +11,7 @@ from crm.server_utils.base.DQS import SingletonFactory
 class OrderSerializer(serializers.ModelSerializer):
 
     createDate = ModifiedDateTimeField(source='gmt_create', read_only=True)
+    paymentDatetime = ModifiedDateTimeField(read_only=True)
 
     class Meta:
         model = RentalOrder
@@ -38,8 +39,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
             with transaction.atomic:
                 inst = super(OrderSerializer, self).create(validated_data)
-                serv.curProcOrder = inst.orderid
+                serv.curProcOrder = inst.orderNo
                 serv.set_state(fsm.RentalConfirmed())
                 serv.save()
-            SingletonFactory.getCycleQueue().putitem(inst.orderid)#加入倒计时队列
+            SingletonFactory.getCycleQueue().putitem(inst.orderNo)#加入倒计时队列
             return inst

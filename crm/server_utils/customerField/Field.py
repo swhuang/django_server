@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 from rest_framework import serializers
 import datetime
+import time
 import os
 from rest_framework.settings import api_settings
 from rest_framework import ISO_8601
 from django.utils import six, timezone
 from crm.server_utils.base import FSM
-
+import logging
 
 class PdImageField(serializers.ImageField):
     def to_representation(self, value):
@@ -60,8 +61,7 @@ class ModifiedDateTimeField(serializers.DateTimeField):
         value = self.enforce_timezone(value)
 
         if output_format.lower() == ISO_8601:
-            value = value.isoformat()
-            return value[0:10]
+            return value.strftime('%y-%m-%d %H:%M:%S')
         return value.strftime(output_format)
 
 
@@ -99,7 +99,11 @@ class StatusField(serializers.IntegerField):
 
     def to_representation(self, value):
         if isinstance(value, FSM.State):
-            return str(value.statevalue)
+            for i, v in (FSM.statedict.items()):
+                if type(value) == v:
+                    return str(i)
+            logging.getLogger('django').error("status error" + value.__class__.__name__)
+            raise ValueError("status error" + value.__class__.__name__)
         else:
             return str(super(StatusField, self).to_representation(value))
 
