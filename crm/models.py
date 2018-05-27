@@ -192,7 +192,7 @@ class ProductDetail(BaseModel):
 
     def delete_image(self):
         for i in range(6):
-            img = getattr(self, "image"+str(i+1), None)
+            img = getattr(self, "image" + str(i + 1), None)
             if img:
                 self.delete_image_obj(img)
         self.delete_image_obj(self.detailImages)
@@ -223,7 +223,9 @@ class ProductDetail(BaseModel):
 def _delete_image_on_disk(sender, instance, *args, **kwargs):
     instance.delete_image()
 
+
 post_delete.connect(_delete_image_on_disk, sender=ProductDetail)
+
 
 # SKU商品
 class ProductItem(BaseModel):
@@ -269,9 +271,9 @@ COMPLETE = 3
 
 
 class ServiceManager(models.Manager):
-
     def create(self, *args, **kwargs):
         pass
+
 
 # 租赁服务
 class Project(ChangesMixin, BaseModel):
@@ -310,9 +312,11 @@ class Project(ChangesMixin, BaseModel):
     receiverName = models.CharField(_(u'收货人姓名'), max_length=50, default='')
     receiverPhone = models.CharField(_(u'收货人手机'), max_length=50, default='', help_text=u'客户端填写的收货人信息')
     address = models.CharField(_(u'地址'), max_length=200, default='', blank=True, help_text=u'客户端填写的地址,覆盖原地址')
-    serviceStatus = StatusField(_(u'服务状态'), default=Start, choices=service_status)  # models.IntegerField(_(u'服务状态'), default=0)
+    serviceStatus = StatusField(_(u'服务状态'), default=Start,
+                                choices=service_status)  # models.IntegerField(_(u'服务状态'), default=0)
     create_user = models.CharField(_(u'创建者'), max_length=10, default='user')  # 创建者:店员or用户
-    rentStartDate = models.DateField(_(u'开始时间'), auto_now=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
+    rentStartDate = models.DateField(_(u'开始时间'),
+                                     auto_now=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
     rentDueDate = models.DateField(_(u'结束时间'), default=timezone.now().strftime('%Y-%m-%d'))
     cycle_day = models.IntegerField(_(u'租赁周期'), default=1)
     rentPeriod = models.IntegerField(_(u'租赁时长'), default=1)
@@ -332,17 +336,18 @@ class Project(ChangesMixin, BaseModel):
     trackingNumber = models.CharField(_(u'运单号'), max_length=20, default='')
     remarks = models.CharField(_(u'备注'), max_length=500, default='')
     finishDate = models.DateField(_(u'服务结束时间'), default=None, null=True)
-    #commodityEntry = models.CharField(_(u'提货经办人'), max_length=10, default='')
+    # commodityEntry = models.CharField(_(u'提货经办人'), max_length=10, default='')
     serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=10, default='')
-    #store = models.CharField(_(u'取货门店'), max_length=15, default=0)
+    # store = models.CharField(_(u'取货门店'), max_length=15, default=0)
     completeMode = models.IntegerField(_(u'服务完成方式'), default=0)
     realChargingRent = BillamountField(_(u'已付租金'), default=0.0)
     returnDeposit = BillamountField(_(u'应退款'), default=0.0)
     serialNumber = models.CharField(_(u'SKU商品编号'), max_length=10, default='')
-    #deliveryStore = models.CharField(_(u'取货门店'), max_length=15, default='')
+    # deliveryStore = models.CharField(_(u'取货门店'), max_length=15, default='')
     returnStore = models.CharField(_(u'还货门店'), max_length=15, default='')
     curProcOrder = models.CharField(_(u'当前处理订单号'), max_length=20, default='')
     adjustmentAmount = BillamountField(_(u'租转售补差金额'), default=0.0)
+    daily_amount = BillamountField(_(u'日租金'), default=0.0)
 
     class Meta:
         ordering = ('serviceNo', 'mid')
@@ -351,12 +356,12 @@ class Project(ChangesMixin, BaseModel):
     def __init__(self, *args, **kwargs):
 
         super(Project, self).__init__(*args, **kwargs)
-        #m = Merchant.objects.get(merchantid=self.mid)
+        # m = Merchant.objects.get(merchantid=self.mid)
 
         if self.initialDeposit == 0.0:
             pass
-            #raise ValueError("初始租金为0")
-            #self.initialDeposit = round((m.guarantee_pct / 100) * self.product.rent, 2)
+            # raise ValueError("初始租金为0")
+            # self.initialDeposit = round((m.guarantee_pct / 100) * self.product.rent, 2)
 
         if self.current_payamount == 0.0:
             self.current_payamount = self.initialDeposit + self.initialRent
@@ -386,7 +391,7 @@ class Project(ChangesMixin, BaseModel):
         if self.name == '' or self.phone == '':
             from siteuser.member.models import SiteUser
             try:
-                usr = SiteUser.objects.get(memberId = self.memberId)
+                usr = SiteUser.objects.get(memberId=self.memberId)
             except Exception, e:
                 logger = logging.getLogger('django')
                 logger.error(e)
@@ -394,10 +399,10 @@ class Project(ChangesMixin, BaseModel):
                 self.name = usr.name
                 self.phone = usr.phone
 
-        #with transaction.atomic:
+        # with transaction.atomic:
         super(Project, self).save(*args, **kwargs)
         if self.serviceNo == '':
-            self.serviceNo = 'S'+gettimestamp()
+            self.serviceNo = 'S' + gettimestamp()
             super(Project, self).save(force_update=True, update_fields=['serviceNo'])
 
     def toJSON(self):
@@ -464,10 +469,10 @@ class ProductRental(Project):
                 pd = ProductDetail.objects.get(productid=self.reservedProductid)
             except ProductDetail.DoesNotExist:
                 raise ValueError("productid 错误")
-            self.reservedProduct = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+            self.reservedProduct = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series',
+                                                             'sellingPrice'])
 
         return super(ProductRental, self).save(*args, **kwargs)
-
 
     def genRentalOrder(self):
         ro = RentalOrder(proj=self, memberId=self.memberId)  # to_be_done
@@ -475,7 +480,9 @@ class ProductRental(Project):
     class Meta:
         verbose_name = _('租赁服务')
         verbose_name_plural = _('租赁服务')
+
     pass
+
 
 # 租赁服务hook
 @receiver(signal=signals.pre_save, sender=ProductRental)
@@ -494,25 +501,30 @@ def snap_save(sender, instance, **kwargs):
         instance.product = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
 
 
-
 # 套餐租赁服务
 class ComboRental(Project):
     product = models.ForeignKey(Package)
-    current_product = models.ForeignKey(ProductDetail, null=True)
+    packageshot = JSONField(_(u'套餐快照'), max_length=1000, default='')
+    productid = models.CharField(_(u'租赁产品编号'), max_length=15, default='')
+    product = JSONField(_(u'商品快照'), max_length=1000, default='')
     changelist = models.CharField(_(u'租品变化情况'), default='', max_length=3000)
 
     def __unicode__(self):
         return self.serviceNo
 
     def save(self, *args, **kwargs):
-        super(ComboRental, self).save(*args, **kwargs)
+        return super(ComboRental, self).save(*args, **kwargs)
         pass
 
     class Meta:
         verbose_name = _('套餐租赁服务')
         verbose_name_plural = _('套餐租赁服务')
 
+class SellService(Project):
+    """
+    """
     pass
+        
 
 
 # 订单
@@ -533,6 +545,8 @@ class Order(BaseModel):
         ('4', u'订单关闭')
     }
 
+
+
     memberId = models.CharField(_(u'用户编号'), max_length=15, null=False)
 
     # proj = models.CharField(_(u'服务编号'), max_length=10, null=False, default='0')
@@ -547,7 +561,6 @@ class Order(BaseModel):
     orderStatus = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
     payid = models.CharField(_('支付订单号'), max_length=20, default='')
 
-
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
 
@@ -555,11 +568,14 @@ class Order(BaseModel):
         if self.orderNo == '' or self.orderNo == None:
             self.orderNo = Ordertimestamp()
         super(Order, self).save(force_insert=False, force_update=False, using=None,
-                                       update_fields=None)
+                                update_fields=None)
 
     class Meta:
         ordering = ('orderNo',)
         abstract = True
+
+    def getType(self):
+        return self.type
 
     def toJSON(self):
         fields = []
@@ -618,8 +634,11 @@ class RentalOrder(Order):
         (0, '租赁订单'),
         (1, '套餐订单'),
         (2, '销售订单'),
-        (3, '套餐租赁转售订单'),
-        (4, '单品租赁转售订单')
+        (3, '赔偿订单'),
+        (4, '补押订单'),
+        (5, '补差订单'),
+        (7, '套餐租赁转售订单'),
+        (8, '单品租赁转售订单')
     }
     serviceNo = models.CharField(_(u'服务单号'), max_length=20, default='')
     type = models.PositiveSmallIntegerField(_(u'订单类型'), choices=order_type, default=0)
@@ -631,7 +650,6 @@ class RentalOrder(Order):
 
     def clean(self):
         pass
-
 
 
 # 支付订单

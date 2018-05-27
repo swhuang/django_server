@@ -1,5 +1,17 @@
 # -*- coding: utf-8 -*-
 import logging
+import datetime
+
+"""
+服务状态机:
+使用方法:
+    产生相应事件处理完毕后调用:
+        service.update_status(event)
+    自动完成状态更新和转换,再日终批量处理时,批量处理的业务逻辑为:
+        1. 交易入账
+        2. 用户账户入账和金额变动
+        3. 使用本模块更新服务单状态(包括信用状态)
+"""
 
 Logger = logging.getLogger('django')
 
@@ -17,6 +29,9 @@ class TimeoutEvent(Event):
 
 class PaymentEvent(Event):
     desc = '支付成功'
+    #ptype = None
+    def __init__(self, ptype):
+        self.ptype = ptype
     pass
 
 
@@ -37,26 +52,25 @@ class GenOrderEvent(Event):
         self._orderid = orderNo
 
     @property
-    def orderNo(self):
+    def id(self):
         return self._orderid
 
     pass
 
 
-class SaleOrderEvent(GenOrderEvent):
-    desc = '生成转售订单'
-    pass
 
+class batchEvent(Event):
+    desc = '账务变更'
+    #reqAmount = 0
+    #billAmount = 0
+    def __init__(self, requireamount, billingamount):
+        r'''
 
-class CompensationEvent(GenOrderEvent):
-    desc = '生成赔偿订单'
-    pass
-
-
-class AutoCompleteEvent(Event):
-    desc = '自动服务完成'
-    pass
-
+        :param requireamount: 需要入账金额
+        :param billingamount: 实际入账金额
+        '''
+        self.reqAmount = requireamount
+        self.billAmount = billingamount
 
 class ConvertCompleteEvent(Event):
     desc = '租转售'
@@ -139,8 +153,12 @@ class RentalConfirmed(State):
 # 完成支付 = 待取货
 class ReadyForGood(State):
     def updatestate(self, w, event):
+        from crm.models import ProductRental
         if isinstance(event, DeliveryCompleteEvent):
-            w.set_state(RentalProcessing())
+            if isinstance(w, ProductRental):
+                w.set_state(RentalProcessing())
+            else:
+                w.set_state(Completed())
         else:
             self.post_err(event)
 
@@ -148,16 +166,38 @@ class ReadyForGood(State):
 # 租赁服务进行中
 class RentalProcessing(State):
     def updatestate(self, w, event):
-        if isinstance(event, AutoCompleteEvent):
-            w.set_state(RentalForSaleDone())
+        from crm.models import ProductRental, ComboRental, SellService
+        if isinstance(event, batchEvent):
+            if isinstance(w , ProductRental):
+                if w.residualDeposit < w.initialDeposit and w.creditStatus == '0':# 逾期
+                    w.creditStatus = '1'
+                T = min(w.product.get('sellingPrice', 0), w.initialRent+w.initialDeposit)
+                payedamount = w.initialDeposit+w.initialRent - w.residualDeposit - w.residualRent
+                if T != payedamount:
+                    return
+
+                if w.product.get('sellingPrice', 0) <= (w.initialRent+w.initialDeposit):
+                    w.set_state(RentalForSaleDone())
+                else:
+                    if event.reqAmount > event.billAmount and w.creditStatus != '2':
+                        w.creditStatus = '2' #超限
+                        w.set_state(Completed())
+                    else:
+                        return
+            elif isinstance(w, ComboRental):
+                if w.productid == '': #当前无在租品
+                    if w.rentDueDate == datetime.datetime.today():
+                        w.set_state(Completed())
+                elif w.creditStatus == '1': # 逾期
+                    if w.rentDueDate == datetime.datetime.today():
+                        w.set_state(Completed())
+                        # TODO 增加租赁服务
+
+
         elif isinstance(event, ConvertCompleteEvent):
             w.set_state(RentalForSaleDone())
-        elif isinstance(event, SaleOrderEvent):
-            w.set_state(ConvertToPay())
-        elif isinstance(event, CompensationEvent):
-            w.set_state(RentalToPay())
-        elif isinstance(event, OverLimitEvent):
-            w.set_state(Completed())
+        elif isinstance(event, GenOrderEvent):
+            w.set_state(ReadyToPay())
         elif isinstance(event, ManualCompleteEvent):
             w.set_state(Completed())
         else:
@@ -165,28 +205,21 @@ class RentalProcessing(State):
         pass
 
 
-# 转售待支付
-class ConvertToPay(State):
+# 待支付
+class ReadyToPay(State):
     def updatestate(self, w, event):
+
         if isinstance(event, PaymentCancelEvent):
             w.set_state(RentalProcessing())
         elif isinstance(event, PaymentEvent):
-            w.set_state(RentalForSaleDone())
+            # TODO
+            if event.ptype == 5: # 补差订单
+                w.set_state(RentalForSaleDone())
+            elif event.ptype == 3: # 赔偿订单
+                w.set_state(Completed())
         else:
             self.post_err(event)
         pass
-    pass
-
-
-# 租赁待支付
-class RentalToPay(State):
-    def updatestate(self, w, event):
-        if isinstance(event, PaymentEvent):
-            w.set_state(Completed())
-        elif isinstance(event, PaymentCancelEvent):
-            w.set_state(RentalProcessing())
-        else:
-            self.post_err(event)
     pass
 
 
@@ -244,9 +277,8 @@ statedict = {
     1: RentalConfirmed,
     2: ReadyForGood,
     3: RentalProcessing,
-    4: ConvertToPay,
-    5: RentalToPay,
-    6: RentalForSaleDone,
-    7: Completed,
-    8: Closed
+    4: ReadyToPay,
+    5: RentalForSaleDone,
+    6: Completed,
+    7: Closed
 }

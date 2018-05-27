@@ -21,14 +21,13 @@ class OrderSerializer(serializers.ModelSerializer):
     #创建订单
     def create(self, validated_data):
         if not validated_data.has_key('serviceNo'):
-            validated_data['type'] = 2
+            validated_data['type'] = 2 #销售订单
 
             with transaction.atomic:
                 inst = super(OrderSerializer, self).create(validated_data)
             return inst
         else:
             serv = None
-
             try:
                 if validated_data['type'] == 0:
                     serv = ProductRental.objects.get(serviceNo=validated_data['serviceNo'])
@@ -40,7 +39,7 @@ class OrderSerializer(serializers.ModelSerializer):
             with transaction.atomic:
                 inst = super(OrderSerializer, self).create(validated_data)
                 serv.curProcOrder = inst.orderNo
-                serv.set_state(fsm.RentalConfirmed())
+                serv.updatestate(fsm.GenOrderEvent())
                 serv.save()
             SingletonFactory.getCycleQueue().putitem(inst.orderNo)#加入倒计时队列
             return inst

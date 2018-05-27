@@ -13,7 +13,8 @@ class RentalServiceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductRental
-        exclude = ('gmt_create', 'gmt_modified', 'createdBy', 'create_user', 'completeMode', 'isCompleted')
+        exclude = (
+        'gmt_create', 'gmt_modified', 'createdBy', 'create_user', 'completeMode', 'isCompleted', 'daily_amount')
 
 
 class ClaimGoodSerializer(serializers.Serializer):
@@ -38,7 +39,7 @@ class ClaimGoodSerializer(serializers.Serializer):
     logisticsCompany = serializers.CharField(max_length=20, write_only=True)
     trackingNumber = serializers.CharField(max_length=20, write_only=True)
     claimResult = serializers.SerializerMethodField()
-    #serializers.CharField(max_length=1, default='1', read_only=True)
+    # serializers.CharField(max_length=1, default='1', read_only=True)
     serviceStatus = StatusField(read_only=True)
 
     def get_claimResult(self, obj):
@@ -57,7 +58,6 @@ class ClaimGoodSerializer(serializers.Serializer):
         validated_data.pop('deliveryOperator', None)
         validated_data.pop('deliveryStore', None)
 
-
         if servtype not in self.servtype.keys():
             raise serializers.ValidationError("服务类型错误")
         try:
@@ -65,7 +65,7 @@ class ClaimGoodSerializer(serializers.Serializer):
             if servtype == 'r':
                 serv = ProductRental.objects.get(serviceNo=servid)
             else:
-                #TODO
+                # TODO
                 raise NotImplementedError
         except Exception, e:
             logging.getLogger('django').error(e)
@@ -82,7 +82,7 @@ class ClaimGoodSerializer(serializers.Serializer):
 
         try:
             serv.updatestate(fsm.DeliveryCompleteEvent())
-        except Exception ,e:
+        except Exception, e:
             logging.getLogger('django').error(e)
 
         try:

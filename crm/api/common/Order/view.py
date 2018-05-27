@@ -12,7 +12,8 @@ import logging
 from crm.api.admin.service.view import RentalServiceViewset
 from rest_framework import generics, mixins
 
-#客户端
+
+# 客户端
 class OrderViewset(viewsets.ModelViewSet):
     permission_classes = (permissions.AllowAny,)
     serializer_class = OrderSerializer
@@ -90,7 +91,7 @@ class OrderViewset(viewsets.ModelViewSet):
                     return self.get_paginated_response(serializer.data)
             serializer = RentalOrder(queryset, many=True)
             return Response(serializer.data)
-        # TODO
+            # TODO
 
 
 # 管理端接口

@@ -10,7 +10,7 @@ class ClientRentalServiceSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductRental
-        exclude = ('gmt_create', 'gmt_modified', 'product', 'isCompleted', 'curProcOrder')
+        exclude = ('gmt_create', 'gmt_modified', 'product', 'isCompleted', 'curProcOrder', 'daily_amount')
         read_only_fields = (
         'deliveryOperator', 'serviceCloseOpertator', 'finishDate', 'commodityEntry', 'serviceCompletion'
                                                                                      'store', 'completeMode',
