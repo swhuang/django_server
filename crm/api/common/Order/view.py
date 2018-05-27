@@ -91,7 +91,6 @@ class OrderViewset(viewsets.ModelViewSet):
                     return self.get_paginated_response(serializer.data)
             serializer = RentalOrder(queryset, many=True)
             return Response(serializer.data)
-            # TODO
 
 
 # 管理端接口

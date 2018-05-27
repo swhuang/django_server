@@ -16,10 +16,11 @@ def DailyBatch(mcht=''):
     from Accounting.models import Account, Baseacct, AccountClassifaction
     from siteuser.member.models import SiteUser
     from django.db import transaction
+    from crm.server_utils.base import FSM
     logger = logging.getLogger('batch')
     logger.info("batch for:" + mcht + " merchantid:" + str(datetime.datetime.date()) + ':start')
-    AllProductRental = list(ProductRental.objects.filter(isCompleted=False))
-
+    AllProductRental = list(ProductRental.objects.filter(serviceStatus=FSM.statedict[3])) # rental processing
+    #TODO
     for prl in AllProductRental:
         try:
             pd = ProductDetail.objects.get(productid=prl.product)

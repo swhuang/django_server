@@ -217,9 +217,6 @@ class ProductFileSerializer(serializers.Serializer):
                 ImageDest.write(chunk)
             ImageDest.close()
 
-        # DetailImage
-        # todo
-
         try:
             ImportCSV(filedir=filedir)
         except DataError, e:

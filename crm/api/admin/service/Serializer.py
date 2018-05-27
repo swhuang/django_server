@@ -65,7 +65,7 @@ class ClaimGoodSerializer(serializers.Serializer):
             if servtype == 'r':
                 serv = ProductRental.objects.get(serviceNo=servid)
             else:
-                # TODO
+                # TODO 增加其余服务类型
                 raise NotImplementedError
         except Exception, e:
             logging.getLogger('django').error(e)

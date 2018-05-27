@@ -26,7 +26,6 @@ class PaymentViewset(viewsets.ModelViewSet):
         if hasattr(self.request, 'siteuser'):
             v['memberId'] = self.request.siteuser.memberId
         return PaymentOrder.objects.filter(**v)
-    #TODO
 
 
 #管理端接口
