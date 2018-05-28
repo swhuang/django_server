@@ -19,8 +19,8 @@ def DailyBatch(mcht=''):
     from crm.server_utils.base import FSM
     logger = logging.getLogger('batch')
     logger.info("batch for:" + mcht + " merchantid:" + str(datetime.datetime.date()) + ':start')
-    AllProductRental = list(ProductRental.objects.filter(serviceStatus=FSM.statedict[3])) # rental processing
-    #TODO
+    AllProductRental = list(ProductRental.objects.filter(serviceStatus=FSM.statedict[3]))  # rental processing
+    # TODO
     for prl in AllProductRental:
         try:
             pd = ProductDetail.objects.get(productid=prl.product)
@@ -35,31 +35,49 @@ def DailyBatch(mcht=''):
             logger.error(e)
             continue
 
-        dailyAmt = pd.rent
-        if pd.rent > (prl.residualRent + prl.residualDeposit):
+        if prl.daily_amount != 0.0:
+            requiredamt = prl.daily_amount
+        else:
+            requiredamt = prl.initialRent / prl.rentPeriod
+
+        if prl.payed_amount != 0.0:
+            payedAmt = prl.payed_amount
+        else:
+            payedAmt = prl.initialRent + prl.initialDeposit - prl.residualDeposit - prl.residualRent
+            prl.payed_amount = payedAmt
+
+        if prl.product['sellingPrice'] - payedAmt < requiredamt:
+            requiredamt = prl.product['sellingPrice'] - payedAmt
+
+
+        dailyAmt = requiredamt
+        if requiredamt > (prl.residualRent + prl.residualDeposit):
             dailyAmt = prl.residualRent + prl.residualDeposit
-        if dailyAmt > 0:
-            # TODO
-            with transaction.Atomic:
+        with transaction.Atomic:
+            if dailyAmt > 0:  # 实际入账金额
+                # TODO
                 DailyBilling = Baseacct(debit_credit=True, acid='DAILYBILL001', projid=prl.serviceNo, merchantid=mcht,
-                                    balance=acct.balance, billingamt=dailyAmt, seq=acct.acctid)
+                                        balance=acct.balance, billingamt=dailyAmt, seq=acct.acctid)
                 DailyBilling.save(force_insert=True)
                 acct.balance -= dailyAmt
                 acct.save()
-                #服务单金额变化
+                # 服务单金额变化
                 v = prl.residualRent - dailyAmt
                 if v >= 0:
                     prl.residualRent -= dailyAmt
                 else:
                     prl.residualRent = 0.0
-                    if v*(-1) <= prl.residualDeposit:
-                        prl.residualDeposit -= v*(-1)
+                    if v * (-1) <= prl.residualDeposit:
+                        prl.residualDeposit -= v * (-1)
                     else:
-                        # 超限
-                        pass
-                prl.save()
+                        logger.error(
+                            "Invalid amount-- serviceNo:{%s}, dailyamt:{%s}, residualRent:{%s}, residualDeposit:{%s}" % (
+                                prl.serviceNo, dailyAmt, prl.residualRent, prl.residualDeposit))
+                        raise ValueError("服务单金额错误v{%s}" % (v))
 
+                # 初始化租赁日期
+                prl.rentStartDate = datetime.date.today()
+                prl.rentDueDate = datetime.date.today() + datetime.timedelta(days=prl.rentPeriod)
 
-            pass
-
-        pass
+            prl.updatestate(FSM.batchEvent(requireamount=requiredamt, billingamount=dailyAmt))
+            prl.save()

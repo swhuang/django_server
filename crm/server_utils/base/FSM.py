@@ -186,10 +186,10 @@ class RentalProcessing(State):
                         return
             elif isinstance(w, ComboRental):
                 if w.productid == '': #当前无在租品
-                    if w.rentDueDate == datetime.datetime.today():
+                    if w.rentDueDate == datetime.date.today():
                         w.set_state(Completed())
                 elif w.creditStatus == '1': # 逾期
-                    if w.rentDueDate == datetime.datetime.today():
+                    if w.rentDueDate == datetime.date.today():
                         w.set_state(Completed())
                         # TODO 增加租赁服务
 
