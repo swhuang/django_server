@@ -6,6 +6,7 @@ from siteuser.member.models import SiteUser
 from users.models import Merchant
 from crm.models import DEFAULT_MERCHANT_OBJ
 from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth import get_user_model
 
 # add 'siteuser.middleware.User' in MIDDLEWARE_CLASSES
 # then the request object will has a `siteuser` property
@@ -62,6 +63,23 @@ class User(MiddlewareMixin):
         request.merchant = SimpleLazyObject(get_merchant)
 
     def process_response(self, request, response):
+
+        def currentlogin(user): #当前未登录:true 当前已登录:false
+            if isinstance(user, AnonymousUser):
+                return True
+            elif isinstance(user, SiteUser):
+                return False
+            elif isinstance(user, get_user_model()):
+                return False
+            else:
+                return True
+
+        current_user = request.user
+
+        if hasattr(request, 'siteuser'):
+            if isinstance(request.siteuser, SiteUser):
+                current_user = request.siteuser
+
         loginfo = request.COOKIES.get('logged', None)
         if not loginfo:
             if request.session.get_expire_at_browser_close():
@@ -80,7 +98,7 @@ class User(MiddlewareMixin):
             )
             loginfo = '1'
 
-        if isinstance(request.user, AnonymousUser) and loginfo == '0': #当前未登录,原来已登录
+        if currentlogin(current_user) and loginfo == '0': #当前未登录,原来已登录
             if request.session.get_expire_at_browser_close():
                 max_age = None
                 expires = None
@@ -95,7 +113,7 @@ class User(MiddlewareMixin):
                 secure=settings.SESSION_COOKIE_SECURE or None,
                 httponly=False,
             )
-        elif not isinstance(request.user, AnonymousUser) and loginfo == '1': #当前已登录,原来未登录
+        elif not currentlogin(current_user) and loginfo == '1': #当前已登录,原来未登录
             if request.session.get_expire_at_browser_close():
                 max_age = None
                 expires = None
