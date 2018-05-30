@@ -8,3 +8,8 @@ class AnyUserPermission(permissions.BasePermission):
 class LogedUserPermission(permissions.BasePermission):
     def has_permission(self, request, view):
         return request.siteuser and True
+
+
+class AuthenticateUserPermission(permissions.BasePermission):
+
+    pass

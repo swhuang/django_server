@@ -13,7 +13,7 @@ def DailyBatch(mcht=''):
     from crm.models import ProductRental
     from crm.models import ComboRental
     from crm.models import ProductDetail
-    from Accounting.models import Account, Baseacct, AccountClassifaction
+    from Accounting.models import *
     from siteuser.member.models import SiteUser
     from django.db import transaction
     from crm.server_utils.base import FSM
@@ -30,7 +30,6 @@ def DailyBatch(mcht=''):
 
         try:
             member = SiteUser.objects.get(memberId=prl.memberId)
-            acct = Account.objects.get(user=member)
         except Exception, e:
             logger.error(e)
             continue
@@ -53,22 +52,22 @@ def DailyBatch(mcht=''):
         dailyAmt = requiredamt
         if requiredamt > (prl.residualRent + prl.residualDeposit):
             dailyAmt = prl.residualRent + prl.residualDeposit
-        with transaction.Atomic:
+        with transaction.atomic:
             if dailyAmt > 0:  # 实际入账金额
                 # TODO
-                DailyBilling = Baseacct(debit_credit=True, acid='DAILYBILL001', projid=prl.serviceNo, merchantid=mcht,
-                                        balance=acct.balance, billingamt=dailyAmt, seq=acct.acctid)
-                DailyBilling.save(force_insert=True)
-                acct.balance -= dailyAmt
-                acct.save()
+                billobj = BillingTran(projid=prl.serviceNo, member=member)
+
                 # 服务单金额变化
                 v = prl.residualRent - dailyAmt
                 if v >= 0:
                     prl.residualRent -= dailyAmt
+                    billobj.billingrent(dailyAmt)
                 else:
                     prl.residualRent = 0.0
                     if v * (-1) <= prl.residualDeposit:
                         prl.residualDeposit -= v * (-1)
+                        billobj.billingrent(prl.residualRent)
+                        billobj.billingdeposit(v * (-1))
                     else:
                         logger.error(
                             "Invalid amount-- serviceNo:{%s}, dailyamt:{%s}, residualRent:{%s}, residualDeposit:{%s}" % (
@@ -76,8 +75,10 @@ def DailyBatch(mcht=''):
                         raise ValueError("服务单金额错误v{%s}" % (v))
 
                 # 初始化租赁日期
-                prl.rentStartDate = datetime.date.today()
-                prl.rentDueDate = datetime.date.today() + datetime.timedelta(days=prl.rentPeriod)
+                if not prl.rentStartDate:
+                    prl.rentStartDate = datetime.date.today()
+                if not prl.rentDueDate:
+                    prl.rentDueDate = datetime.date.today() + datetime.timedelta(days=prl.rentPeriod)
 
             prl.updatestate(FSM.batchEvent(requireamount=requiredamt, billingamount=dailyAmt))
             prl.save()

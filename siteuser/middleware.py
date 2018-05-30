@@ -64,10 +64,29 @@ class User(MiddlewareMixin):
 
     def process_response(self, request, response):
 
-        def currentlogin(user): #当前未登录:true 当前已登录:false
+        def currentlogin(user):  # 当前未登录:true 当前已登录:false
             if isinstance(user, AnonymousUser):
                 return True
             elif isinstance(user, SiteUser):
+                if request.session.get_expire_at_browser_close():
+                    max_age = None
+                    expires = None
+                else:
+                    max_age = request.session.get_expiry_age()
+                    expires_time = time.time() + max_age
+                    expires = cookie_date(expires_time)
+
+                isAuth = '1'
+                if user.isauthenticated:
+                    isAuth = '0'
+                if request.COOKIES.get('IsAuthenticated', None) != isAuth:
+                    response.set_cookie(
+                        'IsAuthenticated:', isAuth, max_age=max_age, expires=expires,
+                        domain=settings.SESSION_COOKIE_DOMAIN,
+                        path=settings.SESSION_COOKIE_PATH,
+                        secure=settings.SESSION_COOKIE_SECURE or None,
+                        httponly=False,
+                    )
                 return False
             elif isinstance(user, get_user_model()):
                 return False
@@ -98,7 +117,7 @@ class User(MiddlewareMixin):
             )
             loginfo = '1'
 
-        if currentlogin(current_user) and loginfo == '0': #当前未登录,原来已登录
+        if currentlogin(current_user) and loginfo == '0':  # 当前未登录,原来已登录
             if request.session.get_expire_at_browser_close():
                 max_age = None
                 expires = None
@@ -113,7 +132,7 @@ class User(MiddlewareMixin):
                 secure=settings.SESSION_COOKIE_SECURE or None,
                 httponly=False,
             )
-        elif not currentlogin(current_user) and loginfo == '1': #当前已登录,原来未登录
+        elif not currentlogin(current_user) and loginfo == '1':  # 当前已登录,原来未登录
             if request.session.get_expire_at_browser_close():
                 max_age = None
                 expires = None

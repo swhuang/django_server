@@ -153,7 +153,7 @@ class ProductDetail(BaseModel):
     diamondWeight = models.FloatField(_(u'钻石重量(克)'),
                                       default=0.0)  # models.CharField(_(u'钻石重量(克)'), max_length=10, default='')
     sellingPrice = BillamountField(_(u'产品售价'))  # models.DecimalField(_(u'产品售价'), max_digits=12, decimal_places=2)
-    releaseStatus = models.CharField(_(u'是否发布'), default='0', max_length=1)
+    releaseStatus = models.CharField(_(u'是否发布'), default='0', max_length=1, db_index=True)
     brand = models.CharField(_(u'品牌'), max_length=20, default='', blank=True)
     desc = models.CharField(_(u'产品描述'), max_length=500, default='', blank=True)
     series = models.CharField(_(u'系列'), max_length=10, default='', blank=True)
@@ -198,7 +198,7 @@ class ProductDetail(BaseModel):
         self.delete_image_obj(self.detailImages)
 
     class Meta:
-        ordering = ('productid', 'mid')
+        ordering = ('productid', 'mid', '-gmt_create')
         verbose_name = '商品管理'
         verbose_name_plural = '商品管理'
 
@@ -316,8 +316,8 @@ class Project(ChangesMixin, BaseModel):
                                 choices=service_status)  # models.IntegerField(_(u'服务状态'), default=0)
     create_user = models.CharField(_(u'创建者'), max_length=10, default='user')  # 创建者:店员or用户
     rentStartDate = models.DateField(_(u'开始时间'),
-                                     auto_now=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
-    rentDueDate = models.DateField(_(u'结束时间'), default=timezone.now().strftime('%Y-%m-%d'))
+                                     default=None, null=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
+    rentDueDate = models.DateField(_(u'结束时间'), default=None, null=True)
     cycle_day = models.IntegerField(_(u'租赁周期'), default=1)
     rentPeriod = models.IntegerField(_(u'租赁时长'), default=1)
     initialRent = BillamountField(_(u'初始租金'), default=0.0)

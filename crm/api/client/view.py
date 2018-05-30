@@ -19,7 +19,7 @@ class SiteUserLoginView(APIView):
         username = request.data.get("username")
         verifycode = request.data.get("verifycode")
         stored_code = request.session.get('VerifyCode', None)
-        if not MsgAuthentication.verifyPhoneCode(request.session, verifycode):
+        if MsgAuthentication.verifyPhoneCode(request.session, verifycode):
             try:
                 usr = SiteUser.objects.get(username=username)
             except SiteUser.DoesNotExist:

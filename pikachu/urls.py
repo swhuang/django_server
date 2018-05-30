@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('siteuser.urls')),
     url(r'^accounts/', include('users.urls')),
-    #url(r'^', TemplateView.as_view(template_name="index.html")),
+    url(r'^', TemplateView.as_view(template_name="index.html")),
     url(r'^test/', generatetestmerchant),
     url(r'^local/', include('crm.local_Interface.urls')),
     url(r'^mobile/', include('crm.urls')),

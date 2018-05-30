@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import datetime
+from Accounting.models import *
 
 """
 服务状态机:
@@ -166,7 +167,7 @@ class ReadyForGood(State):
 # 租赁服务进行中
 class RentalProcessing(State):
     def updatestate(self, w, event):
-        from crm.models import ProductRental, ComboRental, SellService
+        from crm.models import ProductRental, ComboRental, SellService, Project
         if isinstance(event, batchEvent):
             if isinstance(w , ProductRental):
                 if w.residualDeposit < w.initialDeposit and w.creditStatus == '0':# 逾期
@@ -199,7 +200,14 @@ class RentalProcessing(State):
         elif isinstance(event, GenOrderEvent):
             w.set_state(ReadyToPay())
         elif isinstance(event, ManualCompleteEvent):
-            w.set_state(Completed())
+            if isinstance(w, Project):
+                usr = SiteUser.objects.get(memberId=w.memberId)
+                BillingTran(projid=w.serviceNo, member=usr)
+                if w.residualRent > 0:
+                    BillingTran.billingrent(w.residualRent)
+                if w.residualDeposit > 0:
+                    BillingTran.billingdeposit(w.residualDeposit)
+                w.set_state(Completed())
         else:
             self.post_err(event)
         pass

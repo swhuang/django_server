@@ -201,6 +201,14 @@ class ExtendMember(models.Model):
     def default_init(self):
         self.username = 'hsw'
 
+    @property
+    def isauthenticated(self):
+        if self.idNo == "":
+            return False
+        else:
+            return True
+
+
     def toJSON(self):
         fields = []
         for field in self._meta.fields:

@@ -114,7 +114,8 @@ class ProductViewset(viewsets.ModelViewSet):
                 pass
 
             try:
-                queryset = ProductDetail.objects.filter(**filterargs)
+                #queryset = ProductDetail.objects.filter(**filterargs)
+                queryset = self.get_queryset().filter(**filterargs)
                 queryset = self.filter_queryset(queryset)
             except Exception, e:
                 logger.error(e)
