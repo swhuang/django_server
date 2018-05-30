@@ -198,7 +198,7 @@ class ProductDetail(BaseModel):
         self.delete_image_obj(self.detailImages)
 
     class Meta:
-        ordering = ('productid', 'mid', '-gmt_create')
+        ordering = ('productid', 'mid', '-gmt_create', '-gmt_modified')
         verbose_name = '商品管理'
         verbose_name_plural = '商品管理'
 

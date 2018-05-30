@@ -3,6 +3,7 @@ from rest_framework import routers
 from .view import SiteUserLoginView, GetVerifyCode
 from django.conf.urls import url, include
 from .service.view import *
+from django.views.decorators.cache import cache_page, never_cache
 
 router = routers.DefaultRouter()
 

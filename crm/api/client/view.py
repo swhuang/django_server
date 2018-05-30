@@ -8,6 +8,8 @@ from crm.server_utils.Authentication import MsgAuthentication
 from siteuser.member.models import SiteUser, InnerUser
 from Accounting.models import Account
 from django.db import transaction
+from django.views.decorators.cache import cache_page, never_cache
+
 
 
 class SiteUserLoginView(APIView):
@@ -42,6 +44,7 @@ class SiteUserLoginView(APIView):
 class GetVerifyCode(APIView):
     permission_classes = (permissions.AllowAny,)
 
+    @never_cache
     def get(self, request, *args, **kwargs):
         a = MsgAuthentication.createPhoneCode(request.session)
         return Response({"verifycode": a})

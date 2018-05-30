@@ -7,6 +7,7 @@ from users.models import Merchant
 from crm.models import DEFAULT_MERCHANT_OBJ
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import get_user_model
+import sys
 
 # add 'siteuser.middleware.User' in MIDDLEWARE_CLASSES
 # then the request object will has a `siteuser` property
@@ -21,6 +22,7 @@ from django.contrib.auth import get_user_model
 # Don't worry about the performance,
 # `siteuser` is a lazy object, it readly called just access the `request.siteuser`
 
+from django.views.debug import technical_500_response
 from django.utils.deprecation import MiddlewareMixin
 from django.utils.http import cookie_date
 import time
@@ -28,6 +30,10 @@ from django.conf import settings
 
 
 class User(MiddlewareMixin):
+    def process_exception(self, request, exception):
+        if request.user.is_superuser or request.META.get('REMOTE_ADDR') in settings.INTERNAL_IPS:
+            return technical_500_response(request, *sys.exc_info())
+
     def process_request(self, request):
         def get_user():
             uid = request.session.get('uid', None)

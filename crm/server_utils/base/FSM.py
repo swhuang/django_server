@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import logging
 import datetime
-from Accounting.models import *
 
 """
 服务状态机:
@@ -62,8 +61,7 @@ class GenOrderEvent(Event):
 
 class batchEvent(Event):
     desc = '账务变更'
-    #reqAmount = 0
-    #billAmount = 0
+
     def __init__(self, requireamount, billingamount):
         r'''
 
@@ -121,8 +119,6 @@ SELLPROC_STATE = 4
 COMPLETE = 5
 
 
-
-
 # 创建等待付款
 class Start(State):
     statevalue = START_STATE
@@ -168,6 +164,8 @@ class ReadyForGood(State):
 class RentalProcessing(State):
     def updatestate(self, w, event):
         from crm.models import ProductRental, ComboRental, SellService, Project
+        from Accounting.models import SiteUser, BillingTran
+
         if isinstance(event, batchEvent):
             if isinstance(w , ProductRental):
                 if w.residualDeposit < w.initialDeposit and w.creditStatus == '0':# 逾期

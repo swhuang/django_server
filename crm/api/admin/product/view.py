@@ -46,6 +46,7 @@ class ProductViewset(viewsets.ModelViewSet):
         serializer.save()
 
     def list(self, request, *args, **kwargs):
+        print "helloworld"
         logger = logging.getLogger('django')
         key_model = request.GET.get('model', None)
         key_goldType = request.GET.getlist('goldType[]', None)
