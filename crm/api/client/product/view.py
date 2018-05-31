@@ -7,6 +7,7 @@ from .Serializer import ProductSerializer
 from rest_framework import permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
+from crm.server_utils.base.httpProcess import get_parameter_dic
 import logging
 
 
@@ -22,6 +23,25 @@ class ClientProductViewset(viewsets.ReadOnlyModelViewSet):
 
     def list(self, request, *args, **kwargs):
         logger = logging.getLogger('django')
+        params = get_parameter_dic(request)
+        filterargs = {}
+        for k,v in params:
+            if isinstance(v, list):
+                if len(v) == 1:
+                    filterargs[k[0:-2]] = v[0]
+                else:
+                    filterargs[k[0:-2] + '__in'] = v
+            else:
+                filterargs[k] = v
+
+
+
+
+
+
+
+
+
         key_model = request.GET.get('model', None)
         key_goldType = request.GET.getlist('goldType[]', None)
         if key_goldType == []:

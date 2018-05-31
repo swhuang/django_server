@@ -129,7 +129,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware',
+    #'django.middleware.cache.FetchFromCacheMiddleware',
+    'crm.server_utils.middleware.CrmFetchFromCacheMiddleware'
 ]
 
 ROOT_URLCONF = 'pikachu.urls'
@@ -277,6 +278,8 @@ USERS_SUPERUSER_PASSWORD = 'vq8612VQE'
 LOGIN_REDIRECT_URL = '/userform/form/'
 
 LGOIN_URL = '/accounts/login/'
+
+USE_ETAG=True
 
 DEFAULT_MERCHANT = '100000000000001'
 DEFAULT_MERCHANT_ID = 1

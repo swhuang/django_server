@@ -13,6 +13,7 @@ from django.db import transaction
 from django.views.decorators.csrf import csrf_exempt
 import logging
 from django.core.exceptions import ValidationError
+from crm.server_utils.base.httpProcess import get_parameter_dic
 
 import json
 
@@ -46,7 +47,7 @@ class ProductViewset(viewsets.ModelViewSet):
         serializer.save()
 
     def list(self, request, *args, **kwargs):
-        print "helloworld"
+
         logger = logging.getLogger('django')
         key_model = request.GET.get('model', None)
         key_goldType = request.GET.getlist('goldType[]', None)
