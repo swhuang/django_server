@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from rest_framework import viewsets
-from rest_framework import permissions
+from crm.api.client.permission import UserPermission
 from crm.models import ProductRental
 from .Serializer import ClientRentalServiceSerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -16,6 +16,7 @@ from rest_framework import generics, mixins
 class ClientRentalServiceViewset(RentalServiceViewset, mixins.CreateModelMixin):
 
     serializer_class = ClientRentalServiceSerializer
+    permission_classes = (UserPermission.AuthenticateUserPermission, )
 
     def perform_create(self, serializer):
         serializer.save()

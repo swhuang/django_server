@@ -207,6 +207,9 @@ CACHES = {
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 SESSION_CACHE_ALIAS = "session_redis"
 
+# add cache config
+CACHE_MIDDLEWARE_SECONDS = 60
+
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 

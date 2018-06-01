@@ -35,8 +35,8 @@ class MsgAuthentication(object):
     @staticmethod
     def verifyPhoneCode(session, code):
         try:
-            if session["phoneVerifyCode"]["time"] > int(time.time()) and \
-                    session["phoneVerifyCode"]["code"] == code:
+            if session["VerifyCode"]["time"] > int(time.time()) and \
+                    session["VerifyCode"]["code"] == code:
                 return True
             else:
                 return False

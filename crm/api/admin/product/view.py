@@ -40,14 +40,12 @@ class ProductViewset(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     permission_classes = (permissions.AllowAny,)
     filter_backends = (DjangoFilterBackend,)
-
-    filter_fields = ('productid', 'category', 'model', 'goldType', 'diamondWeight',)
+    filter_fields = ('productid', 'category', 'model', 'goldType', 'diamondWeight', 'title')
 
     def perform_create(self, serializer):
         serializer.save()
 
     def list(self, request, *args, **kwargs):
-
         logger = logging.getLogger('django')
         key_model = request.GET.get('model', None)
         key_goldType = request.GET.getlist('goldType[]', None)
@@ -162,7 +160,7 @@ class ProductUpdateView(GenericAPIView):
             'MainImage4': 'image5',
             'MainImage5': 'image6',
         }
-        validated_data[u'lastModifiedBy'] = 'sabi' #request.user.userid
+        validated_data[u'lastModifiedBy'] = request.user.userid
         for key, value in validated_data.items():
             old_key = key
             if translate_dict.has_key(key):

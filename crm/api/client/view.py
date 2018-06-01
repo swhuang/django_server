@@ -34,6 +34,7 @@ class SiteUserLoginView(APIView):
                     print e
                     return Response({"detail": "注册/登录失败"}, HTTP_400_BAD_REQUEST)
             else:
+                request.session['uid'] = usr.id
                 return Response({"detail", "success"})
         else:
             return Response({"detail": "验证码错误"}, HTTP_400_BAD_REQUEST)

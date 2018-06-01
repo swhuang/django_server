@@ -12,4 +12,5 @@ class LogedUserPermission(permissions.BasePermission):
 
 class AuthenticateUserPermission(permissions.BasePermission):
 
-    pass
+    def has_permission(self, request, view):
+        return hasattr(request, 'siteuser') and request.siteuser
