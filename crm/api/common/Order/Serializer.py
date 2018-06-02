@@ -12,11 +12,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
     createDate = ModifiedDateTimeField(source='gmt_create', read_only=True)
     paymentDatetime = ModifiedDateTimeField(read_only=True)
+    #serviceType = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = RentalOrder
-        exclude = ('gmt_create', 'gmt_modified',)
-        read_only_fields = ()
+        exclude = ('gmt_create', 'gmt_modified', )
+        read_only_fields = ('payid', 'paymentType', 'paymentDatetime', 'memberId', 'orderStatus', 'payment_status')
 
     #创建订单
     def create(self, validated_data):
@@ -35,6 +36,9 @@ class OrderSerializer(serializers.ModelSerializer):
                     serv = ComboRental.objects.get(serviceNo=validated_data['serviceNo'])
             except ProductRental.DoesNotExist:
                 raise serializers.ValidationError("服务单号错误")
+
+            # 准备创建订单
+            validated_data['createdBy'] = self.context['request'].siteuser.username
 
             with transaction.atomic:
                 inst = super(OrderSerializer, self).create(validated_data)

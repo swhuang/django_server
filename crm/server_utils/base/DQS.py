@@ -6,7 +6,8 @@ from FP_risk.worker import Worker
 import threading
 import datetime
 import copy
-from periodic.tasks import ExpireOrderProc
+from periodic.tasks import ExpireOrderProc, ExpiredService
+import logging
 from django.core.cache import cache
 
 MAXMINUTE = 15  # 15 minutes
@@ -89,10 +90,7 @@ class CycleQueue(Singleton):
                     dk.append(i)
                     p.append(ele['v'])
                     # self.mWorker.submit(TreatOrder, p)  # 考虑用celery worker去做
-                    try:
-                        r = ExpireOrderProc.delay(p)
-                    except Exception, e:
-                        print str(e)
+
                     self.curitem -= 1
                     self.__queue[self.current_point]['data'][i] = None
             except AttributeError, e:
@@ -102,6 +100,14 @@ class CycleQueue(Singleton):
                 print ele
                 print "==========debugingend==========="
                 break
+        try:
+            if self.__class__.__name__ == 'CycleQueue':
+                r = ExpireOrderProc.delay(p)
+            elif self.__class__.__name__ == 'ServiceQueue':
+                r = ExpiredService.delay(p)
+        except Exception, e:
+            logging.getLogger('django').error(e)
+            print str(e)
         if len(dk) != 0:  # delete keywords
             self.__queue[self.current_point]['np'] = dk[0]
             self.LogInfo()
@@ -130,17 +136,24 @@ class CycleQueue(Singleton):
         else:
             self.__queue[cur_pos]['data'][store_pos] = data
         self.curitem += 1
-        pass
 
     def LogInfo(self):
-        print self.__queue
+        logging.getLogger('task').info(self.__class__.__name__+"change info is: "+self.__queue)
 
 class ServiceQueue(CycleQueue):
+
+    @synchronized
+    def putitem(self, v):
+        if type(v) != tuple and len(v) != 2:
+            raise ValueError(u"参数必须为tuple")
+        return super(ServiceQueue, self).putitem(v)
+
     pass
 
 
 def Order_timer():
     SingletonFactory.getCycleQueue().move_pt()
+    SingletonFactory.getServiceQueue().move_pt()
     global timer
     timer = threading.Timer(2.0, Order_timer)
     timer.start()

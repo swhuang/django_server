@@ -286,6 +286,8 @@ USE_ETAG=True
 
 DEFAULT_MERCHANT = '100000000000001'
 DEFAULT_MERCHANT_ID = 1
+
+NOTIFY_URL = 'http://tpj2dy.natappfree.cc/api-auth/common/payment_notify'
 # timely task
 from celery.schedules import crontab
 
@@ -316,6 +318,18 @@ LOGGING = {
             'filename': 'monitor.log',
             'formatter': 'verbose'
         },
+        'filetask': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'task.log',
+            'formatter': 'verbose'
+        },
+        'payment': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': 'log/transaction.log',
+            'formatter': 'verbose'
+        },
         'email': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler',
@@ -330,6 +344,16 @@ LOGGING = {
         },
         'batch': {
             'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'task': {
+            'handlers': ['filetask'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'transaction': {
+            'handlers': ['payment'],
             'level': 'INFO',
             'propagate': True,
         }

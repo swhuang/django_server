@@ -18,7 +18,6 @@ class ProductSerializer(serializers.ModelSerializer):
     def get_mainimage(self, obj):
         currobj = None
         if isinstance(obj, ProductDetail):
-
             for i in range(6):
                 name = 'image%s'%(str(i+1))
                 if getattr(obj, name).name != '':

@@ -2,6 +2,8 @@
 from rest_framework import serializers
 from crm.models import ProductRental
 from crm.server_utils.customerField.Field import *
+from crm.server_utils.base.DQS import SingletonFactory
+from crm.server_utils.customerField.structure import *
 
 
 class ClientRentalServiceSerializer(serializers.ModelSerializer):
@@ -19,7 +21,10 @@ class ClientRentalServiceSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         sNo = validated_data.pop('serviceNo', None)
         if not sNo:
-            return super(ClientRentalServiceSerializer, self).create(validated_data)
+
+            inst = super(ClientRentalServiceSerializer, self).create(validated_data)
+            SingletonFactory.getServiceQueue().putitem((inst.serviceNo, SERVICE_RENTAL))
+            return inst
         else:
             try:
                 instance = ProductRental.objects.get(serviceNo=sNo)

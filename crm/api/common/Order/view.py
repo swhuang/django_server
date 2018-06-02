@@ -6,6 +6,7 @@ from .Serializer import OrderSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.status import *
+from crm.api.client.permission.UserPermission import AuthenticateUserPermission
 
 import datetime
 import logging
@@ -15,7 +16,7 @@ from rest_framework import generics, mixins
 
 # 客户端
 class OrderViewset(viewsets.ModelViewSet):
-    permission_classes = (permissions.AllowAny,)
+    permission_classes = (permissions.AllowAny, AuthenticateUserPermission)
     serializer_class = OrderSerializer
     filter_backends = (DjangoFilterBackend,)
 

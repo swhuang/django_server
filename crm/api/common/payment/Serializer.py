@@ -52,5 +52,4 @@ class PaymentSerializer(serializers.ModelSerializer):
                     obj.payid = inst.pay_id
                     obj.save()
 
-            # 根据inst吊起微信支付
             return inst

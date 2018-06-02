@@ -525,7 +525,32 @@ class SellService(Project):
     """
     pass
         
+# 支付订单
+class PaymentOrder(BaseModel):
 
+    pay_status = {
+        (0, u'支付中'),
+        (1, u'支付成功'),
+        (2, u'支付失败')
+    }
+
+    pay_id = models.CharField(max_length=20, db_index=True, unique=True)
+    orderNo = models.CharField(max_length=200, default='0')
+    memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+    payedamount = BillamountField(
+        _(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
+    status = models.PositiveSmallIntegerField(_(u'支付状态'), default='0', choices=pay_status)
+    # mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
+    class Meta:
+        verbose_name = _('支付订单')
+        verbose_name_plural = _('支付订单')
+
+    def save(self, force_insert=False, force_update=False, using=None,
+             update_fields=None):
+        if self.pay_id == '' or self.pay_id == None:
+            self.pay_id = Paytimestamp()
+        super(PaymentOrder, self).save(force_insert=False, force_update=False, using=None,
+                                       update_fields=None)
 
 # 订单
 class Order(BaseModel):
@@ -560,6 +585,8 @@ class Order(BaseModel):
 
     orderStatus = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
     payid = models.CharField(_('支付订单号'), max_length=20, default='')
+
+    paymentorder = models.ForeignKey(to=PaymentOrder, related_name='order', null=True)
 
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
@@ -640,8 +667,16 @@ class RentalOrder(Order):
         (7, '套餐租赁转售订单'),
         (8, '单品租赁转售订单')
     }
+
+    serv_type = {
+        (0, '单品租赁'),
+        (1, '套餐租赁'),
+        (2, '销售服务')
+    }
+
     serviceNo = models.CharField(_(u'服务单号'), max_length=20, default='')
     type = models.PositiveSmallIntegerField(_(u'订单类型'), choices=order_type, default=0)
+    serviceType = models.PositiveSmallIntegerField(_(u'源服务类型'), default='0', choices=serv_type)
     desc = models.CharField(_(u'订单描述'), max_length=100, default='')
 
     class Meta:
@@ -652,26 +687,7 @@ class RentalOrder(Order):
         pass
 
 
-# 支付订单
-class PaymentOrder(BaseModel):
-    order = models.ForeignKey(RentalOrder, related_name='relatedPaymentOrders')
-    pay_id = models.CharField(max_length=20, db_index=True, unique=True)
-    orderNo = models.CharField(max_length=200, default='0')
-    memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
-    payedamount = BillamountField(
-        _(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
 
-    # mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
-    class Meta:
-        verbose_name = _('支付订单')
-        verbose_name_plural = _('支付订单')
-
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        if self.payment_id == '' or self.payment_id == None:
-            self.payment_id = Paytimestamp()
-        super(PaymentOrder, self).save(force_insert=False, force_update=False, using=None,
-                                       update_fields=None)
 
 
 class Userdata(models.Model):

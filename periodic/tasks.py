@@ -51,11 +51,14 @@ def test_do_order(x, y):
     return x * y
 
 
+# 过期订单处理
 @task
 def ExpireOrderProc(data):
-    from crm.models import RentalOrder
+    from crm.models import RentalOrder, ProductRental, ComboRental, SellService
     from crm.server_utils.base import FSM as fsm
+    import logging
 
+    logger = logging.getLogger('task')
     for ele in data:
         assert isinstance(ele, str)
         try:
@@ -63,12 +66,45 @@ def ExpireOrderProc(data):
             if mOrder.status == fsm.ORDER_START:
                 mOrder.status = fsm.ORDER_CANCELED
                 mOrder.save()
+            if mOrder.serviceType == 0:
+                SERVICE_CLASS = ProductRental
+            elif mOrder.serviceType == 1:
+                SERVICE_CLASS = ComboRental
+            elif mOrder.serviceType == 2:
+                SERVICE_CLASS = ComboRental
+            else:
+                logger.error("ServiceType error %s" % str(mOrder.serviceType))
+                break
+            mService = SERVICE_CLASS.objects.get(serviceNo=mOrder.serviceNo)
+            mService.updatestate(fsm.PaymentCancelEvent())
         except RentalOrder.DoesNotExist:
             pass
 
-    p = RentalOrder.objects.all()
+@task
+def ExpiredService(data):
+    import logging
+    from crm.server_utils.customerField import structure
+    from crm.models import RentalOrder, ProductRental, ComboRental, SellService
+    from crm.server_utils.base import FSM as fsm
 
-    print data
+    logging.getLogger('task').info(msg="serviceno: "+  str(data))
+
+    for ele in data:
+        if ele[1] == structure.SERVICE_RENTAL:
+            SERVICE_CLASS = ProductRental
+        elif ele[1] == structure.SERVICE_COMBOL:
+            SERVICE_CLASS = ComboRental
+        elif ele[1] == structure.SERVICE_SELL:
+            SERVICE_CLASS = SellService
+
+        try:
+            mService = SERVICE_CLASS.objects.get(serviceNo=ele[0])
+        except SERVICE_CLASS.DoesNotExist:
+            logging.getLogger('task').warn("error service no %s" % ele[0])
+            continue
+        if type(mService.serviceStatus) == fsm.Start:
+            mService.updatestate(fsm.TimeoutEvent())
+
 
 
 # 批量导入解析商品文件

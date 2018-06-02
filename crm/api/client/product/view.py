@@ -28,7 +28,7 @@ class ClientProductViewset(viewsets.ReadOnlyModelViewSet):
         orderByPrice = params.pop('orderByPrice', None)
         keyword = params.pop('keyword', None)
         filterargs = {}
-        for k, v in params:
+        for k, v in params.items():
             if k == 'sellingPrice':
                 if type(v) != list:
                     raise ValueError("sellingPrice error")
@@ -43,9 +43,10 @@ class ClientProductViewset(viewsets.ReadOnlyModelViewSet):
 
         try:
             if keyword:
+                keyword = str(keyword[0])
                 queryset = self.get_queryset().filter(
-                    Q(title_icontains=keyword) | Q(model_icontains=keyword) | Q(brand_icontains=keyword) | Q(
-                        series_icontains=keyword) | Q(goldType_icontains=keyword))
+                    Q(title__icontains=keyword) | Q(model__icontains=keyword) | Q(brand__icontains=keyword) | Q(
+                        series__icontains=keyword) | Q(goldType__icontains=keyword))
             else:
                 queryset = self.get_queryset()
 
