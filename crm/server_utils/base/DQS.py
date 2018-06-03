@@ -56,6 +56,10 @@ class SingletonFactory(Singleton):
     def getServiceQueue():
         return ServiceQueue(MAXMINUTE * 2)
 
+    @staticmethod
+    def getPaymentQueue():
+        return PaymentQueue(15) #支付超时时间 15
+
 
 #
 def TreatOrder(orderlist):

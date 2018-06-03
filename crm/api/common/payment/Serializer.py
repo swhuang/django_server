@@ -4,12 +4,12 @@ from crm.models import RentalOrder,PaymentOrder
 from crm.server_utils.customerField.Field import *
 from crm.server_utils.base import FSM as fsm
 from django.db import transaction
+from crm.server_utils.base.DQS import SingletonFactory
 
 
 class PaymentSerializer(serializers.ModelSerializer):
 
     createDate = ModifiedDateTimeField(source='gmt_create', read_only=True)
-    #order_id = serializers.CharField(required=True)
 
     class Meta:
         model = PaymentOrder
@@ -22,7 +22,6 @@ class PaymentSerializer(serializers.ModelSerializer):
         if not orderlist:
             raise serializers.ValidationError("orderNo缺失")
         else:
-            #TODO
             #根据订单生产支付订单
             olist = []
             payamount = 0.0
@@ -51,5 +50,6 @@ class PaymentSerializer(serializers.ModelSerializer):
                     obj.payment_status = 1 #订单状态更改为支付中
                     obj.payid = inst.pay_id
                     obj.save()
-
+            assert type(inst) == PaymentOrder
+            SingletonFactory.getPaymentQueue().putitem(inst.pay_id)
             return inst

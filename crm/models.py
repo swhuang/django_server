@@ -302,19 +302,19 @@ class Project(ChangesMixin, BaseModel):
     }
 
     serviceNo = models.CharField(_(u'服务编号'), max_length=25, default='', db_index=True, editable=False)
-    isCompleted = models.BooleanField(_(u'服务单是否完成'), default=False, db_index=True)
-    proj_name = models.CharField(max_length=128, default='')
-    serviceType = models.CharField(_(u'服务状态'), max_length=1, default='')
+    isCompleted = models.BooleanField(_(u'服务单是否完成'), default=False, db_index=True, editable=False)
+    proj_name = models.CharField(max_length=128, default='', editable=False)
+    serviceType = models.CharField(_(u'服务状态'), max_length=1, default='', editable=False)
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
-    memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
+    memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0', editable=False)
     name = models.CharField(_(u'姓名'), max_length=100, default='')
     phone = models.CharField(_(u'手机号'), max_length=50, default='', db_index=True)
     receiverName = models.CharField(_(u'收货人姓名'), max_length=50, default='')
     receiverPhone = models.CharField(_(u'收货人手机'), max_length=50, default='', help_text=u'客户端填写的收货人信息')
     address = models.CharField(_(u'地址'), max_length=200, default='', blank=True, help_text=u'客户端填写的地址,覆盖原地址')
     serviceStatus = StatusField(_(u'服务状态'), default=Start,
-                                choices=service_status)  # models.IntegerField(_(u'服务状态'), default=0)
-    create_user = models.CharField(_(u'创建者'), max_length=10, default='user')  # 创建者:店员or用户
+                                choices=service_status, editable=False)  # models.IntegerField(_(u'服务状态'), default=0)
+    create_user = models.CharField(_(u'创建者'), max_length=10, default='user', editable=False)  # 创建者:店员or用户
     rentStartDate = models.DateField(_(u'开始时间'),
                                      default=None, null=True)  # models.DateTimeField(_(u'开始时间'), default=timezone.now)
     rentDueDate = models.DateField(_(u'结束时间'), default=None, null=True)
@@ -323,21 +323,21 @@ class Project(ChangesMixin, BaseModel):
     initialRent = BillamountField(_(u'初始租金'), default=0.0)
     initialDeposit = BillamountField(_(u'初始押金'), default=0.0)
     payed_amount = BillamountField(_(u'总共支付的金额'), default=0.0)
-    current_payamount = BillamountField(_(u'当前需要支付金额'), default=0.0)
+    current_payamount = BillamountField(_(u'当前需要支付金额'), default=0.0, editable=False)
     realChargingTime = models.PositiveIntegerField(_(u'实际计费时长'), default=0)
-    residualRent = BillamountField(_(u'剩余租金'), default=0.0)
-    residualDeposit = BillamountField(_(u'剩余押金'), default=0.0)
+    residualRent = BillamountField(_(u'剩余租金'), default=0.0, editable=False)
+    residualDeposit = BillamountField(_(u'剩余押金'), default=0.0, editable=False)
     creditStatus = models.CharField(_(u'服务信用状态'), choices=Credit_Level, default='0', max_length=1)
-    deliveryStore = models.CharField(_(u'提货门店'), max_length=15, default='')
-    deliveryOperator = models.CharField(_(u'提货经办人'), max_length=100, help_text=u'店员账号', default='')
-    serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=100, help_text=u'店员账号', default='')
+    deliveryStore = models.CharField(_(u'提货门店'), max_length=15, default='', editable=False)
+    deliveryOperator = models.CharField(_(u'提货经办人'), max_length=100, help_text=u'店员账号', default='', editable=False)
+    serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=100, help_text=u'店员账号', default='', editable=False)
     deliveryMode = models.CharField(_(u'物流方式'), max_length=1, choices=delivery_dic, default='0')
     logisticsCompany = models.CharField(_(u'物流公司'), max_length=20, default='')
     trackingNumber = models.CharField(_(u'运单号'), max_length=20, default='')
     remarks = models.CharField(_(u'备注'), max_length=500, default='')
     finishDate = models.DateField(_(u'服务结束时间'), default=None, null=True)
     # commodityEntry = models.CharField(_(u'提货经办人'), max_length=10, default='')
-    serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=10, default='')
+    serviceCloseOpertator = models.CharField(_(u'服务完成人'), max_length=10, default='', editable=False)
     # store = models.CharField(_(u'取货门店'), max_length=15, default=0)
     completeMode = models.IntegerField(_(u'服务完成方式'), default=0)
     realChargingRent = BillamountField(_(u'已付租金'), default=0.0)
@@ -347,7 +347,7 @@ class Project(ChangesMixin, BaseModel):
     returnStore = models.CharField(_(u'还货门店'), max_length=15, default='')
     curProcOrder = models.CharField(_(u'当前处理订单号'), max_length=20, default='')
     adjustmentAmount = BillamountField(_(u'租转售补差金额'), default=0.0)
-    daily_amount = BillamountField(_(u'日租金'), default=0.0)
+    daily_amount = BillamountField(_(u'日租金'), default=0.0, editable=False)
 
     class Meta:
         ordering = ('serviceNo', 'mid')
@@ -388,7 +388,7 @@ class Project(ChangesMixin, BaseModel):
         self.serviceStatus.updatestate(self, state)
 
     def save(self, *args, **kwargs):
-        if self.name == '' or self.phone == '':
+        if self.name == '' and self.phone == '':
             from siteuser.member.models import SiteUser
             try:
                 usr = SiteUser.objects.get(memberId=self.memberId)
@@ -451,9 +451,9 @@ class ProductRental(Project):
 
     def __init__(self, *args, **kwargs):
         super(ProductRental, self).__init__(*args, **kwargs)
-        if not self.productid:
-            raise TypeError("error for null productid")
-            logging.getLogger('django').error("error for null productid")
+        if not self.reservedProductid:
+            raise TypeError("error for null reservedProductid")
+            logging.getLogger('django').error("error for null reservedProductid")
 
         self.set_state(Start())
 
@@ -584,7 +584,7 @@ class Order(BaseModel):
     orderStatus = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
     payid = models.CharField(_('支付订单号'), max_length=20, default='')
 
-    paymentorder = models.ForeignKey(to=PaymentOrder, related_name='order', null=True)
+    paymentorder = models.ForeignKey(to=PaymentOrder, related_name='order', null=True) #should be many to many
 
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)

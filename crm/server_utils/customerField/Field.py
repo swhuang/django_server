@@ -34,16 +34,6 @@ class PdImageField(serializers.ImageField):
                 avatar = value['avatar'].url
             name = value.url.split('/')[-1]
 
-            '''
-            request = self.context.get('request', None)
-            if request is not None:
-                return request.build_absolute_uri(url)
-            name: '',
-            file: null,
-            url: '',
-            avatar: '',
-
-            '''
             return {'url': url, 'avatar': avatar, 'name': name}
         return value.name
 

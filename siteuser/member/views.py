@@ -28,7 +28,6 @@ if USING_SOCIAL_LOGIN:
 
 from django.template.context_processors import csrf
 from users.models import Merchant
-from crm.mobile.settings import ErrorInfo
 # 注册，登录，退出等都通过 ajax 的方式进行
 
 EMAIL_PATTERN = re.compile('^.+@.+\..+$')

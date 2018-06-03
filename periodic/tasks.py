@@ -63,22 +63,23 @@ def ExpireOrderProc(data):
         assert isinstance(ele, str)
         try:
             mOrder = RentalOrder.objects.get(orderNo=ele)
-            if mOrder.status == fsm.ORDER_START:
-                mOrder.status = fsm.ORDER_CANCELED
+            if mOrder.orderStatus == fsm.ORDER_START:
+                mOrder.orderStatus = fsm.ORDER_CANCELED
                 mOrder.save()
-            if mOrder.serviceType == 0:
-                SERVICE_CLASS = ProductRental
-            elif mOrder.serviceType == 1:
-                SERVICE_CLASS = ComboRental
-            elif mOrder.serviceType == 2:
-                SERVICE_CLASS = ComboRental
-            else:
-                logger.error("ServiceType error %s" % str(mOrder.serviceType))
-                break
-            mService = SERVICE_CLASS.objects.get(serviceNo=mOrder.serviceNo)
-            mService.updatestate(fsm.PaymentCancelEvent())
+                if mOrder.serviceType == 0:
+                    SERVICE_CLASS = ProductRental
+                elif mOrder.serviceType == 1:
+                    SERVICE_CLASS = ComboRental
+                elif mOrder.serviceType == 2:
+                    SERVICE_CLASS = ComboRental
+                else:
+                    logger.error("ServiceType error %s" % str(mOrder.serviceType))
+                    break
+                mService = SERVICE_CLASS.objects.get(serviceNo=mOrder.serviceNo)
+                mService.updatestate(fsm.PaymentCancelEvent())
         except RentalOrder.DoesNotExist:
             pass
+
 
 @task
 def ExpiredService(data):
@@ -87,9 +88,10 @@ def ExpiredService(data):
     from crm.models import RentalOrder, ProductRental, ComboRental, SellService
     from crm.server_utils.base import FSM as fsm
 
-    logging.getLogger('task').info(msg="serviceno: "+  str(data))
+    logging.getLogger('task').info(msg="serviceno: " + str(data))
 
     for ele in data:
+        assert isinstance(ele, tuple)
         if ele[1] == structure.SERVICE_RENTAL:
             SERVICE_CLASS = ProductRental
         elif ele[1] == structure.SERVICE_COMBOL:
@@ -102,9 +104,51 @@ def ExpiredService(data):
         except SERVICE_CLASS.DoesNotExist:
             logging.getLogger('task').warn("error service no %s" % ele[0])
             continue
-        if type(mService.serviceStatus) == fsm.Start:
-            mService.updatestate(fsm.TimeoutEvent())
+        mService.updatestate(fsm.TimeoutEvent())
 
+
+@task
+def ExpiredPayment(data):
+    import logging
+    from crm.server_utils.customerField import structure
+    from crm.models import RentalOrder, ProductRental, ComboRental, SellService, PaymentOrder
+    from crm.server_utils.base import FSM as fsm
+    from django.db.transaction import atomic
+    from crm.server_utils.payment import wepay
+    logger = logging.getLogger('task')
+
+    def revertpayment(payinst):
+        refundinst = wepay.weixin.refund(out_trade_no=payinst.pay_id, out_refund_no=wepay.weixin.nonce_str,
+                                         total_fee=payinst.payedamount, refund_fee=payinst.payedamount, )
+        with atomic:
+            payinst.status = 2  # 支付失败
+            payinst.save()
+            logger.info(refundinst)
+            for order in payinst.order.all():
+                if order.payment_status == 1: # 待支付
+                    order.payment_status = 0 # 未支付
+                order.save()
+
+    for ele in data:
+        assert isinstance(ele, str)
+        try:
+            payinst = PaymentOrder.objects.get(pay_id=ele)
+        except PaymentOrder.DoesNotExist:
+            logger.error(u'支付订单不存在')
+            continue
+        else:
+            if payinst.status == 0:  # 支付中
+                # 查询订单
+                try:
+                    querydict = wepay.weixin.order_query(out_trade_no=payinst.pay_id)
+                except Exception, e:
+                    logger.error(e)
+                    revertpayment(payinst=payinst)
+                else:
+                    if querydict.get('trade_state') == 'SUCCESS':
+                        wepay.paysuccess(payinst)
+                    else:
+                        wepay.payfail(payinst)
 
 
 # 批量导入解析商品文件
@@ -112,7 +156,7 @@ def ExpiredService(data):
 def ImportCSV(file):
     from crm.models import ProductDetail
     import csv
-#    csv_reader = csv.reader(open(file, encoding='utf-8'))
+    #    csv_reader = csv.reader(open(file, encoding='utf-8'))
     CATEGORY = {}
     CATEGORY['ALL'] = 0
     CATEGORY['项链'] = 1

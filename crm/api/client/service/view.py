@@ -11,12 +11,14 @@ import datetime
 import logging
 from crm.api.admin.service.view import RentalServiceViewset
 from rest_framework import generics, mixins
+from rest_framework import permissions
 
 
 class ClientRentalServiceViewset(RentalServiceViewset, mixins.CreateModelMixin):
 
     serializer_class = ClientRentalServiceSerializer
-    permission_classes = (UserPermission.AuthenticateUserPermission, )
+    permission_classes = (permissions.AllowAny, )
+    #permission_classes = (UserPermission.AuthenticateUserPermission, )
 
     def perform_create(self, serializer):
         serializer.save()
