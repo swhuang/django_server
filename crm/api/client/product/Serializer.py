@@ -33,7 +33,7 @@ class ProductSerializer(serializers.ModelSerializer):
         if request is not None:
             url = '{scheme}://{host}/{path}'.format(scheme=request.scheme,
                                                     host=request.get_host(),
-                                                    path=currobj.url)
+                                                    path=currobj['avatar'].url)
         else:
             url = currobj.url
         return url

@@ -567,10 +567,8 @@ class Order(BaseModel):
         ('1', u'已支付'),
         ('2', u'退款中'),
         ('3', u'已退款'),
-        ('4', u'订单关闭')
+        ('4', u'订单关闭'),
     }
-
-
 
     memberId = models.CharField(_(u'用户编号'), max_length=15, null=False)
 

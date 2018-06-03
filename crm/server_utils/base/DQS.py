@@ -56,6 +56,7 @@ class SingletonFactory(Singleton):
     def getServiceQueue():
         return ServiceQueue(MAXMINUTE * 2)
 
+
 #
 def TreatOrder(orderlist):
     # 处理过期订单
@@ -72,8 +73,6 @@ class CycleQueue(Singleton):
         self.maxnode = maxsize  # MAXMINUTE*60
         self.__queue = [{'data': [], 'np': -1} for i in range(self.maxnode)]
         self.curitem = 0
-        # self.mWorker = Worker()
-        # self.mWorker.start()
 
     def __getitem__(self, item):
         if not isinstance(item, int):
@@ -120,8 +119,6 @@ class CycleQueue(Singleton):
             if e and e['ctag'] == 0:
                 e['ctag'] = 1
 
-
-
     @synchronized
     def putitem(self, v):
         cur_pos = copy.copy(self.current_point)
@@ -138,16 +135,18 @@ class CycleQueue(Singleton):
         self.curitem += 1
 
     def LogInfo(self):
-        logging.getLogger('task').info(self.__class__.__name__+"change info is: "+self.__queue)
+        logging.getLogger('task').info(self.__class__.__name__ + "change info is: " + self.__queue)
+
 
 class ServiceQueue(CycleQueue):
-
     @synchronized
     def putitem(self, v):
         if type(v) != tuple and len(v) != 2:
             raise ValueError(u"参数必须为tuple")
         return super(ServiceQueue, self).putitem(v)
 
+
+class PaymentQueue(CycleQueue):
     pass
 
 

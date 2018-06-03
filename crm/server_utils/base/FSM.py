@@ -264,8 +264,9 @@ class RefundDone(State):
 
 ORDER_START = 0
 ORDER_FINISHED = 1
-ORDER_CANCELED = 2
-
+ORDER_REFUND = 2
+ORDER_REFUNDED = 3
+ORDER_CANCELED = 4
 
 class OrderState(object):
     def __init__(self):
