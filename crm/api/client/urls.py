@@ -9,7 +9,7 @@ from django.views.decorators.cache import cache_page, never_cache
 router = routers.DefaultRouter()
 
 #router.register(r'UserLogin', UserLogView)
-router.register(r'service', ClientRentalServiceViewset)
+router.register(r'RentalService', ClientRentalServiceViewset)
 router.register(r'product', ClientProductViewset)
 
 

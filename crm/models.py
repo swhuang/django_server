@@ -304,7 +304,7 @@ class Project(ChangesMixin, BaseModel):
     serviceNo = models.CharField(_(u'服务编号'), max_length=25, default='', db_index=True, editable=False)
     isCompleted = models.BooleanField(_(u'服务单是否完成'), default=False, db_index=True, editable=False)
     proj_name = models.CharField(max_length=128, default='', editable=False)
-    serviceType = models.CharField(_(u'服务状态'), max_length=1, default='', editable=False)
+    serviceType = models.CharField(_(u'服务类型'), max_length=1, default='', editable=False)
     # productid = models.CharField(_(u'产品编号'), max_length=15, null=False, default='0')
     memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0', editable=False)
     name = models.CharField(_(u'姓名'), max_length=100, default='')
@@ -471,6 +471,9 @@ class ProductRental(Project):
                 raise ValueError("productid 错误")
             self.reservedProduct = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series',
                                                              'sellingPrice'])
+            self.initialDeposit = pd.deposit
+            self.initialRent = pd.rent * self.rentPeriod
+            self.current_payamount = self.initialRent + self.initialDeposit
 
         return super(ProductRental, self).save(*args, **kwargs)
 
@@ -576,15 +579,15 @@ class Order(BaseModel):
     paymentDatetime = models.DateTimeField(_(u'支付时间'), null=True, blank=True)
     paymentType = models.CharField(_(u'支付方式'), max_length=1, default='0', choices=paytype)
     amount = BillamountField(_(u'订单金额'))  # models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
-    payedamount = BillamountField(_(u'支付金额'),
-                                  default=0.0)  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2)
+    payedamount = BillamountField(_(u'支付金额'), default=0.0)
     payment_status = models.SmallIntegerField(_(u'支付状态'), default=0)  # 0:未支付 1:支付中 2:支付成功
     orderNo = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
 
     orderStatus = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
     payid = models.CharField(_('支付订单号'), max_length=20, default='')
 
-    paymentorder = models.ForeignKey(to=PaymentOrder, related_name='order', null=True) #should be many to many
+    #paymentorder = models.ForeignKey(to=PaymentOrder, related_name='order', null=True) #should be many to many
+    paymentorder = models.ManyToManyField(to=PaymentOrder, related_name='order', blank=True)
 
     def __init__(self, *args, **kwargs):
         super(Order, self).__init__(*args, **kwargs)
@@ -629,29 +632,6 @@ class Order(BaseModel):
                 d[attr] = getattr(self, attr)
         return json.dumps(d)
 
-    def getDict(self):
-        fields = []
-        for field in self._meta.fields:
-            fields.append(field.name)
-
-        d = {}
-        for attr in fields:
-            if isinstance(getattr(self, attr), datetime.datetime):
-                d[attr] = getattr(self, attr).strftime('%Y-%m-%d %H:%M:%S')
-            elif isinstance(getattr(self, attr), datetime.date):
-                d[attr] = getattr(self, attr).strftime('%Y-%m-%d')
-            elif isinstance(getattr(self, attr), Merchant):
-                d.update(getattr(self, attr).getDict())
-            elif isinstance(getattr(self, attr), Project):
-                d.update(getattr(self, attr).getDict())
-            elif isinstance(getattr(self, attr), Member):
-                d.update(getattr(self, attr).getDict())
-            elif isinstance(getattr(self, attr), Decimal):
-                d[attr] = str(getattr(self, attr))
-            else:
-                d[attr] = getattr(self, attr)
-        d.update(super(Order, self).getDict())
-        return d
 
 
 class RentalOrder(Order):

@@ -339,7 +339,7 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console', 'file', 'email'],
-            'level': 'INFO',
+            'level': 'ERROR',
             'propagate': True,
         },
         'batch': {

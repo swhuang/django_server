@@ -164,7 +164,8 @@ class ReadyForGood(State):
 class RentalProcessing(State):
     def updatestate(self, w, event):
         from crm.models import ProductRental, ComboRental, SellService, Project
-        from Accounting.models import SiteUser, BillingTran
+        from Accounting.models import BillingTran, BalanceManager
+        from siteuser.member.models import SiteUser
 
         if isinstance(event, batchEvent):
             if isinstance(w , ProductRental):
@@ -176,6 +177,10 @@ class RentalProcessing(State):
                     return
 
                 if w.product.get('sellingPrice', 0) <= (w.initialRent+w.initialDeposit):
+                    amt = w.initialRent + w.initialDeposit - w.product.get('sellingPrice', 0)
+                    usr = SiteUser.objects.get(memberId=w.memberId)
+                    # 余额充值
+                    BalanceManager(acct=usr.account).recharge(amt)
                     w.set_state(RentalForSaleDone())
                 else:
                     if event.reqAmount > event.billAmount and w.creditStatus != '2':
@@ -200,7 +205,14 @@ class RentalProcessing(State):
         elif isinstance(event, ManualCompleteEvent):
             if isinstance(w, Project):
                 usr = SiteUser.objects.get(memberId=w.memberId)
-                BillingTran(projid=w.serviceNo, member=usr)
+                servtype = 0
+                if type(w) == ProductRental:
+                    servtype = 0
+                elif type(w) == ComboRental:
+                    servtype = 1
+                elif type(w) == SellService:
+                    servtype = 2
+                BillingTran(projid=w.serviceNo, member=usr, serviceType=servtype)
                 if w.residualRent > 0:
                     BillingTran.billingrent(w.residualRent)
                 if w.residualDeposit > 0:

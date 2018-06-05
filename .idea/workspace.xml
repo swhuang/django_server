@@ -3,15 +3,19 @@
   <component name="ChangeListManager">
     <list default="true" id="c6f10766-122f-4f3c-913d-16864b137eb1" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/api/client/service/Serializer.py" afterPath="$PROJECT_DIR$/crm/api/client/service/Serializer.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/api/client/service/view.py" afterPath="$PROJECT_DIR$/crm/api/client/service/view.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/api/common/payment/Serializer.py" afterPath="$PROJECT_DIR$/crm/api/common/payment/Serializer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Accounting/models.py" afterPath="$PROJECT_DIR$/Accounting/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/api/client/urls.py" afterPath="$PROJECT_DIR$/crm/api/client/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/api/client/view.py" afterPath="$PROJECT_DIR$/crm/api/client/view.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/api/common/Order/Serializer.py" afterPath="$PROJECT_DIR$/crm/api/common/Order/Serializer.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/models.py" afterPath="$PROJECT_DIR$/crm/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/server_utils/base/DQS.py" afterPath="$PROJECT_DIR$/crm/server_utils/base/DQS.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/server_utils/customerField/Field.py" afterPath="$PROJECT_DIR$/crm/server_utils/customerField/Field.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/server_utils/base/FSM.py" afterPath="$PROJECT_DIR$/crm/server_utils/base/FSM.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/crm/server_utils/payment/wepay.py" afterPath="$PROJECT_DIR$/crm/server_utils/payment/wepay.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/periodic/BillingBatch/mainwork.py" afterPath="$PROJECT_DIR$/periodic/BillingBatch/mainwork.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/periodic/tasks.py" afterPath="$PROJECT_DIR$/periodic/tasks.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pikachu/urls.py" afterPath="$PROJECT_DIR$/pikachu/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/member/views.py" afterPath="$PROJECT_DIR$/siteuser/member/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pikachu/settings.py" afterPath="$PROJECT_DIR$/pikachu/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/member/models.py" afterPath="$PROJECT_DIR$/siteuser/member/models.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/siteuser/middleware.py" afterPath="$PROJECT_DIR$/siteuser/middleware.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/users/models.py" afterPath="$PROJECT_DIR$/users/models.py" />
     </list>
     <ignored path="pikachu.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -55,23 +59,22 @@
     <window id="1">
       <content type="file-editors">
         <state>
-          <leaf>
-            <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+            <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/crm/models.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="513">
-                    <caret line="439" column="0" selection-start-line="439" selection-start-column="0" selection-end-line="439" selection-end-column="0" />
+                  <state relative-caret-position="23">
+                    <caret line="542" column="15" selection-start-line="542" selection-start-column="4" selection-end-line="542" selection-end-column="15" />
                     <folding>
                       <element signature="e#24#63#0" expanded="true" />
                       <element signature="e#2570#3071#0" expanded="false" />
                       <element signature="e#3104#3643#0" expanded="false" />
                       <element signature="e#16787#17274#0" expanded="false" />
                       <element signature="e#17307#17794#0" expanded="false" />
-                      <element signature="e#24063#25131#0" expanded="false" />
-                      <element signature="e#25164#26155#0" expanded="false" />
-                      <element signature="e#26959#27668#0" expanded="false" />
-                      <element signature="e#27705#28616#0" expanded="false" />
-                      <element signature="e#28657#28883#0" expanded="false" />
+                      <element signature="e#24233#25301#0" expanded="false" />
+                      <element signature="e#26106#26815#0" expanded="false" />
+                      <element signature="e#26852#27763#0" expanded="false" />
+                      <element signature="e#27804#28030#0" expanded="false" />
                     </folding>
                   </state>
                 </provider>
@@ -80,7 +83,7 @@
             <file leaf-file-name="default.py" pinned="false" current-in-tab="false">
               <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/client/default.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="453">
+                  <state relative-caret-position="1740">
                     <caret line="132" column="85" selection-start-line="132" selection-start-column="85" selection-end-line="132" selection-end-column="85" />
                     <folding />
                   </state>
@@ -102,8 +105,8 @@
             <file leaf-file-name="FSM.py" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/crm/server_utils/base/FSM.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="1195">
-                    <caret line="291" column="0" selection-start-line="291" selection-start-column="0" selection-end-line="291" selection-end-column="0" />
+                  <state relative-caret-position="293">
+                    <caret line="185" column="84" selection-start-line="185" selection-start-column="84" selection-end-line="185" selection-end-column="84" />
                     <folding>
                       <element signature="e#24#38#0" expanded="true" />
                     </folding>
@@ -114,33 +117,11 @@
             <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/crm/api/admin/product/view.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="300">
+                  <state relative-caret-position="810">
                     <caret line="70" column="43" selection-start-line="70" selection-start-column="28" selection-end-line="70" selection-end-column="43" />
                     <folding>
                       <element signature="e#24#59#0" expanded="true" />
                     </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="httpProcess.py" pinned="false" current-in-tab="false">
-              <entry file="file://$PROJECT_DIR$/crm/server_utils/base/httpProcess.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="45">
-                    <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-                    <folding>
-                      <element signature="e#24#57#0" expanded="true" />
-                    </folding>
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file leaf-file-name="request.py" pinned="false" current-in-tab="false">
-              <entry file="file:///usr/local/lib/python2.7/site-packages/django/http/request.py">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-92">
-                    <caret line="354" column="6" selection-start-line="354" selection-start-column="6" selection-end-line="354" selection-end-column="6" />
-                    <folding />
                   </state>
                 </provider>
               </entry>
@@ -158,7 +139,7 @@
             <file leaf-file-name="generics.py" pinned="false" current-in-tab="false">
               <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/generics.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="208">
+                  <state relative-caret-position="1995">
                     <caret line="141" column="8" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="8" />
                     <folding />
                   </state>
@@ -168,8 +149,30 @@
             <file leaf-file-name="status.py" pinned="false" current-in-tab="false">
               <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/status.py">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="-165">
+                  <state relative-caret-position="0">
                     <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                    <folding />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/Accounting/models.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="506">
+                    <caret line="222" column="0" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+                    <folding>
+                      <element signature="e#24#63#0" expanded="true" />
+                    </folding>
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/FP_risk/base/utils.py">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="165">
+                    <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
                     <folding />
                   </state>
                 </provider>
@@ -185,15 +188,15 @@
     <favorites_list name="pikachu" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="vertical" split-proportion="0.5654262">
+    <splitter split-orientation="vertical" split-proportion="0.6588785">
       <split-first>
-        <splitter split-orientation="horizontal" split-proportion="0.47461775">
+        <splitter split-orientation="horizontal" split-proportion="0.7070125">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
               <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/common/payment/view.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-113">
+                    <state relative-caret-position="255">
                       <caret line="31" column="58" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
                       <folding>
                         <element signature="e#24#59#0" expanded="true" />
@@ -205,18 +208,8 @@
               <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/common/Order/Serializer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="202">
-                      <caret line="32" column="39" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="39" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="tasks.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/periodic/tasks.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-233">
-                      <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
+                    <state relative-caret-position="145">
+                      <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
                       <folding>
                         <element signature="e#24#62#0" expanded="true" />
                       </folding>
@@ -224,10 +217,22 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="false">
+              <file leaf-file-name="tasks.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/periodic/tasks.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="240">
+                      <caret line="70" column="63" selection-start-line="70" selection-start-column="63" selection-end-line="70" selection-end-column="63" />
+                      <folding>
+                        <element signature="e#24#62#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/crm/api/common/payment/Serializer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="375">
+                    <state relative-caret-position="240">
                       <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
                       <folding>
                         <element signature="e#24#74#0" expanded="true" />
@@ -239,8 +244,8 @@
               <file leaf-file-name="wepay.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/server_utils/payment/wepay.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-608">
-                      <caret line="33" column="94" selection-start-line="33" selection-start-column="94" selection-end-line="33" selection-end-column="94" />
+                    <state relative-caret-position="315">
+                      <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
                       <folding>
                         <element signature="e#24#62#0" expanded="true" />
                       </folding>
@@ -248,10 +253,10 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="view.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/common/Order/view.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-315">
+                    <state relative-caret-position="108">
                       <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
                       <folding>
                         <element signature="e#24#59#0" expanded="true" />
@@ -263,7 +268,7 @@
               <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
                 <entry file="file:///usr/local/lib/python2.7/site-packages/weixin/__init__.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="450">
+                    <state relative-caret-position="510">
                       <caret line="40" column="46" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="46" />
                       <folding />
                     </state>
@@ -273,8 +278,8 @@
               <file leaf-file-name="pay.py" pinned="false" current-in-tab="false">
                 <entry file="file:///usr/local/lib/python2.7/site-packages/weixin/pay.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-48">
-                      <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
+                    <state relative-caret-position="31">
+                      <caret line="182" column="8" selection-start-line="182" selection-start-column="8" selection-end-line="182" selection-end-column="8" />
                       <folding />
                     </state>
                   </provider>
@@ -294,11 +299,11 @@
           </split-first>
           <split-second>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="urls.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/client/urls.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="180">
-                      <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
+                    <state relative-caret-position="165">
+                      <caret line="11" column="31" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="31" />
                       <folding>
                         <element signature="e#24#58#0" expanded="true" />
                       </folding>
@@ -306,11 +311,11 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="mainwork.py" pinned="false" current-in-tab="false">
+              <file leaf-file-name="mainwork.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/periodic/BillingBatch/mainwork.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="100">
-                      <caret line="69" column="12" selection-start-line="69" selection-start-column="12" selection-end-line="69" selection-end-column="12" />
+                    <state relative-caret-position="-665">
+                      <caret line="15" column="35" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
                       <folding>
                         <element signature="e#24#62#0" expanded="true" />
                       </folding>
@@ -318,21 +323,11 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/users/models.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="127">
-                      <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
               <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/client/view.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="142">
-                      <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
+                    <state relative-caret-position="157">
+                      <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
                       <folding>
                         <element signature="e#24#64#0" expanded="true" />
                       </folding>
@@ -343,41 +338,41 @@
               <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/urls.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="150">
-                      <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
+                    <state relative-caret-position="195">
+                      <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="Field.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/crm/server_utils/customerField/Field.py">
+              <file leaf-file-name="celery.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/pikachu/celery.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="75">
-                      <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+                    <state relative-caret-position="-83">
+                      <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/siteuser/member/models.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="120">
+                      <caret line="52" column="77" selection-start-line="52" selection-start-column="77" selection-end-line="52" selection-end-column="77" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/users/models.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="177">
+                      <caret line="175" column="85" selection-start-line="175" selection-start-column="85" selection-end-line="175" selection-end-column="85" />
                       <folding>
-                        <element signature="e#24#62#0" expanded="true" />
+                        <element signature="e#24#97#0" expanded="true" />
                       </folding>
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="Authentication.py" pinned="false" current-in-tab="false">
-                <entry file="file://$PROJECT_DIR$/crm/server_utils/Authentication.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="282">
-                      <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
-              <file leaf-file-name="request.py" pinned="false" current-in-tab="false">
-                <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/request.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="94">
-                      <caret line="410" column="0" selection-start-line="410" selection-start-column="0" selection-end-line="410" selection-end-column="0" />
-                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -387,13 +382,13 @@
         </splitter>
       </split-first>
       <split-second>
-        <splitter split-orientation="horizontal" split-proportion="0.4764526">
+        <splitter split-orientation="horizontal" split-proportion="0.7006237">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
               <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/client/product/view.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="647">
+                    <state relative-caret-position="510">
                       <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
                       <folding>
                         <element signature="e#24#72#0" expanded="true" />
@@ -417,11 +412,9 @@
               <file leaf-file-name="DQS.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/server_utils/base/DQS.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="210">
-                      <caret line="60" column="42" selection-start-line="60" selection-start-column="42" selection-end-line="60" selection-end-column="42" />
-                      <folding>
-                        <element signature="e#49#92#0" expanded="true" />
-                      </folding>
+                    <state relative-caret-position="30">
+                      <caret line="2" column="43" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -429,7 +422,7 @@
               <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/client/product/Serializer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="332">
+                    <state relative-caret-position="495">
                       <caret line="35" column="72" selection-start-line="35" selection-start-column="72" selection-end-line="35" selection-end-column="72" />
                       <folding>
                         <element signature="e#24#62#0" expanded="true" />
@@ -453,7 +446,7 @@
               <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/pikachu/urls.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="212">
+                    <state relative-caret-position="375">
                       <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
                       <folding>
                         <element signature="e#665#706#0" expanded="true" />
@@ -462,11 +455,11 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/client/service/Serializer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="214">
-                      <caret line="57" column="52" selection-start-line="57" selection-start-column="52" selection-end-line="57" selection-end-column="52" />
+                    <state relative-caret-position="203">
+                      <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="51" selection-end-column="53" />
                       <folding>
                         <element signature="e#24#62#0" expanded="true" />
                       </folding>
@@ -477,7 +470,7 @@
               <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/admin/member/Serializer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-45">
+                    <state relative-caret-position="210">
                       <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
                       <folding />
                     </state>
@@ -487,8 +480,18 @@
               <file leaf-file-name="pool.py" pinned="false" current-in-tab="false">
                 <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/pool.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="15">
+                    <state relative-caret-position="900">
                       <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="utils.py" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/FP_risk/base/utils.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="13">
+                      <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
                       <folding />
                     </state>
                   </provider>
@@ -501,7 +504,7 @@
               <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/commom/models.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="79">
+                    <state relative-caret-position="1095">
                       <caret line="84" column="37" selection-start-line="84" selection-start-column="37" selection-end-line="84" selection-end-column="37" />
                       <folding>
                         <element signature="e#24#63#0" expanded="true" />
@@ -513,18 +516,18 @@
               <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
                 <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/views.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="139">
+                    <state relative-caret-position="6960">
                       <caret line="481" column="0" selection-start-line="481" selection-start-column="0" selection-end-line="481" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+              <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/pikachu/settings.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="4310">
-                      <caret line="354" column="20" selection-start-line="354" selection-start-column="9" selection-end-line="354" selection-end-column="20" />
+                    <state relative-caret-position="119">
+                      <caret line="341" column="27" selection-start-line="341" selection-start-column="27" selection-end-line="341" selection-end-column="27" />
                       <folding />
                     </state>
                   </provider>
@@ -545,7 +548,7 @@
               <file leaf-file-name="middleware.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/server_utils/middleware.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="105">
+                    <state relative-caret-position="90">
                       <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
                       <folding>
                         <element signature="e#24#84#0" expanded="true" />
@@ -554,20 +557,10 @@
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="pagination.py" pinned="false" current-in-tab="false">
-                <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/rest_framework/pagination.py">
-                  <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="322">
-                      <caret line="338" column="8" selection-start-line="338" selection-start-column="8" selection-end-line="338" selection-end-column="8" />
-                      <folding />
-                    </state>
-                  </provider>
-                </entry>
-              </file>
               <file leaf-file-name="viewsets.py" pinned="false" current-in-tab="false">
                 <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/viewsets.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="1320">
+                    <state relative-caret-position="1395">
                       <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
                       <folding />
                     </state>
@@ -577,11 +570,9 @@
               <file leaf-file-name="middleware.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/siteuser/middleware.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-116">
-                      <caret line="61" column="28" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="28" />
-                      <folding>
-                        <element signature="e#25#77#0" expanded="true" />
-                      </folding>
+                    <state relative-caret-position="-1125">
+                      <caret line="2" column="52" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -589,21 +580,31 @@
               <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/admin/product/Serializer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-330">
+                    <state relative-caret-position="0">
                       <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
                 </entry>
               </file>
-              <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="true">
+              <file leaf-file-name="Serializer.py" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/crm/api/admin/service/Serializer.py">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="-60">
+                    <state relative-caret-position="0">
                       <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                       <folding>
                         <element signature="e#24#62#0" expanded="true" />
                       </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="view.py" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/crm/api/view.py">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="0">
+                      <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                      <folding />
                     </state>
                   </provider>
                 </entry>
@@ -630,7 +631,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/crm/api/client/apply_notify/view.py" />
         <option value="$PROJECT_DIR$/crm/api/admin/member/Serializer.py" />
         <option value="$PROJECT_DIR$/crm/api/client/Order/Serializer.py" />
         <option value="$PROJECT_DIR$/crm/api/client/Order/view.py" />
@@ -648,39 +648,40 @@
         <option value="$PROJECT_DIR$/crm/api/common/urls.py" />
         <option value="$PROJECT_DIR$/crm/api/admin/service/view.py" />
         <option value="$PROJECT_DIR$/crm/api/admin/service/Serializer.py" />
-        <option value="$PROJECT_DIR$/users/models.py" />
         <option value="$PROJECT_DIR$/site-packages/django/core/cache/backends/db.py" />
-        <option value="$PROJECT_DIR$/Accounting/models.py" />
         <option value="$PROJECT_DIR$/periodic/BillingBatch/mainwork.py" />
         <option value="$PROJECT_DIR$/crm/api/admin/product/Serializer.py" />
-        <option value="$PROJECT_DIR$/siteuser/middleware.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/middleware.py" />
         <option value="$PROJECT_DIR$/crm/api/client/product/filter.py" />
         <option value="$PROJECT_DIR$/crm/api/admin/product/filter.py" />
         <option value="$PROJECT_DIR$/crm/api/client/permission/UserPermission.py" />
         <option value="$PROJECT_DIR$/crm/api/admin/product/view.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/Authentication.py" />
-        <option value="$PROJECT_DIR$/crm/api/client/view.py" />
         <option value="$PROJECT_DIR$/crm/api/common/Order/view.py" />
-        <option value="$PROJECT_DIR$/crm/api/common/Order/Serializer.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/customerField/structure.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/base/httpProcess.py" />
         <option value="$PROJECT_DIR$/crm/api/common/payment/view.py" />
         <option value="$PROJECT_DIR$/crm/api/client/product/view.py" />
-        <option value="$PROJECT_DIR$/pikachu/settings.py" />
         <option value="$PROJECT_DIR$/crm/api/client/product/Serializer.py" />
         <option value="$PROJECT_DIR$/siteuser/member/views.py" />
         <option value="$PROJECT_DIR$/pikachu/urls.py" />
-        <option value="$PROJECT_DIR$/crm/server_utils/base/FSM.py" />
-        <option value="$PROJECT_DIR$/crm/server_utils/payment/wepay.py" />
-        <option value="$PROJECT_DIR$/periodic/tasks.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/base/DQS.py" />
         <option value="$PROJECT_DIR$/crm/api/common/payment/Serializer.py" />
         <option value="$PROJECT_DIR$/crm/server_utils/customerField/Field.py" />
-        <option value="$PROJECT_DIR$/crm/api/client/urls.py" />
         <option value="$PROJECT_DIR$/crm/api/client/service/view.py" />
         <option value="$PROJECT_DIR$/crm/api/client/service/Serializer.py" />
+        <option value="$PROJECT_DIR$/crm/api/client/urls.py" />
+        <option value="$PROJECT_DIR$/siteuser/middleware.py" />
+        <option value="$PROJECT_DIR$/crm/api/client/view.py" />
+        <option value="$PROJECT_DIR$/siteuser/member/models.py" />
         <option value="$PROJECT_DIR$/crm/models.py" />
+        <option value="$PROJECT_DIR$/crm/server_utils/base/FSM.py" />
+        <option value="$PROJECT_DIR$/crm/api/common/Order/Serializer.py" />
+        <option value="$PROJECT_DIR$/users/models.py" />
+        <option value="$PROJECT_DIR$/periodic/tasks.py" />
+        <option value="$PROJECT_DIR$/pikachu/settings.py" />
+        <option value="$PROJECT_DIR$/crm/server_utils/payment/wepay.py" />
+        <option value="$PROJECT_DIR$/Accounting/models.py" />
       </list>
     </option>
   </component>
@@ -695,9 +696,8 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1280" />
-    <option name="width" value="1920" />
-    <option name="height" value="1080" />
+    <option name="width" value="1280" />
+    <option name="height" value="800" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -743,7 +743,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -892,60 +892,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="siteuser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="siteuser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="upload_avatar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="siteuser" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="member" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="pikachu" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -961,24 +907,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="periodic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="periodic" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="migrations" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1072,28 +1000,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="customerField" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="server_utils" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="base" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1135,32 +1041,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="common" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="payment" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1248,113 +1128,13 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="service" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="product" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="crm" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="api" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="admin" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="member" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pikachu" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="Accounting" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1792,17 +1572,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1280" y="0" width="1920" height="1080" extended-state="6" />
+    <frame x="0" y="0" width="1280" height="800" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2752475" sideWeight="0.4978701" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32673267" sideWeight="0.5042598" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14931507" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32673267" sideWeight="0.49574015" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17524752" sideWeight="0.6443024" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12054794" sideWeight="0.6443024" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17029703" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12939297" sideWeight="0.48820058" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22294022" sideWeight="0.48820058" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3368336" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20792079" sideWeight="0.49201277" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24959612" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1936,16 +1716,6 @@
           <option name="timeStamp" value="310" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/siteuser/member/models.py</url>
-          <line>52</line>
-          <option name="timeStamp" value="324" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
-          <url>file://$PROJECT_DIR$/siteuser/member/models.py</url>
-          <line>54</line>
-          <option name="timeStamp" value="325" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="python-line">
           <url>file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/django_redis/client/default.py</url>
           <line>105</line>
           <option name="timeStamp" value="379" />
@@ -2074,119 +1844,9 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/crm/api/client/view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
-          <folding>
-            <element signature="e#24#64#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/common/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/client/apply_notify/view.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/http/request.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-92">
-          <caret line="354" column="6" selection-start-line="354" selection-start-column="6" selection-end-line="354" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="170" column="8" selection-start-line="170" selection-start-column="8" selection-end-line="170" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/mixins.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="24" column="8" selection-start-line="24" selection-start-column="8" selection-end-line="24" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/client/permission/UserPermission.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Accounting/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="199">
-          <caret line="71" column="0" selection-start-line="71" selection-start-column="0" selection-end-line="71" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#63#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/status.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-165">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/customerField/structure.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="54" selection-start-line="19" selection-start-column="54" selection-end-line="19" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/httpProcess.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-          <folding>
-            <element signature="e#24#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="481" column="0" selection-start-line="481" selection-start-column="0" selection-end-line="481" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/generics.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="141" column="8" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crm/api/admin/product/view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
+        <state relative-caret-position="810">
           <caret line="70" column="43" selection-start-line="70" selection-start-column="28" selection-end-line="70" selection-end-column="43" />
           <folding>
             <element signature="e#24#59#0" expanded="true" />
@@ -2196,16 +1856,8 @@
     </entry>
     <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/viewsets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1320">
+        <state relative-caret-position="1395">
           <caret line="102" column="0" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="12" column="52" selection-start-line="12" selection-start-column="52" selection-end-line="12" selection-end-column="52" />
           <folding />
         </state>
       </provider>
@@ -2222,7 +1874,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pikachu/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
+        <state relative-caret-position="375">
           <caret line="33" column="5" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
           <folding>
             <element signature="e#665#706#0" expanded="true" />
@@ -2232,7 +1884,7 @@
     </entry>
     <entry file="file:///usr/local/lib/python2.7/site-packages/weixin/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
+        <state relative-caret-position="510">
           <caret line="40" column="46" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="46" />
           <folding />
         </state>
@@ -2242,7 +1894,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="142">
           <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2254,37 +1905,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/weixin/pay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-48">
-          <caret line="86" column="8" selection-start-line="86" selection-start-column="8" selection-end-line="86" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/payment/wepay.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-608">
-          <caret line="33" column="94" selection-start-line="33" selection-start-column="94" selection-end-line="33" selection-end-column="94" />
-          <folding>
-            <element signature="e#24#62#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/periodic/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-233">
-          <caret line="151" column="0" selection-start-line="151" selection-start-column="0" selection-end-line="151" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#62#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crm/api/common/payment/view.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-113">
+        <state relative-caret-position="255">
           <caret line="31" column="58" selection-start-line="31" selection-start-column="58" selection-end-line="31" selection-end-column="58" />
           <folding>
             <element signature="e#24#59#0" expanded="true" />
@@ -2292,79 +1915,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/customerField/Field.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#62#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/DQS.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="60" column="42" selection-start-line="60" selection-start-column="42" selection-end-line="60" selection-end-column="42" />
-          <folding>
-            <element signature="e#49#92#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/common/payment/Serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-          <folding>
-            <element signature="e#24#74#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/FSM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1195">
-          <caret line="291" column="0" selection-start-line="291" selection-start-column="0" selection-end-line="291" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/common/Order/Serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="32" column="39" selection-start-line="32" selection-start-column="35" selection-end-line="32" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crm/api/admin/member/Serializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-45">
+        <state relative-caret-position="210">
           <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/periodic/BillingBatch/mainwork.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="69" column="12" selection-start-line="69" selection-start-column="12" selection-end-line="69" selection-end-column="12" />
-          <folding>
-            <element signature="e#24#62#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/client/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
-          <folding>
-            <element signature="e#24#58#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2373,8 +1928,84 @@
         <state relative-caret-position="-360">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
           <folding>
-            <element signature="e#24#33#0" expanded="true" />
+            <element signature="e#24#33#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/middleware.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
+          <folding>
+            <element signature="e#24#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/site-packages/django/middleware/cache.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="122" column="4" selection-start-line="122" selection-start-column="4" selection-end-line="122" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/client/product/Serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="35" column="72" selection-start-line="35" selection-start-column="72" selection-end-line="35" selection-end-column="72" />
+          <folding>
+            <element signature="e#24#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/client/product/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+          <folding>
+            <element signature="e#24#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django/utils/cache.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-37">
+          <caret line="199" column="4" selection-start-line="199" selection-start-column="4" selection-end-line="199" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/admin/product/Serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/rest_framework/generics.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="179" column="42" selection-start-line="179" selection-start-column="42" selection-end-line="179" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/pool.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/client/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1740">
+          <caret line="132" column="85" selection-start-line="132" selection-start-column="85" selection-end-line="132" selection-end-column="85" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2388,58 +2019,192 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pikachu/settings.py">
+    <entry file="file://$PROJECT_DIR$/crm/api/admin/service/Serializer.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4310">
-          <caret line="354" column="20" selection-start-line="354" selection-start-column="9" selection-end-line="354" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/server_utils/middleware.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="14" selection-start-line="7" selection-start-column="14" selection-end-line="7" selection-end-column="14" />
-          <folding>
-            <element signature="e#24#84#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/site-packages/django/middleware/cache.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="122" column="4" selection-start-line="122" selection-start-column="4" selection-end-line="122" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/siteuser/middleware.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-116">
-          <caret line="61" column="28" selection-start-line="61" selection-start-column="28" selection-end-line="61" selection-end-column="28" />
-          <folding>
-            <element signature="e#25#77#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/client/product/Serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="35" column="72" selection-start-line="35" selection-start-column="72" selection-end-line="35" selection-end-column="72" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#24#62#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/client/product/view.py">
+    <entry file="file://$PROJECT_DIR$/crm/api/client/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="647">
-          <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+        <state relative-caret-position="165">
+          <caret line="11" column="31" selection-start-line="11" selection-start-column="18" selection-end-line="11" selection-end-column="31" />
           <folding>
-            <element signature="e#24#72#0" expanded="true" />
+            <element signature="e#24#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siteuser/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pikachu/celery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-83">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/common/Order/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
+          <folding>
+            <element signature="e#24#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/rest_framework/pagination.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4815">
+          <caret line="338" column="8" selection-start-line="338" selection-start-column="8" selection-end-line="338" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/Authentication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="38" column="39" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/client/view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="157">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/client/service/Serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="51" selection-end-column="53" />
+          <folding>
+            <element signature="e#24#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/DQS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="43" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siteuser/member/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="52" column="77" selection-start-line="52" selection-start-column="77" selection-end-line="52" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/httpProcess.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#57#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FP_risk/base/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="22" selection-start-line="11" selection-start-column="22" selection-end-line="11" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/common/Order/Serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="48" column="16" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="16" />
+          <folding>
+            <element signature="e#24#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/users/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="175" column="85" selection-start-line="175" selection-start-column="85" selection-end-line="175" selection-end-column="85" />
+          <folding>
+            <element signature="e#24#97#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/siteuser/member/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding>
+            <element signature="e#25#48#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python2.7/site-packages/rest_framework/request.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="94">
+          <caret line="410" column="0" selection-start-line="410" selection-start-column="0" selection-end-line="410" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/customerField/Field.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#62#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="15" column="26" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/periodic/BillingBatch/mainwork.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-665">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#62#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2454,91 +2219,94 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django/utils/cache.py">
+    <entry file="file://$PROJECT_DIR$/siteuser/middleware.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-37">
-          <caret line="199" column="4" selection-start-line="199" selection-start-column="4" selection-end-line="199" selection-end-column="4" />
+        <state relative-caret-position="-1125">
+          <caret line="2" column="52" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/admin/product/Serializer.py">
+    <entry file="file://$PROJECT_DIR$/pikachu/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-330">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="119">
+          <caret line="341" column="27" selection-start-line="341" selection-start-column="27" selection-end-line="341" selection-end-column="27" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/python/2.7.12/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/rest_framework/generics.py">
+    <entry file="file://$PROJECT_DIR$/periodic/tasks.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="179" column="42" selection-start-line="179" selection-start-column="42" selection-end-line="179" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/admin/service/Serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="240">
+          <caret line="70" column="63" selection-start-line="70" selection-start-column="63" selection-end-line="70" selection-end-column="63" />
           <folding>
             <element signature="e#24#62#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/common/Order/view.py">
+    <entry file="file:///usr/local/lib/python2.7/site-packages/weixin/pay.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-315">
-          <caret line="24" column="41" selection-start-line="24" selection-start-column="41" selection-end-line="24" selection-end-column="41" />
-          <folding>
-            <element signature="e#24#59#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/pool.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+        <state relative-caret-position="31">
+          <caret line="182" column="8" selection-start-line="182" selection-start-column="8" selection-end-line="182" selection-end-column="8" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python2.7/site-packages/django_redis/client/default.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="132" column="85" selection-start-line="132" selection-start-column="85" selection-end-line="132" selection-end-column="85" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/crm/api/client/service/Serializer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="214">
-          <caret line="57" column="52" selection-start-line="57" selection-start-column="52" selection-end-line="57" selection-end-column="52" />
-          <folding>
-            <element signature="e#24#62#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/crm/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="439" column="0" selection-start-line="439" selection-start-column="0" selection-end-line="439" selection-end-column="0" />
+        <state relative-caret-position="23">
+          <caret line="542" column="15" selection-start-line="542" selection-start-column="4" selection-end-line="542" selection-end-column="15" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
             <element signature="e#2570#3071#0" expanded="false" />
             <element signature="e#3104#3643#0" expanded="false" />
             <element signature="e#16787#17274#0" expanded="false" />
             <element signature="e#17307#17794#0" expanded="false" />
-            <element signature="e#24063#25131#0" expanded="false" />
-            <element signature="e#25164#26155#0" expanded="false" />
-            <element signature="e#26959#27668#0" expanded="false" />
-            <element signature="e#27705#28616#0" expanded="false" />
-            <element signature="e#28657#28883#0" expanded="false" />
+            <element signature="e#24233#25301#0" expanded="false" />
+            <element signature="e#26106#26815#0" expanded="false" />
+            <element signature="e#26852#27763#0" expanded="false" />
+            <element signature="e#27804#28030#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/base/FSM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="185" column="84" selection-start-line="185" selection-start-column="84" selection-end-line="185" selection-end-column="84" />
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/server_utils/payment/wepay.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="51" column="32" selection-start-line="51" selection-start-column="32" selection-end-line="51" selection-end-column="32" />
+          <folding>
+            <element signature="e#24#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/crm/api/common/payment/Serializer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="25" column="22" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
+          <folding>
+            <element signature="e#24#74#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Accounting/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="506">
+          <caret line="222" column="0" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -6,6 +6,8 @@ from crm.models import PaymentOrder, ProductRental, ComboRental, SellService
 from django.db import transaction
 from crm.server_utils.customerField import structure
 from crm.server_utils.base import FSM as fsm
+from siteuser.member.models import SiteUser
+from Accounting.models import BalanceManager
 
 config = dict(WEXIN_APP_ID='wx1c88e225b036f07a', WEIXIN_APP_SECRET='6fd6d2e8e7b3df81361d7bfb5521a9de',
               WEIXIN_NOTIFY_URL=settings.NOTIFY_URL)
@@ -30,7 +32,25 @@ def paysuccess(payinst):
     with transaction.atomic:
         payinst.status = 1
         payinst.save()
+        acct = None
         for order in payinst.order.all():
+            try:
+                if not acct and order.payedamount < order.amount:
+                    acct = SiteUser.objects.get(memberId=order.memberId).account
+            except Exception, e:
+                logger.error(u'账户信息未获取!, 用户编号:%s' %(order.memberId))
+            else:
+                if order.payedamount < order.amount:
+                    if not BalanceManager(acct=acct).defreeze(orderno=order.orderNo, isbill=True):
+                        #发起退款
+                        weixin.refund(out_trade_no=payinst.pay_id, out_refund_no=weixin.nonce_str, total_fee=payinst.payedamount, refund_fee=payinst.payedamount)
+                        order.orderStatus =fsm.ORDER_START
+                        if order.payment_status != 1:  # 支付中
+                            logger.error(u"订单支付状态不正确 订单号: [%s] 状态码: [%s]" % (order.orderNo, order.payment_status))
+                        order.payment_status = 0
+                        order.save()
+                        continue
+
             if order.orderStatus == fsm.ORDER_START or order.orderStatus == fsm.ORDER_CANCELED:  # 待支付
                 order.orderStatus = fsm.ORDER_FINISHED  # 已支付
 
@@ -38,6 +58,7 @@ def paysuccess(payinst):
                     logger.error(u"订单支付状态不正确 订单号: [%s] 状态码: [%s]" % (order.orderNo, order.payment_status))
                 order.payment_status = 2
                 order.save()
+
             else:
                 logger.error(u"订单状态不正确 订单号: [%s] 状态码: [%s]" % (order.orderNo, order.orderStatus))
                 continue

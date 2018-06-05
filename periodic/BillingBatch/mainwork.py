@@ -55,7 +55,7 @@ def DailyBatch(mcht=''):
         with transaction.atomic:
             if dailyAmt > 0:  # 实际入账金额
                 # TODO
-                billobj = BillingTran(projid=prl.serviceNo, member=member)
+                billobj = BillingTran(projid=prl.serviceNo, member=member, serviceType=0)
 
                 # 服务单金额变化
                 v = prl.residualRent - dailyAmt

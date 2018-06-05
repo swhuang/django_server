@@ -57,6 +57,8 @@ def ExpireOrderProc(data):
     from crm.models import RentalOrder, ProductRental, ComboRental, SellService
     from crm.server_utils.base import FSM as fsm
     import logging
+    from Accounting.models import BalanceManager
+    from siteuser.member.models import SiteUser
 
     logger = logging.getLogger('task')
     for ele in data:
@@ -64,6 +66,9 @@ def ExpireOrderProc(data):
         try:
             mOrder = RentalOrder.objects.get(orderNo=ele)
             if mOrder.orderStatus == fsm.ORDER_START:
+                if mOrder.payedamount < mOrder.amount:
+                    acct = SiteUser.objects.get(memberId=mOrder.memberId).account
+                    BalanceManager(acct=acct).defreeze(orderno=mOrder.orderNo)
                 mOrder.orderStatus = fsm.ORDER_CANCELED
                 mOrder.save()
                 if mOrder.serviceType == 0:

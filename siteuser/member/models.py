@@ -51,7 +51,6 @@ class SiteUserManager(models.Manager):
             user = SiteUser.objects.create(**siteuser_kwargs)
             #user = SiteUser(**siteuser_kwargs)
             #user = SiteUser(is_social=is_social, date_joined=timezone.now())
-            print  user.username
             user.save()
             kwargs['user_id'] = user.id
 

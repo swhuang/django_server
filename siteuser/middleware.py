@@ -4,6 +4,7 @@ from django.utils.functional import SimpleLazyObject
 
 from siteuser.member.models import SiteUser
 from users.models import Merchant
+from Accounting.models import Account
 from crm.models import DEFAULT_MERCHANT_OBJ
 from django.contrib.auth.models import AnonymousUser
 from django.contrib.auth import get_user_model
@@ -49,6 +50,18 @@ class User(MiddlewareMixin):
                 user = None
             return user
 
+        def get_acct():
+            acctid = request.session.get('acctid', None)
+            if not acctid:
+                return None
+
+            try:
+                acct = Account.objects.get(id=int(acctid))
+            except Account.DoesNotExist:
+                return None
+
+            return acct
+
         def get_merchant():
             mid = request.session.get('mid', None)
             if not mid:
@@ -64,9 +77,11 @@ class User(MiddlewareMixin):
         # disable csrf
         setattr(request, '_dont_enforce_csrf_checks', True)
         request.siteuser = SimpleLazyObject(get_user)
+        request.acct = SimpleLazyObject(get_acct)
         if not request.session.has_key('merchant'):
             request.session['merchant'] = DEFAULT_MERCHANT_OBJ.merchantid
         request.merchant = SimpleLazyObject(get_merchant)
+
 
     def process_response(self, request, response):
 

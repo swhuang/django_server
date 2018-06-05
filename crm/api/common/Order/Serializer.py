@@ -5,45 +5,68 @@ from crm.server_utils.customerField.Field import *
 from django.db import transaction
 from crm.server_utils.base import FSM as fsm
 from crm.server_utils.base.DQS import SingletonFactory
-
+from collections import Counter, OrderedDict
+from Accounting.models import BillingTran, BalanceManager
 
 
 class OrderSerializer(serializers.ModelSerializer):
-
     createDate = ModifiedDateTimeField(source='gmt_create', read_only=True)
     paymentDatetime = ModifiedDateTimeField(read_only=True)
-    #serviceType = serializers.IntegerField(write_only=True)
+
+    # serviceType = serializers.IntegerField(write_only=True)
 
     class Meta:
         model = RentalOrder
-        exclude = ('gmt_create', 'gmt_modified', )
+        exclude = ('gmt_create', 'gmt_modified',)
         read_only_fields = ('payid', 'paymentType', 'paymentDatetime', 'memberId', 'orderStatus', 'payment_status')
 
-    #创建订单
+    # 创建订单
     def create(self, validated_data):
-        if not validated_data.has_key('serviceNo'):
-            validated_data['type'] = 2 #销售订单
+        try:
+            if validated_data['type'] == 0:
+                serv = ProductRental.objects.get(serviceNo=validated_data['serviceNo'])
+            elif validated_data['type'] == 1:
+                serv = ComboRental.objects.get(serviceNo=validated_data['serviceNo'])
+        except ProductRental.DoesNotExist:
+            raise serializers.ValidationError("服务单号错误")
 
-            with transaction.atomic:
-                inst = super(OrderSerializer, self).create(validated_data)
-            return inst
+        # 准备创建订单
+        validated_data['amount'] = serv.initialDeposit + serv.initialRent
+        currentbalance = self.context['request'].acct.balance
+        freezeamt = 0
+        if validated_data.pop('useBalance') and currentbalance > 0.0:
+            if validated_data['amount'] <= currentbalance:
+                validated_data['payedamount'] = 0
+            else:
+                validated_data['payedamount'] = validated_data['amount'] - currentbalance
+
+            #冻结余额
+            freezeamt = validated_data['amount'] - validated_data['payedamount']
+
+        with transaction.atomic:
+            inst = super(OrderSerializer, self).create(validated_data)
+            if freezeamt > 0:
+                BalanceManager(acct=self.context['request'].acct).freeze(amt=freezeamt, orderno=inst.orderNo)
+            serv.curProcOrder = inst.orderNo
+            serv.updatestate(fsm.GenOrderEvent())
+            serv.save()
+        SingletonFactory.getCycleQueue().putitem(inst.orderNo)  # 加入倒计时队列
+        return inst
+
+    def validate(self, attrs):
+        realattrs = OrderedDict()
+        usebalance = attrs.get('useBalance', None)
+        realattrs.setdefault('useBalance', usebalance)
+        try:
+            realattrs.setdefault('serviceNo', attrs['serviceNo'])
+            realattrs.setdefault('deliveryMode', attrs['deliveryMode'])
+            realattrs.setdefault('serviceType', attrs['serviceType'])
+        except Exception, e:
+            raise serializers.ValidationError("缺少参数")
         else:
-            serv = None
-            try:
-                if validated_data['type'] == 0:
-                    serv = ProductRental.objects.get(serviceNo=validated_data['serviceNo'])
-                elif validated_data['type'] == 1:
-                    serv = ComboRental.objects.get(serviceNo=validated_data['serviceNo'])
-            except ProductRental.DoesNotExist:
-                raise serializers.ValidationError("服务单号错误")
-
             # 准备创建订单
-            validated_data['createdBy'] = self.context['request'].siteuser.username
+            realattrs['createdBy'] = self.context['request'].siteuser.username
+            if attrs['serviceType'] not in [0, 1, 2]:
+                raise serializers.ValidationError("serviceType参数错误")
 
-            with transaction.atomic:
-                inst = super(OrderSerializer, self).create(validated_data)
-                serv.curProcOrder = inst.orderNo
-                serv.updatestate(fsm.GenOrderEvent())
-                serv.save()
-            SingletonFactory.getCycleQueue().putitem(inst.orderNo)#加入倒计时队列
-            return inst
+        return realattrs

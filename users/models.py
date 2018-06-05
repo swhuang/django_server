@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from .conf import settings
 from .managers import UserInheritanceManager, UserManager
 from crm.models import Merchant, Submerchant
+from Accounting.models import Account
 from commom.models import JSONField
 from decimal import Decimal
 from django.db import transaction
@@ -162,10 +163,17 @@ class Member(AbstractBaseUser):
                 d[attr] = getattr(self, attr)
         return d
 
+class ExtendMemberManager(models.Manager):
+    def create(self, **kwargs):
+        acct = Account.objects.create(balance=0.0)
+        acct.save()
+        kwargs['account_id'] = acct.id
+        print "created!"
+        return super(ExtendMemberManager, self).create(**kwargs)
 
 class ExtendMember(models.Model):
     # username = models.TextField(max_length=100, default=u'hsw')
-    memberId = models.CharField(_(u'会员ID号'), max_length=15, default='')
+    memberId = models.CharField(_(u'会员ID号'), max_length=15, default='', db_index=True)
     name = models.CharField(_(u'用户真名'), max_length=15, default='')
     idNo = models.CharField(_(u'证件号码'), max_length=15, default='')
     idType = models.CharField(_(u'证件类型'), default='0', max_length=15)
@@ -177,6 +185,9 @@ class ExtendMember(models.Model):
     birthday = models.DateField(_(u'生日'), blank=True, default='1990-01-01')
     source = models.CharField(_(u'创建来源'), blank=True, default='0', max_length=1)
     createdDate = models.DateField(_(u'创建日期'), blank=True, default=timezone.now().strftime("%Y-%m-%d"))
+    account = models.OneToOneField(Account, related_name='user', null=True)
+
+    objects = ExtendMemberManager()
 
     class Meta:
         abstract = True
