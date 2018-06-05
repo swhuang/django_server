@@ -345,7 +345,7 @@ class Project(ChangesMixin, BaseModel):
     serialNumber = models.CharField(_(u'SKU商品编号'), max_length=10, default='')
     # deliveryStore = models.CharField(_(u'取货门店'), max_length=15, default='')
     returnStore = models.CharField(_(u'还货门店'), max_length=15, default='')
-    curProcOrder = models.CharField(_(u'当前处理订单号'), max_length=20, default='')
+    curProcOrder = models.CharField(_(u'当前处理订单号'), max_length=25, default='')
     adjustmentAmount = BillamountField(_(u'租转售补差金额'), default=0.0)
     daily_amount = BillamountField(_(u'日租金'), default=0.0, editable=False)
 
@@ -454,8 +454,8 @@ class ProductRental(Project):
         if not self.reservedProductid:
             raise TypeError("error for null reservedProductid")
             logging.getLogger('django').error("error for null reservedProductid")
-
-        self.set_state(Start())
+        if not self.serviceStatus:
+            self.set_state(Start())
 
     def save(self, *args, **kwargs):
         if self.product == '' and self.productid:
@@ -537,11 +537,11 @@ class PaymentOrder(BaseModel):
         (2, u'支付失败')
     }
 
-    pay_id = models.CharField(max_length=20, db_index=True, unique=True)
+    pay_id = models.CharField(max_length=25, db_index=True, unique=True)
     orderNo = models.CharField(max_length=200, default='0')
     memberId = models.CharField(_(u'用户编号'), max_length=15, null=False, default='0')
     payedamount = BillamountField(
-        _(u'支付金额'))  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
+        _(u'支付金额'), default=0.0)  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
     status = models.PositiveSmallIntegerField(_(u'支付状态'), default='0', choices=pay_status)
     # mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
     class Meta:
@@ -581,10 +581,10 @@ class Order(BaseModel):
     amount = BillamountField(_(u'订单金额'))  # models.DecimalField(_(u'订单金额'), max_digits=12, decimal_places=2)
     payedamount = BillamountField(_(u'支付金额'), default=0.0)
     payment_status = models.SmallIntegerField(_(u'支付状态'), default=0)  # 0:未支付 1:支付中 2:支付成功
-    orderNo = models.CharField(max_length=20, default=gettimestamp, db_index=True, unique=True, editable=False)
+    orderNo = models.CharField(max_length=25, default=gettimestamp, db_index=True, unique=True, editable=False)
 
     orderStatus = models.IntegerField(_('订单状态'), default=fsm.ORDER_START)
-    payid = models.CharField(_('支付订单号'), max_length=20, default='')
+    payid = models.CharField(_('支付订单号'), max_length=25, default='')
 
     #paymentorder = models.ForeignKey(to=PaymentOrder, related_name='order', null=True) #should be many to many
     paymentorder = models.ManyToManyField(to=PaymentOrder, related_name='order', blank=True)
@@ -652,7 +652,7 @@ class RentalOrder(Order):
         (2, '销售服务')
     }
 
-    serviceNo = models.CharField(_(u'服务单号'), max_length=20, default='')
+    serviceNo = models.CharField(_(u'服务单号'), max_length=25, default='')
     type = models.PositiveSmallIntegerField(_(u'订单类型'), choices=order_type, default=0)
     serviceType = models.PositiveSmallIntegerField(_(u'源服务类型'), default='0', choices=serv_type)
     desc = models.CharField(_(u'订单描述'), max_length=100, default='')

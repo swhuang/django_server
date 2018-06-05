@@ -2,18 +2,16 @@
 from __future__ import absolute_import
 
 import logging
-from celery import task
 from celery.utils.log import get_task_logger
 from celery.schedules import crontab
 import datetime
 
 
-@task
 def DailyBatch(mcht=''):
     from crm.models import ProductRental
     from crm.models import ComboRental
     from crm.models import ProductDetail
-    from Accounting.models import *
+    from Accounting.models import BillingTran
     from siteuser.member.models import SiteUser
     from django.db import transaction
     from crm.server_utils.base import FSM
@@ -52,7 +50,7 @@ def DailyBatch(mcht=''):
         dailyAmt = requiredamt
         if requiredamt > (prl.residualRent + prl.residualDeposit):
             dailyAmt = prl.residualRent + prl.residualDeposit
-        with transaction.atomic:
+        with transaction.atomic():
             if dailyAmt > 0:  # 实际入账金额
                 # TODO
                 billobj = BillingTran(projid=prl.serviceNo, member=member, serviceType=0)

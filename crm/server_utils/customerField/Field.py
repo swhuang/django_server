@@ -101,3 +101,11 @@ class JsonField(serializers.CharField):
     def to_representation(self, value):
         return value
         #return super(JsonField, self).to_representation(value)
+
+class ArrayField(serializers.CharField):
+    def to_internal_value(self, data):
+        pass
+        return super(ArrayField, self).to_internal_value(data)
+
+    def to_representation(self, value):
+        return super(ArrayField, self).to_representation(value)

@@ -6,35 +6,11 @@ from celery import task
 from celery.utils.log import get_task_logger
 from celery.schedules import crontab
 import datetime
-
-
-@task
-def test_celery(x, y):
-    from crm.server_utils.base.DQS import SingletonFactory
-    logger = get_task_logger(__name__)
-    logger.info('func start  ----------------->')
-    logger.info('application:%s', "TEST_APP")
-    data = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
-    print data
-    SingletonFactory.getCycleQueue().putitem(data)
-    print "id:" + str(id(SingletonFactory.getCycleQueue()))
-    logger.info('func end -------------------->')
-
-    return x + y
-
+from .BillingBatch.tasks import DailyBatch
 
 @task
-def test_multiply(x, y):
-    from crm.server_utils.base.DQS import SingletonFactory
-    logger = get_task_logger(__name__)
-    logger.info('func start  ----------------->')
-    logger.info('application:%s', "TEST_APP")
-    data = datetime.datetime.now().strftime('%Y%m%d%H%M%S%f')
-    print data
-    SingletonFactory.getCycleQueue().putitem(data)
-    print "multiply id:" + str(id(SingletonFactory.getCycleQueue()))
-    logger.info('func end -------------------->')
-    return x * y
+def dailybatch(mcht=''):
+    DailyBatch(mcht)
 
 
 @task

@@ -12,20 +12,21 @@ from Accounting.models import BillingTran, BalanceManager
 class OrderSerializer(serializers.ModelSerializer):
     createDate = ModifiedDateTimeField(source='gmt_create', read_only=True)
     paymentDatetime = ModifiedDateTimeField(read_only=True)
-
-    # serviceType = serializers.IntegerField(write_only=True)
+    useBalance = serializers.CharField(max_length=1, write_only=True)
+    deliveryMode = serializers.CharField(max_length=1, write_only=True)
 
     class Meta:
         model = RentalOrder
-        exclude = ('gmt_create', 'gmt_modified',)
-        read_only_fields = ('payid', 'paymentType', 'paymentDatetime', 'memberId', 'orderStatus', 'payment_status')
+        exclude = ('gmt_create', 'gmt_modified', 'paymentorder',)
+        read_only_fields = (
+        'payid', 'paymentType', 'paymentDatetime', 'memberId', 'orderStatus', 'payment_status', 'amount', 'payedamount')
 
     # 创建订单
     def create(self, validated_data):
         try:
-            if validated_data['type'] == 0:
+            if validated_data['serviceType'] == 0:
                 serv = ProductRental.objects.get(serviceNo=validated_data['serviceNo'])
-            elif validated_data['type'] == 1:
+            elif validated_data['serviceType'] == 1:
                 serv = ComboRental.objects.get(serviceNo=validated_data['serviceNo'])
         except ProductRental.DoesNotExist:
             raise serializers.ValidationError("服务单号错误")
@@ -34,22 +35,27 @@ class OrderSerializer(serializers.ModelSerializer):
         validated_data['amount'] = serv.initialDeposit + serv.initialRent
         currentbalance = self.context['request'].acct.balance
         freezeamt = 0
-        if validated_data.pop('useBalance') and currentbalance > 0.0:
+        if int(validated_data.pop('useBalance')) and currentbalance > 0.0:
             if validated_data['amount'] <= currentbalance:
                 validated_data['payedamount'] = 0
             else:
                 validated_data['payedamount'] = validated_data['amount'] - currentbalance
 
-            #冻结余额
+            # 冻结余额
             freezeamt = validated_data['amount'] - validated_data['payedamount']
+        else:
+            validated_data['payedamount'] = validated_data['amount']
 
-        with transaction.atomic:
+        deliveryMode = validated_data.pop('deliveryMode', None)
+
+        with transaction.atomic():
             inst = super(OrderSerializer, self).create(validated_data)
+            serv.curProcOrder = inst.orderNo
+            serv.deliveryMode = deliveryMode
+            serv.updatestate(fsm.GenOrderEvent(orderNo=inst.orderNo))
+            serv.save()
             if freezeamt > 0:
                 BalanceManager(acct=self.context['request'].acct).freeze(amt=freezeamt, orderno=inst.orderNo)
-            serv.curProcOrder = inst.orderNo
-            serv.updatestate(fsm.GenOrderEvent())
-            serv.save()
         SingletonFactory.getCycleQueue().putitem(inst.orderNo)  # 加入倒计时队列
         return inst
 
@@ -68,5 +74,6 @@ class OrderSerializer(serializers.ModelSerializer):
             realattrs['createdBy'] = self.context['request'].siteuser.username
             if attrs['serviceType'] not in [0, 1, 2]:
                 raise serializers.ValidationError("serviceType参数错误")
+            realattrs['memberId'] = self.context['request'].siteuser.memberId
 
         return realattrs

@@ -5,20 +5,24 @@ from crm.server_utils.customerField.Field import *
 from crm.server_utils.base import FSM as fsm
 from django.db import transaction
 from crm.server_utils.base.DQS import SingletonFactory
+from collections import Counter, OrderedDict
 
 
 class PaymentSerializer(serializers.ModelSerializer):
-
-    createDate = ModifiedDateTimeField(source='gmt_create', read_only=True)
+    orderno = serializers.ListField(child=serializers.CharField(max_length=25))
+    pay_id = serializers.CharField(required=False)
 
     class Meta:
         model = PaymentOrder
-        exclude = ('gmt_create', 'gmt_modified',)
+        exclude = ('gmt_create', 'gmt_modified', 'orderNo')
         read_only_fields = ()
 
+    def validate(self, attrs):
+
+        return attrs
+
     def create(self, validated_data):
-        orderlist = self.context['request'].POST.getlist('orderNo[]', None)
-        validated_data.pop('orderNo[]', None)
+        orderlist = validated_data['orderno']#self.context['request'].POST.getlist('orderNo[]', None)
         if not orderlist:
             raise serializers.ValidationError("orderNo缺失")
         else:
@@ -39,9 +43,9 @@ class PaymentSerializer(serializers.ModelSerializer):
                 payamount += order.payedamount
                 obj_list.append(order)
 
-            validated_data['orderNo'] = str(olist)
+            #validated_data['orderNo'] = str(olist)
             validated_data['payedamount'] = payamount
-            with transaction.atomic:
+            with transaction.atomic():
                 if not validated_data.has_key['payedamount']:
                     validated_data['payedamount'] = order.amount
                 validated_data['memberId'] = self.context['request'].siteuser.memberId

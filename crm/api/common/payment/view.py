@@ -8,6 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.status import *
 from crm.server_utils.payment import wepay
+from pikachu.settings import TESTMODE
 
 
 import datetime
@@ -30,7 +31,10 @@ class PaymentViewset(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         if isinstance(inst, PaymentOrder):
             ret = wepay.pay_jsapi(inst.payedamount, inst.pay_id)
-            return Response(ret, status=HTTP_201_CREATED, headers=headers)
+            if TESTMODE:
+                return Response("支付结束")
+            else:
+                return Response(ret, status=HTTP_201_CREATED, headers=headers)
         else:
             logging.getLogger('django').error(u"订单创建失败%s"% request.data)
             return Response(serializer.data, status=HTTP_400_BAD_REQUEST, headers=headers)

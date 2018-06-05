@@ -359,7 +359,7 @@ LOGGING = {
         }
     },
 }
-
+TESTMODE = True
 '''
 CELERYBEAT_SCHEDULE = {
     'add-every-3-seconds': {

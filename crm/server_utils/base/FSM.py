@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import logging
 import datetime
-
+from crm.server_utils.customerField import structure
 """
 服务状态机:
 使用方法:
@@ -137,6 +137,7 @@ class Start(State):
 # 确认服务(已生成订单) = 待支付
 class RentalConfirmed(State):
     statevalue = RENTAL_CONFIRM
+    desc = u'确认服务(已生成订单) = 待支付'
 
     def updatestate(self, w, event):
         if isinstance(event, PaymentCancelEvent):
@@ -207,11 +208,11 @@ class RentalProcessing(State):
                 usr = SiteUser.objects.get(memberId=w.memberId)
                 servtype = 0
                 if type(w) == ProductRental:
-                    servtype = 0
+                    servtype = structure.SERVICE_RENTAL
                 elif type(w) == ComboRental:
-                    servtype = 1
+                    servtype = structure.SERVICE_COMBOL
                 elif type(w) == SellService:
-                    servtype = 2
+                    servtype = structure.SERVICE_SELL
                 BillingTran(projid=w.serviceNo, member=usr, serviceType=servtype)
                 if w.residualRent > 0:
                     BillingTran.billingrent(w.residualRent)
