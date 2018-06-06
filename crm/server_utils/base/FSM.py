@@ -281,6 +281,17 @@ ORDER_REFUND = 2
 ORDER_REFUNDED = 3
 ORDER_CANCELED = 4
 
+{
+    (0, '租赁订单'),
+    (1, '套餐订单'),
+    (2, '销售订单'),
+    (3, '赔偿订单'),
+    (4, '补押订单'),
+    (5, '补差订单'),
+    (7, '套餐租赁转售订单'),
+    (8, '单品租赁转售订单')
+}
+
 class OrderState(object):
     def __init__(self):
         pass

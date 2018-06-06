@@ -67,6 +67,7 @@ class OrderSerializer(serializers.ModelSerializer):
             realattrs.setdefault('serviceNo', attrs['serviceNo'])
             realattrs.setdefault('deliveryMode', attrs['deliveryMode'])
             realattrs.setdefault('serviceType', attrs['serviceType'])
+            realattrs.setdefault('type', attrs['orderType'])
         except Exception, e:
             raise serializers.ValidationError("缺少参数")
         else:

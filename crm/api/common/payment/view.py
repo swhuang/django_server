@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.status import *
 from crm.server_utils.payment import wepay
 from pikachu.settings import TESTMODE
+from rest_framework import serializers
 
 
 import datetime
@@ -25,7 +26,16 @@ class PaymentViewset(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        inst = self.perform_create(serializer)
+        try:
+            inst = self.perform_create(serializer)
+        except serializers.ValidationError, e:
+            headers = self.get_success_headers(serializer.data)
+            logging.getLogger('django').error(u"订单创建失败%s" % request.data)
+            return Response(str(e.detail[0]), status=HTTP_400_BAD_REQUEST, headers=headers)
+        except Exception,e:
+            headers = self.get_success_headers(serializer.data)
+            logging.getLogger('django').error(u"订单创建失败%s" % request.data)
+            return Response(e.message, status=HTTP_400_BAD_REQUEST, headers=headers)
         # 根据inst吊起微信支付
         # TODO
         headers = self.get_success_headers(serializer.data)
@@ -40,7 +50,7 @@ class PaymentViewset(viewsets.ModelViewSet):
             return Response(serializer.data, status=HTTP_400_BAD_REQUEST, headers=headers)
 
     def perform_create(self, serializer):
-        serializer.save()
+        return serializer.save()
 
     def get_queryset(self):
         v = {}

@@ -21,13 +21,26 @@ class ClientRentalServiceViewset(RentalServiceViewset, mixins.CreateModelMixin):
     #permission_classes = (UserPermission.AuthenticateUserPermission, )
 
     def perform_create(self, serializer):
-        serializer.save()
+        return serializer.save()
 
     def get_queryset(self):
         v = {}
         if hasattr(self.request, 'siteuser'):
             v['memberId'] = self.request.siteuser.memberId
         return ProductRental.objects.filter(**v)
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        inst = self.perform_create(serializer)
+        # 根据inst吊起微信支付
+        # TODO
+        headers = self.get_success_headers(serializer.data)
+        if isinstance(inst, ProductRental):
+            return Response({'serviceNo': inst.serviceNo}, status=HTTP_201_CREATED, headers=headers)
+        else:
+            logging.getLogger('django').error(u"服务创建失败%s"% request.data)
+            return Response(serializer.data, status=HTTP_400_BAD_REQUEST, headers=headers)
 
 
 

@@ -75,7 +75,7 @@ def paysuccess(payinst):
             elif order.serviceType == structure.SERVICE_SELL:
                 SERVICE_CLASS = SellService
             servinst = SERVICE_CLASS.objects.get(serviceNo=order.serviceNo)
-            servinst.updatestate(fsm.PaymentEvent())
+            servinst.updatestate(fsm.PaymentEvent(ptype=order.type))
             servinst.save()
 
 def payfail(payinst):

@@ -54,8 +54,8 @@ class AccountClassifaction(models.Model):
 class Baseacct(BaseModel):
     seq = models.CharField(_(u'账户编号'), max_length=15, db_index=True, null=True)
     debit_credit = models.BooleanField(_(u'借贷方向'), help_text='True:相对商户入账【】False:相对商户出账')
-    acid = models.CharField(_(u'科目编号'), max_length=6, blank=True)
-    projid = models.CharField(_(u'服务项目编号'), max_length=10)
+    acid = models.CharField(_(u'科目编号'), max_length=16, blank=True)
+    projid = models.CharField(_(u'服务项目编号'), max_length=25)
     serviceType = models.PositiveSmallIntegerField(_(u'服务类型'), default=0, choices=RentalOrder.serv_type)
     merchantid = models.CharField(_(u'商户编号'), default=pikachu.settings.DEFAULT_MERCHANT, max_length=18)
     balance = BillamountField(_(u'当时账户余额'), help_text='该笔账务产生前账户余额')
@@ -66,8 +66,8 @@ class Baseacct(BaseModel):
              update_fields=None):
         m = super(Baseacct, self).save(force_insert=force_insert, force_update=force_update, using=using,
                                        update_fields=update_fields)
-        if not self.acctid or self.acctid == '':
-            self.acctid = "%015d" % self.id
+        if not self.seq or self.seq == '':
+            self.seq = "%015d" % self.id
             super(Baseacct, self).save(force_update=True, update_fields=['acctid'])
 
     class Meta:
@@ -90,11 +90,12 @@ class FrozenBalance(BaseModel):
 class BillingTran(object):
 
     def __init__(self, **kwargs):
+        assert kwargs.has_key('serviceType')
+
         self.serviceNo = kwargs.pop('projid', None)
         self.member = kwargs.pop('member')
         self.logger = logging.getLogger('django')
         self.serviceType = kwargs.pop('serviceType', 0)
-        assert kwargs.has_key('serviceType')
         try:
             self.acct = Account.objects.get(user=self.member)
         except Exception ,e:
@@ -130,7 +131,7 @@ class BillingTran(object):
         "余额入账"
 
         with transaction.atomic():
-            DailyBilling = Individualacct(debit_credit=False, acid='DAILYBILL101', projid=self.serviceNo,
+            DailyBilling = Individualacct(debit_credit=False, acid='BALANBILL101', projid=self.serviceNo,
                                 merchantid=self.acct.mid, serviceType=self.serviceType,
                                 balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid)
             DailyBilling.save(force_insert=True)
@@ -139,7 +140,7 @@ class BillingTran(object):
     def billingOuting(self, amt, relatedNo=''):
         "余额出账"
         with transaction.atomic():
-            DailyBilling = Individualacct(debit_credit=True, acid='DAILYBILL101', projid=self.serviceNo,
+            DailyBilling = Individualacct(debit_credit=True, acid='BALANBILL101', projid=self.serviceNo,
                                 merchantid=self.acct.mid, serviceType=self.serviceType,
                                 balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid, relatedNumber=relatedNo)
             DailyBilling.save(force_insert=True)
@@ -150,7 +151,7 @@ class BalanceManager(object):
     余额管理
     """
     def __init__(self, acct=None):
-        assert type(acct) == Account
+        assert type(acct) == Account or type(acct) == SimpleLazyObject
         self.acct = acct
 
         def getbillobj(self):
@@ -169,21 +170,28 @@ class BalanceManager(object):
 
     @synchronized
     def defreeze(self, orderno, isbill=False):
+        from crm.models import RentalOrder
+        try:
+            order = RentalOrder.objects.get(orderNo=orderno)
+        except RentalOrder.DoesNotExist:
+            logging.getLogger('django').error('订单号错误!')
+            raise ValueError('Invaild order number!')
+        else:
+            billobj = BillingTran(serviceType=order.serviceType, projid=order.serviceNo, member=order.memberId)
         try:
             inst = FrozenBalance.objects.get(orderNo=orderno)
         except FrozenBalance.DoesNotExist:
             logging.getLogger('django').error('没有冻结余额可以释放')
             if isbill:
-                from crm.models import RentalOrder
-                order = RentalOrder.objects.get(orderNo=orderno)
+
                 if order.amount > order.payedamount:
                     deltaAmt = order.amount - order.payedamount
                     try:
-                        Individualacct.objects.get(acid='DAILYBILL101', seq=self.acct.acctid, relatedNumber=order.orderNo, billingamt=deltaAmt)
+                        Individualacct.objects.get(acid='BALANBILL101', seq=self.acct.acctid, relatedNumber=order.orderNo, billingamt=deltaAmt)
                     except Individualacct.DoesNotExist:
                         # 补账
                         if deltaAmt < self.acct.balance:
-                            self.billobj.billingOuting(deltaAmt, relatedNo=orderno)
+                            billobj.billingOuting(deltaAmt, relatedNo=orderno)
                             self.acct.balance -= deltaAmt
                             self.acct.save()
                         else:
@@ -197,8 +205,7 @@ class BalanceManager(object):
                     self.acct.balance += inst.amount
                     self.acct.save(force_update=True, update_fields=['balance'])
                 else:
-                    if not self.billobj:
-                        self.billobj.billingOuting(inst.amount, relatedNo=orderno)
+                    billobj.billingOuting(inst.amount, relatedNo=orderno,)
                 inst.delete()
             return True
 
