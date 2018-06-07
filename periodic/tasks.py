@@ -9,7 +9,10 @@ import datetime
 from .BillingBatch.tasks import DailyBatch
 
 @task
-def dailybatch(mcht=''):
+def daily_batch(mcht=''):
+    import logging
+    import sys
+    logging.getLogger('batch').error(sys.version)
     DailyBatch(mcht)
 
 

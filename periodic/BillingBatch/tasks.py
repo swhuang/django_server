@@ -15,13 +15,23 @@ def DailyBatch(mcht=''):
     from siteuser.member.models import SiteUser
     from django.db import transaction
     from crm.server_utils.base import FSM
+    from decimal import Decimal
+    import sys
+    print sys.version
     logger = logging.getLogger('batch')
-    logger.info("batch for:" + mcht + " merchantid:" + str(datetime.datetime.date()) + ':start')
-    AllProductRental = list(ProductRental.objects.filter(serviceStatus=FSM.statedict[3]))  # rental processing
+    logger.error(sys.version)
+    logger.info("batch for:" + mcht + " merchantid:" + datetime.datetime.today().strftime('%Y-%m-%d %H:%M') + ':start')
+    AllProductRental = list(ProductRental.objects.filter(serviceStatus=FSM.statedict[3]()))  # rental processing
     # TODO
     for prl in AllProductRental:
+        # 防止重跑
+        if prl.lastProcessDate == datetime.datetime.today().date():
+            continue
+        else:
+            prl.lastProcessDate = datetime.datetime.today().date()
+
         try:
-            pd = ProductDetail.objects.get(productid=prl.product)
+            pd = ProductDetail.objects.get(productid=prl.productid)
         except Exception, e:
             logger.error(e)
             continue
@@ -43,7 +53,7 @@ def DailyBatch(mcht=''):
             payedAmt = prl.initialRent + prl.initialDeposit - prl.residualDeposit - prl.residualRent
             prl.payed_amount = payedAmt
 
-        if prl.product['sellingPrice'] - payedAmt < requiredamt:
+        if Decimal(prl.product['sellingPrice']) - payedAmt < requiredamt:
             requiredamt = prl.product['sellingPrice'] - payedAmt
 
 

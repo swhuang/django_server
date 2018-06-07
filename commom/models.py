@@ -13,7 +13,6 @@ import json
 import logging
 
 
-
 # Create your models here.
 class initModel(models.Model):
     gmt_create = models.DateTimeField(_('添加时间'), default=timezone.now)
@@ -38,10 +37,12 @@ class initModel(models.Model):
 
 class SubBaseModel(initModel):
     mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True, blank=True)
-    #submid = models.CharField(_(u'门店编号'), max_length, db_index=True)
+
+    # submid = models.CharField(_(u'门店编号'), max_length, db_index=True)
 
     class Meta:
         abstract = True
+
 
 class BaseModel(initModel):
     mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT, db_index=True)
@@ -77,8 +78,7 @@ class BillamountField(models.DecimalField):
         super(BillamountField, self).__init__(verbose_name=verbose_name, max_digits=12, decimal_places=2, **kwargs)
 
 
-class JSONField(models.TextField):  
-
+class JSONField(models.TextField):
     def from_db_value(self, value, expression, connection, context):
         v = models.TextField.to_python(self, value)
         try:
@@ -88,19 +88,17 @@ class JSONField(models.TextField):
             pass
         return v
 
-    def get_prep_value(self, value):  
+    def get_prep_value(self, value):
         if isinstance(value, dict):
             for k in value:
                 if isinstance(value[k], Decimal):
                     value[k] = str(value[k])
                 else:
                     value[k] = str(value[k])
-        return json.dumps({'v':value}, ensure_ascii=False)
-
+        return json.dumps({'v': value}, ensure_ascii=False)
 
 
 class StatusField(models.IntegerField):
-
     def from_db_value(self, value, expression, connection, context):
         v = models.IntegerField.to_python(self, value)
         ret = fsm.statedict[v]()
@@ -112,8 +110,7 @@ class StatusField(models.IntegerField):
 
     def get_prep_value(self, value):
         for i, v in fsm.statedict.items():
-            if type(value) == v:
+            if type(value) == type(v()):
                 return i
         logging.getLogger('django').error("status error" + value.__class__.__name__)
         raise ValueError("status error" + value.__class__.__name__)
-

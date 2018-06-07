@@ -83,6 +83,7 @@ class FrozenBalance(BaseModel):
     seq = models.CharField(_(u'账户编号'), max_length=15, db_index=True, null=True)
     amount = BillamountField(_(u'冻结金额'), default=0.0)
     orderNo = models.CharField(_(u'订单号'), max_length=25, db_index=True, default='', unique=True)
+    isreleased = models.BooleanField(_(u'是否释放'), default=False)
 
 
 
@@ -206,7 +207,8 @@ class BalanceManager(object):
                     self.acct.save(force_update=True, update_fields=['balance'])
                 else:
                     billobj.billingOuting(inst.amount, relatedNo=orderno,)
-                inst.delete()
+                inst.isreleased = True
+                inst.save()
             return True
 
     @synchronized

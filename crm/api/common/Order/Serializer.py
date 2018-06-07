@@ -48,8 +48,12 @@ class OrderSerializer(serializers.ModelSerializer):
 
         deliveryMode = validated_data.pop('deliveryMode', None)
 
+
         with transaction.atomic():
             inst = super(OrderSerializer, self).create(validated_data)
+            if int(deliveryMode) == 0:
+                serv.reservedProduct.update(validated_data['deliveryMode'])
+
             serv.curProcOrder = inst.orderNo
             serv.deliveryMode = deliveryMode
             serv.updatestate(fsm.GenOrderEvent(orderNo=inst.orderNo))
@@ -76,5 +80,13 @@ class OrderSerializer(serializers.ModelSerializer):
             if attrs['serviceType'] not in [0, 1, 2]:
                 raise serializers.ValidationError("serviceType参数错误")
             realattrs['memberId'] = self.context['request'].siteuser.memberId
+            if int(realattrs['deliveryMode']) == 0 or not realattrs.has_key('deliveryMode'):
+                deliveryinfo = dict()
+                deliveryinfo.setdefault('gender', attrs.get('gender', ''))
+                deliveryinfo.setdefault('name', attrs.get('name', ''))
+                deliveryinfo.setdefault('phone', attrs.get('phone', ''))
+                deliveryinfo.setdefault('address', attrs.get('address', ''))
+                deliveryinfo.setdefault('remark', attrs.get('remark', ''))
+                realattrs['deliveryinfo'] = deliveryinfo
 
         return realattrs

@@ -348,6 +348,7 @@ class Project(ChangesMixin, BaseModel):
     curProcOrder = models.CharField(_(u'当前处理订单号'), max_length=25, default='')
     adjustmentAmount = BillamountField(_(u'租转售补差金额'), default=0.0)
     daily_amount = BillamountField(_(u'日租金'), default=0.0, editable=False)
+    lastProcessDate = models.DateField(_(u'上次处理日期'), null=True)
 
     class Meta:
         ordering = ('serviceNo', 'mid')

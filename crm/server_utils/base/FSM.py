@@ -48,7 +48,7 @@ class DeliveryCompleteEvent(Event):
 class GenOrderEvent(Event):
     desc = '生成订单'
 
-    def __init__(self, orderNo):
+    def __init__(self, orderNo=''):
         self._orderid = orderNo
 
     @property
@@ -111,6 +111,11 @@ class State(object):
         Logger.error(error)
         raise ValueError(error)
 
+    '''
+    def __eq__(self, other):
+        return self.__name__ == other.__name__
+    '''
+
 START_STATE = 0
 RENTAL_CONFIRM = 1
 READYFORGOOD_STATE = 2
@@ -127,7 +132,7 @@ class Start(State):
         # 若生成订单,则可进入下 确认服务 状态
         if isinstance(event, TimeoutEvent):
             w.set_state(Closed())
-        elif type(event) == GenOrderEvent:
+        elif isinstance(event, GenOrderEvent):
             w.set_state(RentalConfirmed())
         else:
             self.post_err(event)
@@ -207,11 +212,11 @@ class RentalProcessing(State):
             if isinstance(w, Project):
                 usr = SiteUser.objects.get(memberId=w.memberId)
                 servtype = 0
-                if type(w) == ProductRental:
+                if isinstance(w, ProductRental):
                     servtype = structure.SERVICE_RENTAL
-                elif type(w) == ComboRental:
+                elif isinstance(w, ComboRental):
                     servtype = structure.SERVICE_COMBOL
-                elif type(w) == SellService:
+                elif isinstance(w, SellService):
                     servtype = structure.SERVICE_SELL
                 BillingTran(projid=w.serviceNo, member=usr, serviceType=servtype)
                 if w.residualRent > 0:

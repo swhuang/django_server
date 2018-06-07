@@ -3,6 +3,7 @@ from rest_framework import serializers
 from crm.models import ProductRental
 from crm.server_utils.customerField.Field import *
 from crm.server_utils.base import FSM as fsm
+from collections import Counter, OrderedDict
 import logging
 
 
@@ -32,12 +33,12 @@ class ClaimGoodSerializer(serializers.Serializer):
     serviceNo = serializers.CharField(max_length=25, write_only=True)
     serviceType = serializers.CharField(max_length=1, write_only=True)
     productid = serializers.CharField(max_length=15, write_only=True)
-    deliveryOperator = serializers.CharField(max_length=100, write_only=True)
-    deliveryStore = serializers.CharField(max_length=15, write_only=True)
-    deliveryMode = serializers.CharField(max_length=1, write_only=True)
-    serialNumber = serializers.CharField(max_length=10, write_only=True)
-    logisticsCompany = serializers.CharField(max_length=20, write_only=True)
-    trackingNumber = serializers.CharField(max_length=20, write_only=True)
+    deliveryOperator = serializers.CharField(max_length=100, write_only=True, required=False)
+    deliveryStore = serializers.CharField(max_length=15, write_only=True, required=False)
+    deliveryMode = serializers.CharField(max_length=1, write_only=True, required=False)
+    serialNumber = serializers.CharField(max_length=10, write_only=True, required=False)
+    logisticsCompany = serializers.CharField(max_length=20, write_only=True, required=False)
+    trackingNumber = serializers.CharField(max_length=20, write_only=True, required=False)
     claimResult = serializers.SerializerMethodField()
     # serializers.CharField(max_length=1, default='1', read_only=True)
     serviceStatus = StatusField(read_only=True)
@@ -53,15 +54,20 @@ class ClaimGoodSerializer(serializers.Serializer):
                   'logisticsCompany', 'trackingNumber', 'claimResult', 'serviceStatus')
 
     def create(self, validated_data):
-        servtype = validated_data.pop('serviceType', None)
-        # ignore deliveryOperator deliveryStore
-        validated_data.pop('deliveryOperator', None)
-        validated_data.pop('deliveryStore', None)
+        return validated_data['key']
+
+    def validate(self, attrs):
+        realattrs = OrderedDict()
+        try:
+            servtype = attrs.get('serviceType')
+            serviceNo = attrs.get('serviceNo')
+        except:
+            raise serializers.ValidationError("参数错误")
 
         if servtype not in self.servtype.keys():
             raise serializers.ValidationError("服务类型错误")
         try:
-            servid = validated_data.pop('serviceNo', None)
+            servid = serviceNo
             if servtype == 'r':
                 serv = ProductRental.objects.get(serviceNo=servid)
             else:
@@ -71,7 +77,7 @@ class ClaimGoodSerializer(serializers.Serializer):
             logging.getLogger('django').error(e)
             raise serializers.ValidationError(u'服务不存在')
 
-        for attr, value in validated_data.items():
+        for attr, value in attrs.items():
             setattr(serv, attr, value)
         serv.deliveryOperator = self.context['request'].user.userid
         serv.deliveryStore = self.context['request'].user.submerchant_id
@@ -82,12 +88,11 @@ class ClaimGoodSerializer(serializers.Serializer):
 
         try:
             serv.updatestate(fsm.DeliveryCompleteEvent())
-        except Exception, e:
-            logging.getLogger('django').error(e)
-
-        try:
             serv.save()
             self.result = '0'
         except Exception, e:
             logging.getLogger('django').error(e)
-        return serv
+            raise serializers.ValidationError("状态修改失败")
+        else:
+            realattrs['key'] = serv
+            return realattrs

@@ -20,7 +20,7 @@ from siteuser.member.models import InnerUser, SiteUser
 from django.core.exceptions import ValidationError
 from crm.server_utils.base.DQS import SingletonFactory
 import datetime
-
+from periodic.BillingBatch.tasks import DailyBatch
 
 
 @pjax("project/tables-pjax.html")
@@ -154,9 +154,7 @@ def RenderIndex(request):
 
 
 def generatetestmerchant(request):
-
-    rentalproj = ProductRental(productid='000000000000006', memberId='0000000006')
-    rentalproj.save()
+    DailyBatch()
     return HttpResponse('done')
 
     _key = mUtil.generate_key()
