@@ -57,7 +57,6 @@ sqlcmd==0.7.1
 stevedore==1.21.0
 tornado==5.0.2
 uWSGI==2.0.15
-vboxapi==1.0
 virtualenv==15.1.0
 virtualenv-clone==0.2.6
 virtualenvwrapper==4.7.2
