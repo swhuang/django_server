@@ -12,8 +12,8 @@ from Accounting.models import BillingTran, BalanceManager
 class OrderSerializer(serializers.ModelSerializer):
     createDate = ModifiedDateTimeField(source='gmt_create', read_only=True)
     paymentDatetime = ModifiedDateTimeField(read_only=True)
-    useBalance = serializers.CharField(max_length=1, write_only=True)
-    deliveryMode = serializers.CharField(max_length=1, write_only=True)
+    useBalance = serializers.CharField(max_length=1, write_only=True, required=False)
+    deliveryMode = serializers.CharField(max_length=1, write_only=True, required=False)
 
     class Meta:
         model = RentalOrder

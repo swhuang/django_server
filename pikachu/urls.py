@@ -29,7 +29,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'', include('siteuser.urls')),
     url(r'^accounts/', include('users.urls')),
-    #url(r'^', TemplateView.as_view(template_name="index.html")),
+    url(r'^', TemplateView.as_view(template_name="index.html")),
     url(r'^test/', generatetestmerchant),
     url(r'^wechat/', include('crm.server_utils.urls')),
     url(r'^media/(?P<path>.*)$',  serve, {"document_root": MEDIA_ROOT}),
