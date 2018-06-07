@@ -11,7 +11,6 @@ from crm.server_utils.payment import wepay
 from pikachu.settings import TESTMODE
 from rest_framework import serializers
 
-
 import datetime
 import logging
 from crm.api.admin.service.view import RentalServiceViewset
@@ -32,21 +31,32 @@ class PaymentViewset(viewsets.ModelViewSet):
             headers = self.get_success_headers(serializer.data)
             logging.getLogger('django').error(u"订单创建失败%s" % request.data)
             return Response(str(e.detail[0]), status=HTTP_400_BAD_REQUEST, headers=headers)
-        except Exception,e:
+        except Exception, e:
             headers = self.get_success_headers(serializer.data)
             logging.getLogger('django').error(u"订单创建失败%s" % request.data)
             return Response(e.message, status=HTTP_400_BAD_REQUEST, headers=headers)
         # 根据inst吊起微信支付
         # TODO
         headers = self.get_success_headers(serializer.data)
+        productname = u'多项订单联合'
+        if inst.order.objects.all().count() == 1:
+            flg = inst.order.all().first().serviceType
+            if flg == 0:
+                productname = u'单品租赁服务'
+            elif flg == 1:
+                productname = u'套餐租赁服务'
+            elif flg == 2:
+                productname = u'销售服务'
+
         if isinstance(inst, PaymentOrder):
-            ret = wepay.pay_jsapi(inst.payedamount, inst.pay_id)
+            ret = wepay.pay_jsapi(amount=inst.payedamount, out_trade_no=inst.pay_id,
+                                  body=request.merchant.name + '-' + productname)
             if TESTMODE:
                 return Response("支付结束")
             else:
                 return Response(ret, status=HTTP_201_CREATED, headers=headers)
         else:
-            logging.getLogger('django').error(u"订单创建失败%s"% request.data)
+            logging.getLogger('django').error(u"订单创建失败%s" % request.data)
             return Response(serializer.data, status=HTTP_400_BAD_REQUEST, headers=headers)
 
     def perform_create(self, serializer):
@@ -59,9 +69,8 @@ class PaymentViewset(viewsets.ModelViewSet):
         return PaymentOrder.objects.filter(**v)
 
 
-#管理端接口
+# 管理端接口
 class BackendPaymentViewset(PaymentViewset):
-
     def get_queryset(self):
         return PaymentOrder.objects.all()
 
@@ -72,5 +81,3 @@ class PaymentNotify(APIView):
 
     def get(self, request):
         pass
-
-

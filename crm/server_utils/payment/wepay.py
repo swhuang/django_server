@@ -16,7 +16,7 @@ weixin = Weixin(config)
 logger = logging.getLogger('transaction')
 
 
-def pay_jsapi(amount, out_trade_no, fail=False):
+def pay_jsapi(amount, out_trade_no, body ,fail=False):
     if settings.TESTMODE:
         try:
             payinst = PaymentOrder.objects.get(pay_id=out_trade_no)
