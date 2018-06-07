@@ -9,3 +9,5 @@ celerybeat-schedule
 media/*
 *.log
 *.csv
+static/rest_framework/*
+collectstatic/*
