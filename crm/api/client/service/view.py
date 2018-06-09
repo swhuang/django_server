@@ -2,7 +2,7 @@
 from rest_framework import viewsets
 from crm.api.client.permission import UserPermission
 from crm.models import ProductRental
-from .Serializer import ClientRentalServiceSerializer
+from .Serializer import ClientRentalServiceSerializer, ClientRentalListSerializer
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.response import Response
 from rest_framework.status import *
@@ -17,8 +17,8 @@ from rest_framework import permissions
 class ClientRentalServiceViewset(RentalServiceViewset, mixins.CreateModelMixin):
 
     serializer_class = ClientRentalServiceSerializer
-    permission_classes = (permissions.AllowAny, )
-    #permission_classes = (UserPermission.AuthenticateUserPermission, )
+    #permission_classes = (permissions.AllowAny, )
+    permission_classes = (UserPermission.AuthenticateUserPermission, )
 
     def perform_create(self, serializer):
         return serializer.save()
@@ -42,6 +42,16 @@ class ClientRentalServiceViewset(RentalServiceViewset, mixins.CreateModelMixin):
             logging.getLogger('django').error(u"服务创建失败%s"% request.data)
             return Response(serializer.data, status=HTTP_400_BAD_REQUEST, headers=headers)
 
+
+class ClientRentalList(RentalServiceViewset):
+    permission_classes = (UserPermission.AuthenticateUserPermission,)
+    serializer_class = ClientRentalListSerializer
+
+    def get_queryset(self):
+        v = {}
+        if hasattr(self.request, 'siteuser'):
+            v['memberId'] = self.request.siteuser.memberId
+        return ProductRental.objects.filter(**v)
 
 
 

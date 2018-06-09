@@ -186,7 +186,7 @@ class RentalProcessing(State):
                     amt = w.initialRent + w.initialDeposit - w.product.get('sellingPrice', 0)
                     usr = SiteUser.objects.get(memberId=w.memberId)
                     # 余额充值
-                    BalanceManager(acct=usr.account).recharge(amt)
+                    BalanceManager(acctid=usr.account.id, memberId=usr.memberId).recharge(amt)
                     w.set_state(RentalForSaleDone())
                 else:
                     if event.reqAmount > event.billAmount and w.creditStatus != '2':

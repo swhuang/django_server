@@ -544,6 +544,7 @@ class PaymentOrder(BaseModel):
     payedamount = BillamountField(
         _(u'支付金额'), default=0.0)  # models.DecimalField(_(u'支付金额'), max_digits=12, decimal_places=2, null=True)
     status = models.PositiveSmallIntegerField(_(u'支付状态'), default='0', choices=pay_status)
+    paymentMethod = models.CharField(_(u'支付方式'), max_length=1, default='0')
     # mid = models.CharField(_(u'总店编号'), max_length=15, default=settings.DEFAULT_MERCHANT)
     class Meta:
         verbose_name = _('支付订单')
@@ -653,7 +654,7 @@ class RentalOrder(Order):
         (2, '销售服务')
     }
 
-    serviceNo = models.CharField(_(u'服务单号'), max_length=25, default='')
+    serviceNo = models.CharField(_(u'服务单号'), max_length=25, default='', db_index=True)
     type = models.PositiveSmallIntegerField(_(u'订单类型'), choices=order_type, default=0)
     serviceType = models.PositiveSmallIntegerField(_(u'源服务类型'), default='0', choices=serv_type)
     desc = models.CharField(_(u'订单描述'), max_length=100, default='')

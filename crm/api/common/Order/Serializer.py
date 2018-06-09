@@ -61,7 +61,7 @@ class OrderSerializer(serializers.ModelSerializer):
             serv.updatestate(fsm.GenOrderEvent(orderNo=inst.orderNo))
             serv.save()
             if freezeamt > 0:
-                BalanceManager(acct=self.context['request'].acct).freeze(amt=freezeamt, orderno=inst.orderNo)
+                BalanceManager(acctid=self.context['request'].acct.id, memberId=serv.memberId).freeze(amt=freezeamt, orderno=inst.orderNo)
         SingletonFactory.getCycleQueue().putitem(inst.orderNo)  # 加入倒计时队列
         return inst
 

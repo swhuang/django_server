@@ -17,11 +17,13 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = PaymentOrder
         exclude = ('gmt_create', 'gmt_modified', 'orderNo')
+        extra_kwargs = {'paymentMethod': {'write_only': True}}
         read_only_fields = ()
 
     def validate(self, attrs):
         realattrs = OrderedDict()
         realattrs.setdefault('orderno', attrs['orderno'])
+        realattrs.setdefault('paymentMethod', attrs.get('paymentMethod', '0'))
         return realattrs
 
     def create(self, validated_data):

@@ -39,8 +39,8 @@ class PaymentViewset(viewsets.ModelViewSet):
         # TODO
         headers = self.get_success_headers(serializer.data)
         productname = u'多项订单联合'
-        if inst.order.objects.all().count() == 1:
-            flg = inst.order.all().first().serviceType
+        if inst.order.count() == 1:
+            flg = inst.order.first().serviceType
             if flg == 0:
                 productname = u'单品租赁服务'
             elif flg == 1:

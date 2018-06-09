@@ -11,6 +11,7 @@ router = routers.DefaultRouter()
 
 #router.register(r'UserLogin', UserLogView)
 router.register(r'RentalService', ClientRentalServiceViewset)
+router.register(r'RentalServiceList', ClientRentalList)
 router.register(r'product', ClientProductViewset)
 router.register(r'account', AccountViewset, base_name='account')
 

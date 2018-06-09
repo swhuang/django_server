@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from rest_framework import serializers
-from crm.models import ProductRental
+from crm.models import ProductRental, RentalOrder
 from crm.server_utils.customerField.Field import *
 from crm.server_utils.base.DQS import SingletonFactory
 from crm.server_utils.customerField.structure import *
@@ -58,3 +58,18 @@ class ClientRentalServiceSerializer(serializers.ModelSerializer):
         realattrs.setdefault('create_user', memberid)
 
         return realattrs
+
+class ClientRentalListSerializer(serializers.ModelSerializer):
+    order = serializers.SerializerMethodField()
+    serviceStatus = StatusField(read_only=True)
+    reservedProduct = JsonField(read_only=True)
+    product = JsonField(read_only=True)
+
+    class Meta:
+        model = ProductRental
+        fields = '__all__'
+
+    def get_order(self, obj):
+        assert type(obj) == ProductRental
+        orderlist = [i['orderNo'] for i in RentalOrder.objects.filter(serviceNo=obj.serviceNo).values('orderNo')]
+        return orderlist

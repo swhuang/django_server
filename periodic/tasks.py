@@ -47,7 +47,7 @@ def ExpireOrderProc(data):
             if mOrder.orderStatus == fsm.ORDER_START:
                 if mOrder.payedamount < mOrder.amount:
                     acct = SiteUser.objects.get(memberId=mOrder.memberId).account
-                    BalanceManager(acct=acct).defreeze(orderno=mOrder.orderNo)
+                    BalanceManager(acctid=acct.id, memberId=mOrder.memberId).defreeze(orderno=mOrder.orderNo)
                 mOrder.orderStatus = fsm.ORDER_CANCELED
                 mOrder.save()
                 if mOrder.serviceType == 0:

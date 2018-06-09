@@ -147,23 +147,27 @@ class BalanceManager(object):
     余额管理
     """
 
-    def __init__(self, acct=None):
-        assert type(acct) == Account or type(acct) == SimpleLazyObject
-        self.acct = acct
+    def __init__(self, acctid, memberId):
+        r'''
 
-        def getbillobj(self):
-            return BillingTran(member=self.acct.user.memberId, serviceType=0)
+        :param acctid: Account 数据库的id!
+        :param memberId:
+        '''
+        self.acctid = acctid
+
+        def getbillobj():
+            return BillingTran(member=memberId, serviceType=0)
 
         self.billobj = SimpleLazyObject(getbillobj)
 
-    @synchronized  # TODO 解决对象锁的问题
     def freeze(self, amt, orderno):
-        assert amt <= self.acct.balance
-        FrozenBalance.objects.create(seq=self.acct.acctid, amount=amt, orderNo=orderno)
-        self.acct.balance -= amt
-        self.acct.save(force_update=True, update_fields=['balance'])
+        with transaction.atomic():
+            Acct = Account.objects.select_for_update().get(id=self.acctid)
+            assert amt <= Acct.balance
+            FrozenBalance.objects.create(seq=Acct.acctid, amount=amt, orderNo=orderno)
+            Acct.balance -= amt
+            Acct.save(force_update=True, update_fields=['balance'])
 
-    @synchronized
     def defreeze(self, orderno, isbill=False):
         from crm.models import RentalOrder
         try:
@@ -186,21 +190,24 @@ class BalanceManager(object):
                                                    relatedNumber=order.orderNo, billingamt=deltaAmt)
                     except Individualacct.DoesNotExist:
                         # 补账
-                        if deltaAmt < self.acct.balance:
-                            billobj.billingOuting(deltaAmt, relatedNo=orderno)
-                            self.acct.balance -= deltaAmt
-                            self.acct.save()
-                        else:
-                            # 该补账时 余额已经不足以抵扣
-                            logging.getLogger('django').error(
-                                "该补账时 余额已经不足以抵扣, 订单号:%s, 余额补扣金额: %d" % (orderno, deltaAmt))
-                            return False
+                        with transaction.atomic():
+                            Acct = Account.objects.select_for_update().get(id=self.acctid)
+                            if deltaAmt < Acct.balance:
+                                billobj.billingOuting(deltaAmt, relatedNo=orderno)
+                                Acct.balance -= deltaAmt
+                                Acct.save()
+                            else:
+                                # 该补账时 余额已经不足以抵扣
+                                logging.getLogger('django').error(
+                                    "该补账时 余额已经不足以抵扣, 订单号:%s, 余额补扣金额: %d" % (orderno, deltaAmt))
+                                return False
             return True
         else:
             with transaction.atomic():
+                Acct = Account.objects.select_for_update().get(id=self.acctid)
                 if not isbill:
-                    self.acct.balance += inst.amount
-                    self.acct.save(force_update=True, update_fields=['balance'])
+                    Acct.balance += inst.amount
+                    Acct.save(force_update=True, update_fields=['balance'])
                 else:
                     billobj.billingOuting(inst.amount, relatedNo=orderno, )
                 inst.isreleased = True
@@ -209,16 +216,19 @@ class BalanceManager(object):
 
     @synchronized
     def withdraw(self, amt):
-        assert self.acct.balance >= amt
+
         with transaction.atomic():
+            Acct = Account.objects.select_for_update().get(id=self.acctid)
+            assert Acct.balance >= amt
             self.billobj.billingOuting(amt, )
-            self.acct.balance -= amt
-            self.acct.save(force_update=True, update_fields=['balance'])
+            Acct.balance -= amt
+            Acct.save(force_update=True, update_fields=['balance'])
 
     @synchronized
     def recharge(self, amt):
         assert amt > 0
         with transaction.atomic():
+            Acct = Account.objects.select_for_update().get(id=self.acctid)
             self.billobj.billingfilling(amt)
-            self.acct.balance += amt
-            self.acct.save(force_update=True, update_fields=['balance'])
+            Acct.balance += amt
+            Acct.save(force_update=True, update_fields=['balance'])

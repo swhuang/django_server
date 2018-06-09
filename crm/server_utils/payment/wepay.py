@@ -41,13 +41,14 @@ def pay_jsapi(amount, out_trade_no, body ,fail=False):
 
 def paysuccess(payinst):
     assert type(payinst) == PaymentOrder
+    memberId = payinst.memberId
     acct = SiteUser.objects.get(memberId=payinst.memberId).account
     with transaction.atomic():
         payinst.status = 1
         payinst.save()
         for order in payinst.order.all():
             if order.payedamount < order.amount:
-                if not BalanceManager(acct=acct).defreeze(orderno=order.orderNo, isbill=True):
+                if not BalanceManager(acctid=acct.id, memberId=memberId).defreeze(orderno=order.orderNo, isbill=True):
                     #发起退款
                     weixin.refund(out_trade_no=payinst.pay_id, out_refund_no=weixin.nonce_str, total_fee=payinst.payedamount, refund_fee=payinst.payedamount)
                     order.orderStatus =fsm.ORDER_START
@@ -82,12 +83,13 @@ def payfail(payinst):
     assert type(payinst) == PaymentOrder
     payinst.status = 2  # 支付失败
     acct = SiteUser.objects.get(memberId=payinst.memberId).account
+    memberId = payinst.memberId
     with transaction.atomic():
         payinst.save()
         for order in payinst.order.all():
             if order.orderStatus == fsm.ORDER_START:  # 待支付
                 if order.payedamount < order.amount:
-                    BalanceManager(acct=acct).defreeze(orderno=order.orderNo, isbill=True)
+                    BalanceManager(acctid=acct.id, memberId=memberId).defreeze(orderno=order.orderNo, isbill=True)
                 if order.payment_status != 1:  # 支付中
                     logger.error(u"订单支付状态不正确 订单号: [%s] 状态码: [%s]" % (order.orderNo, order.payment_status))
                 order.payment_status = 0  # 未支付
