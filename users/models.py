@@ -168,7 +168,6 @@ class ExtendMemberManager(models.Manager):
         acct = Account.objects.create(balance=0.0)
         acct.save()
         kwargs['account_id'] = acct.id
-        print "created!"
         return super(ExtendMemberManager, self).create(**kwargs)
 
 class ExtendMember(models.Model):

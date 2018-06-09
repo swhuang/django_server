@@ -14,6 +14,12 @@ class OrderSerializer(serializers.ModelSerializer):
     paymentDatetime = ModifiedDateTimeField(read_only=True)
     useBalance = serializers.CharField(max_length=1, write_only=True, required=False)
     deliveryMode = serializers.CharField(max_length=1, write_only=True, required=False)
+    orderType = serializers.IntegerField(source='type')
+    name = serializers.CharField(max_length=100, write_only=True, required=False)
+    phone = serializers.CharField(max_length=13, write_only=True, required=False)
+    address = serializers.CharField(max_length=100, write_only=True, required=False)
+    gender = serializers.CharField(max_length=1, write_only=True, required=False)
+    remark = serializers.CharField(max_length=100, write_only=True, required=False)
 
     class Meta:
         model = RentalOrder
@@ -23,13 +29,8 @@ class OrderSerializer(serializers.ModelSerializer):
 
     # 创建订单
     def create(self, validated_data):
-        try:
-            if validated_data['serviceType'] == 0:
-                serv = ProductRental.objects.get(serviceNo=validated_data['serviceNo'])
-            elif validated_data['serviceType'] == 1:
-                serv = ComboRental.objects.get(serviceNo=validated_data['serviceNo'])
-        except ProductRental.DoesNotExist:
-            raise serializers.ValidationError("服务单号错误")
+
+        serv = validated_data.pop('serv')
 
         # 准备创建订单
         validated_data['amount'] = serv.initialDeposit + serv.initialRent
@@ -47,12 +48,13 @@ class OrderSerializer(serializers.ModelSerializer):
             validated_data['payedamount'] = validated_data['amount']
 
         deliveryMode = validated_data.pop('deliveryMode', None)
+        deliveryInfo = validated_data.pop('deliveryinfo', {})
 
 
         with transaction.atomic():
             inst = super(OrderSerializer, self).create(validated_data)
             if int(deliveryMode) == 0:
-                serv.reservedProduct.update(validated_data['deliveryMode'])
+                serv.reservedProduct.update(deliveryInfo)
 
             serv.curProcOrder = inst.orderNo
             serv.deliveryMode = deliveryMode
@@ -71,7 +73,7 @@ class OrderSerializer(serializers.ModelSerializer):
             realattrs.setdefault('serviceNo', attrs['serviceNo'])
             realattrs.setdefault('deliveryMode', attrs['deliveryMode'])
             realattrs.setdefault('serviceType', attrs['serviceType'])
-            realattrs.setdefault('type', attrs['orderType'])
+            realattrs.setdefault('type', int(attrs['type']))
         except Exception, e:
             raise serializers.ValidationError("缺少参数")
         else:
@@ -88,5 +90,15 @@ class OrderSerializer(serializers.ModelSerializer):
                 deliveryinfo.setdefault('address', attrs.get('address', ''))
                 deliveryinfo.setdefault('remark', attrs.get('remark', ''))
                 realattrs['deliveryinfo'] = deliveryinfo
+
+        try:
+            if realattrs['serviceType'] == 0:
+                serv = ProductRental.objects.get(serviceNo=realattrs['serviceNo'])
+            elif realattrs['serviceType'] == 1:
+                serv = ComboRental.objects.get(serviceNo=realattrs['serviceNo'])
+        except ProductRental.DoesNotExist:
+            raise serializers.ValidationError("服务单号错误")
+        else:
+            realattrs['serv'] = serv
 
         return realattrs

@@ -37,6 +37,7 @@ class UserLogView(APIView):
         d = {}
         d['name'] = 'hsw'
         d['money'] = 1000000
+        print "here"
         return Response(d)
 
     # login

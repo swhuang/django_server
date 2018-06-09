@@ -12,14 +12,11 @@ from FP_risk.base.utils import synchronized
 from django.utils.functional import SimpleLazyObject
 
 
-
-
-
 # Create your models here.
 # 用户账户
 class Account(BaseModel):
     acctid = models.CharField(_(u'账户编号'), max_length=10, unique=True, db_index=True, null=True)
-    #user = models.OneToOneField(SiteUser, related_name='account')
+    # user = models.OneToOneField(SiteUser, related_name='account')
     balance = BillamountField(_(u'账户余额'), default=0.0)
     deposit = BillamountField(_(u'在用押金'), default=0.0)
     rent = BillamountField(_(u'在用租金'), default=0.0)
@@ -73,10 +70,10 @@ class Baseacct(BaseModel):
     class Meta:
         unique_together = ('seq', 'acid', 'billingamt', 'relatedNumber')
 
+
 # 个人账务明细
 class Individualacct(Baseacct):
     pass
-
 
 
 class FrozenBalance(BaseModel):
@@ -86,10 +83,7 @@ class FrozenBalance(BaseModel):
     isreleased = models.BooleanField(_(u'是否释放'), default=False)
 
 
-
-
 class BillingTran(object):
-
     def __init__(self, **kwargs):
         assert kwargs.has_key('serviceType')
 
@@ -99,26 +93,27 @@ class BillingTran(object):
         self.serviceType = kwargs.pop('serviceType', 0)
         try:
             self.acct = Account.objects.get(user=self.member)
-        except Exception ,e:
+        except Exception, e:
             self.logger.error(e)
-            raise ValueError("Error user: "+ self.member.memberId)
+            raise ValueError("Error user: " + self.member.memberId)
 
     def billingrent(self, amt):
         "租金入账"
         with transaction.atomic():
-            DailyBilling = Baseacct(debit_credit=True, acid='DAILYBILL001', projid=self.serviceNo, merchantid=self.acct.mid,
-                                balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid, serviceType=self.serviceType)
+            DailyBilling = Baseacct(debit_credit=True, acid='DAILYBILL001', projid=self.serviceNo,
+                                    merchantid=self.acct.mid,
+                                    balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid,
+                                    serviceType=self.serviceType)
             DailyBilling.save(force_insert=True)
-
 
     def billingdeposit(self, amt):
         "扣减押金入账"
         with transaction.atomic():
             DailyBilling = Baseacct(debit_credit=True, acid='DAILYBILL002', projid=self.serviceNo,
                                     merchantid=self.acct.mid,
-                                    balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid, serviceType=self.serviceType)
+                                    balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid,
+                                    serviceType=self.serviceType)
             DailyBilling.save(force_insert=True)
-
 
     def billingdeduct(self, amt):
         "补扣款"
@@ -133,17 +128,17 @@ class BillingTran(object):
 
         with transaction.atomic():
             DailyBilling = Individualacct(debit_credit=False, acid='BALANBILL101', projid=self.serviceNo,
-                                merchantid=self.acct.mid, serviceType=self.serviceType,
-                                balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid)
+                                          merchantid=self.acct.mid, serviceType=self.serviceType,
+                                          balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid)
             DailyBilling.save(force_insert=True)
-
 
     def billingOuting(self, amt, relatedNo=''):
         "余额出账"
         with transaction.atomic():
             DailyBilling = Individualacct(debit_credit=True, acid='BALANBILL101', projid=self.serviceNo,
-                                merchantid=self.acct.mid, serviceType=self.serviceType,
-                                balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid, relatedNumber=relatedNo)
+                                          merchantid=self.acct.mid, serviceType=self.serviceType,
+                                          balance=self.acct.balance, billingamt=amt, seq=self.acct.acctid,
+                                          relatedNumber=relatedNo)
             DailyBilling.save(force_insert=True)
 
 
@@ -151,6 +146,7 @@ class BalanceManager(object):
     """
     余额管理
     """
+
     def __init__(self, acct=None):
         assert type(acct) == Account or type(acct) == SimpleLazyObject
         self.acct = acct
@@ -160,9 +156,7 @@ class BalanceManager(object):
 
         self.billobj = SimpleLazyObject(getbillobj)
 
-
-
-    @synchronized   # TODO 解决对象锁的问题
+    @synchronized  # TODO 解决对象锁的问题
     def freeze(self, amt, orderno):
         assert amt <= self.acct.balance
         FrozenBalance.objects.create(seq=self.acct.acctid, amount=amt, orderNo=orderno)
@@ -188,7 +182,8 @@ class BalanceManager(object):
                 if order.amount > order.payedamount:
                     deltaAmt = order.amount - order.payedamount
                     try:
-                        Individualacct.objects.get(acid='BALANBILL101', seq=self.acct.acctid, relatedNumber=order.orderNo, billingamt=deltaAmt)
+                        Individualacct.objects.get(acid='BALANBILL101', seq=self.acct.acctid,
+                                                   relatedNumber=order.orderNo, billingamt=deltaAmt)
                     except Individualacct.DoesNotExist:
                         # 补账
                         if deltaAmt < self.acct.balance:
@@ -197,7 +192,8 @@ class BalanceManager(object):
                             self.acct.save()
                         else:
                             # 该补账时 余额已经不足以抵扣
-                            logging.getLogger('django').error("该补账时 余额已经不足以抵扣, 订单号:%s, 余额补扣金额: %d" % (orderno, deltaAmt))
+                            logging.getLogger('django').error(
+                                "该补账时 余额已经不足以抵扣, 订单号:%s, 余额补扣金额: %d" % (orderno, deltaAmt))
                             return False
             return True
         else:
@@ -206,7 +202,7 @@ class BalanceManager(object):
                     self.acct.balance += inst.amount
                     self.acct.save(force_update=True, update_fields=['balance'])
                 else:
-                    billobj.billingOuting(inst.amount, relatedNo=orderno,)
+                    billobj.billingOuting(inst.amount, relatedNo=orderno, )
                 inst.isreleased = True
                 inst.save()
             return True
@@ -215,10 +211,9 @@ class BalanceManager(object):
     def withdraw(self, amt):
         assert self.acct.balance >= amt
         with transaction.atomic():
-            self.billobj.billingOuting(amt,)
+            self.billobj.billingOuting(amt, )
             self.acct.balance -= amt
             self.acct.save(force_update=True, update_fields=['balance'])
-
 
     @synchronized
     def recharge(self, amt):
@@ -227,5 +222,3 @@ class BalanceManager(object):
             self.billobj.billingfilling(amt)
             self.acct.balance += amt
             self.acct.save(force_update=True, update_fields=['balance'])
-
-

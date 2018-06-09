@@ -25,9 +25,9 @@ class ClaimGoodSerializer(serializers.Serializer):
     }
 
     servtype = {
-        'r': '租赁',
-        's': '销售',
-        'p': '套餐',
+        '0': '租赁',
+        '1': '销售',
+        '2': '套餐',
     }
 
     serviceNo = serializers.CharField(max_length=25, write_only=True)
@@ -68,7 +68,7 @@ class ClaimGoodSerializer(serializers.Serializer):
             raise serializers.ValidationError("服务类型错误")
         try:
             servid = serviceNo
-            if servtype == 'r':
+            if servtype == '0':
                 serv = ProductRental.objects.get(serviceNo=servid)
             else:
                 # TODO 增加其余服务类型
