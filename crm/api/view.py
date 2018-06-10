@@ -3,8 +3,8 @@ from rest_framework import viewsets
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import authentication, permissions
-from rest_framework.generics import GenericAPIView
-from crm.models import Merchant
+from siteuser.functional import send_html_mail as _send_mail
+from periodic.MiscTask.reserve_notify import reservedproductnotify
 from .Serializer import *
 
 
@@ -17,11 +17,11 @@ class MerchantViewset(viewsets.ModelViewSet):
 
 
 class RestTest(APIView):
-    # queryset = Merchant.objects.all()
     permission_classes = (permissions.AllowAny,)
 
     def get(self, request, format=None):
         d = {}
         d['name'] = 'hsw'
         d['money'] = 1000000
+        reservedproductnotify()
         return Response(d)

@@ -14,7 +14,7 @@ import logging
 
 
 class RentalServiceViewset(viewsets.ReadOnlyModelViewSet):
-    queryset = ProductRental.objects.all()
+    queryset = ProductRental.objects.all().order_by('-gmt_create')
     serializer_class = RentalServiceSerializer
     permission_classes = (permissions.AllowAny,)
     filter_backends = (DjangoFilterBackend,)

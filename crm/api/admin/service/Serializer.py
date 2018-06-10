@@ -10,7 +10,8 @@ import logging
 class RentalServiceSerializer(serializers.ModelSerializer):
     serviceStatus = StatusField()
     createDate = ModifiedDateTimeField(source='gmt_create')
-    product = JsonField()
+    product = JsonField(read_only=True)
+    reservedProduct = JsonField(read_only=True)
 
     class Meta:
         model = ProductRental
@@ -33,12 +34,14 @@ class ClaimGoodSerializer(serializers.Serializer):
     serviceNo = serializers.CharField(max_length=25, write_only=True)
     serviceType = serializers.CharField(max_length=1, write_only=True)
     productid = serializers.CharField(max_length=15, write_only=True)
+    '''
     deliveryOperator = serializers.CharField(max_length=100, write_only=True, required=False)
     deliveryStore = serializers.CharField(max_length=15, write_only=True, required=False)
     deliveryMode = serializers.CharField(max_length=1, write_only=True, required=False)
     serialNumber = serializers.CharField(max_length=10, write_only=True, required=False)
     logisticsCompany = serializers.CharField(max_length=20, write_only=True, required=False)
     trackingNumber = serializers.CharField(max_length=20, write_only=True, required=False)
+    '''
     claimResult = serializers.SerializerMethodField()
     # serializers.CharField(max_length=1, default='1', read_only=True)
     serviceStatus = StatusField(read_only=True)

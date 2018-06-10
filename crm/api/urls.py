@@ -11,6 +11,7 @@ urlpatterns = [
     url(r'admin/', include('crm.api.admin.urls')),
     url(r'client/', include('crm.api.client.urls')),
     url(r'common/', include('crm.api.common.urls')),
+    url(r'test', RestTest.as_view()),
 ]
 
 urlpatterns += router.urls

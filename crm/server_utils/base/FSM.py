@@ -93,6 +93,7 @@ class ManualCompleteEvent(Event):
 
 # ======================================服务状态机=========================================
 class State(object):
+    desc = u"默认状态"
     class Meta:
         abstract = True
 
@@ -127,6 +128,7 @@ COMPLETE = 5
 # 创建等待付款
 class Start(State):
     statevalue = START_STATE
+    desc = u"创建等待付款"
 
     def updatestate(self, w, event):
         # 若生成订单,则可进入下 确认服务 状态
@@ -155,6 +157,7 @@ class RentalConfirmed(State):
 
 # 完成支付 = 待取货
 class ReadyForGood(State):
+    desc = u"完成支付 = 待取货"
     def updatestate(self, w, event):
         from crm.models import ProductRental
         if isinstance(event, DeliveryCompleteEvent):
@@ -168,6 +171,7 @@ class ReadyForGood(State):
 
 # 租赁服务进行中
 class RentalProcessing(State):
+    desc = u"租赁服务进行中"
     def updatestate(self, w, event):
         from crm.models import ProductRental, ComboRental, SellService, Project
         from Accounting.models import BillingTran, BalanceManager
@@ -231,6 +235,7 @@ class RentalProcessing(State):
 
 # 待支付
 class ReadyToPay(State):
+    desc = u"待支付"
     def updatestate(self, w, event):
 
         if isinstance(event, PaymentCancelEvent):

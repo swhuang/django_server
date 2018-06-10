@@ -37,7 +37,5 @@ urlpatterns = [
 ]
 
 # 增加定时任务用于
-'''
 ORDERTIMER = threading.Timer(2.0, Order_timer)
 ORDERTIMER.start()
-'''

@@ -106,8 +106,8 @@ SITEUSER_EMAIL = {
     'smtp_host': 'smtp.163.com',
     'smtp_port': 25,
     'username': 'superhsw',
-    'password': '5961815949',
-    'from': 'superhsw@gmail.com',
+    'password': '5961815949hsw',
+    'from': 'superhsw@163.com',
     'display_from': '',
 }
 AVATAR_DIR = 'crm/data'

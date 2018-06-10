@@ -10,9 +10,6 @@ from .BillingBatch.tasks import DailyBatch
 
 @task
 def daily_batch(mcht=''):
-    import logging
-    import sys
-    logging.getLogger('batch').error(sys.version)
     DailyBatch(mcht)
 
 

@@ -27,7 +27,7 @@ class ClientRentalServiceViewset(RentalServiceViewset, mixins.CreateModelMixin):
         v = {}
         if hasattr(self.request, 'siteuser'):
             v['memberId'] = self.request.siteuser.memberId
-        return ProductRental.objects.filter(**v)
+        return ProductRental.objects.filter(**v).order_by('-gmt_create')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

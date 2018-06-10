@@ -15,7 +15,7 @@ import logging
 
 class ClientProductViewset(viewsets.ReadOnlyModelViewSet):
     serializer_class = ProductSerializer
-    permission_classes = (permissions.AllowAny, UserPermission.AuthenticateUserPermission)
+    permission_classes = (permissions.IsAuthenticated, )
     filter_backends = (DjangoFilterBackend,)
     filter_fields = ('productid', 'category', 'model', 'goldType', 'diamondWeight',)
     queryset = ProductDetail.objects.filter(releaseStatus='1')
