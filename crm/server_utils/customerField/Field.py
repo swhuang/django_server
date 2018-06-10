@@ -99,12 +99,21 @@ class StatusField(serializers.IntegerField):
 
 class JsonField(serializers.CharField):
     def to_representation(self, value):
-        return value
+        if value == '':
+            return value
+        if value.has_key('mainimage'):
+            request = self.context.get('request', None)
+            url = '{scheme}://{host}/{path}'.format(scheme=request.scheme,
+                                                    host=request.get_host(),
+                                                    path=value['mainimage'])
+            value['mainimage'] = url
+            return value
+        else:
+            return value
         #return super(JsonField, self).to_representation(value)
 
 class ArrayField(serializers.CharField):
     def to_internal_value(self, data):
-        pass
         return super(ArrayField, self).to_internal_value(data)
 
     def to_representation(self, value):

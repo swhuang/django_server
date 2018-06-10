@@ -3,7 +3,6 @@ from rest_framework import serializers
 from crm.models import ProductDetail
 import datetime
 import os
-from periodic.tasks import ImportCSV
 from django.db.utils import DataError
 import logging
 from crm.server_utils.customerField.Field import *

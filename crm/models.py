@@ -172,7 +172,6 @@ class ProductDetail(BaseModel):
     detailImages = ThumbnailerImageField(verbose_name=_(u'详情图片'), upload_to=getuploadpath, default='', blank=True)
 
     image1 = ThumbnailerImageField(verbose_name=_(u'图片1'), upload_to=getuploadpath, default='', blank=True)
-    # image1 = models.ImageField(_(u'图片1'), null=True, upload_to='img/product', default='')
     image2 = ThumbnailerImageField(verbose_name=_(u'图片2'), blank=True, upload_to=getuploadpath, default='')
     image3 = ThumbnailerImageField(verbose_name=_(u'图片3'), blank=True, upload_to=getuploadpath, default='')
     image4 = ThumbnailerImageField(verbose_name=_(u'图片4'), blank=True, upload_to=getuploadpath, default='')
@@ -464,14 +463,31 @@ class ProductRental(Project):
                 pd = ProductDetail.objects.get(productid=self.productid)
             except ProductDetail.DoesNotExist:
                 raise ValueError("productid 错误")
-            self.product = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+            pddict = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+            for i in range(6):
+                name = 'image%s'%(str(i+1))
+                if getattr(pd, name).name != '':
+                    pddict['mainimage'] = getattr(pd, name)['avatar'].url
+                    break
+                if i == 5:
+                    pddict['mainimage'] = ''
+            self.product = pddict
         if self.reservedProduct == '' and self.reservedProductid:
             try:
                 pd = ProductDetail.objects.get(productid=self.reservedProductid)
             except ProductDetail.DoesNotExist:
                 raise ValueError("productid 错误")
-            self.reservedProduct = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series',
+            pddict = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series',
                                                              'sellingPrice'])
+            for i in range(6):
+                name = 'image%s'%(str(i+1))
+                if getattr(pd, name).name != '':
+                    pddict['mainimage'] = getattr(pd, name)['avatar'].url
+                    break
+                if i == 5:
+                    pddict['mainimage'] = ''
+
+            self.reservedProduct = pddict
             self.initialDeposit = pd.deposit
             self.initialRent = pd.rent * self.rentPeriod
             self.current_payamount = self.initialRent + self.initialDeposit
@@ -496,14 +512,29 @@ def snap_save(sender, instance, **kwargs):
             pd = ProductDetail.objects.get(productid=instance.productid)
         except ProductDetail.DoesNotExist:
             raise ValueError("productid 错误")
-        instance.product = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+        pddict = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+        for i in range(6):
+            name = 'image%s' % (str(i + 1))
+            if getattr(pd, name).name != '':
+                pddict['mainimage'] = getattr(pd, name)['avatar'].url
+                break
+            if i == 5:
+                pddict['mainimage'] = ''
+        instance.product = pddict
     if 'reservedProductid' in instance.changes():
         try:
             pd = ProductDetail.objects.get(productid=instance.reservedProductid)
         except ProductDetail.DoesNotExist:
             raise ValueError("reservedProductid 错误")
-        instance.product = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
-
+        pddict = model_to_dict(pd, fields=['category', 'model', 'title', 'brand', 'series', 'sellingPrice'])
+        for i in range(6):
+            name = 'image%s' % (str(i + 1))
+            if getattr(pd, name).name != '':
+                pddict['mainimage'] = getattr(pd, name)['avatar'].url
+                break
+            if i == 5:
+                pddict['mainimage'] = ''
+        instance.reservedProduct = pddict
 
 # 套餐租赁服务
 class ComboRental(Project):
